@@ -45,6 +45,10 @@ def creating_session(subsession):
 
             print(f"Player {player.id_in_group} is expert: {player.is_expert} ({player.ability_level} ability)")
 
+        else:
+            # setup consumers #TODO this does need to change between rounds
+            player.service_needed = random.choice(("small", "large"))
+
 
 class Group(BaseGroup):
     pass

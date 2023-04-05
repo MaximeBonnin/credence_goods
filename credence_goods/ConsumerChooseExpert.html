@@ -6,18 +6,18 @@
 {{ block content }}
 <style>
     .expert-list {
-        display: flex;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1em;
     }
 
     .expert-card {
         background-color: lightcyan;
         text-align: center;
-        width: 10em;
         border: solid;
         border-radius: 1em;
         padding: 0.3em;
-        
+        margin: 1em;
     }
 </style>
 
@@ -36,6 +36,7 @@
 
     {% endfor %}
 </div>
+
 {{ formfield_errors 'expert_chosen' }}
 
 {{ endblock }}
