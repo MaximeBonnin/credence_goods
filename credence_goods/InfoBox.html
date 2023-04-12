@@ -8,5 +8,10 @@
 
 <div class="info-box">
     <p>You are an expert: <b>{% player.is_expert %}</b></p>
+
+    {% if player.is_expert %}
+        <p>Expert ability level: <b>{% player.ability_level %} ({% player.diagnosis_accuracy %} Accuracy)</b></p>
+    {% endif %}
+
     <p>Round number: <b>{% player.round_number %} / {% C.NUM_ROUNDS %}</b></p>
 </div>

@@ -18,39 +18,8 @@ class C(BaseConstants):
     COST_OF_PROVIDING_LARGE_SERVICE = 2 # c_g
 
     
-
 class Subsession(BaseSubsession):
     # expert_list = []
-    pass
-
-
-def creating_session(subsession):
-    import random                           # why is this recommended here by the docs?
-
-    # choose experts #TODO make this not change between rounds
-    expert_sample = random.sample([p.id_in_group for p in subsession.get_players()], C.NUM_EXPERTS)
-    for player in subsession.get_players():
-        if player.id_in_group in expert_sample:
-            player.is_expert = True
-
-            # setup experts
-            player.ability_level = random.choice(("low", "high"))
-            if player.ability_level == "high":
-                player.diagnosis_accuracy = 0.85    #TODO make dynamic
-            else:
-                player.diagnosis_accuracy = 0.75
-
-            player.price_small_service = 2 #TODO remove this, should work without once experts choose
-            player.price_large_service = 5
-
-            print(f"Player {player.id_in_group} is expert: {player.is_expert} ({player.ability_level} ability)")
-
-        else:
-            # setup consumers #TODO this does need to change between rounds
-            player.service_needed = random.choice(("small", "large"))
-
-
-class Group(BaseGroup):
     pass
 
 
@@ -58,6 +27,8 @@ class Player(BasePlayer):
     is_expert = models.BooleanField(initial=False)
 
     # expert variables
+    expert_color = models.StringField() #TODO do this at participant level?
+
     price_small_service = models.IntegerField(initial=2, choices=(1, 2, 3))                # p_k   #TODO make this dynamic
     price_large_service = models.IntegerField(initial=5, choices=(4, 5, 6))                # p_g
 
@@ -71,6 +42,48 @@ class Player(BasePlayer):
     expert_chosen = models.IntegerField() # this should be a player.id_in_group
     service_needed = models.StringField(choices=("small", "large"))
     service_recieved = models.StringField(choices=("small", "large", "none"))
+
+    # variables for documentation
+    cost_of_providing_small_service =  C.COST_OF_PROVIDING_SMALL_SERVICE # c_k
+    cost_of_providing_large_service =  C.COST_OF_PROVIDING_LARGE_SERVICE # c_g
+
+
+def creating_session(subsession):
+    import random                           # why is this recommended here by the docs?
+
+    # choose experts #TODO make this not change between rounds
+    expert_sample = random.sample([p.id_in_group for p in subsession.get_players()], C.NUM_EXPERTS)
+    for player in subsession.get_players():
+        print("Creating subsession...")
+
+        #TODO keep experts constant
+        if player.id_in_group in expert_sample:
+            player.is_expert = True
+
+            # setup experts
+            player.ability_level = random.choice(("low", "high"))
+            if player.ability_level == "high":
+                player.diagnosis_accuracy = 0.85    #TODO make dynamic
+            else:
+                player.diagnosis_accuracy = 0.75
+
+            player.price_small_service = 2 #TODO remove this, should work without once experts choose
+            player.price_large_service = 5
+
+            
+            player.expert_color = ["red", "green", "blue", "yellow", "cyan", "pink", "salmon", "grey"][player.id_in_group-1]
+
+            print(f"Player {player.id_in_group} is expert: {player.is_expert} ({player.ability_level} ability)")
+
+        else:
+            # setup consumers #TODO this does need to change between rounds
+            player.service_needed = random.choice(("small", "large"))
+
+
+class Group(BaseGroup):
+    pass
+
+
 
 
 
