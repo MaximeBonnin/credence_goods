@@ -91,8 +91,9 @@ def setup_players(subsession):
             player.price_large_service = 5
 
             
-            player.expert_color = ["red", "green", "blue", "yellow", 
-                                   "cyan", "pink", "salmon", "grey"][player.id_in_group-1] #TODO add more colors
+            player.expert_color = ["Red", "Aquamarine", "Coral", "Yellow", 
+                                   "Cyan", "Pink", "Salmon", "Grey",
+                                   "Lime", "Teal", "Silver", "White"][player.id_in_group-1] #TODO add more colors
 
         else:
             # setup consumers #TODO this does need to change between rounds
