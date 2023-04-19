@@ -40,9 +40,10 @@ class Player(BasePlayer):
     service_chosen_as_expert = models.StringField(choices=("small", "large"))   # seems odd since it should be same as service_result_of_formula
 
     # customer variables
-    expert_chosen = models.IntegerField(initial="none") # this should be a player.id_in_group
+    expert_chosen = models.IntegerField(initial=0) # this should be a player.id_in_group
+    expert_chosen_color = models.StringField()
     service_needed = models.StringField(choices=("small", "large"), initial="none")
-    service_recieved = models.StringField(choices=("small", "large", "none"), initial="none")
+    service_recieved = models.StringField(choices=("small", "large", "none"))
 
     # variables for documentation
     cost_of_providing_small_service =  models.IntegerField(initial=C.COST_OF_PROVIDING_SMALL_SERVICE) # c_k
@@ -149,6 +150,11 @@ class ConsumerChooseExpert(Page):
     @staticmethod
     def is_displayed(player):
         return not player.is_expert
+    
+    @staticmethod
+    def before_next_page(player, timeout_happened):
+        player.expert_chosen_color = player.group.get_player_by_id(
+            player.expert_chosen).expert_color
 
 
 # Expert diagnosis I
