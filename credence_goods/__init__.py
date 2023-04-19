@@ -1,4 +1,5 @@
 from otree.api import *
+import random
 
 
 doc = """
@@ -39,24 +40,42 @@ class Player(BasePlayer):
     service_chosen_as_expert = models.StringField(choices=("small", "large"))   # seems odd since it should be same as service_result_of_formula
 
     # customer variables
-    expert_chosen = models.IntegerField() # this should be a player.id_in_group
-    service_needed = models.StringField(choices=("small", "large"))
-    service_recieved = models.StringField(choices=("small", "large", "none"))
+    expert_chosen = models.IntegerField(initial="none") # this should be a player.id_in_group
+    service_needed = models.StringField(choices=("small", "large"), initial="none")
+    service_recieved = models.StringField(choices=("small", "large", "none"), initial="none")
 
     # variables for documentation
-    cost_of_providing_small_service =  C.COST_OF_PROVIDING_SMALL_SERVICE # c_k
-    cost_of_providing_large_service =  C.COST_OF_PROVIDING_LARGE_SERVICE # c_g
+    cost_of_providing_small_service =  models.IntegerField(initial=C.COST_OF_PROVIDING_SMALL_SERVICE) # c_k
+    cost_of_providing_large_service =  models.IntegerField(initial=C.COST_OF_PROVIDING_LARGE_SERVICE) # c_g
 
 
-def creating_session(subsession):
-    import random                           # why is this recommended here by the docs?
+def setup_players(subsession):
 
-    # choose experts #TODO make this not change between rounds
+    print(f"Round {subsession.round_number} player setup...") # the numbers don't display correctly, but it works
+
+    # in later rounds, just use previous values
+    if subsession.round_number != 1:
+        print("Use values from previous rounds...")
+        for player in subsession.get_players():
+            player.is_expert = player.in_round(1).is_expert
+            player.ability_level = player.in_round(1).ability_level
+            player.expert_color = player.in_round(1).expert_color
+            player.diagnosis_accuracy = player.in_round(1).diagnosis_accuracy
+
+            # service needed changes each round
+            player.service_needed = random.choice(("small", "large"))
+
+            if player.is_expert:
+                print(f"Expert {player.id_in_group} ({player.expert_color}): {player.ability_level} ability")
+            else:
+                print(f"Consumer {player.id_in_group}: {player.service_needed} service needed")
+        return
+    
+
+    # in first round, setup player values
     expert_sample = random.sample([p.id_in_group for p in subsession.get_players()], C.NUM_EXPERTS)
     for player in subsession.get_players():
-        print("Creating subsession...")
 
-        #TODO keep experts constant
         if player.id_in_group in expert_sample:
             player.is_expert = True
 
@@ -71,13 +90,25 @@ def creating_session(subsession):
             player.price_large_service = 5
 
             
-            player.expert_color = ["red", "green", "blue", "yellow", "cyan", "pink", "salmon", "grey"][player.id_in_group-1]
-
-            print(f"Player {player.id_in_group} is expert: {player.is_expert} ({player.ability_level} ability)")
+            player.expert_color = ["red", "green", "blue", "yellow", 
+                                   "cyan", "pink", "salmon", "grey"][player.id_in_group-1] #TODO add more colors
 
         else:
             # setup consumers #TODO this does need to change between rounds
             player.service_needed = random.choice(("small", "large"))
+
+        if player.is_expert:
+                print(f"Expert {player.id_in_group} ({player.expert_color}): {player.ability_level} ability")
+        else:
+            print(f"Consumer {player.id_in_group}: {player.service_needed} service needed")
+
+
+
+def creating_session(subsession):
+    print("Creating subsession...")
+    setup_players(subsession) # this runs twice for some reason
+
+    
 
 
 class Group(BaseGroup):
@@ -164,6 +195,8 @@ class MyPage(Page):
 class ResultsWaitPage(WaitPage):
     pass
 
+class ConsumerWaitPage(WaitPage):
+    pass
 
 class Results(Page):
     pass
