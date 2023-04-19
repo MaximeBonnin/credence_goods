@@ -10,7 +10,8 @@ Your app description
 class C(BaseConstants):
     NAME_IN_URL = 'credence_goods'
     PLAYERS_PER_GROUP = None
-    NUM_ROUNDS = 2
+    NUM_ROUNDS = 4
+    INVESTMENT_STARTING_ROUND = 2
 
     NUM_EXPERTS = 4             # consumers = players - experts
     TIMEOUT_IN_SECONDS = 6000     # Intro page is different
@@ -34,10 +35,12 @@ class Player(BasePlayer):
     price_large_service = models.IntegerField(initial=5, choices=(4, 5, 6))                # p_g
 
     ability_level = models.StringField(choices=("high", "low"))                 # 
-    diagnosis_accuracy = models.FloatField()                                    # depends on high / low ability
+    diagnosis_accuracy_percent = models.IntegerField()                                    # depends on high / low ability
 
-    service_result_of_formula = models.StringField(choices=("small", "large"))
+    # service_result_of_formula = models.StringField(choices=("small", "large"))
     service_chosen_as_expert = models.StringField(choices=("small", "large"))   # seems odd since it should be same as service_result_of_formula
+
+    investment_decision = models.StringField(choices=["skill", "algo"])
 
     # customer variables
     expert_chosen = models.IntegerField(initial=0) # this should be a player.id_in_group
@@ -61,7 +64,7 @@ def setup_players(subsession):
             player.is_expert = player.in_round(1).is_expert
             player.ability_level = player.in_round(1).ability_level
             player.expert_color = player.in_round(1).expert_color
-            player.diagnosis_accuracy = player.in_round(1).diagnosis_accuracy
+            player.diagnosis_accuracy_percent = player.in_round(1).diagnosis_accuracy_percent
 
             # service needed changes each round
             player.service_needed = random.choice(("small", "large"))
@@ -83,9 +86,9 @@ def setup_players(subsession):
             # setup experts
             player.ability_level = random.choice(("low", "high"))
             if player.ability_level == "high":
-                player.diagnosis_accuracy = 0.85    #TODO make dynamic
+                player.diagnosis_accuracy_percent = 85    #TODO make dynamic
             else:
-                player.diagnosis_accuracy = 0.75
+                player.diagnosis_accuracy_percent = 75
 
             player.price_small_service = 2 #TODO remove this, should work without once experts choose
             player.price_large_service = 5
@@ -129,6 +132,18 @@ class Intro(Page):
     @staticmethod
     def is_displayed(player):
         return player.round_number == 1  # only display in first round
+    
+
+# Expert investment choice
+class InvestmentChoice(Page):
+    timeout_seconds = C.TIMEOUT_IN_SECONDS  
+    form_model = "player"
+    form_fields = ["investment_decision"]
+
+    @staticmethod
+    def is_displayed(player):
+        if (player.round_number == C.INVESTMENT_STARTING_ROUND) and player.is_expert:
+            return True
 
 
 # Expert set prices
@@ -154,8 +169,9 @@ class ConsumerChooseExpert(Page):
     
     @staticmethod
     def before_next_page(player, timeout_happened):
-        player.expert_chosen_color = player.group.get_player_by_id(
-            player.expert_chosen).expert_color
+        if player.expert_chosen:
+            player.expert_chosen_color = player.group.get_player_by_id(
+                player.expert_chosen).expert_color
 
 
 # Expert diagnosis I
@@ -209,7 +225,8 @@ class Results(Page):
     pass
 
 
-page_sequence = [Intro, 
+page_sequence = [Intro,
+                 InvestmentChoice,
                  ExpertSetPrices, 
                  ConsumerChooseExpert, 
                  ExpertDiagnosisI, 

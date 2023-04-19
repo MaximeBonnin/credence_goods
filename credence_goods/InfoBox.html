@@ -22,7 +22,7 @@
 
     <div class="info-right info-container">
         {% if player.is_expert %}
-            <p>Expert ability level: <b>{% player.ability_level %} ({% player.diagnosis_accuracy %} Accuracy)</b></p>
+            <p>Expert ability level: <b>{% player.ability_level %} ({% player.diagnosis_accuracy_percent %}% Accuracy)</b></p>
         {% else %}
         <style type="text/css">
             .tg  {border-collapse:collapse;border-spacing:0;}
@@ -46,7 +46,7 @@
                 <td class="tg-0pky">Expert chosen</td>
                 <td class="tg-0pky">Service recieved</td>
               </tr>
-              {% for p in player.in_all_rounds() %}
+              {% for p in player.in_previous_rounds() %}
               <tr>
                 <td class="tg-0pky">{% p.round_number %}</td>
                 <td class="tg-0pky">{% p.service_needed %}</td>
