@@ -22,27 +22,45 @@
 
 {{ include_sibling "InfoBox.html" }}
 
-<div class="diagnosis-II">
-    <p>Diagnosis Result: <b></b></p>
-    <p>Diagnosis Accuracy: <b>{% player.diagnosis_accuracy_percent %}%</b></p>
-    
-</div>
 
 <div class="consumer-list">
+
+    <script>
+        var dict_of_names = {};
+    </script>
+
     {% for p in subsession.get_players() %}
         {% if not p.is_expert %}
             <div class="consumer-card">
                 <p><b>Consumer {% p.id_in_group %}</b></p>
                 <p>[reminder of diagnosis result/profit?]</p>
-                <p><input type="radio" name="service_consumer_{% p.id_in_group %}" value="small">Provide small service</p>
-                <p><input type="radio" name="service_consumer_{% p.id_in_group %}" value="large">Provide large service</p>
+                <p><input class="radio-button" id="consumer_{% p.id_in_group %}_service_small" type="radio" name="{% p.id_in_group %}" value="small" required="required" onclick="updateService(key='{% p.id_in_group %}', value='small')">Provide small service</p>
+                <p><input class="radio-button" id="consumer_{% p.id_in_group %}_service_large" type="radio" name="{% p.id_in_group %}" value="large" required="required" onclick="updateService(key='{% p.id_in_group %}', value='large')">Provide large service</p>
             </div>
+
+        <script>
+            dict_of_names["{% p.id_in_group %}"] = "none"
+        </script>
+
         {% endif %}
-
     {% endfor %}
-</div>
 
-    {{ formfields }}
-    {{ next_button }}
+    <input type="hidden" name="services_provided_to_all_consumers" id="services_provided_to_all_consumers">
+
+    <script>
+        document.getElementById("services_provided_to_all_consumers").value = JSON.stringify(dict_of_names);
+
+        function updateService(key, value) {
+            // updates the key-value pair onclick for formfield
+            dict_of_names[key] = value;
+            document.getElementById("services_provided_to_all_consumers").value = JSON.stringify(dict_of_names);
+            console.log(dict_of_names);
+        };
+
+    </script>
+
+</div>
+    {{ formfield_errors 'services_provided_to_all_consumers' }}
+    <p><button class="btn btn-primary">Next</button></p>
 
 {{ endblock }}

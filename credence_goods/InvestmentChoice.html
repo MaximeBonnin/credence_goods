@@ -22,8 +22,7 @@
         overflow: hidden;
     }
 
-    .no-inves
-    t {
+    .no-invest {
         text-align: center;
     }
 </style>
@@ -44,7 +43,9 @@
     </div>
 </div>
 <div class="no-invest">
-    <button class="btn btn-primary" name="investment_decision" value="None">Don't Invest</button>
+    <button class="btn btn-primary" name="investment_decision" value="none">Don't Invest</button>
 </div>
+
+{{ formfield_errors 'investment_decision' }}
 
 {{ endblock }}

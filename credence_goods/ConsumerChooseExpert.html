@@ -34,8 +34,9 @@
     {% for p in subsession.get_players() %}
         {% if p.is_expert %}
             <div class="expert-card">
-                <p class="expert-name" style="background-color: {% p.expert_color.lower() %}"><b>{% p.expert_color %}</b></p>
-                <p>Accuracy: <b>{% p.diagnosis_accuracy_percent %}% ({% p.ability_level %} skill)</b></p>
+                <p class="expert-name" style="background-color: {% p.expert_color.lower() %}"><b>{% p.expert_color %} ({% p.ability_level %} skill)</b></p>
+                <p>Investment: <b>{% p.investment_decision %}</b></p>
+                <p>Accuracy: <b>{% p.diagnosis_accuracy_percent %}%</b></p>
                 <p>Price small service: <b>{% p.price_small_service %}</b></p>
                 <p>Price large service: <b>{% p.price_large_service %}</b></p>
                 <button class="btn btn-primary" name="expert_chosen" value="{% p.id_in_group %}">Choose Expert</button>

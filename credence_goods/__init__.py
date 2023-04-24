@@ -1,5 +1,6 @@
 from otree.api import *
 import random
+import json
 
 
 doc = """
@@ -8,6 +9,11 @@ Your app description
 
 
 class C(BaseConstants):
+    # DEV VARS FOR TESTING
+    ENABLE_WAITING_PAGES = False
+
+    #
+
     NAME_IN_URL = 'credence_goods'
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 4
@@ -38,9 +44,9 @@ class Player(BasePlayer):
     diagnosis_accuracy_percent = models.IntegerField()                                    # depends on high / low ability
 
     # service_result_of_formula = models.StringField(choices=("small", "large"))
-    service_chosen_as_expert = models.StringField(choices=("small", "large"))   # seems odd since it should be same as service_result_of_formula
+    services_provided_to_all_consumers = models.LongStringField()
 
-    investment_decision = models.StringField(choices=["skill", "algo"])
+    investment_decision = models.StringField(choices=["skill", "algo", "none"], initial="none")
 
     # customer variables
     expert_chosen = models.IntegerField(initial=0) # this should be a player.id_in_group
@@ -183,13 +189,28 @@ class ExpertDiagnosisI(Page):
         return player.is_expert
 
 
+def get_service_from_json_by_id(json_string, id) -> str:
+    mydict = json.loads(json_string)
+    return mydict[str(id)]
+
+
 # Expert diagnosis II
 class ExpertDiagnosisII(Page):
     timeout_seconds = C.TIMEOUT_IN_SECONDS
+    form_model = "player"
+    form_fields = ["services_provided_to_all_consumers"]
 
     @staticmethod
     def is_displayed(player):
         return player.is_expert
+    
+    @staticmethod
+    def before_next_page(player, timeout_happened):
+        # apply service
+        for p in player.get_others_in_subsession():
+            if (not p.is_expert) and (p.expert_chosen == player.id_in_group):
+                p.service_recieved = get_service_from_json_by_id(player.services_provided_to_all_consumers, p.id_in_group)
+                print(p.service_recieved)
 
 
 # Consumer Results
@@ -215,11 +236,29 @@ class MyPage(Page):
     pass
 
 
-class ResultsWaitPage(WaitPage):
-    pass
+class ExpertWaitPage(WaitPage):
+    title_text = "Waiting for consumers"
+    body_text = "You are currently waiting for the consumers to make a decision. It will only take a minute..."
+
+    @staticmethod
+    def is_displayed(player):
+        if C.ENABLE_WAITING_PAGES:
+            return player.is_expert
+        else:
+            return False
+
 
 class ConsumerWaitPage(WaitPage):
-    pass
+    title_text = "Waiting for experts"
+    body_text = "You are currently waiting for the consumers to make a decision. It will only take a minute..."
+
+
+    @staticmethod
+    def is_displayed(player):
+        if C.ENABLE_WAITING_PAGES:
+            return not player.is_expert
+        else:
+            return False
 
 class Results(Page):
     pass
@@ -227,12 +266,14 @@ class Results(Page):
 
 page_sequence = [Intro,
                  InvestmentChoice,
-                 ExpertSetPrices, 
+                 ExpertSetPrices,
+                 ConsumerWaitPage, 
                  ConsumerChooseExpert, 
+                 ExpertWaitPage, 
                  ExpertDiagnosisI, 
-                 ExpertDiagnosisII, 
+                 ExpertDiagnosisII,
+                 ConsumerWaitPage, 
                  ConsumerResults, 
                  ExpertResults, 
-                 ResultsWaitPage, 
                  Results
                  ]
