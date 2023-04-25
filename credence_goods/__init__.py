@@ -264,8 +264,16 @@ class ExpertResults(Page):
 
 
 
-class MyPage(Page):
-    pass
+class GeneralWaitPage(WaitPage):
+    title_text = "Waiting for other players"
+    body_text = "You are currently waiting for other players to join. It will only take a minute..."
+
+    @staticmethod
+    def is_displayed(player):
+        if C.ENABLE_WAITING_PAGES:
+            return player.round_number == 1
+        else:
+            print("Waiting page skipped due to settings.")
 
 
 class ExpertWaitPage(WaitPage):
@@ -277,6 +285,7 @@ class ExpertWaitPage(WaitPage):
         if C.ENABLE_WAITING_PAGES:
             return player.is_expert
         else:
+            print("Waiting page skipped due to settings.")
             return False
 
 
@@ -290,6 +299,7 @@ class ConsumerWaitPage(WaitPage):
         if C.ENABLE_WAITING_PAGES:
             return not player.is_expert
         else:
+            print("Waiting page skipped due to settings.")
             return False
 
 
@@ -298,7 +308,8 @@ class Results(Page):
     pass
 
 
-page_sequence = [Intro,
+page_sequence = [GeneralWaitPage,
+                 Intro,
                  InvestmentChoice,
                  ExpertSetPrices,
                  ConsumerWaitPage, 
