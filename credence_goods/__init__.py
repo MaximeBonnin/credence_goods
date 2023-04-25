@@ -25,10 +25,13 @@ class C(BaseConstants):
     COST_OF_PROVIDING_SMALL_SERVICE = 1 # c_k
     COST_OF_PROVIDING_LARGE_SERVICE = 2 # c_g
 
-    PRICE_VECTOR_OPTIONS = {
-        "bias_small": (4, 4),
-        "bias_large": (2, 5),
-        "no_bias": (3, 4)
+    PRICE_VECTOR_OPTIONS = { # (price_small, price_large, profit_small, profit_large)
+        "bias_small": (4, 4, 
+                       4-COST_OF_PROVIDING_SMALL_SERVICE, 4-COST_OF_PROVIDING_LARGE_SERVICE),
+        "bias_large": (2, 5, 
+                       2-COST_OF_PROVIDING_SMALL_SERVICE, 5-COST_OF_PROVIDING_LARGE_SERVICE),
+        "no_bias": (3, 4, 
+                    3-COST_OF_PROVIDING_SMALL_SERVICE, 4-COST_OF_PROVIDING_LARGE_SERVICE)
     }
 
     
@@ -167,6 +170,12 @@ class ExpertSetPrices(Page):
     @staticmethod
     def is_displayed(player):
         return player.is_expert
+    
+    @staticmethod
+    def js_vars(player):
+        return dict(
+            price_vectors=C.PRICE_VECTOR_OPTIONS,
+        )
     
     @staticmethod
     def before_next_page(player: Player, timeout_happened):

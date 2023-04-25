@@ -27,20 +27,55 @@
   <div class="price-choices-list">
     <div class="choice-small-bias choices-card">
       <p><b>Bias small</b></p>
+      <p>By choosing this option, you will make more money when selling small services than large services.</p>
+      <p>Price Small Service: <span id="small_bias_small_service"></span></p>
+      <p>Price Large Service: <span id="small_bias_large_service"></span></p>
       <button class="btn btn-primary" name="price_vector_chosen" value="bias_small">Choose Option</button>
+
+      <script>
+        text = js_vars.price_vectors["bias_small"][0] + " (Profit: " + js_vars.price_vectors["bias_small"][2] + ")";
+        document.getElementById("small_bias_small_service").innerHTML = text;
+        text = js_vars.price_vectors["bias_small"][1] + " (Profit: " + js_vars.price_vectors["bias_small"][3] + ")";
+        document.getElementById("small_bias_large_service").innerHTML = text;
+        console.log(js_vars.price_vectors)
+      </script>
     </div>
       
     <div class="choice-large-bias choices-card">
       <p><b>Bias large</b></p>
+      <p>By choosing this option, you will make more money when selling large services than small services.</p>
+      <p>Price Small Service: <span id="large_bias_small_service"></span></p>
+      <p>Price Large Service: <span id="large_bias_large_service"></span></p>
       <button class="btn btn-primary" name="price_vector_chosen" value="bias_large">Choose Option</button>
+
+      <script>
+        text = js_vars.price_vectors["bias_large"][0] + " (Profit: " + js_vars.price_vectors["bias_large"][2] + ")";
+        document.getElementById("large_bias_small_service").innerHTML = text;
+        text = js_vars.price_vectors["bias_large"][1] + " (Profit: " + js_vars.price_vectors["bias_large"][3] + ")";
+        document.getElementById("large_bias_large_service").innerHTML = text;
+        console.log(js_vars.price_vectors)
+      </script>
     </div>
 
     <div class="choice-no-bias choices-card">
       <p><b>No bias</b></p>
+      <p>By choosing this option, you will make the same amount of money when selling small and large services.</p>
+      <p>Price Small Service: <span id="no_bias_small_service"></span></p>
+      <p>Price Large Service: <span id="no_bias_large_service"></span></p>
       <button class="btn btn-primary" name="price_vector_chosen" value="no_bias">Choose Option</button>
+
+      <script>
+        text = js_vars.price_vectors["no_bias"][0] + " (Profit: " + js_vars.price_vectors["no_bias"][2] + ")";
+        document.getElementById("no_bias_small_service").innerHTML = text;
+        text = js_vars.price_vectors["no_bias"][1] + " (Profit: " + js_vars.price_vectors["no_bias"][3] + ")";
+        document.getElementById("no_bias_large_service").innerHTML = text;
+        console.log(js_vars.price_vectors)
+      </script>
     </div>
 
   </div>
+
+ 
 
 
     {{ formfield_errors "price_vector_chosen" }}
