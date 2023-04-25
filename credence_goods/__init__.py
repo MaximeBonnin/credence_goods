@@ -25,6 +25,8 @@ class C(BaseConstants):
     COST_OF_PROVIDING_SMALL_SERVICE = 1 # c_k
     COST_OF_PROVIDING_LARGE_SERVICE = 2 # c_g
 
+    CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT = 40 # %
+
     PRICE_VECTOR_OPTIONS = { # (price_small, price_large, profit_small, profit_large)
         "bias_small": (4, 4, 
                        4-COST_OF_PROVIDING_SMALL_SERVICE, 4-COST_OF_PROVIDING_LARGE_SERVICE),
@@ -112,8 +114,11 @@ def setup_players(subsession):
                                    "Lime", "Teal", "Silver", "White"][player.id_in_group-1] #TODO add more colors
 
         else:
-            # setup consumers #TODO this does need to change between rounds
-            player.service_needed = random.choice(("small", "large"))
+            # setup consumers
+            if random.randint(1, 100) <= C.CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT:
+                player.service_needed = "large"
+            else:
+                player.service_needed = "small"
 
         if player.is_expert:
                 print(f"Expert {player.id_in_group} ({player.expert_color}): {player.ability_level} ability")
