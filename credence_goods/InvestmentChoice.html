@@ -28,23 +28,33 @@
 </style>
 
 <div class="investment-choice-list">
-    <div class="skill-improvement investment-choice-card">
-        <p><b>Skill Investment</b></p>
-        <p>This will improve your diagnosis skills.</p>
-        <p>Before investment: <b>{% player.diagnosis_accuracy_percent %}%</b></p>
-        <p>After investment: <b>[some fixed value]</b></p>
-        <button class="btn btn-primary" name="investment_decision" value="skill">Invest</button>
-    </div>
+    {% if player.treatment_investment_option == "skill" %}
+        <div class="skill-improvement investment-choice-card">
+            <p><b>Skill Investment</b></p>
+            <p>cost: ???</p>
+            <p>This will improve your diagnosis skills.</p>
+            <p>Before investment: <b>{% player.diagnosis_accuracy_percent %}%</b></p>
+            <p>After investment: <b>[some fixed value]</b></p>
+            <button class="btn btn-primary" name="investment_decision" value="skill">Invest</button>
+        </div>
+
+    {% else %}
+        <div class="algo-improvement investment-choice-card">
+            <p><b>Algorithm Investment</b></p>
+            <p>cost: ???</p>
+            <p>This will provide automatic diagnosis.</p>
+            <p>[explanation?]</p>
+            <button class="btn btn-primary" name="investment_decision" value="algo">Invest</button>
+        </div>
+
+    {% endif %}
+
     <div class="algo-improvement investment-choice-card">
-        <p><b>Algorithm Investment</b></p>
-        <p>This will provide automatic diagnosis.</p>
+        <p><b>No Investment</b></p>
+        <p>Continue as usual.</p>
         <p>[explanation?]</p>
-        <button class="btn btn-primary" name="investment_decision" value="algo">Invest</button>
+        <button class="btn btn-primary" name="investment_decision" value="none">Don't Invest</button>
     </div>
-</div>
-<div class="no-invest">
-    <button class="btn btn-primary" name="investment_decision" value="none">Don't Invest</button>
-</div>
 
 {{ formfield_errors 'investment_decision' }}
 

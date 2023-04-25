@@ -53,10 +53,9 @@ class Player(BasePlayer):
 
     ability_level = models.StringField(choices=("high", "low"))                 # 
     diagnosis_accuracy_percent = models.IntegerField()                                    # depends on high / low ability
-
-    # service_result_of_formula = models.StringField(choices=("small", "large"))
     services_provided_to_all_consumers = models.LongStringField()
 
+    treatment_investment_option = models.StringField(choices=["skill", "algo"], initial="skill")
     investment_decision = models.StringField(choices=["skill", "algo", "none"], initial="none")
 
     # customer variables
@@ -83,6 +82,7 @@ def setup_players(subsession):
             player.ability_level = player.in_round(1).ability_level
             player.expert_color = player.in_round(1).expert_color
             player.diagnosis_accuracy_percent = player.in_round(1).diagnosis_accuracy_percent
+            player.treatment_investment_option = player.in_round(1).treatment_investment_option
 
             # service needed changes each round
             player.service_needed = random.choice(("small", "large"))
@@ -108,7 +108,7 @@ def setup_players(subsession):
             else:
                 player.diagnosis_accuracy_percent = 75
 
-            
+            player.treatment_investment_option = random.choice(("skill", "algo"))
             player.expert_color = ["Red", "Aquamarine", "Coral", "Yellow", 
                                    "Cyan", "Pink", "Salmon", "Grey",
                                    "Lime", "Teal", "Silver", "White"][player.id_in_group-1] #TODO add more colors
