@@ -5,46 +5,44 @@
 
 {{ include_sibling "InfoBox.html" }}
 
-<div class="info">
-    <p>You can now set prices for your services.</p>
-    <div class="service-prices-table">
-        <style type="text/css">
-            .tg  {border-collapse:collapse;border-spacing:0;}
-            .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-              overflow:hidden;padding:10px 5px;word-break:normal;}
-            .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-              font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-            .tg .tg-0lax{text-align:left;vertical-align:top}
-            .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
-            </style>
-            <table class="tg">
-            <thead>
-              <tr>
-                <th class="tg-0lax"></th>
-                <th class="tg-0pky">Option A [bias small]</th>
-                <th class="tg-0pky">Option B [bias large]</th>
-                <th class="tg-0pky">Option C [bias none]</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="tg-0lax">Small Service</td>
-                <td class="tg-0pky">option_a_small (profit X)</td>
-                <td class="tg-0pky">option_b_small (profit X)</td>
-                <td class="tg-0pky">option_c_small (profit X)</td>
-              </tr>
-              <tr>
-                <td class="tg-0lax">Large Service</td>
-                <td class="tg-0pky">option_a_large (profit X)</td>
-                <td class="tg-0pky">option_b_large (profit X)</td>
-                <td class="tg-0pky">option_c_large (profit X)</td>
-              </tr>
-            </tbody>
-            </table>
-    </div>
-</div>
+<style>
+  .price-choices-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1em;
+  }
+  .choices-card {
+      background-color: lightcyan;
+      text-align: center;
+      border: solid;
+      border-radius: 1em;
+      padding: 0.3em;
+      margin: 1em;
+  }
+</style>
 
-    {{ formfields }}
-    {{ next_button }}
+<div class="info">
+
+
+  <div class="price-choices-list">
+    <div class="choice-small-bias choices-card">
+      <p><b>Bias small</b></p>
+      <button class="btn btn-primary" name="price_vector_chosen" value="bias_small">Choose Option</button>
+    </div>
+      
+    <div class="choice-large-bias choices-card">
+      <p><b>Bias large</b></p>
+      <button class="btn btn-primary" name="price_vector_chosen" value="bias_large">Choose Option</button>
+    </div>
+
+    <div class="choice-no-bias choices-card">
+      <p><b>No bias</b></p>
+      <button class="btn btn-primary" name="price_vector_chosen" value="no_bias">Choose Option</button>
+    </div>
+
+  </div>
+
+
+    {{ formfield_errors "price_vector_chosen" }}
 
 {{ endblock }}

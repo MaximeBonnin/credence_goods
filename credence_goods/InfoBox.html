@@ -42,16 +42,14 @@
             <tbody>
               <tr>
                 <td class="tg-0pky">Round</td>
-                <td class="tg-0pky">Service needed</td>
                 <td class="tg-0pky">Expert chosen</td>
-                <td class="tg-0pky">Service recieved</td>
+                <td class="tg-0pky">[NOT DONE]Payout recieved</td>
               </tr>
               {% for p in player.in_previous_rounds() %}
               <tr>
                 <td class="tg-0pky">{% p.round_number %}</td>
-                <td class="tg-0pky">{% p.service_needed %}</td>
                 <td class="tg-0pky">{% p.field_maybe_none('expert_chosen_color') %}</td>
-                <td class="tg-0pky">{% p.field_maybe_none('service_recieved') %}</td>
+                <td class="tg-0pky">[NOT DONE]{% p.field_maybe_none('service_recieved') %}</td>
               </tr>
               {% endfor %}
             </tbody>

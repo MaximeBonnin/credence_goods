@@ -25,6 +25,12 @@ class C(BaseConstants):
     COST_OF_PROVIDING_SMALL_SERVICE = 1 # c_k
     COST_OF_PROVIDING_LARGE_SERVICE = 2 # c_g
 
+    PRICE_VECTOR_OPTIONS = {
+        "bias_small": (4, 4),
+        "bias_large": (2, 5),
+        "no_bias": (3, 4)
+    }
+
     
 class Subsession(BaseSubsession):
     # expert_list = []
@@ -35,10 +41,10 @@ class Player(BasePlayer):
     is_expert = models.BooleanField(initial=False)
 
     # expert variables
-    expert_color = models.StringField() #TODO do this at participant level?
-
-    price_small_service = models.IntegerField(initial=2, choices=(1, 2, 3))                # p_k   #TODO make this dynamic
-    price_large_service = models.IntegerField(initial=5, choices=(4, 5, 6))                # p_g
+    expert_color = models.StringField()
+    price_vector_chosen = models.StringField(choices=["bias_small", "bias_large", "no_bias"], initial="no_bias")
+    price_small_service = models.IntegerField(initial=C.PRICE_VECTOR_OPTIONS["no_bias"][0]) # initialize as small value of "no_bias" option in constants
+    price_large_service = models.IntegerField(initial=C.PRICE_VECTOR_OPTIONS["no_bias"][1]) # initialize as large value of "no_bias" option in constants
 
     ability_level = models.StringField(choices=("high", "low"))                 # 
     diagnosis_accuracy_percent = models.IntegerField()                                    # depends on high / low ability
@@ -156,12 +162,18 @@ class InvestmentChoice(Page):
 class ExpertSetPrices(Page):
     timeout_seconds = C.TIMEOUT_IN_SECONDS
     form_model = "player"
-    form_fields = ["price_small_service", "price_large_service"]
+    form_fields = ["price_vector_chosen"]
 
     @staticmethod
     def is_displayed(player):
         return player.is_expert
-
+    
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        # set prices as the vector options
+        player.price_small_service = C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][0]
+        player.price_large_service = C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][1]
+        return
 
 # Consumer choose expert
 class ConsumerChooseExpert(Page):
@@ -260,7 +272,9 @@ class ConsumerWaitPage(WaitPage):
         else:
             return False
 
+
 class Results(Page):
+    timeout_seconds = C.TIMEOUT_IN_SECONDS
     pass
 
 
