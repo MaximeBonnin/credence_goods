@@ -20,7 +20,7 @@ class C(BaseConstants):
     INVESTMENT_STARTING_ROUND = 2
 
     NUM_EXPERTS = 4             # consumers = players - experts
-    TIMEOUT_IN_SECONDS = 6000     # Intro page is different
+    TIMEOUT_IN_SECONDS = 6000     # Intro page is different #TODO results page different too?
 
     COST_OF_PROVIDING_SMALL_SERVICE = 1 # c_k
     COST_OF_PROVIDING_LARGE_SERVICE = 2 # c_g
@@ -58,6 +58,7 @@ class Player(BasePlayer):
     investment_decision = models.StringField(choices=["skill", "algo", "none"], initial="none")
 
     # customer variables
+    enter_market = models.BooleanField(initial=True)
     expert_chosen = models.IntegerField(initial=0) # this should be a player.id_in_group
     expert_chosen_color = models.StringField()
     service_needed = models.StringField(choices=("small", "large"), initial="none")
@@ -104,9 +105,6 @@ def setup_players(subsession):
                 player.diagnosis_accuracy_percent = 85    #TODO make dynamic
             else:
                 player.diagnosis_accuracy_percent = 75
-
-            player.price_small_service = 2 #TODO remove this, should work without once experts choose
-            player.price_large_service = 5
 
             
             player.expert_color = ["Red", "Aquamarine", "Coral", "Yellow", 
@@ -184,6 +182,18 @@ class ExpertSetPrices(Page):
         player.price_large_service = C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][1]
         return
 
+
+
+# Consumer choose expert
+class ConsumerEnterMarket(Page):
+    timeout_seconds = C.TIMEOUT_IN_SECONDS
+    form_model = "player"
+    form_fields = ["enter_market"]
+
+    @staticmethod
+    def is_displayed(player):
+        return not player.is_expert
+
 # Consumer choose expert
 class ConsumerChooseExpert(Page):
     timeout_seconds = C.TIMEOUT_IN_SECONDS
@@ -192,7 +202,8 @@ class ConsumerChooseExpert(Page):
 
     @staticmethod
     def is_displayed(player):
-        return not player.is_expert
+        if not player.is_expert:
+            return player.enter_market
     
     @staticmethod
     def before_next_page(player, timeout_happened):
@@ -291,6 +302,7 @@ page_sequence = [Intro,
                  InvestmentChoice,
                  ExpertSetPrices,
                  ConsumerWaitPage, 
+                 ConsumerEnterMarket,
                  ConsumerChooseExpert, 
                  ExpertWaitPage, 
                  ExpertDiagnosisI, 
