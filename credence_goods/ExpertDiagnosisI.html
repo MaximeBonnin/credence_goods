@@ -17,29 +17,68 @@
         padding: 0.3em;
         margin: 1em;
     }
+
+    .var-input {
+        size: 5;
+    }
 </style>
 
 {{ include_sibling "InfoBox.html" }}
-
-<div class="diagnosis-I">
-    <p>[some kind of "real efford" task like formula]</p>
-</div>
 
 <div class="consumer-list">
     {% for p in subsession.get_players() %}
         {% if not p.is_expert %}
             <div class="consumer-card">
                 <p><b>Consumer {% p.id_in_group %}</b></p>
-                <p>Variable A: <b>X</b></p>
-                <p>Variable B: <b>Y</b></p>
-                <p>Variable C: <b>Z</b></p>
+                <p>
+                    Variables: <b>
+                        A=<span id="var-x-{% p.id_in_group %}">X</span> | 
+                        B=<span id="var-y-{% p.id_in_group %}">Y</span> | 
+                        C=<span id="var-z-{% p.id_in_group %}">Z</span>
+                    </b>
+                </p>
+                <p>
+                    <input id="calc-A-{% p.id_in_group %}" type="text" size="1" placeholder="A" onkeyup="calculateResult('{% p.id_in_group %}')" required="required"> 
+                    + <input id="calc-B-{% p.id_in_group %}" type="text" size="1" placeholder="B" onkeyup="calculateResult('{% p.id_in_group %}')" required="required"> 
+                    + <input id="calc-C-{% p.id_in_group %}" type="text" size="1" placeholder="C" onkeyup="calculateResult('{% p.id_in_group %}')" required="required">
+                    + <input id="calc-Inv-{% p.id_in_group %}" type="text" size="1" placeholder="?" disabled="disabled">
+                    = <b><span id="calc-result-{% p.id_in_group %}">Result</span></b>
+                </p>
             </div>
+
+            <script>
+                document.getElementById("var-x-{% p.id_in_group %}").innerHTML = (Math.round(Math.random()*100)/100).toFixed(2);
+                document.getElementById("var-y-{% p.id_in_group %}").innerHTML = (Math.round(Math.random()*100)/100).toFixed(2);
+                document.getElementById("var-z-{% p.id_in_group %}").innerHTML = (Math.round(Math.random()*100)/100).toFixed(2);
+
+                function calculateResult(id) {
+                    a = parseFloat(document.getElementById("calc-A-" + id).value);
+                    if (isNaN(a)){
+                        a = 0
+                    };
+                    b = parseFloat(document.getElementById("calc-B-" + id).value);
+                    if (isNaN(b)){
+                        b = 0
+                    };
+                    c = parseFloat(document.getElementById("calc-C-" + id).value);
+                    if (isNaN(c)){
+                        c = 0
+                    };
+                    result = a + b + c;
+                    console.log(a, b, c);
+                    document.getElementById("calc-result-" + id).innerHTML = result;
+                }
+            </script>
         {% endif %}
 
     {% endfor %}
 </div>
 
-    {{ formfields }}
+<!-- hidden input for oTree formfield -->
+<input type="hidden" id="">
+<script>
+
+</script>
     {{ next_button }}
 
 {{ endblock }}
