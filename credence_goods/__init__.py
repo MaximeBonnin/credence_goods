@@ -143,6 +143,12 @@ class Group(BaseGroup):
 
 # PAGES
 
+# Tutorial
+class Tutorial(Page):
+    timeout_seconds = 60 * 5 # 5 min
+
+
+
 # Intro
 class Intro(Page):
     timeout_seconds = 60 * 5    # 5 min
@@ -236,6 +242,12 @@ class ExpertDiagnosisII(Page):
     timeout_seconds = C.TIMEOUT_IN_SECONDS
     form_model = "player"
     form_fields = ["services_provided_to_all_consumers"]
+
+    @staticmethod
+    def js_vars(player):
+        return dict(
+            price_vectors=C.PRICE_VECTOR_OPTIONS,
+        )
 
     @staticmethod
     def is_displayed(player):

@@ -33,9 +33,11 @@
         {% if not p.is_expert %}
             <div class="consumer-card">
                 <p><b>Consumer {% p.id_in_group %}</b></p>
-                <p>[reminder of diagnosis result/profit?]</p>
-                <p><input class="radio-button" id="consumer_{% p.id_in_group %}_service_small" type="radio" name="{% p.id_in_group %}" value="small" required="required" onclick="updateService(key='{% p.id_in_group %}', value='small')">Provide small service</p>
-                <p><input class="radio-button" id="consumer_{% p.id_in_group %}_service_large" type="radio" name="{% p.id_in_group %}" value="large" required="required" onclick="updateService(key='{% p.id_in_group %}', value='large')">Provide large service</p>
+                <p>Diagnosis result: <b><span id="result-{% p.id_in_group %}">{% p.service_needed %}</span> service needed [100% Acc]</b></p>
+                <p><input class="radio-button" id="consumer_{% p.id_in_group %}_service_small" type="radio" name="{% p.id_in_group %}" value="small" required="required" onclick="updateService(key='{% p.id_in_group %}', value='small')">
+                    Provide small service <b>(Profit: <span class="profit-small"></span>)</b></p>
+                <p><input class="radio-button" id="consumer_{% p.id_in_group %}_service_large" type="radio" name="{% p.id_in_group %}" value="large" required="required" onclick="updateService(key='{% p.id_in_group %}', value='large')">
+                    Provide large service <b>(Profit: <span class="profit-large"></span>)</b></p>
             </div>
 
         <script>
@@ -48,6 +50,18 @@
     <input type="hidden" name="services_provided_to_all_consumers" id="services_provided_to_all_consumers">
 
     <script>
+        const small_price = document.querySelectorAll(".profit-small");
+
+        small_price.forEach(small_price => {
+            small_price.innerHTML = js_vars.price_vectors["{% player.price_vector_chosen %}"][2]
+        })
+
+        const large_price = document.querySelectorAll(".profit-large");
+
+        large_price.forEach(large_price => {
+            large_price.innerHTML = js_vars.price_vectors["{% player.price_vector_chosen %}"][3]
+        })
+
         document.getElementById("services_provided_to_all_consumers").value = JSON.stringify(dict_of_names);
 
         function updateService(key, value) {
