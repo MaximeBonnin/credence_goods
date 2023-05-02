@@ -14,13 +14,16 @@
         text-align: center;
         border: solid;
         border-radius: 1em;
-        padding: 0.3em;
+        padding-bottom: 0.3em;
+        overflow: hidden;
         margin: 1em;
     }
+    .consumer-name {
+        width: 100%;
+        padding: 0.3em;
+        margin-bottom: 0.3em;
+    } 
 
-    .var-input {
-        size: 5;
-    }
 </style>
 
 {{ include_sibling "InfoBox.html" }}
@@ -29,12 +32,12 @@
     {% for p in group.get_players() %}
         {% if not p.is_expert %}
             <div class="consumer-card">
-                <p><b>Consumer {% p.id_in_group %}</b></p>
+                <p class="consumer-name" style="background-color: {% p.player_color.lower() %}"><b>Consumer {% p.player_color %}</b></p>
                 <p>
                     Variables: <b>
-                        A=<span id="var-x-{% p.id_in_group %}">X</span> | 
-                        B=<span id="var-y-{% p.id_in_group %}">Y</span> | 
-                        C=<span id="var-z-{% p.id_in_group %}">Z</span>
+                        A=<span id="var-a-{% p.id_in_group %}">X</span> | 
+                        B=<span id="var-b-{% p.id_in_group %}">Y</span> | 
+                        C=<span id="var-c-{% p.id_in_group %}">Z</span>
                     </b>
                 </p>
                 <p>
@@ -47,9 +50,19 @@
             </div>
 
             <script>
-                document.getElementById("var-x-{% p.id_in_group %}").innerHTML = (Math.round(Math.random()*100)/100).toFixed(2);
-                document.getElementById("var-y-{% p.id_in_group %}").innerHTML = (Math.round(Math.random()*100)/100).toFixed(2);
-                document.getElementById("var-z-{% p.id_in_group %}").innerHTML = (Math.round(Math.random()*100)/100).toFixed(2);
+                value_a = Math.round(Math.random()*10);
+                document.getElementById("var-a-{% p.id_in_group %}").innerHTML = value_a;
+                document.getElementById("calc-A-{% p.id_in_group %}").value = value_a;
+
+                value_b = Math.round(Math.random()*10);
+                document.getElementById("var-b-{% p.id_in_group %}").innerHTML = value_b;
+                document.getElementById("calc-B-{% p.id_in_group %}").value = value_b;
+
+                value_c = Math.round(Math.random()*10);
+                document.getElementById("var-c-{% p.id_in_group %}").innerHTML = value_c;
+                document.getElementById("calc-C-{% p.id_in_group %}").value = value_c;
+
+                calculateResult('{% p.id_in_group %}')
 
                 function calculateResult(id) {
                     a = parseFloat(document.getElementById("calc-A-" + id).value);

@@ -34,7 +34,7 @@
     {% for p in group.get_players() %}
         {% if p.is_expert %}
             <div class="expert-card">
-                <p class="expert-name" style="background-color: {% p.expert_color.lower() %}"><b>{% p.expert_color %} ({% p.ability_level %} skill)</b></p>
+                <p class="expert-name" style="background-color: {% p.player_color.lower() %}"><b>{% p.player_color %} ({% p.ability_level %} skill)</b></p>
                 <p>Accuracy: <b>{% p.diagnosis_accuracy_percent %}%</b></p>
 
                 {% if p.round_number >= C.INVESTMENT_STARTING_ROUND %}
