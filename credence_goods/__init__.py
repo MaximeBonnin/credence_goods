@@ -15,12 +15,14 @@ class C(BaseConstants):
     #
 
     NAME_IN_URL = 'credence_goods'
-    PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 4
-    INVESTMENT_STARTING_ROUND = 2
+    PLAYERS_PER_GROUP = 8
+    TIMEOUT_IN_SECONDS = 6000     # Intro page is different #TODO results page different too?
 
     NUM_EXPERTS = 4             # consumers = players - experts
-    TIMEOUT_IN_SECONDS = 6000     # Intro page is different #TODO results page different too?
+
+    INVESTMENT_STARTING_ROUND = 2
+    ENDOWMENT = cu(10) #TODO maybe different for consumers and experts?
 
     COST_OF_PROVIDING_SMALL_SERVICE = 1 # c_k
     COST_OF_PROVIDING_LARGE_SERVICE = 2 # c_g
@@ -36,6 +38,12 @@ class C(BaseConstants):
                     3-COST_OF_PROVIDING_SMALL_SERVICE, 4-COST_OF_PROVIDING_LARGE_SERVICE)
     }
 
+    CONSUMER_PAYOFFS = {
+        "no_market_entry": 0,
+        "problem_remains": 0,
+        "problem_solved": 10
+    }
+
     
 class Subsession(BaseSubsession):
     # expert_list = []
@@ -44,6 +52,7 @@ class Subsession(BaseSubsession):
 
 class Player(BasePlayer):
     is_expert = models.BooleanField(initial=False)
+    currency = models.CurrencyField(initial=0)
 
     # expert variables
     expert_color = models.StringField()
@@ -55,8 +64,7 @@ class Player(BasePlayer):
     diagnosis_accuracy_percent = models.IntegerField()                                    # depends on high / low ability
     services_provided_to_all_consumers = models.LongStringField()
 
-    treatment_investment_option = models.StringField(choices=["skill", "algo"], initial="skill")
-    investment_decision = models.StringField(choices=["skill", "algo", "none"], initial="none")
+    investment_decision = models.BooleanField(initial=False)
 
     # customer variables
     enter_market = models.BooleanField(initial=True)
@@ -71,32 +79,41 @@ class Player(BasePlayer):
 
 
 def setup_players(subsession):
-
     print(f"Round {subsession.round_number} player setup...") # the numbers don't display correctly, but it works
 
     # in later rounds, just use previous values
     if subsession.round_number != 1:
         print("Use values from previous rounds...")
+        for group in subsession.get_groups():
+            group.treatment_investment_option = group.in_round(1).treatment_investment_option
+            group.treatment_investment_frequency = group.in_round(1).treatment_investment_option
+
         for player in subsession.get_players():
             player.is_expert = player.in_round(1).is_expert
             player.ability_level = player.in_round(1).ability_level
             player.expert_color = player.in_round(1).expert_color
             player.diagnosis_accuracy_percent = player.in_round(1).diagnosis_accuracy_percent
-            player.treatment_investment_option = player.in_round(1).treatment_investment_option
 
             # service needed changes each round
             player.service_needed = random.choice(("small", "large"))
 
-            if player.is_expert:
-                print(f"Expert {player.id_in_group} ({player.expert_color}): {player.ability_level} ability")
-            else:
-                print(f"Consumer {player.id_in_group}: {player.service_needed} service needed")
+            #if player.is_expert:
+            #    print(f"Expert {player.id_in_group} ({player.expert_color}): {player.ability_level} ability")
+            #else:
+            #    print(f"Consumer {player.id_in_group}: {player.service_needed} service needed")
         return
     
 
     # in first round, setup player values
+    for group in subsession.get_groups():
+        group.treatment_investment_option = random.choice(["skill", "algo"])
+        group.treatment_investment_frequency = random.choice(["once", "repeated"])
+        print(f"Group treatment set: {group.treatment_investment_option} | {group.treatment_investment_frequency}")
+
     expert_sample = random.sample([p.id_in_group for p in subsession.get_players()], C.NUM_EXPERTS)
+    
     for player in subsession.get_players():
+        player.currency = C.ENDOWMENT
 
         if player.id_in_group in expert_sample:
             player.is_expert = True
@@ -108,7 +125,6 @@ def setup_players(subsession):
             else:
                 player.diagnosis_accuracy_percent = 75
 
-            player.treatment_investment_option = random.choice(("skill", "algo"))
             player.expert_color = ["Red", "Aquamarine", "Coral", "Yellow", 
                                    "Cyan", "Pink", "Salmon", "Grey",
                                    "Lime", "Teal", "Silver", "White"][player.id_in_group-1] #TODO add more colors
@@ -120,22 +136,20 @@ def setup_players(subsession):
             else:
                 player.service_needed = "small"
 
-        if player.is_expert:
-                print(f"Expert {player.id_in_group} ({player.expert_color}): {player.ability_level} ability")
-        else:
-            print(f"Consumer {player.id_in_group}: {player.service_needed} service needed")
-
+        #if player.is_expert:
+        #        print(f"Expert {player.id_in_group} ({player.expert_color}): {player.ability_level} ability")
+        #else:
+        #    print(f"Consumer {player.id_in_group}: {player.service_needed} service needed")
 
 
 def creating_session(subsession):
     print("Creating subsession...")
-    setup_players(subsession) # this runs twice for some reason
-
-    
+    setup_players(subsession) # this runs once for each round when setting up the game
 
 
 class Group(BaseGroup):
-    pass
+    treatment_investment_option = models.StringField(choices=["skill", "algo"])
+    treatment_investment_frequency = models.StringField(choices=["once", "repeated"])
 
 
 
@@ -146,7 +160,6 @@ class Group(BaseGroup):
 # Tutorial
 class Tutorial(Page):
     timeout_seconds = 60 * 5 # 5 min
-
 
 
 # Intro
@@ -194,7 +207,6 @@ class ExpertSetPrices(Page):
         return
 
 
-
 # Consumer choose expert
 class ConsumerEnterMarket(Page):
     timeout_seconds = C.TIMEOUT_IN_SECONDS
@@ -204,6 +216,7 @@ class ConsumerEnterMarket(Page):
     @staticmethod
     def is_displayed(player):
         return not player.is_expert
+
 
 # Consumer choose expert
 class ConsumerChooseExpert(Page):
@@ -261,24 +274,17 @@ class ExpertDiagnosisII(Page):
                 p.service_recieved = get_service_from_json_by_id(player.services_provided_to_all_consumers, p.id_in_group)
                 print(p.service_recieved)
 
+                # set consumer payoffs
+                if (p.service_needed == p.service_recieved) or (p.service_recieved == "large"):
+                    p.payoff = C.CONSUMER_PAYOFFS["problem_solved"]
+                else:
+                    p.payoff = C.CONSUMER_PAYOFFS["problem_remains"]
 
-# Consumer Results
-class ConsumerResults(Page):
-    timeout_seconds = C.TIMEOUT_IN_SECONDS
-
-    @staticmethod
-    def is_displayed(player):
-        return not player.is_expert
-
-# Expert Results
-class ExpertResults(Page):
-    timeout_seconds = C.TIMEOUT_IN_SECONDS
-
-    @staticmethod
-    def is_displayed(player):
-        return player.is_expert
-
-
+                # set expert payoff
+                if p.service_recieved == "small":
+                    player.payoff += C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][2]
+                elif p.service_recieved == "large":
+                    player.payoff += C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][3]
 
 
 class GeneralWaitPage(WaitPage):
@@ -322,7 +328,8 @@ class ConsumerWaitPage(WaitPage):
 
 class Results(Page):
     timeout_seconds = C.TIMEOUT_IN_SECONDS
-    pass
+    form_model = "player"
+    form_fields = []
 
 
 page_sequence = [GeneralWaitPage,
@@ -336,7 +343,5 @@ page_sequence = [GeneralWaitPage,
                  ExpertDiagnosisI, 
                  ExpertDiagnosisII,
                  ConsumerWaitPage, 
-                 ConsumerResults, 
-                 ExpertResults, 
                  Results
                  ]

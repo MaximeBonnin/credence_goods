@@ -1,8 +1,83 @@
 {{ block title }}
-    Page title
+    Results of this round
 {{ endblock }}
 
 {{ block content }}
+
+    <div class="expert-results">
+        {{ if player.is_expert }}
+
+            <p>test expert</p>
+
+            <style type="text/css">
+                .tg  {border-collapse:collapse;border-spacing:0;}
+                .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+                  overflow:hidden;padding:10px 5px;word-break:normal;}
+                .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+                  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+                .tg .tg-amwm{font-weight:bold;text-align:center;vertical-align:top}
+                .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+                </style>
+                <table class="tg">
+                <thead>
+                  <tr>
+                    <th class="tg-amwm" colspan="4">Results so far</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="tg-0pky">Round</td>
+                    <td class="tg-0pky">Payout recieved</td>
+                  </tr>
+                  {% for p in player.in_all_rounds() %}
+                  <tr>
+                    <td class="tg-0pky">{% p.round_number %}</td>
+                    <td class="tg-0pky">{% p.payoff %}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+                </table>
+
+        {{ endif }}
+    </div>
+
+    <div class="consumer-results">
+        {{ if not player.is_expert }}
+
+            <p>test consuemrs</p>
+            <style type="text/css">
+                .tg  {border-collapse:collapse;border-spacing:0;}
+                .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+                  overflow:hidden;padding:10px 5px;word-break:normal;}
+                .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+                  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+                .tg .tg-amwm{font-weight:bold;text-align:center;vertical-align:top}
+                .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+                </style>
+                <table class="tg">
+                <thead>
+                  <tr>
+                    <th class="tg-amwm" colspan="4">Results so far</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="tg-0pky">Round</td>
+                    <td class="tg-0pky">Expert chosen</td>
+                    <td class="tg-0pky">Payout recieved</td>
+                  </tr>
+                  {% for p in player.in_all_rounds() %}
+                  <tr>
+                    <td class="tg-0pky">{% p.round_number %}</td>
+                    <td class="tg-0pky">{% p.field_maybe_none('expert_chosen_color') %}</td>
+                    <td class="tg-0pky">{% p.payoff %}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+                </table>
+
+        {{ endif }}
+    </div>
 
     {{ next_button }}
 {{ endblock }}

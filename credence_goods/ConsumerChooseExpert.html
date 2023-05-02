@@ -31,7 +31,7 @@
 {{ include_sibling "InfoBox.html" }}
 
 <div class="expert-list">
-    {% for p in subsession.get_players() %}
+    {% for p in group.get_players() %}
         {% if p.is_expert %}
             <div class="expert-card">
                 <p class="expert-name" style="background-color: {% p.expert_color.lower() %}"><b>{% p.expert_color %} ({% p.ability_level %} skill)</b></p>
