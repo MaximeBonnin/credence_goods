@@ -17,25 +17,31 @@ class C(BaseConstants):
     NAME_IN_URL = 'credence_goods'
     NUM_ROUNDS = 4
     PLAYERS_PER_GROUP = 8
-    TIMEOUT_IN_SECONDS = 6000     # Intro page is different #TODO results page different too?
+    TIMEOUT_IN_SECONDS = 6000               # Intro page is different
+    DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS = 3 # players get excluded from the experiment if they have X number of timeouts
 
-    NUM_EXPERTS = 4             # consumers = players - experts
+    NUM_EXPERTS = 4                         # consumers = players - experts
 
     INVESTMENT_STARTING_ROUND = 2
-    ENDOWMENT = cu(10) #TODO maybe different for consumers and experts?
+    ENDOWMENT = cu(10)                      #TODO maybe different for consumers and experts?
 
-    COST_OF_PROVIDING_SMALL_SERVICE = 1 # c_k
-    COST_OF_PROVIDING_LARGE_SERVICE = 2 # c_g
+    COST_OF_PROVIDING_SMALL_SERVICE = 1     # c_k
+    COST_OF_PROVIDING_LARGE_SERVICE = 2     # c_g
 
     CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT = 40 # %
 
-    PRICE_VECTOR_OPTIONS = { # (price_small, price_large, profit_small, profit_large)
+    PRICE_VECTOR_OPTIONS = {                # (price_small, price_large, profit_small, profit_large)
         "bias_small": (4, 4, 
                        4-COST_OF_PROVIDING_SMALL_SERVICE, 4-COST_OF_PROVIDING_LARGE_SERVICE),
         "bias_large": (2, 5, 
                        2-COST_OF_PROVIDING_SMALL_SERVICE, 5-COST_OF_PROVIDING_LARGE_SERVICE),
         "no_bias": (3, 4, 
                     3-COST_OF_PROVIDING_SMALL_SERVICE, 4-COST_OF_PROVIDING_LARGE_SERVICE)
+    }
+
+    EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT = { # currently just random.choice() for selection
+        "low": 75,
+        "high": 85
     }
 
     CONSUMER_PAYOFFS = {
@@ -51,6 +57,11 @@ class Subsession(BaseSubsession):
 
 
 class Player(BasePlayer):
+    # vars for excluding dropouts
+    is_dropout = models.BooleanField(initial=False)
+    number_of_timeouts = models.IntegerField(initial=0)
+
+
     is_expert = models.BooleanField(initial=False)
     player_color = models.StringField()
     currency = models.CurrencyField(initial=0)
@@ -60,15 +71,15 @@ class Player(BasePlayer):
     price_small_service = models.IntegerField(initial=C.PRICE_VECTOR_OPTIONS["no_bias"][0]) # initialize as small value of "no_bias" option in constants
     price_large_service = models.IntegerField(initial=C.PRICE_VECTOR_OPTIONS["no_bias"][1]) # initialize as large value of "no_bias" option in constants
 
-    ability_level = models.StringField(choices=("high", "low"))                 # 
-    diagnosis_accuracy_percent = models.IntegerField()                                    # depends on high / low ability
+    ability_level = models.StringField(choices=("high", "low"))                             # 
+    diagnosis_accuracy_percent = models.IntegerField()                                      # depends on high / low ability
     services_provided_to_all_consumers = models.LongStringField()
 
     investment_decision = models.BooleanField(initial=False)
 
     # customer variables
     enter_market = models.BooleanField(initial=True)
-    expert_chosen = models.IntegerField(initial=0) # this should be a player.id_in_group
+    expert_chosen = models.IntegerField(initial=0)                                          # this should be a player.id_in_group
     expert_chosen_color = models.StringField()
     service_needed = models.StringField(choices=("small", "large"), initial="none")
     service_recieved = models.StringField(choices=("small", "large", "none"))
@@ -79,7 +90,7 @@ class Player(BasePlayer):
 
 
 def setup_players(subsession):
-    print(f"Round {subsession.round_number} player setup...") # the numbers don't display correctly, but it works
+    print(f"Round {subsession.round_number} player setup...")
 
     # in later rounds, just use previous values
     if subsession.round_number != 1:
@@ -96,11 +107,6 @@ def setup_players(subsession):
 
             # service needed changes each round
             player.service_needed = random.choice(("small", "large"))
-
-            #if player.is_expert:
-            #    print(f"Expert {player.id_in_group} ({player.player_color}): {player.ability_level} ability")
-            #else:
-            #    print(f"Consumer {player.id_in_group}: {player.service_needed} service needed")
         return
     
 
@@ -110,36 +116,29 @@ def setup_players(subsession):
         group.treatment_investment_frequency = random.choice(["once", "repeated"])
         print(f"Group treatment set: {group.treatment_investment_option} | {group.treatment_investment_frequency}")
 
-    expert_sample = random.sample([p.id_in_group for p in subsession.get_players()], C.NUM_EXPERTS)
-    
-    for player in subsession.get_players():
-        player.currency = C.ENDOWMENT
-
-        if player.id_in_group in expert_sample:
-            player.is_expert = True
-
-            # setup experts
-            player.ability_level = random.choice(("low", "high"))
-            if player.ability_level == "high":
-                player.diagnosis_accuracy_percent = 85    #TODO make dynamic
-            else:
-                player.diagnosis_accuracy_percent = 75
-
+        # experts are different between groups
+        expert_sample = random.sample(range(1, C.PLAYERS_PER_GROUP+1), C.NUM_EXPERTS)
+        
+        for player in group.get_players():
+            player.currency = C.ENDOWMENT
             player.player_color = ["Red", "Aquamarine", "Coral", "Yellow", 
-                                   "Cyan", "Pink", "Salmon", "Grey",
-                                   "Lime", "Teal", "Silver", "White"][player.id_in_group-1] #TODO add more colors
+                                    "Cyan", "Pink", "Salmon", "Grey",
+                                    "Lime", "Teal", "Silver", "White"][player.id_in_group-1] #TODO add more colors
 
-        else:
-            # setup consumers
-            if random.randint(1, 100) <= C.CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT:
-                player.service_needed = "large"
+            if player.id_in_group in expert_sample:
+                player.is_expert = True
+
+                # setup experts
+                player.ability_level = random.choice(("low", "high"))
+                player.diagnosis_accuracy_percent = C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT[player.ability_level]
+
+
             else:
-                player.service_needed = "small"
-
-        #if player.is_expert:
-        #        print(f"Expert {player.id_in_group} ({player.player_color}): {player.ability_level} ability")
-        #else:
-        #    print(f"Consumer {player.id_in_group}: {player.service_needed} service needed")
+                # setup consumers
+                if random.randint(1, 100) <= C.CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT:
+                    player.service_needed = "large"
+                else:
+                    player.service_needed = "small"
 
 
 def creating_session(subsession):
