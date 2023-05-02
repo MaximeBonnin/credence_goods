@@ -13,6 +13,9 @@
 
 <div class="info-box">
     <div class="info-left info-container">
+        {{ if player.participant.number_of_timeouts > 0 }}
+            <p><b>WARNING: You have {% player.participant.number_of_timeouts %} timeouts. You will be excluded from the experiment at {% C.DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS %} timeouts. </b></p>
+        {{ endif }}
         <p>Round number: <b>{% player.round_number %} / {% C.NUM_ROUNDS %}</b></p>
         <p>You are an expert: <b>{% player.is_expert %}</b></p>
         <p>Currency: <b>{% player.currency %}</b></p>
