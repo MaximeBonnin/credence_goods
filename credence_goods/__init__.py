@@ -52,10 +52,10 @@ class Subsession(BaseSubsession):
 
 class Player(BasePlayer):
     is_expert = models.BooleanField(initial=False)
+    player_color = models.StringField()
     currency = models.CurrencyField(initial=0)
 
     # expert variables
-    expert_color = models.StringField()
     price_vector_chosen = models.StringField(choices=["bias_small", "bias_large", "no_bias"], initial="no_bias")
     price_small_service = models.IntegerField(initial=C.PRICE_VECTOR_OPTIONS["no_bias"][0]) # initialize as small value of "no_bias" option in constants
     price_large_service = models.IntegerField(initial=C.PRICE_VECTOR_OPTIONS["no_bias"][1]) # initialize as large value of "no_bias" option in constants
@@ -91,14 +91,14 @@ def setup_players(subsession):
         for player in subsession.get_players():
             player.is_expert = player.in_round(1).is_expert
             player.ability_level = player.in_round(1).ability_level
-            player.expert_color = player.in_round(1).expert_color
+            player.player_color = player.in_round(1).player_color
             player.diagnosis_accuracy_percent = player.in_round(1).diagnosis_accuracy_percent
 
             # service needed changes each round
             player.service_needed = random.choice(("small", "large"))
 
             #if player.is_expert:
-            #    print(f"Expert {player.id_in_group} ({player.expert_color}): {player.ability_level} ability")
+            #    print(f"Expert {player.id_in_group} ({player.player_color}): {player.ability_level} ability")
             #else:
             #    print(f"Consumer {player.id_in_group}: {player.service_needed} service needed")
         return
@@ -125,7 +125,7 @@ def setup_players(subsession):
             else:
                 player.diagnosis_accuracy_percent = 75
 
-            player.expert_color = ["Red", "Aquamarine", "Coral", "Yellow", 
+            player.player_color = ["Red", "Aquamarine", "Coral", "Yellow", 
                                    "Cyan", "Pink", "Salmon", "Grey",
                                    "Lime", "Teal", "Silver", "White"][player.id_in_group-1] #TODO add more colors
 
@@ -137,7 +137,7 @@ def setup_players(subsession):
                 player.service_needed = "small"
 
         #if player.is_expert:
-        #        print(f"Expert {player.id_in_group} ({player.expert_color}): {player.ability_level} ability")
+        #        print(f"Expert {player.id_in_group} ({player.player_color}): {player.ability_level} ability")
         #else:
         #    print(f"Consumer {player.id_in_group}: {player.service_needed} service needed")
 
@@ -233,7 +233,7 @@ class ConsumerChooseExpert(Page):
     def before_next_page(player, timeout_happened):
         if player.expert_chosen:
             player.expert_chosen_color = player.group.get_player_by_id(
-                player.expert_chosen).expert_color
+                player.expert_chosen).player_color
 
 
 # Expert diagnosis I
