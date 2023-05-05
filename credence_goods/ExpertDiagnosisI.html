@@ -28,60 +28,72 @@
 
 {{ include_sibling "InfoBox.html" }}
 
+<script>
+    // Returns a random integer between min (included) and max (excluded)
+    // Using Math.round() will give you a non-uniform distribution!
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+</script>
+
 <div class="consumer-list">
     {% for p in group.get_players() %}
-        {% if not p.is_expert %}
-            <div class="consumer-card">
-                <p class="consumer-name" style="background-color: {% p.player_color.lower() %}"><b>Consumer {% p.player_color %}</b></p>
-                <p>
-                    Variables: <b>
-                        A=<span id="var-a-{% p.id_in_group %}">X</span> | 
-                        B=<span id="var-b-{% p.id_in_group %}">Y</span> | 
-                        C=<span id="var-c-{% p.id_in_group %}">Z</span>
-                    </b>
-                </p>
-                <p>
-                    <input id="calc-A-{% p.id_in_group %}" type="text" size="1" placeholder="A" onkeyup="calculateResult('{% p.id_in_group %}')" required="required"> 
-                    + <input id="calc-B-{% p.id_in_group %}" type="text" size="1" placeholder="B" onkeyup="calculateResult('{% p.id_in_group %}')" required="required"> 
-                    + <input id="calc-C-{% p.id_in_group %}" type="text" size="1" placeholder="C" onkeyup="calculateResult('{% p.id_in_group %}')" required="required">
-                    + <input id="calc-Inv-{% p.id_in_group %}" type="text" size="1" placeholder="?" disabled="disabled">
-                    = <b><span id="calc-result-{% p.id_in_group %}">Result</span></b>
-                </p>
-            </div>
 
-            <script>
-                value_a = Math.round(Math.random()*10);
-                document.getElementById("var-a-{% p.id_in_group %}").innerHTML = value_a;
-                document.getElementById("calc-A-{% p.id_in_group %}").value = value_a;
+        {% if not p.is_dropout %}
+            {% if not p.is_expert %}
+                <div class="consumer-card">
+                    <p class="consumer-name" style="background-color: {% p.player_color.lower() %}"><b>Consumer {% p.player_color %}</b></p>
+                    <p>
+                        Variables: <b>
+                            A=<span id="var-a-{% p.id_in_group %}">X</span> | 
+                            B=<span id="var-b-{% p.id_in_group %}">Y</span> | 
+                            C=<span id="var-c-{% p.id_in_group %}">Z</span>
+                        </b>
+                    </p>
+                    <p>
+                        <input id="calc-A-{% p.id_in_group %}" type="text" size="1" placeholder="A" onkeyup="calculateResult('{% p.id_in_group %}')" required="required"> 
+                        + <input id="calc-B-{% p.id_in_group %}" type="text" size="1" placeholder="B" onkeyup="calculateResult('{% p.id_in_group %}')" required="required"> 
+                        + <input id="calc-C-{% p.id_in_group %}" type="text" size="1" placeholder="C" onkeyup="calculateResult('{% p.id_in_group %}')" required="required">
+                        + <input id="calc-Inv-{% p.id_in_group %}" type="text" size="1" placeholder="?" disabled="disabled">
+                        = <b><span id="calc-result-{% p.id_in_group %}">Result</span></b>
+                    </p>
+                </div>
 
-                value_b = Math.round(Math.random()*10);
-                document.getElementById("var-b-{% p.id_in_group %}").innerHTML = value_b;
-                document.getElementById("calc-B-{% p.id_in_group %}").value = value_b;
+                <script>
+                    
+                    value_a = getRandomInt(1, 11);
+                    document.getElementById("var-a-{% p.id_in_group %}").innerHTML = value_a;
+                    document.getElementById("calc-A-{% p.id_in_group %}").value = value_a;
 
-                value_c = Math.round(Math.random()*10);
-                document.getElementById("var-c-{% p.id_in_group %}").innerHTML = value_c;
-                document.getElementById("calc-C-{% p.id_in_group %}").value = value_c;
+                    value_b = getRandomInt(11, 21);
+                    document.getElementById("var-b-{% p.id_in_group %}").innerHTML = value_b;
+                    document.getElementById("calc-B-{% p.id_in_group %}").value = value_b;
 
-                calculateResult('{% p.id_in_group %}')
+                    value_c = getRandomInt(21, 31);
+                    document.getElementById("var-c-{% p.id_in_group %}").innerHTML = value_c;
+                    document.getElementById("calc-C-{% p.id_in_group %}").value = value_c;
 
-                function calculateResult(id) {
-                    a = parseFloat(document.getElementById("calc-A-" + id).value);
-                    if (isNaN(a)){
-                        a = 0
-                    };
-                    b = parseFloat(document.getElementById("calc-B-" + id).value);
-                    if (isNaN(b)){
-                        b = 0
-                    };
-                    c = parseFloat(document.getElementById("calc-C-" + id).value);
-                    if (isNaN(c)){
-                        c = 0
-                    };
-                    result = a + b + c;
-                    console.log(a, b, c);
-                    document.getElementById("calc-result-" + id).innerHTML = result;
-                }
-            </script>
+                    calculateResult('{% p.id_in_group %}')
+
+                    function calculateResult(id) {
+                        a = parseFloat(document.getElementById("calc-A-" + id).value);
+                        if (isNaN(a)){
+                            a = 0
+                        };
+                        b = parseFloat(document.getElementById("calc-B-" + id).value);
+                        if (isNaN(b)){
+                            b = 0
+                        };
+                        c = parseFloat(document.getElementById("calc-C-" + id).value);
+                        if (isNaN(c)){
+                            c = 0
+                        };
+                        result = a * b * c;
+                        console.log(a, b, c);
+                        document.getElementById("calc-result-" + id).innerHTML = result;
+                    }
+                </script>
+            {% endif %}
         {% endif %}
 
     {% endfor %}

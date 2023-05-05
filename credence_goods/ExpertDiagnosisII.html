@@ -30,20 +30,22 @@
     </script>
 
     {% for p in group.get_players() %}
-        {% if not p.is_expert %}
-            <div class="consumer-card">
-                <p><b>Consumer {% p.id_in_group %}</b></p>
-                <p>Diagnosis result: <b><span id="result-{% p.id_in_group %}">{% p.service_needed %}</span> service needed [100% Acc]</b></p>
-                <p><input class="radio-button" id="consumer_{% p.id_in_group %}_service_small" type="radio" name="{% p.id_in_group %}" value="small" required="required" onclick="updateService(key='{% p.id_in_group %}', value='small')">
-                    Provide small service <b>(Profit: <span class="profit-small"></span>)</b></p>
-                <p><input class="radio-button" id="consumer_{% p.id_in_group %}_service_large" type="radio" name="{% p.id_in_group %}" value="large" required="required" onclick="updateService(key='{% p.id_in_group %}', value='large')">
-                    Provide large service <b>(Profit: <span class="profit-large"></span>)</b></p>
-            </div>
+        {% if not p.is_dropout %}
+            {% if not p.is_expert %}
+                <div class="consumer-card">
+                    <p><b>Consumer {% p.id_in_group %}</b></p>
+                    <p>Diagnosis result: <b><span id="result-{% p.id_in_group %}">{% p.service_needed %}</span> service needed [100% Acc]</b></p>
+                    <p><input class="radio-button" id="consumer_{% p.id_in_group %}_service_small" type="radio" name="{% p.id_in_group %}" value="small" required="required" onclick="updateService(key='{% p.id_in_group %}', value='small')">
+                        Provide small service <b>(Profit: <span class="profit-small"></span>)</b></p>
+                    <p><input class="radio-button" id="consumer_{% p.id_in_group %}_service_large" type="radio" name="{% p.id_in_group %}" value="large" required="required" onclick="updateService(key='{% p.id_in_group %}', value='large')">
+                        Provide large service <b>(Profit: <span class="profit-large"></span>)</b></p>
+                </div>
 
-        <script>
-            dict_of_names["{% p.id_in_group %}"] = "none"
-        </script>
+            <script>
+                dict_of_names["{% p.id_in_group %}"] = "none"
+            </script>
 
+            {% endif %}
         {% endif %}
     {% endfor %}
 

@@ -32,21 +32,28 @@
 
 <div class="expert-list">
     {% for p in group.get_players() %}
-        {% if p.is_expert %}
-            <div class="expert-card">
-                <p class="expert-name" style="background-color: {% p.player_color.lower() %}"><b>{% p.player_color %} ({% p.ability_level %} skill)</b></p>
-                <p>Accuracy: <b>{% p.diagnosis_accuracy_percent %}%</b></p>
+        {% if not p.is_dropout %}
 
-                {% if p.round_number >= C.INVESTMENT_STARTING_ROUND %}
-                    <!-- Display investment choices after they happen -->
-                    <p>Investment: <b>{% p.investment_decision %}</b></p>
-                {% endif %}
+            {% if p.is_expert %}
+                <div class="expert-card">
+                    <p class="expert-name" style="background-color: {% p.player_color.lower() %}"><b>{% p.player_color %} ({% p.ability_level %} skill)</b></p>
+                    <p>Accuracy: <b>{% p.diagnosis_accuracy_percent %}%</b></p>
 
-                <p>Price small service: <b>{% p.price_small_service %}</b></p>
-                <p>Price large service: <b>{% p.price_large_service %}</b></p>
-                <button class="btn btn-primary" name="expert_chosen" value="{% p.id_in_group %}">Choose Expert</button>
-            </div>
-        {% endif %}
+                    {% if group.treatment_investment_visible %}
+                    <!-- Display investment choices after they happen if treatment is appropriate -->
+                        {% if p.round_number >= C.INVESTMENT_STARTING_ROUND %}
+                            <p>Investment: <b>{% p.investment_decision %}</b></p>
+                        {% endif %}
+                    {% endif %}
+
+                    <p>Price small service: <b>{% p.price_small_service %}</b></p>
+                    <p>Price large service: <b>{% p.price_large_service %}</b></p>
+                    <button class="btn btn-primary" name="expert_chosen" value="{% p.id_in_group %}">Choose Expert</button>
+                </div>
+            {% endif %}
+
+
+        {% endif %}    
 
     {% endfor %}
 </div>
