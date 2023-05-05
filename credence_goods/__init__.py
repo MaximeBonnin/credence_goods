@@ -17,7 +17,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'credence_goods'
     NUM_ROUNDS = 4
     PLAYERS_PER_GROUP = 8
-    TIMEOUT_IN_SECONDS = 6               # Intro page is different
+    TIMEOUT_IN_SECONDS = 15               # Intro page is different
     DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS = 3 # players get excluded from the experiment if they have X number of timeouts
 
     NUM_EXPERTS = 4                         # consumers = players - experts
@@ -96,6 +96,7 @@ def setup_players(subsession):
         for group in subsession.get_groups():
             group.treatment_investment_option = group.in_round(1).treatment_investment_option
             group.treatment_investment_frequency = group.in_round(1).treatment_investment_option
+            group.treatment_investment_visible = group.in_round(1).treatment_investment_visible
 
         for player in subsession.get_players():
             player.is_expert = player.in_round(1).is_expert
@@ -112,7 +113,8 @@ def setup_players(subsession):
     for group in subsession.get_groups():
         group.treatment_investment_option = random.choice(["skill", "algo"])
         group.treatment_investment_frequency = random.choice(["once", "repeated"])
-        print(f"Group treatment set: {group.treatment_investment_option} | {group.treatment_investment_frequency}")
+        group.treatment_investment_visible = random.choice([True, False])
+        print(f"Group treatment set: {group.treatment_investment_option} | {group.treatment_investment_frequency} | {group.treatment_investment_visible}")
 
         # experts are different between groups
         expert_sample = random.sample(range(1, C.PLAYERS_PER_GROUP+1), C.NUM_EXPERTS)
@@ -149,6 +151,7 @@ def creating_session(subsession):
 class Group(BaseGroup):
     treatment_investment_option = models.StringField(choices=["skill", "algo"])
     treatment_investment_frequency = models.StringField(choices=["once", "repeated"])
+    treatment_investment_visible = models.BooleanField()
 
 
 
@@ -163,7 +166,7 @@ class Tutorial(Page):
 
 # Intro
 class Intro(Page):
-    timeout_seconds = 6 # 0 * 5    # 5 min
+    timeout_seconds = C.TIMEOUT_IN_SECONDS # timeout doesnt need to get checked on first page
 
     @staticmethod
     def before_next_page(player, timeout_happened):
@@ -172,6 +175,7 @@ class Intro(Page):
             player.participant.number_of_timeouts += 1
             if player.participant.number_of_timeouts >= C.DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS:
                 player.participant.is_dropout = True
+                player.is_dropout = True
                 print(f"Player {player.id_in_group} excluded due to timeout.")
     
     @staticmethod
@@ -197,6 +201,7 @@ class InvestmentChoice(Page):
             player.participant.number_of_timeouts += 1
             if player.participant.number_of_timeouts >= C.DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS:
                 player.participant.is_dropout = True
+                player.is_dropout = True
                 print(f"Player {player.id_in_group} excluded due to timeout.")
 
 
@@ -239,6 +244,7 @@ class ExpertSetPrices(Page):
             player.price_vector_chosen = random.choice(["bias_small", "bias_large", "no_bias"]) # random choice if timeout happened
             if player.participant.number_of_timeouts >= C.DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS:
                 player.participant.is_dropout = True
+                player.is_dropout = True
                 print(f"Player {player.id_in_group} excluded due to timeout.")
 
         # set prices as the vector options
@@ -270,6 +276,7 @@ class ConsumerEnterMarket(Page):
             player.participant.number_of_timeouts += 1
             if player.participant.number_of_timeouts >= C.DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS:
                 player.participant.is_dropout = True
+                player.is_dropout = True
                 print(f"Player {player.id_in_group} excluded due to timeout.")
 
 
@@ -297,6 +304,7 @@ class ConsumerChooseExpert(Page):
             player.participant.number_of_timeouts += 1
             if player.participant.number_of_timeouts >= C.DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS:
                 player.participant.is_dropout = True
+                player.is_dropout = True
                 print(f"Player {player.id_in_group} excluded due to timeout.")
 
         if player.expert_chosen:
@@ -321,6 +329,7 @@ class ExpertDiagnosisI(Page):
             player.participant.number_of_timeouts += 1
             if player.participant.number_of_timeouts >= C.DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS:
                 player.participant.is_dropout = True
+                player.is_dropout = True
                 print(f"Player {player.id_in_group} excluded due to timeout.")
 
     @staticmethod
@@ -362,6 +371,7 @@ class ExpertDiagnosisII(Page):
             player.participant.number_of_timeouts += 1
             if player.participant.number_of_timeouts >= C.DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS:
                 player.participant.is_dropout = True
+                player.is_dropout = True
                 print(f"Player {player.id_in_group} excluded due to timeout.")
 
         # apply service
@@ -437,10 +447,7 @@ class Results(Page):
     def before_next_page(player, timeout_happened):
         # handle timeout and setting is_dropout status
         if timeout_happened:
-            player.participant.number_of_timeouts += 1
-            if player.participant.number_of_timeouts >= C.DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS:
-                player.participant.is_dropout = True
-                print(f"Player {player.id_in_group} excluded due to timeout.")
+            print("Timeout happened. No timeout given because results page.")
 
 
 page_sequence = [GeneralWaitPage,
