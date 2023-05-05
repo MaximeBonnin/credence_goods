@@ -1,0 +1,18 @@
+{{ block title }}
+    Explanation
+{{ endblock }}
+
+{{ block content }}
+
+<div class="content-container">
+    <p>Group {% player.group.id_in_subsession %}</p>
+
+    <div class="text">
+        <p>{% player.group.treatment_investment_option %}</p>
+        <p>{% player.group.treatment_investment_frequency %}</p>
+        <p>{% player.group.treatment_investment_visible %}</p>
+    </div>
+</div>
+
+    {{ next_button }}
+{{ endblock }}
