@@ -87,65 +87,38 @@ class Player(BasePlayer):
     cost_of_providing_large_service =  models.IntegerField(initial=C.COST_OF_PROVIDING_LARGE_SERVICE) # c_g
 
 
-def setup_players(subsession):
-    print(f"Round {subsession.round_number} player setup...")
+def setup_player(player):
+    # sets up a single player
+    print(player.id_in_group)
+    player.participant.number_of_timeouts = 0
+    player.participant.is_dropout = False
+    player.currency = C.ENDOWMENT
+    player.player_color = ["Red", "Aquamarine", "Coral", "Yellow", 
+                            "Cyan", "Pink", "Salmon", "Grey",
+                            "Lime", "Teal", "Silver", "White"][player.id_in_group-1] #TODO add more colors
 
-    # in later rounds, just use previous values
-    if subsession.round_number != 1:
-        print("Use values from previous rounds...")
-        for group in subsession.get_groups():
-            group.treatment_investment_option = group.in_round(1).treatment_investment_option
-            group.treatment_investment_frequency = group.in_round(1).treatment_investment_option
-            group.treatment_investment_visible = group.in_round(1).treatment_investment_visible
+    if (player.id_in_group % 2) == 0 :  # id is even
+        player.is_expert = True
 
-        for player in subsession.get_players():
-            player.is_expert = player.in_round(1).is_expert
-            player.ability_level = player.in_round(1).ability_level
-            player.player_color = player.in_round(1).player_color
-            player.diagnosis_accuracy_percent = player.in_round(1).diagnosis_accuracy_percent
-
-            # service needed changes each round
-            player.service_needed = random.choice(("small", "large"))
-        return
-    
-
-    # in first round, setup player values
-    for group in subsession.get_groups():
-        group.treatment_investment_option = random.choice(["skill", "algo"])
-        group.treatment_investment_frequency = random.choice(["once", "repeated"])
-        group.treatment_investment_visible = random.choice([True, False])
-        print(f"Group treatment set: {group.treatment_investment_option} | {group.treatment_investment_frequency} | {group.treatment_investment_visible}")
-
-        # experts are different between groups
-        expert_sample = random.sample(range(1, C.PLAYERS_PER_GROUP+1), C.NUM_EXPERTS)
-        
-        for player in group.get_players():
-            player.participant.number_of_timeouts = 0
-            player.participant.is_dropout = False
-            player.currency = C.ENDOWMENT
-            player.player_color = ["Red", "Aquamarine", "Coral", "Yellow", 
-                                    "Cyan", "Pink", "Salmon", "Grey",
-                                    "Lime", "Teal", "Silver", "White"][player.id_in_group-1] #TODO add more colors
-
-            if player.id_in_group in expert_sample:
-                player.is_expert = True
-
-                # setup experts
-                player.ability_level = random.choice(("low", "high"))
-                player.diagnosis_accuracy_percent = C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT[player.ability_level]
+        # setup expert
+        player.ability_level = random.choice(("low", "high"))
+        player.diagnosis_accuracy_percent = C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT[player.ability_level]
 
 
-            else:
-                # setup consumers
-                if random.randint(1, 100) <= C.CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT:
-                    player.service_needed = "large"
-                else:
-                    player.service_needed = "small"
+    else:
+        # setup consumer
+        if random.randint(1, 100) <= C.CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT:
+            player.service_needed = "large"
+        else:
+            player.service_needed = "small"
 
+    # set treatment (this is suboptimal but I can't find a way to do it once at group level)
+    player.group.treatment_investment_option = random.choice(["skill", "algo"])
+    player.group.treatment_investment_frequency = random.choice(["once", "repeated"])
+    player.group.treatment_investment_visible = random.choice([True, False])
 
-def creating_session(subsession):
-    print("Creating subsession...")
-    setup_players(subsession) # this runs once for each round when setting up the game
+    return player
+
 
 
 class Group(BaseGroup):
@@ -170,6 +143,7 @@ class Intro(Page):
 
     @staticmethod
     def before_next_page(player, timeout_happened):
+        # setup_players(player.subsession)
         # handle timeout and setting is_dropout status
         if timeout_happened:
             player.participant.number_of_timeouts += 1
@@ -393,6 +367,36 @@ class ExpertDiagnosisII(Page):
                     player.payoff += C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][3]
 
 
+
+class MatchingWaitPage(WaitPage):
+
+    group_by_arrival_time = True
+
+    title_text = "Matching in progress"
+    body_text = "You are currently waiting to be matched with other players. This will only take a minute..."
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
+
+
+class MatchPage(Page):
+    timeout_seconds = 0 # just here because before_next_page doesnt work on wait pages
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
+
+    @staticmethod
+    def before_next_page(player, timeout_happened):
+        print("THIS RAN")
+        
+        print(f"Player grouped. ({player.group} -> {player.id_in_group})")
+        player = setup_player(player)
+
+
+
+
 class GeneralWaitPage(WaitPage):
     title_text = "Waiting for other players"
     body_text = "You are currently waiting for other players to join. It will only take a minute..."
@@ -450,7 +454,8 @@ class Results(Page):
             print("Timeout happened. No timeout given because results page.")
 
 
-page_sequence = [GeneralWaitPage,
+page_sequence = [MatchingWaitPage,
+                 MatchPage,
                  Intro,
                  InvestmentChoice,
                  ExpertSetPrices,

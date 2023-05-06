@@ -28,37 +28,17 @@ class Player(BasePlayer):
 
 
 
-
 # PAGES
 class WelcomePage(Page):
     pass
 
 
-class MatchingWaitPage(WaitPage):
-
-    group_by_arrival_time = True
-
-    title_text = "Matching in progress"
-    body_text = "You are currently waiting to be matched with other players. This will only take a minute..."
-
-    @staticmethod
-    def before_next_page(player, timeout_happened):
-        player.group.treatment_investment_option = random.choice(["skill", "algo"])
-        player.group.treatment_investment_frequency = random.choice(["once", "repeated"])
-        player.group.treatment_investment_visible = random.choice([True, False])
-        print(f"Group matched: {player.group.treatment_investment_option=} | {player.group.treatment_investment_frequency=} | {player.group.treatment_investment_visible=}")
-    
-
 class Explanation(Page):
     pass
 
 
-class ResultsWaitPage(WaitPage):
+class Consent(Page):
     pass
 
 
-class Results(Page):
-    pass
-
-
-page_sequence = [WelcomePage, MatchingWaitPage, Explanation, ResultsWaitPage, Results]
+page_sequence = [WelcomePage, Explanation, Consent]
