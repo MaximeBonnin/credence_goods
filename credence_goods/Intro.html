@@ -3,26 +3,68 @@
 {{ endblock }}
 {{ block content }}
 
-<div class="intro-text">
+{% if player.is_expert %}
+<div class="intro-text expert">
     <!-- Display info based on treatment -->
     {% if player.group.treatment_investment_option == "skill" %}
-        <p>Skill</p>
+        <h4>Skill Investment</h4>    
+        <p>Later in the game you will be able to invest to improve your skills. This will lead to increased diagnosis accuracy.</p>
     {% else %}
-        <p>Algo</p>
+        <h4>Algorithm Investment</h4>    
+        <p>Later in the game you will be able to invest into a helpful algorithm. This will enable you to base your decisions on more data.</p>
     {% endif %}
+
 
     {% if player.group.treatment_investment_frequency == "once" %}
-        <p>Once</p>
+        <h4>Single Investment</h4>    
+        <p>You will have the chance to invest once during the game. If you do not invest at that time you will not get another chance.</p>
     {% else %}
-        <p>Repeated</p>
+        <h4>Repeated Investment</h4>
+        <p>You will have the chance to invest repeatedly during the game. If you do not invest the first time you will get more chances in later rounds.</p>
     {% endif %}
 
+
     {% if player.group.treatment_investment_visible %}
-        <p>Visible</p>
+        <h4>Investment visible</h4>
+        <p>Consumers will be able to see what investment choice you made.</p>
     {% else %}
-        <p>Not Visible</p>
+        <h4>Investment not visible</h4>
+        <p>Consumers will not be able to see what investment choice you made.</p>
     {% endif %}
 </div>
+
+{% else %}
+<div class="intro-text consumer">
+    <!-- Display info based on treatment -->
+    {% if player.group.treatment_investment_option == "skill" %}
+        <h4>Skill</h4>    
+        <p>Experts will have the chance to invest in their skills to help with their diagnosis at a later time.</p>
+    {% else %}
+        <h4>Algorithm</h4>
+        <p>Experts will have the chance to invest in an algorithm to help with their diagnosis at a later time.</p>
+    {% endif %}
+
+
+    {% if player.group.treatment_investment_frequency == "once" %}
+        <h4>Single Investment</h4>    
+        <p>The experts will only get one chance to invest.</p>
+    {% else %}
+        <h4>Repeated Investment</h4>
+        <p>The exeprts will get multiple chances to invest.</p>
+    {% endif %}
+
+
+    {% if player.group.treatment_investment_visible %}
+        <h4>Investment visible</h4>
+        <p>You will be able to see which experts have invested and which have not.</p>
+    {% else %}
+        <h4>Investment not visile</h4>
+        <p>YOu will not be able to see which experts have invested and which have not.</p>
+    {% endif %}
+</div>
+
+{% endif %}
+
     {{ formfields }}
     {{ next_button }}
 
