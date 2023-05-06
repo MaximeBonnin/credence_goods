@@ -22,8 +22,8 @@ class C(BaseConstants):
 
     NUM_EXPERTS = 4                         # consumers = players - experts #TODO currently not working, every second person is set to expert
 
-    INVESTMENT_STARTING_ROUND = 2
     ENDOWMENT = 10                      #TODO maybe different for consumers and experts?
+
 
     COST_OF_PROVIDING_SMALL_SERVICE = 1     # c_k
     COST_OF_PROVIDING_LARGE_SERVICE = 2     # c_g
@@ -49,6 +49,13 @@ class C(BaseConstants):
         "problem_remains": 0,
         "problem_solved": 10
     }
+
+    INVESTMENT_STARTING_ROUND = 2
+    INVESMENT_COST = {
+        "once": 20,
+        "repeated": 2
+    }
+
 
     
 class Subsession(BaseSubsession):
@@ -188,6 +195,9 @@ class InvestmentChoice(Page):
                 player.participant.is_dropout = True
                 player.is_dropout = True
                 print(f"Player {player.id_in_group} excluded due to timeout.")
+
+        if player.investment_decision:
+            player.coins -= C.INVESMENT_COST[player.group.treatment_investment_frequency]
 
 
     form_model = "player"
