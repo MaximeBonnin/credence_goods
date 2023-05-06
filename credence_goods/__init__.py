@@ -17,7 +17,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'credence_goods'
     NUM_ROUNDS = 4
     PLAYERS_PER_GROUP = 8
-    TIMEOUT_IN_SECONDS = 15               # Intro page is different
+    TIMEOUT_IN_SECONDS = 1500               # Intro page is different
     DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS = 3 # players get excluded from the experiment if they have X number of timeouts
 
     NUM_EXPERTS = 4                         # consumers = players - experts
@@ -89,7 +89,6 @@ class Player(BasePlayer):
 
 def setup_player(player):
     # sets up a single player
-    print(player.id_in_group)
     player.participant.number_of_timeouts = 0
     player.participant.is_dropout = False
     player.currency = C.ENDOWMENT
@@ -112,10 +111,7 @@ def setup_player(player):
         else:
             player.service_needed = "small"
 
-    # set treatment (this is suboptimal but I can't find a way to do it once at group level)
-    player.group.treatment_investment_option = random.choice(["skill", "algo"])
-    player.group.treatment_investment_frequency = random.choice(["once", "repeated"])
-    player.group.treatment_investment_visible = random.choice([True, False])
+    
 
     return player
 
@@ -378,23 +374,17 @@ class MatchingWaitPage(WaitPage):
     @staticmethod
     def is_displayed(player: Player):
         return player.round_number == 1
-
-
-class MatchPage(Page):
-    timeout_seconds = 0 # just here because before_next_page doesnt work on wait pages
-
+    
     @staticmethod
-    def is_displayed(player: Player):
-        return player.round_number == 1
+    def after_all_players_arrive(group: Group):
+        # set treatment
+        group.treatment_investment_option = random.choice(["skill", "algo"])
+        group.treatment_investment_frequency = random.choice(["once", "repeated"])
+        group.treatment_investment_visible = random.choice([True, False])
+        print(f"Group treatment set: {group.treatment_investment_option} | {group.treatment_investment_frequency} | {group.treatment_investment_visible}")
 
-    @staticmethod
-    def before_next_page(player, timeout_happened):
-        print("THIS RAN")
-        
-        print(f"Player grouped. ({player.group} -> {player.id_in_group})")
-        player = setup_player(player)
-
-
+        for player in group.get_players():
+            player = setup_player(player)
 
 
 class GeneralWaitPage(WaitPage):
@@ -455,7 +445,6 @@ class Results(Page):
 
 
 page_sequence = [MatchingWaitPage,
-                 MatchPage,
                  Intro,
                  InvestmentChoice,
                  ExpertSetPrices,

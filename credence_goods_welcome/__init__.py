@@ -18,9 +18,7 @@ class Subsession(BaseSubsession):
 
 
 class Group(BaseGroup):
-    treatment_investment_option = models.StringField(choices=["skill", "algo"])
-    treatment_investment_frequency = models.StringField(choices=["once", "repeated"])
-    treatment_investment_visible = models.BooleanField()
+    pass
 
 
 class Player(BasePlayer):

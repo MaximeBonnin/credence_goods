@@ -3,10 +3,25 @@
 {{ endblock }}
 {{ block content }}
 
-{{ include_sibling "InfoBox.html" }}
-
 <div class="intro-text">
-    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+    <!-- Display info based on treatment -->
+    {% if player.group.treatment_investment_option == "skill" %}
+        <p>Skill</p>
+    {% else %}
+        <p>Algo</p>
+    {% endif %}
+
+    {% if player.group.treatment_investment_frequency == "once" %}
+        <p>Once</p>
+    {% else %}
+        <p>Repeated</p>
+    {% endif %}
+
+    {% if player.group.treatment_investment_visible %}
+        <p>Visible</p>
+    {% else %}
+        <p>Not Visible</p>
+    {% endif %}
 </div>
     {{ formfields }}
     {{ next_button }}
