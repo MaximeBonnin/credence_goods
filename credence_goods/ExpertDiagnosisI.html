@@ -43,18 +43,15 @@
             {% if not p.is_expert %}
                 <div class="consumer-card">
                     <p class="consumer-name" style="background-color: {% p.player_color.lower() %}"><b>Consumer {% p.player_color %}</b></p>
-                    <p>
-                        Variables: <b>
-                            A=<span id="var-a-{% p.id_in_group %}">X</span> | 
-                            B=<span id="var-b-{% p.id_in_group %}">Y</span> | 
-                            C=<span id="var-c-{% p.id_in_group %}">Z</span>
-                        </b>
-                    </p>
+                    <p>Factor A: <b><span id="var-a-{% p.id_in_group %}">??</span> / 10</b></p>
+                    <p>Factor B: <b><span id="var-b-{% p.id_in_group %}">??</span> / 20</b></p>
+                    <p>Factor C: <b><span id="var-c-{% p.id_in_group %}">??</span> / 30</b></p>
+                    <p>Factor D: <b><span id="var-d-{% p.id_in_group %}">??</span> / 40</b></p>
                     <p>
                         <input id="calc-A-{% p.id_in_group %}" type="text" size="1" placeholder="A" onkeyup="calculateResult('{% p.id_in_group %}')" required="required"> 
-                        + <input id="calc-B-{% p.id_in_group %}" type="text" size="1" placeholder="B" onkeyup="calculateResult('{% p.id_in_group %}')" required="required"> 
-                        + <input id="calc-C-{% p.id_in_group %}" type="text" size="1" placeholder="C" onkeyup="calculateResult('{% p.id_in_group %}')" required="required">
-                        + <input id="calc-Inv-{% p.id_in_group %}" type="text" size="1" placeholder="?" disabled="disabled">
+                        & <input id="calc-B-{% p.id_in_group %}" type="text" size="1" placeholder="B" onkeyup="calculateResult('{% p.id_in_group %}')" required="required"> 
+                        & <input id="calc-C-{% p.id_in_group %}" type="text" size="1" placeholder="C" onkeyup="calculateResult('{% p.id_in_group %}')" required="required">
+                        & <input id="calc-Inv-{% p.id_in_group %}" type="text" size="1" placeholder="?" disabled="disabled">
                         = <b><span id="calc-result-{% p.id_in_group %}">Result</span></b>
                     </p>
                 </div>

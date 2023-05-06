@@ -20,10 +20,10 @@ class C(BaseConstants):
     TIMEOUT_IN_SECONDS = 1500               # Intro page is different
     DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS = 3 # players get excluded from the experiment if they have X number of timeouts
 
-    NUM_EXPERTS = 4                         # consumers = players - experts
+    NUM_EXPERTS = 4                         # consumers = players - experts #TODO currently not working, every second person is set to expert
 
     INVESTMENT_STARTING_ROUND = 2
-    ENDOWMENT = cu(10)                      #TODO maybe different for consumers and experts?
+    ENDOWMENT = 10                      #TODO maybe different for consumers and experts?
 
     COST_OF_PROVIDING_SMALL_SERVICE = 1     # c_k
     COST_OF_PROVIDING_LARGE_SERVICE = 2     # c_g
@@ -62,7 +62,7 @@ class Player(BasePlayer):
 
     is_expert = models.BooleanField(initial=False)
     player_color = models.StringField()
-    currency = models.CurrencyField(initial=0)
+    coins = models.IntegerField(initial=0)
 
     # expert variables
     price_vector_chosen = models.StringField(choices=["bias_small", "bias_large", "no_bias"], initial="no_bias")
@@ -87,34 +87,49 @@ class Player(BasePlayer):
     cost_of_providing_large_service =  models.IntegerField(initial=C.COST_OF_PROVIDING_LARGE_SERVICE) # c_g
 
 
-def setup_player(player):
+def setup_player(player: Player):
     # sets up a single player
-    player.participant.number_of_timeouts = 0
-    player.participant.is_dropout = False
-    player.currency = C.ENDOWMENT
-    player.player_color = ["Red", "Aquamarine", "Coral", "Yellow", 
-                            "Cyan", "Pink", "Salmon", "Grey",
-                            "Lime", "Teal", "Silver", "White"][player.id_in_group-1] #TODO add more colors
+    if player.round_number == 1:
+        # first round setup
+        player.participant.number_of_timeouts = 0
+        player.participant.is_dropout = False
+        player.coins = C.ENDOWMENT
+        player.player_color = ["Red", "Aquamarine", "Coral", "Yellow", 
+                                "Cyan", "Pink", "Salmon", "Grey",
+                                "Lime", "Teal", "Silver", "White"][player.id_in_group-1] #TODO add more colors
 
-    if (player.id_in_group % 2) == 0 :  # id is even
-        player.is_expert = True
+        if (player.id_in_group % 2) == 0 :  # id is even
+            player.is_expert = True
 
-        # setup expert
-        player.ability_level = random.choice(("low", "high"))
-        player.diagnosis_accuracy_percent = C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT[player.ability_level]
+            # setup expert
+            player.ability_level = random.choice(("low", "high"))
+            player.diagnosis_accuracy_percent = C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT[player.ability_level]
 
 
-    else:
-        # setup consumer
-        if random.randint(1, 100) <= C.CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT:
-            player.service_needed = "large"
         else:
-            player.service_needed = "small"
+            # setup consumer
+            if random.randint(1, 100) <= C.CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT:
+                player.service_needed = "large"
+            else:
+                player.service_needed = "small"
 
+        return player
     
+    else:
+        # later rounds setup
+        player.is_expert = player.in_round(1).is_expert
+        player.player_color = player.in_round(1).player_color
+        player.coins = player.in_previous_rounds()[-1].coins
 
-    return player
+        if player.is_expert:
+            player.ability_level = player.in_round(1).ability_level
+            player.diagnosis_accuracy_percent = C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT[player.ability_level]
 
+        else:
+            if random.randint(1, 100) <= C.CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT:
+                player.service_needed = "large"
+            else:
+                player.service_needed = "small"
 
 
 class Group(BaseGroup):
@@ -345,22 +360,22 @@ class ExpertDiagnosisII(Page):
                 print(f"Player {player.id_in_group} excluded due to timeout.")
 
         # apply service
-        for p in player.get_others_in_subsession():
+        for p in player.get_others_in_group():
             if (not p.is_expert) and (p.expert_chosen == player.id_in_group):
                 p.service_recieved = get_service_from_json_by_id(player.services_provided_to_all_consumers, p.id_in_group)
                 print(p.service_recieved)
 
                 # set consumer payoffs
                 if (p.service_needed == p.service_recieved) or (p.service_recieved == "large"):
-                    p.payoff = C.CONSUMER_PAYOFFS["problem_solved"]
+                    p.coins += C.CONSUMER_PAYOFFS["problem_solved"]
                 else:
-                    p.payoff = C.CONSUMER_PAYOFFS["problem_remains"]
+                    p.coins += C.CONSUMER_PAYOFFS["problem_remains"]
 
                 # set expert payoff
                 if p.service_recieved == "small":
-                    player.payoff += C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][2]
+                    player.coins += C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][2]
                 elif p.service_recieved == "large":
-                    player.payoff += C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][3]
+                    player.coins += C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][3]
 
 
 
@@ -385,6 +400,26 @@ class MatchingWaitPage(WaitPage):
 
         for player in group.get_players():
             player = setup_player(player)
+
+
+class SetupWaitPage(WaitPage):
+    title_text = "Setup in progress..."
+    body_text = "You are currently waiting for other players to arrive. This will only take a minute..."
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number != 1
+    
+    @staticmethod
+    def after_all_players_arrive(group: Group):
+        # set treatment
+        group.treatment_investment_option = group.in_round(1).treatment_investment_option
+        group.treatment_investment_frequency = group.in_round(1).treatment_investment_frequency
+        group.treatment_investment_visible = group.in_round(1).treatment_investment_visible
+
+        for player in group.get_players():
+            player = setup_player(player)
+
 
 
 class GeneralWaitPage(WaitPage):
@@ -444,16 +479,17 @@ class Results(Page):
             print("Timeout happened. No timeout given because results page.")
 
 
-page_sequence = [MatchingWaitPage,
-                 Intro,
-                 InvestmentChoice,
-                 ExpertSetPrices,
-                 ConsumerWaitPage, 
-                 ConsumerEnterMarket,
-                 ConsumerChooseExpert, 
-                 ExpertWaitPage, 
-                 ExpertDiagnosisI, 
-                 ExpertDiagnosisII,
-                 ConsumerWaitPage, 
-                 Results
+page_sequence = [MatchingWaitPage,  # only first round
+                 Intro,             # only first round
+                 SetupWaitPage,
+                 InvestmentChoice,  # only later rounds
+                 ExpertSetPrices,   # Experts | all rounds
+                 ConsumerWaitPage,      # Consumers | all rounds
+                 ConsumerEnterMarket,   # Consumers | all rounds
+                 ConsumerChooseExpert,  # Consumers | all rounds
+                 ExpertWaitPage,    # Experts | all rounds
+                 ExpertDiagnosisI,  # Experts | all rounds
+                 ExpertDiagnosisII, # Experts | all rounds
+                 ConsumerWaitPage,  # Consumers | all rounds
+                 Results            # all rounds
                  ]
