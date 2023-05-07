@@ -51,7 +51,7 @@ class C(BaseConstants):
     }
 
     INVESTMENT_STARTING_ROUND = 2
-    INVESMENT_COST = {
+    INVESTMENT_COST = {
         "once": 20,
         "repeated": 2
     }
@@ -79,6 +79,7 @@ class Player(BasePlayer):
     ability_level = models.StringField(choices=("high", "low"))                             # 
     diagnosis_accuracy_percent = models.IntegerField()                                      # depends on high / low ability
     services_provided_to_all_consumers = models.LongStringField()
+    number_of_services_provided = models.IntegerField(initial=0)
 
     investment_decision = models.BooleanField(initial=False)
 
@@ -131,6 +132,10 @@ def setup_player(player: Player):
         if player.is_expert:
             player.ability_level = player.in_round(1).ability_level
             player.diagnosis_accuracy_percent = C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT[player.ability_level]
+
+            # if single investment decision, use that in all later rounds. Reset if repeated.
+            if player.group.treatment_investment_frequency == "once" and player.round_number > C.INVESTMENT_STARTING_ROUND:
+                player.investment_decision = player.in_round(C.INVESTMENT_STARTING_ROUND).investment_decision
 
         else:
             if random.randint(1, 100) <= C.CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT:
@@ -197,7 +202,7 @@ class InvestmentChoice(Page):
                 print(f"Player {player.id_in_group} excluded due to timeout.")
 
         if player.investment_decision:
-            player.coins -= C.INVESMENT_COST[player.group.treatment_investment_frequency]
+            player.coins -= C.INVESTMENT_COST[player.group.treatment_investment_frequency]
 
 
     form_model = "player"
@@ -205,8 +210,22 @@ class InvestmentChoice(Page):
 
     @staticmethod
     def is_displayed(player):
-        if (player.round_number == C.INVESTMENT_STARTING_ROUND) and player.is_expert:
-            return True
+        # only experts see this page
+        if not player.is_expert:
+            return False
+        
+        # display only once if treatment "once"
+        if player.group.treatment_investment_frequency == "once":
+            return player.round_number == C.INVESTMENT_STARTING_ROUND
+        
+        # display every round (after set invest starting round) if set to "repeated"
+        return player.round_number >= C.INVESTMENT_STARTING_ROUND
+    
+    @staticmethod
+    def js_vars(player: Player):
+        return dict(
+            investment_cost = C.INVESTMENT_COST[player.group.treatment_investment_frequency]
+        )
 
 
 # Expert set prices
@@ -372,22 +391,24 @@ class ExpertDiagnosisII(Page):
         # apply service
         for p in player.get_others_in_group():
             if (not p.is_expert) and (p.expert_chosen == player.id_in_group):
-                p.service_recieved = get_service_from_json_by_id(player.services_provided_to_all_consumers, p.id_in_group)
+                consumer = p
+                consumer.service_recieved = get_service_from_json_by_id(player.services_provided_to_all_consumers, consumer.id_in_group)
+                player.number_of_services_provided += 1
                 # print(p.service_recieved)
 
                 # set consumer coin payoff
-                if (p.service_needed == p.service_recieved) or (p.service_recieved == "large"):
-                    p.coins += C.CONSUMER_PAYOFFS["problem_solved"]
+                if (consumer.service_needed == consumer.service_recieved) or (consumer.service_recieved == "large"):
+                    consumer.coins += C.CONSUMER_PAYOFFS["problem_solved"]
                 else:
-                    p.coins += C.CONSUMER_PAYOFFS["problem_remains"]
+                    consumer.coins += C.CONSUMER_PAYOFFS["problem_remains"]
 
                 # set expert coin payoff and consumer pay price
-                if p.service_recieved == "small":
+                if consumer.service_recieved == "small":
                     player.coins += C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][2]   # profit small
-                    p.coins -= C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][0]        # price small
-                elif p.service_recieved == "large":
+                    consumer.coins -= C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][0]        # price small
+                elif consumer.service_recieved == "large":
                     player.coins += C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][3]   # profit large
-                    p.coins -= C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][1]        # price large
+                    consumer.coins -= C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][1]        # price large
 
 
 
@@ -493,11 +514,11 @@ class Results(Page):
 
 page_sequence = [MatchingWaitPage,  # only first round
                  Intro,             # only first round
-                 SetupWaitPage,
+                 SetupWaitPage,     # all later rounds
                  InvestmentChoice,  # only later rounds
                  ExpertSetPrices,   # Experts | all rounds
-                 ConsumerWaitPage,      # Consumers | all rounds
                  ConsumerEnterMarket,   # Consumers | all rounds
+                 ConsumerWaitPage,      # Consumers | all rounds
                  ConsumerChooseExpert,  # Consumers | all rounds
                  ExpertWaitPage,    # Experts | all rounds
                  ExpertDiagnosisI,  # Experts | all rounds

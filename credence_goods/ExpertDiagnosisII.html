@@ -14,9 +14,15 @@
         text-align: center;
         border: solid;
         border-radius: 1em;
-        padding: 0.3em;
+        padding-bottom: 0.3em;
+        overflow: hidden;
         margin: 1em;
     }
+    .consumer-name {
+        width: 100%;
+        padding: 0.3em;
+        margin-bottom: 0.3em;
+    } 
 </style>
 
 
@@ -33,7 +39,7 @@
         {% if not p.is_dropout %}
             {% if not p.is_expert %}
                 <div class="consumer-card">
-                    <p><b>Consumer {% p.id_in_group %}</b></p>
+                    <p class="consumer-name" style="background-color: {% p.player_color.lower() %}"><b>Consumer {% p.player_color %}</b></p>
                     <p>Diagnosis result: <b><span id="result-{% p.id_in_group %}">{% p.service_needed %}</span> service needed [100% Acc]</b></p>
                     <p><input class="radio-button" id="consumer_{% p.id_in_group %}_service_small" type="radio" name="{% p.id_in_group %}" value="small" required="required" onclick="updateService(key='{% p.id_in_group %}', value='small')">
                         Provide small service <b>(Profit: <span class="profit-small"></span>)</b></p>

@@ -35,7 +35,7 @@
             <p>This will improve your diagnosis skills.</p>
             <p>Before investment: <b>{% player.diagnosis_accuracy_percent %}%</b></p>
             <p>After investment: <b>[some fixed value]</b></p>
-            <button class="btn btn-primary" name="investment_decision" value=true>Invest</button>
+            <button class="btn btn-primary" name="investment_decision" value=true>Invest (Pay <span id="investment-cost"></span> Coins)</button>
         </div>
 
     {% else %}
@@ -44,7 +44,7 @@
             <p>cost: ???</p>
             <p>This will provide automatic diagnosis.</p>
             <p>[explanation?]</p>
-            <button class="btn btn-primary" name="investment_decision" value=true>Invest</button>
+            <button class="btn btn-primary" name="investment_decision" value=true>Invest (Pay <span id="investment-cost"></span> Coins)</button>
         </div>
 
     {% endif %}
@@ -55,6 +55,11 @@
         <p>[explanation?]</p>
         <button class="btn btn-primary" name="investment_decision" value=false>Don't Invest</button>
     </div>
+
+    <script>
+        let investment_cost = js_vars.investment_cost;
+        document.getElementById("investment-cost").innerHTML = investment_cost;
+    </script>
 
 {{ formfield_errors 'investment_decision' }}
 

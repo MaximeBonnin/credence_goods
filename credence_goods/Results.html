@@ -26,11 +26,15 @@
                 <tbody>
                   <tr>
                     <td class="tg-0pky">Round</td>
+                    <td class="tg-0pky">Number of services provided</td>
+                    <td class="tg-0pky">Investment made</td>
                     <td class="tg-0pky">Coins recieved</td>
                   </tr>
                   {% for p in player.in_all_rounds() %}
                   <tr>
                     <td class="tg-0pky">{% p.round_number %}</td>
+                    <td class="tg-0pky">{% p.number_of_services_provided %}</td>
+                    <td class="tg-0pky">{% p.investment_decision %}</td>
                     <td class="tg-0pky">{% p.coins %} coins</td>
                   </tr>
                   {% endfor %}
