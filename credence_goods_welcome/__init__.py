@@ -3,7 +3,7 @@ import random
 
 
 doc = """
-Welcome pages and match making for credence goods game
+Welcome pages and cosnent making for credence goods game
 """
 
 
@@ -22,13 +22,17 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    pass
+    #TODO maybe as dropdown?
+    year_of_birth = models.IntegerField(label="Your year of birth (e.g. 1995)")
+    occupation = models.StringField(label="Your current occupation (e.g. Student, Employed)")
+
 
 
 
 # PAGES
 class WelcomePage(Page):
-    pass
+    form_model = "player"
+    form_fields = ["year_of_birth", "occupation"]
 
 
 class Explanation(Page):
