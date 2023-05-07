@@ -40,8 +40,9 @@ class C(BaseConstants):
     }
 
     EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT = { # currently just random.choice() for selection
-        "low": 75,
-        "high": 85
+        "low": 50,
+        "high": 75,
+        "invested": 90
     }
 
     CONSUMER_PAYOFFS = {
@@ -324,6 +325,12 @@ class ConsumerChooseExpert(Page):
         if player.expert_chosen:
             player.expert_chosen_color = player.group.get_player_by_id(
                 player.expert_chosen).player_color
+            
+    @staticmethod
+    def js_vars(player: Player):
+        return dict(
+            price_vector = C.PRICE_VECTOR_OPTIONS
+        )
 
 
 # Expert diagnosis I

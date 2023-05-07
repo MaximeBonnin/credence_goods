@@ -31,6 +31,10 @@
 {{ include_sibling "InfoBox.html" }}
 
 <div class="expert-list">
+    <script>
+        let price_vector = js_vars.price_vector;
+        console.log(price_vector);
+    </script>
     {% for p in group.get_players() %}
         {% if not p.is_dropout %}
 
@@ -40,16 +44,22 @@
                     <p>Accuracy: <b>{% p.diagnosis_accuracy_percent %}%</b></p>
 
                     {% if group.treatment_investment_visible %}
-                    <!-- Display investment choices after they happen if treatment is appropriate -->
+                    <!-- Display investment choices after they happen and if treatment is appropriate -->
                         {% if p.round_number >= C.INVESTMENT_STARTING_ROUND %}
                             <p>Investment: <b>{% p.investment_decision %}</b></p>
                         {% endif %}
                     {% endif %}
 
-                    <p>Price small service: <b>{% p.price_small_service %}</b></p>
-                    <p>Price large service: <b>{% p.price_large_service %}</b></p>
+                    <p>Price small service: <b>{% p.price_small_service %}</b> (Expert Profit: <b><span id="profit-small-{% p.id_in_group %}"></span></b>)</p>
+                    <p>Price large service: <b>{% p.price_large_service %}</b> (Expert Profit: <b><span id="profit-large-{% p.id_in_group %}"></span></b>)</p>
                     <button class="btn btn-primary" name="expert_chosen" value="{% p.id_in_group %}">Choose Expert</button>
                 </div>
+                
+                <script>
+                    document.getElementById("profit-small-{% p.id_in_group %}").innerHTML = price_vector["{% p.price_vector_chosen %}"][2]
+                    document.getElementById("profit-large-{% p.id_in_group %}").innerHTML = price_vector["{% p.price_vector_chosen %}"][3]
+                </script>
+                
             {% endif %}
 
 
