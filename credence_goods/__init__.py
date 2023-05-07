@@ -10,7 +10,7 @@ Your app description
 
 class C(BaseConstants):
     # DEV VARS FOR TESTING
-    ENABLE_WAITING_PAGES = False
+    ENABLE_WAITING_PAGES = True
 
     #
 
@@ -373,19 +373,21 @@ class ExpertDiagnosisII(Page):
         for p in player.get_others_in_group():
             if (not p.is_expert) and (p.expert_chosen == player.id_in_group):
                 p.service_recieved = get_service_from_json_by_id(player.services_provided_to_all_consumers, p.id_in_group)
-                print(p.service_recieved)
+                # print(p.service_recieved)
 
-                # set consumer payoffs
+                # set consumer coin payoff
                 if (p.service_needed == p.service_recieved) or (p.service_recieved == "large"):
                     p.coins += C.CONSUMER_PAYOFFS["problem_solved"]
                 else:
                     p.coins += C.CONSUMER_PAYOFFS["problem_remains"]
 
-                # set expert payoff
+                # set expert coin payoff and consumer pay price
                 if p.service_recieved == "small":
-                    player.coins += C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][2]
+                    player.coins += C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][2]   # profit small
+                    p.coins -= C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][0]        # price small
                 elif p.service_recieved == "large":
-                    player.coins += C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][3]
+                    player.coins += C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][3]   # profit large
+                    p.coins -= C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][1]        # price large
 
 
 

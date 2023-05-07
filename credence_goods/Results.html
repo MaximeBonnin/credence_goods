@@ -31,7 +31,7 @@
                   {% for p in player.in_all_rounds() %}
                   <tr>
                     <td class="tg-0pky">{% p.round_number %}</td>
-                    <td class="tg-0pky">{% p.coins %}</td>
+                    <td class="tg-0pky">{% p.coins %} coins</td>
                   </tr>
                   {% endfor %}
                 </tbody>
@@ -61,13 +61,13 @@
                   <tr>
                     <td class="tg-0pky">Round</td>
                     <td class="tg-0pky">Expert chosen</td>
-                    <td class="tg-0pky">Payout recieved</td>
+                    <td class="tg-0pky">Coins recieved</td>
                   </tr>
                   {% for p in player.in_all_rounds() %}
                   <tr>
                     <td class="tg-0pky">{% p.round_number %}</td>
                     <td class="tg-0pky">{% p.field_maybe_none('expert_chosen_color') %}</td>
-                    <td class="tg-0pky">{% p.payoff %}</td>
+                    <td class="tg-0pky">{% p.coins %} coins</td>
                   </tr>
                   {% endfor %}
                 </tbody>
