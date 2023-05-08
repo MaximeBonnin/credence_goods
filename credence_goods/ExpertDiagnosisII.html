@@ -33,6 +33,7 @@
 
     <script>
         var dict_of_names = {};
+        var diagnosis_correct_for_all_patients = js_vars.diagnosis_correct_for_all_patients;
     </script>
 
     {% for p in group.get_players() %}
@@ -40,7 +41,10 @@
             {% if not p.is_expert %}
                 <div class="consumer-card">
                     <p class="consumer-name" style="background-color: {% p.player_color.lower() %}"><b>Consumer {% p.player_color %}</b></p>
-                    <p>Diagnosis result: <b><span id="result-{% p.id_in_group %}">{% p.service_needed %}</span> service needed [100% Acc]</b></p>
+
+                    <p>Diagnosis result: <b><span id="result-{% p.id_in_group %}"></span> ({% player.total_diagnosis_accuracy_percent %}% Acc)</b></p>
+
+
                     <p><input class="radio-button" id="consumer_{% p.id_in_group %}_service_small" type="radio" name="{% p.id_in_group %}" value="small" required="required" onclick="updateService(key='{% p.id_in_group %}', value='small')">
                         Provide small service <b>(Profit: <span class="profit-small"></span>)</b></p>
                     <p><input class="radio-button" id="consumer_{% p.id_in_group %}_service_large" type="radio" name="{% p.id_in_group %}" value="large" required="required" onclick="updateService(key='{% p.id_in_group %}', value='large')">
@@ -49,6 +53,17 @@
 
             <script>
                 dict_of_names["{% p.id_in_group %}"] = "none"
+                if (diagnosis_correct_for_all_patients["{% p.id_in_group %}"]) {
+                    /* correct diagnosis */ 
+                    document.getElementById("result-{% p.id_in_group %}").innerHTML = "{% p.service_needed %}"
+                } else {
+                    /* incorrect diagnosis */ 
+                    if ("{% p.service_needed %}" == "small") {
+                        document.getElementById("result-{% p.id_in_group %}").innerHTML = "large"
+                    } else {
+                        document.getElementById("result-{% p.id_in_group %}").innerHTML = "small"
+                    }
+                }
             </script>
 
             {% endif %}

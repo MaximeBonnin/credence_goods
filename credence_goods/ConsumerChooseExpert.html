@@ -41,13 +41,15 @@
             {% if p.is_expert %}
                 <div class="expert-card">
                     <p class="expert-name" style="background-color: {% p.player_color.lower() %}"><b>{% p.player_color %} ({% p.ability_level %} skill)</b></p>
-                    <p>Accuracy: <b>{% p.diagnosis_accuracy_percent %}%</b></p>
 
-                    {% if group.treatment_investment_visible %}
-                    <!-- Display investment choices after they happen and if treatment is appropriate -->
-                        {% if p.round_number >= C.INVESTMENT_STARTING_ROUND %}
-                            <p>Investment: <b>{% p.investment_decision %}</b></p>
-                        {% endif %}
+                    <!-- Display skill level if treatment is appropirate-->
+                    {% if group.treatment_skill_visible %}
+                        <p>Accuracy: <b>{% p.total_diagnosis_accuracy_percent %}%</b></p>
+                    {% endif %}
+
+                    <!-- Display investment choices after they happen -->
+                    {% if p.round_number >= C.INVESTMENT_STARTING_ROUND %}
+                        <p>Investment: <b>{% p.investment_decision %}</b></p>
                     {% endif %}
 
                     <p>Price small service: <b>{% p.price_small_service %}</b> (Expert Profit: <b><span id="profit-small-{% p.id_in_group %}"></span></b>)</p>

@@ -16,11 +16,11 @@ class C(BaseConstants):
 
     NAME_IN_URL = 'credence_goods'
     NUM_ROUNDS = 4
-    PLAYERS_PER_GROUP = 8
+    PLAYERS_PER_GROUP = 4
     TIMEOUT_IN_SECONDS = 1500               # Intro page is different
     DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS = 3 # players get excluded from the experiment if they have X number of timeouts
 
-    NUM_EXPERTS = 4                         # consumers = players - experts #TODO currently not working, every second person is set to expert
+    NUM_EXPERTS = 2                         # consumers = players - experts #TODO currently not working, every second person is set to expert
 
     ENDOWMENT = 10                      #TODO maybe different for consumers and experts?
 
@@ -78,8 +78,10 @@ class Player(BasePlayer):
     price_large_service = models.IntegerField(initial=C.PRICE_VECTOR_OPTIONS["no_bias"][1]) # initialize as large value of "no_bias" option in constants
 
     ability_level = models.StringField(choices=("high", "low"))                             # 
-    diagnosis_accuracy_percent = models.IntegerField()                                      # depends on high / low ability
-    services_provided_to_all_consumers = models.LongStringField()
+    base_diagnosis_accuracy_percent = models.IntegerField()                                 # depends on high / low ability
+    total_diagnosis_accuracy_percent = models.IntegerField()                                # depends on high/low ability and investment
+    diagnosis_correct_for_all_patients = models.LongStringField()                           # json/dict format string
+    services_provided_to_all_consumers = models.LongStringField()                           # json/dict format string 
     number_of_services_provided = models.IntegerField(initial=0)
 
     investment_decision = models.BooleanField(initial=False)
@@ -96,7 +98,7 @@ class Player(BasePlayer):
     cost_of_providing_large_service =  models.IntegerField(initial=C.COST_OF_PROVIDING_LARGE_SERVICE) # c_g
 
 
-def setup_player(player: Player):
+def setup_player(player: Player) -> Player:
     # sets up a single player
     if player.round_number == 1:
         # first round setup
@@ -112,7 +114,10 @@ def setup_player(player: Player):
 
             # setup expert
             player.ability_level = random.choice(("low", "high"))
-            player.diagnosis_accuracy_percent = C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT[player.ability_level]
+            player.base_diagnosis_accuracy_percent = C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT[player.ability_level]
+            player.total_diagnosis_accuracy_percent = player.base_diagnosis_accuracy_percent
+
+            
 
 
         else:
@@ -132,7 +137,8 @@ def setup_player(player: Player):
 
         if player.is_expert:
             player.ability_level = player.in_round(1).ability_level
-            player.diagnosis_accuracy_percent = C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT[player.ability_level]
+            player.base_diagnosis_accuracy_percent = C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT[player.ability_level]
+            player.total_diagnosis_accuracy_percent = player.base_diagnosis_accuracy_percent #TODO override this later if investment happens
 
             # if single investment decision, use that in all later rounds. Reset if repeated.
             if player.group.treatment_investment_frequency == "once" and player.round_number > C.INVESTMENT_STARTING_ROUND:
@@ -148,7 +154,7 @@ def setup_player(player: Player):
 class Group(BaseGroup):
     treatment_investment_option = models.StringField(choices=["skill", "algo"])
     treatment_investment_frequency = models.StringField(choices=["once", "repeated"])
-    treatment_investment_visible = models.BooleanField()
+    treatment_skill_visible = models.BooleanField()
 
 
 
@@ -225,7 +231,8 @@ class InvestmentChoice(Page):
     @staticmethod
     def js_vars(player: Player):
         return dict(
-            investment_cost = C.INVESTMENT_COST[player.group.treatment_investment_frequency]
+            investment_cost = C.INVESTMENT_COST[player.group.treatment_investment_frequency],
+            accuracies = C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT
         )
 
 
@@ -265,6 +272,14 @@ class ExpertSetPrices(Page):
         # set prices as the vector options
         player.price_small_service = C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][0]
         player.price_large_service = C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][1]
+
+        diagnosis_correct_for_all_patients = {}
+        for consumer in player.get_others_in_group():
+            if not consumer.is_expert:
+                diagnosis_correct_for_all_patients[str(consumer.id_in_group)] = int(random.randint(1, 100) <= player.total_diagnosis_accuracy_percent)
+        player.diagnosis_correct_for_all_patients = json.dumps(diagnosis_correct_for_all_patients)
+        print(player.diagnosis_correct_for_all_patients)
+
         return
 
 
@@ -354,6 +369,12 @@ class ExpertDiagnosisI(Page):
                 print(f"Player {player.id_in_group} excluded due to timeout.")
 
     @staticmethod
+    def js_vars(player: Player):
+        return dict(
+            diagnosis_correct_for_all_patients = "test" # player.diagnosis_correct_for_all_patients
+        )
+
+    @staticmethod
     def is_displayed(player):
         return player.is_expert
 
@@ -379,6 +400,7 @@ class ExpertDiagnosisII(Page):
     def js_vars(player):
         return dict(
             price_vectors=C.PRICE_VECTOR_OPTIONS,
+            diagnosis_correct_for_all_patients = json.loads(player.diagnosis_correct_for_all_patients)
         )
 
     @staticmethod
@@ -435,11 +457,12 @@ class MatchingWaitPage(WaitPage):
         # set treatment
         group.treatment_investment_option = random.choice(["skill", "algo"])
         group.treatment_investment_frequency = random.choice(["once", "repeated"])
-        group.treatment_investment_visible = random.choice([True, False])
-        print(f"Group treatment set: {group.treatment_investment_option} | {group.treatment_investment_frequency} | {group.treatment_investment_visible}")
+        group.treatment_skill_visible = random.choice([True, False])
+        print(f"Group treatment set: {group.treatment_investment_option} | {group.treatment_investment_frequency} | {group.treatment_skill_visible}")
 
         for player in group.get_players():
             player = setup_player(player)
+        
 
 
 class SetupWaitPage(WaitPage):
@@ -455,7 +478,7 @@ class SetupWaitPage(WaitPage):
         # set treatment
         group.treatment_investment_option = group.in_round(1).treatment_investment_option
         group.treatment_investment_frequency = group.in_round(1).treatment_investment_frequency
-        group.treatment_investment_visible = group.in_round(1).treatment_investment_visible
+        group.treatment_skill_visible = group.in_round(1).treatment_skill_visible
 
         for player in group.get_players():
             player = setup_player(player)

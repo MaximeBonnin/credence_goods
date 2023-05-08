@@ -31,17 +31,15 @@
     {% if group.treatment_investment_option == "skill" %}
         <div class="skill-improvement investment-choice-card">
             <p><b>Skill Investment</b></p>
-            <p>cost: ???</p>
             <p>This will improve your diagnosis skills.</p>
-            <p>Before investment: <b>{% player.diagnosis_accuracy_percent %}%</b></p>
-            <p>After investment: <b>[some fixed value]</b></p>
+            <p>Accuracy before: <b>{% player.base_diagnosis_accuracy_percent %}%</b></p>
+            <p>Accuracy after: <b><span id="total_diagnosis_accuracy_percent">total_diagnosis_accuracy_percent</span>%</b></p>
             <button class="btn btn-primary" name="investment_decision" value=true>Invest (Pay <span id="investment-cost"></span> Coins)</button>
         </div>
 
     {% else %}
         <div class="algo-improvement investment-choice-card">
             <p><b>Algorithm Investment</b></p>
-            <p>cost: ???</p>
             <p>This will provide automatic diagnosis.</p>
             <p>[explanation?]</p>
             <button class="btn btn-primary" name="investment_decision" value=true>Invest (Pay <span id="investment-cost"></span> Coins)</button>
@@ -52,13 +50,15 @@
     <div class="algo-improvement investment-choice-card">
         <p><b>No Investment</b></p>
         <p>Continue as usual.</p>
-        <p>[explanation?]</p>
+        <p>Accuracy before: <b>{% player.base_diagnosis_accuracy_percent %}%</b></p>
+        <p>Accuracy after: <b>{% player.base_diagnosis_accuracy_percent %}%</b></p>
         <button class="btn btn-primary" name="investment_decision" value=false>Don't Invest</button>
     </div>
 
     <script>
         let investment_cost = js_vars.investment_cost;
         document.getElementById("investment-cost").innerHTML = investment_cost;
+        document.getElementById("total_diagnosis_accuracy_percent").innerHTML = js_vars.accuracies["invested"];
     </script>
 
 {{ formfield_errors 'investment_decision' }}
