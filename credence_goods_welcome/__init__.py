@@ -3,13 +3,13 @@ import random
 
 
 doc = """
-Welcome pages and cosnent making for credence goods game
+Welcome pages and consent for credence goods game
 """
 
 
 class C(BaseConstants):
     NAME_IN_URL = 'credence_goods_welcome'
-    PLAYERS_PER_GROUP = 8
+    PLAYERS_PER_GROUP = 6
     NUM_ROUNDS = 1
 
 
@@ -29,10 +29,15 @@ class Player(BasePlayer):
 
 def creating_session(subsession: Subsession):
     print("Creating session...")
+    print(f"Skill visible: {subsession.session.config['treatment_skill_visible']} | to change this go to settings -> SESSION_CONFIGS -> treatment_skill_visible")
     for player in subsession.get_players():
-        player.participant.is_expert = random.choice([True, False])
-        player.participant.treatment_skill_visible = random.choice([True, False])
+        #TODO make this random not just even/uneven
+        if player.id_in_group % 2 == 0:
+            player.participant.is_expert = True
+        else:
+            player.participant.is_expert = False
 
+        player.participant.treatment_skill_visible = subsession.session.config['treatment_skill_visible']
 
 # PAGES
 class WelcomePage(Page):

@@ -16,11 +16,12 @@ class C(BaseConstants):
 
     NAME_IN_URL = 'credence_goods'
     NUM_ROUNDS = 4
-    PLAYERS_PER_GROUP = 4
+    PLAYERS_PER_GROUP = 6
     TIMEOUT_IN_SECONDS = 1500               # Intro page is different
     DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS = 3 # players get excluded from the experiment if they have X number of timeouts
 
-    NUM_EXPERTS = 2                         # consumers = players - experts #TODO currently not working, every second person is set to expert
+    NUM_EXPERTS_PER_GROUP = 3                         # consumers = players - experts #TODO currently not working, every second person is set to expert
+    NUM_CONSUMERS_PER_GROUP = PLAYERS_PER_GROUP - NUM_EXPERTS_PER_GROUP
 
     ENDOWMENT = 10                      #TODO maybe different for consumers and experts?
 
@@ -443,25 +444,14 @@ class ExpertDiagnosisII(Page):
 
 def group_by_arrival_time_method(subsession, waiting_players):
 
-    treatment_visisble = [p for p in waiting_players if p.participant.treatment_skill_visible]
-    treatment_not_visisble = [p for p in waiting_players if not p.participant.treatment_skill_visible]
+    experts = [e for e in waiting_players if e.participant.is_expert]
+    consumers = [c for c in waiting_players if not c.participant.is_expert]
 
-    experts_treatment_visisble = [e for e in treatment_visisble if e.participant.is_expert]
-    consumers_treatment_visisble = [c for c in treatment_visisble if not c.participant.is_expert]
-
-    experts_treatment_not_visisble = [e for e in treatment_not_visisble if e.participant.is_expert]
-    consumers_treatment_not_visisble = [c for c in treatment_not_visisble if not c.participant.is_expert]
-
-    print(f"Currently waiting (treatment visible): {len(experts_treatment_visisble)} Experts | {len(consumers_treatment_visisble)} Consumers")
-    print(f"Currently waiting (treatment not visible): {len(experts_treatment_not_visisble)} Experts | {len(consumers_treatment_not_visisble)} Consumers")
-
-    if (len(experts_treatment_visisble) >= 2) and (len(consumers_treatment_visisble) >= 2):
+    print(f"Currently waiting: {len(experts)}/{C.NUM_EXPERTS_PER_GROUP} Experts | {len(consumers)}/{C.NUM_CONSUMERS_PER_GROUP} Consumers")
+    if (len(experts) >= C.NUM_EXPERTS_PER_GROUP) and (len(consumers) >= C.NUM_CONSUMERS_PER_GROUP):
         print('Creating group...')
-        return [experts_treatment_visisble[0], experts_treatment_visisble[1], consumers_treatment_visisble[0], consumers_treatment_visisble[1]]
-    
-    elif (len(experts_treatment_not_visisble) >= 2) and (len(consumers_treatment_not_visisble) >= 2):
-        print('Creating group...')
-        return [experts_treatment_not_visisble[0], experts_treatment_not_visisble[1], consumers_treatment_not_visisble[0], consumers_treatment_not_visisble[1]]
+        grouped_players = experts[0:C.NUM_EXPERTS_PER_GROUP] + consumers[0:C.NUM_CONSUMERS_PER_GROUP]
+        return grouped_players
     
     print('not enough players yet to create a group')
 
@@ -482,7 +472,7 @@ class MatchingWaitPage(WaitPage):
         # set treatment
         group.treatment_investment_option = random.choice(["skill", "algo"])
         group.treatment_investment_frequency = random.choice(["once", "repeated"])
-        group.treatment_skill_visible = random.choice([True, False])
+        group.treatment_skill_visible = group.subsession.session.config['treatment_skill_visible']
         print(f"Group treatment set: {group.treatment_investment_option} | {group.treatment_investment_frequency} | {group.treatment_skill_visible}")
 
         for player in group.get_players():
