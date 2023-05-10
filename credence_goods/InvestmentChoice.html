@@ -41,7 +41,8 @@
         <div class="algo-improvement investment-choice-card">
             <p><b>Algorithm Investment</b></p>
             <p>This will provide automatic diagnosis.</p>
-            <p>[explanation?]</p>
+            <p>Accuracy before: <b>{% player.base_diagnosis_accuracy_percent %}%</b></p>
+            <p>Accuracy after: <b><span id="total_diagnosis_accuracy_percent">total_diagnosis_accuracy_percent</span>%</b></p>
             <button class="btn btn-primary" name="investment_decision" value=true>Invest (Pay <span id="investment-cost"></span> Coins)</button>
         </div>
 

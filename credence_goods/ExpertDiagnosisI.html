@@ -34,6 +34,8 @@
     function getRandomInt(min, max) {
         return Math.floor(Math.random() * (max - min)) + min;
     }
+
+    console.log(js_vars.diagnosis_correct_for_all_patients)
 </script>
 
 <div class="consumer-list">
@@ -43,10 +45,10 @@
             {% if not p.is_expert %}
                 <div class="consumer-card">
                     <p class="consumer-name" style="background-color: {% p.player_color.lower() %}"><b>Consumer {% p.player_color %}</b></p>
-                    <p>Factor A: <b><span id="var-a-{% p.id_in_group %}">??</span> / 10</b></p>
-                    <p>Factor B: <b><span id="var-b-{% p.id_in_group %}">??</span> / 20</b></p>
-                    <p>Factor C: <b><span id="var-c-{% p.id_in_group %}">??</span> / 30</b></p>
-                    <p>Factor D: <b><span id="var-d-{% p.id_in_group %}">??</span> / 40</b></p>
+                    <p>Symptom A: <b><span id="var-a-{% p.id_in_group %}">??</span></b></p>
+                    <p>Symptom B: <b><span id="var-b-{% p.id_in_group %}">??</span></b></p>
+                    <p>Symptom C: <b><span id="var-c-{% p.id_in_group %}">??</span></b></p>
+                    <p>Symptom D: <b><span id="var-d-{% p.id_in_group %}">??</span></b></p>
                     <p>
                         <input id="calc-A-{% p.id_in_group %}" type="text" size="1" placeholder="A" onkeyup="calculateResult('{% p.id_in_group %}')" required="required"> 
                         & <input id="calc-B-{% p.id_in_group %}" type="text" size="1" placeholder="B" onkeyup="calculateResult('{% p.id_in_group %}')" required="required"> 
@@ -58,37 +60,13 @@
 
                 <script>
                     
-                    value_a = getRandomInt(1, 11);
-                    document.getElementById("var-a-{% p.id_in_group %}").innerHTML = value_a;
-                    document.getElementById("calc-A-{% p.id_in_group %}").value = value_a;
+                    input_1 = true;
+                    input_2 = true
+                    input_3_1 = false;
+                    input_3_2 = true;
+                    input_4_1 = false;
+                    input_4_2 = false;
 
-                    value_b = getRandomInt(11, 21);
-                    document.getElementById("var-b-{% p.id_in_group %}").innerHTML = value_b;
-                    document.getElementById("calc-B-{% p.id_in_group %}").value = value_b;
-
-                    value_c = getRandomInt(21, 31);
-                    document.getElementById("var-c-{% p.id_in_group %}").innerHTML = value_c;
-                    document.getElementById("calc-C-{% p.id_in_group %}").value = value_c;
-
-                    calculateResult('{% p.id_in_group %}')
-
-                    function calculateResult(id) {
-                        a = parseFloat(document.getElementById("calc-A-" + id).value);
-                        if (isNaN(a)){
-                            a = 0
-                        };
-                        b = parseFloat(document.getElementById("calc-B-" + id).value);
-                        if (isNaN(b)){
-                            b = 0
-                        };
-                        c = parseFloat(document.getElementById("calc-C-" + id).value);
-                        if (isNaN(c)){
-                            c = 0
-                        };
-                        result = a * b * c;
-                        console.log(a, b, c);
-                        document.getElementById("calc-result-" + id).innerHTML = result;
-                    }
                 </script>
             {% endif %}
         {% endif %}
@@ -98,9 +76,6 @@
 
 <!-- hidden input for oTree formfield -->
 <input type="hidden" id="">
-<script>
-
-</script>
     {{ next_button }}
 
 {{ endblock }}

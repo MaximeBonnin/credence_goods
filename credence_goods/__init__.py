@@ -57,7 +57,6 @@ class C(BaseConstants):
         "repeated": 2
     }
 
-
     
 class Subsession(BaseSubsession):
     # expert_list = []
@@ -143,6 +142,7 @@ def setup_player(player: Player) -> Player:
             # if single investment decision, use that in all later rounds. Reset if repeated.
             if player.group.treatment_investment_frequency == "once" and player.round_number > C.INVESTMENT_STARTING_ROUND:
                 player.investment_decision = player.in_round(C.INVESTMENT_STARTING_ROUND).investment_decision
+                player.total_diagnosis_accuracy_percent = player.in_round(C.INVESTMENT_STARTING_ROUND).total_diagnosis_accuracy_percent
 
         else:
             if random.randint(1, 100) <= C.CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT:
@@ -210,6 +210,7 @@ class InvestmentChoice(Page):
 
         if player.investment_decision:
             player.coins -= C.INVESTMENT_COST[player.group.treatment_investment_frequency]
+            player.total_diagnosis_accuracy_percent = C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT["invested"]
 
 
     form_model = "player"
@@ -278,7 +279,7 @@ class ExpertSetPrices(Page):
             if not consumer.is_expert:
                 diagnosis_correct_for_all_patients[str(consumer.id_in_group)] = int(random.randint(1, 100) <= player.total_diagnosis_accuracy_percent)
         player.diagnosis_correct_for_all_patients = json.dumps(diagnosis_correct_for_all_patients)
-        print(player.diagnosis_correct_for_all_patients)
+        # print(player.diagnosis_correct_for_all_patients)
 
         return
 
@@ -371,7 +372,7 @@ class ExpertDiagnosisI(Page):
     @staticmethod
     def js_vars(player: Player):
         return dict(
-            diagnosis_correct_for_all_patients = "test" # player.diagnosis_correct_for_all_patients
+            diagnosis_correct_for_all_patients = json.loads(player.diagnosis_correct_for_all_patients)
         )
 
     @staticmethod
@@ -440,6 +441,30 @@ class ExpertDiagnosisII(Page):
                     consumer.coins -= C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][1]        # price large
 
 
+def group_by_arrival_time_method(subsession, waiting_players):
+
+    treatment_visisble = [p for p in waiting_players if p.participant.treatment_skill_visible]
+    treatment_not_visisble = [p for p in waiting_players if not p.participant.treatment_skill_visible]
+
+    experts_treatment_visisble = [e for e in treatment_visisble if e.participant.is_expert]
+    consumers_treatment_visisble = [c for c in treatment_visisble if not c.participant.is_expert]
+
+    experts_treatment_not_visisble = [e for e in treatment_not_visisble if e.participant.is_expert]
+    consumers_treatment_not_visisble = [c for c in treatment_not_visisble if not c.participant.is_expert]
+
+    print(f"Currently waiting (treatment visible): {len(experts_treatment_visisble)} Experts | {len(consumers_treatment_visisble)} Consumers")
+    print(f"Currently waiting (treatment not visible): {len(experts_treatment_not_visisble)} Experts | {len(consumers_treatment_not_visisble)} Consumers")
+
+    if (len(experts_treatment_visisble) >= 2) and (len(consumers_treatment_visisble) >= 2):
+        print('Creating group...')
+        return [experts_treatment_visisble[0], experts_treatment_visisble[1], consumers_treatment_visisble[0], consumers_treatment_visisble[1]]
+    
+    elif (len(experts_treatment_not_visisble) >= 2) and (len(consumers_treatment_not_visisble) >= 2):
+        print('Creating group...')
+        return [experts_treatment_not_visisble[0], experts_treatment_not_visisble[1], consumers_treatment_not_visisble[0], consumers_treatment_not_visisble[1]]
+    
+    print('not enough players yet to create a group')
+
 
 class MatchingWaitPage(WaitPage):
 
@@ -464,7 +489,6 @@ class MatchingWaitPage(WaitPage):
             player = setup_player(player)
         
 
-
 class SetupWaitPage(WaitPage):
     title_text = "Setup in progress..."
     body_text = "You are currently waiting for other players to arrive. This will only take a minute..."
@@ -482,7 +506,6 @@ class SetupWaitPage(WaitPage):
 
         for player in group.get_players():
             player = setup_player(player)
-
 
 
 class GeneralWaitPage(WaitPage):

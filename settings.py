@@ -3,7 +3,7 @@ from os import environ
 SESSION_CONFIGS = [
     dict(
         name='credence_goods',
-        app_sequence=['credence_goods'],
+        app_sequence=['credence_goods_welcome', 'credence_goods'],
         num_demo_participants=16,
     ),
 ]
@@ -17,7 +17,7 @@ SESSION_CONFIG_DEFAULTS = dict(
     real_world_currency_per_point=1.00, participation_fee=0.00, doc=""
 )
 
-PARTICIPANT_FIELDS = ["number_of_timeouts", "is_dropout"]
+PARTICIPANT_FIELDS = ["is_expert", "treatment_skill_visible", "number_of_timeouts", "is_dropout"]
 SESSION_FIELDS = []
 
 # ISO-639 code

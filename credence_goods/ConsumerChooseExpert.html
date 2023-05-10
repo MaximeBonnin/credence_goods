@@ -40,7 +40,7 @@
 
             {% if p.is_expert %}
                 <div class="expert-card">
-                    <p class="expert-name" style="background-color: {% p.player_color.lower() %}"><b>{% p.player_color %} ({% p.ability_level %} skill)</b></p>
+                    <p class="expert-name" style="background-color: {% p.player_color.lower() %}"><b> Expert {% p.player_color %} {% if group.treatment_skill_visible %}({% p.ability_level %} skill){% endif %}</b></p>
 
                     <!-- Display skill level if treatment is appropirate-->
                     {% if group.treatment_skill_visible %}

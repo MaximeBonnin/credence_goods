@@ -27,6 +27,11 @@ class Player(BasePlayer):
     occupation = models.StringField(label="Your current occupation (e.g. Student, Employed)")
 
 
+def creating_session(subsession: Subsession):
+    print("Creating session...")
+    for player in subsession.get_players():
+        player.participant.is_expert = random.choice([True, False])
+        player.participant.treatment_skill_visible = random.choice([True, False])
 
 
 # PAGES
