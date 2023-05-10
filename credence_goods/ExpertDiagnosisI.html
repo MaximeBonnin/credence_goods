@@ -35,7 +35,8 @@
         return Math.floor(Math.random() * (max - min)) + min;
     }
 
-    console.log(js_vars.diagnosis_correct_for_all_patients)
+    diag = js_vars.diagnosis_correct_for_all_patients
+    console.log(diag)
 </script>
 
 <div class="consumer-list">
@@ -45,29 +46,53 @@
             {% if not p.is_expert %}
                 <div class="consumer-card">
                     <p class="consumer-name" style="background-color: {% p.player_color.lower() %}"><b>Consumer {% p.player_color %}</b></p>
-                    <p>Symptom A: <b><span id="var-a-{% p.id_in_group %}">??</span></b></p>
-                    <p>Symptom B: <b><span id="var-b-{% p.id_in_group %}">??</span></b></p>
-                    <p>Symptom C: <b><span id="var-c-{% p.id_in_group %}">??</span></b></p>
-                    <p>Symptom D: <b><span id="var-d-{% p.id_in_group %}">??</span></b></p>
+                    <p>Symptom A: <b><span id="var-a-{% p.id_in_group %}">???</span></b></p>
+                    <p>Symptom B: <b><span id="var-b-{% p.id_in_group %}">???</span></b></p>
+                    <p>Symptom C: <b><span id="var-c-{% p.id_in_group %}">???</span></b></p>
+                    <p>Symptom D: <b><span id="var-d-{% p.id_in_group %}">???</span></b></p>
                     <p>
-                        <input id="calc-A-{% p.id_in_group %}" type="text" size="1" placeholder="A" onkeyup="calculateResult('{% p.id_in_group %}')" required="required"> 
-                        & <input id="calc-B-{% p.id_in_group %}" type="text" size="1" placeholder="B" onkeyup="calculateResult('{% p.id_in_group %}')" required="required"> 
-                        & <input id="calc-C-{% p.id_in_group %}" type="text" size="1" placeholder="C" onkeyup="calculateResult('{% p.id_in_group %}')" required="required">
-                        & <input id="calc-Inv-{% p.id_in_group %}" type="text" size="1" placeholder="?" disabled="disabled">
-                        = <b><span id="calc-result-{% p.id_in_group %}">Result</span></b>
+                        <input id="calc-A-{% p.id_in_group %}" type="text" size="1" placeholder="A" required="required"> 
+                        & <input id="calc-B-{% p.id_in_group %}" type="text" size="1" placeholder="B" required="required"> 
+                        & <input id="calc-C-{% p.id_in_group %}" type="text" size="1" placeholder="C" required="required" disabled>
+                        & <input id="calc-D-{% p.id_in_group %}" type="text" size="1" placeholder="???" required="required" disabled>
                     </p>
                 </div>
 
                 <script>
-                    
-                    input_1 = true; /* random var 1-10  (EXCEL) */
-                    input_2 = true /* random var 2-20 */
-                    input_3_1 = false; /* random var 3-30 if small */ 
-                    input_3_2 = true;   /* random var 4-40 if large */
-                    input_4_1 = false;  /* random var 5-50 if small */
-                    input_4_2 = false;  /* random var 6-60 if large */
+                    input_1 = getRandomInt(1, 10); /* random var 1-10  (EXCEL) */
+                    document.getElementById("var-a-{% p.id_in_group %}").innerHTML = input_1;
 
+                    input_2 = getRandomInt(11, 20); /* random var 2-20 */
+                    document.getElementById("var-b-{% p.id_in_group %}").innerHTML = input_2;  
                 </script>
+
+                {% if player.ability_level == "high" %}
+                    <script>
+                        document.getElementById("calc-C-{% p.id_in_group %}").disabled = false;
+
+                        if ("{% p.service_needed %}" == "small") {
+                            input_3 = getRandomInt(21, 30); /* input_3_1 | random var 3-30 if small */ 
+                        }
+                        else {
+                            input_3 = getRandomInt(31, 40);   /* input_3_2 |  random var 4-40 if large */
+                        };
+                        document.getElementById("var-c-{% p.id_in_group %}").innerHTML = input_3;
+        
+                    </script>
+                {% endif %}
+                
+                {% if player.investment_decision %}
+                    <script>
+                        if ("{% p.service_needed %}" == "small") {
+                            input_4 = getRandomInt(41, 50);  /* input_4_1 | random var 5-50 if small */
+                        }
+                        else {
+                            input_4 = getRandomInt(51, 60);  /* input_4_2 | random var 6-60 if large */
+                        };
+                        
+                        document.getElementById("var-d-{% p.id_in_group %}").innerHTML = input_4;
+                    </script>
+                {% endif %}
             {% endif %}
         {% endif %}
 
