@@ -3,7 +3,7 @@ import random
 
 
 doc = """
-Welcome pages and consent for credence goods game
+Welcome pages and general introduction
 """
 
 
@@ -11,6 +11,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'credence_goods_welcome'
     PLAYERS_PER_GROUP = 6
     NUM_ROUNDS = 1
+    VALID_DEVICES = ["Laptop", "Desktop PC"]
 
 
 class Subsession(BaseSubsession):
@@ -23,8 +24,10 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     #TODO maybe as dropdown?
+    valid_player = models.BooleanField(initial=False)
     year_of_birth = models.IntegerField(label="Your year of birth (e.g. 1995)")
     occupation = models.StringField(label="Your current occupation (e.g. Student, Employed)")
+    device = models.StringField(choices=["Smartphone", "Laptop", "Tablet", "Desktop PC"], widget=widgets.RadioSelect)
 
 
 def creating_session(subsession: Subsession):
@@ -40,17 +43,30 @@ def creating_session(subsession: Subsession):
         player.participant.treatment_skill_visible = subsession.session.config['treatment_skill_visible']
 
 # PAGES
-class WelcomePage(Page):
+
+class Device(Page):
     form_model = "player"
-    form_fields = ["year_of_birth", "occupation"]
+    form_fields = ["device"]
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        if player.device in C.VALID_DEVICES:
+            player.valid_player = True
+        else:
+            print(f"Player excluded because of device choice ({player.device}).")
+
 
 
 class Explanation(Page):
-    pass
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.valid_player
 
 
-class Consent(Page):
-    pass
+class InvalidPlayer(Page):
+    @staticmethod
+    def is_displayed(player: Player):
+        return not player.valid_player
+    
 
-
-page_sequence = [WelcomePage, Explanation, Consent]
+page_sequence = [Device, Explanation, InvalidPlayer]

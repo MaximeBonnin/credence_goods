@@ -2,7 +2,7 @@ from otree.api import *
 
 
 doc = """
-Your app description
+Role-specific introduction and practice rounds before grouping.
 """
 
 
@@ -22,11 +22,14 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     # vars for excluding dropouts
+    valid_player = models.BooleanField(initial=True)
     is_dropout = models.BooleanField(initial=False)
 
 # PAGES
-class MyPage(Page):
+
+class Introduction(Page):
     pass
+
 
 class SimulatedConsumerChooseExpert(Page):
     @staticmethod
@@ -52,6 +55,7 @@ class SimulatedResults(Page):
 
 
 page_sequence = [
+    Introduction,
     SimulatedConsumerChooseExpert,
     SimualtedExpertChoosePrices,
     SimualtedExpertDiagnosisI,
