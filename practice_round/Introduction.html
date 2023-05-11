@@ -1,9 +1,53 @@
 {{ block title }}
-    Practice: Choose Prices
+    Introduction
 {{ endblock }}
 {{ block content }}
 
-    <div class="general-intro">
+
+<style>
+
+    input {
+        display: none;
+    }
+    
+    label {
+        display: block;    
+        padding: 8px 22px;
+        margin: 0 0 1px 0;
+        cursor: pointer;
+        background: #6AAB95;
+        border-radius: 3px;
+        color: #FFF;
+        transition: ease .5s;
+    }
+    
+    label:hover {
+        background: #4E8774;
+    }
+    
+    .content {
+        background: #E2E5F6;
+        padding: 10px 25px;
+        border: 1px solid #A7A7A7;
+        margin: 0 0 1px 0;
+        border-radius: 3px;
+    }
+    
+    input + label + .content {
+        display: none;
+    }
+    
+    input:checked + label + .content {
+        display: block;
+    }
+    
+</style>
+
+<div class="accordion">
+    <input type="checkbox" id="title1" />
+    <label for="title1">Intro</label>
+    
+    <div class="content">
         <p>In this experiment, three experts interact with three clients. 
             You have been randomly assigned the role of client/expert. 
             Your role determines your decisions throughout the experiment. 
@@ -12,6 +56,71 @@
             to the instructions. Read them carefully, because you will need to 
             answer a few comprehension questions afterwards. During the instructions, 
             you will also complete a practice round to familiarize yourself with the decision environment.</p>
+
+            <p>Thank you for participating in this experiment. Please stay attentive 
+                until the end of the experiment and avoid any distractions. Because 
+                you will continuously interact with your group members, is it essential 
+                that you do not (a) leave this experiment or (b) take a longer pause. At 
+                the top of every decision screen, you will see a countdown (example picture). 
+                If you fail three times to make a decision within that time frame, we have to 
+                assume that you left, and will therefore kick you from the experiment.</p>
+            
+            <p>During the study, your payoffs are stated in Coins. The exchange rate is: X</p>
+    </div>
+    
+    {% if participant.is_expert %}
+    <!-- THIS IS AN EXPERT -->
+        <input type="checkbox" id="title2" />
+        <label for="title2">Expert Role</label>
+        
+        <div class="content">
+            <p>As stated before, there are two roles in this experiment: client and expert.  
+                You have been randomly selected to be an expert. There are two types of expert. 
+                A high-ability expert, and a low-ability expert. The probability that an expert 
+                is a high-ability expert is x% and the probability that an expert is a low-ability 
+                expert is y%. These probabilities are common knowledge, and clients also know them. 
+                You have been randomly assigned to be a x expert. You keep that role for the entire 
+                experiment. All clients can observe your ability level. The experiment consists of 
+                25 rounds. In total, there are 3 clients and 3 experts.</p>
+        </div>
+
+        <input type="checkbox" id="title3" />
+        <label for="title3">Experimental Procedure</label>
+        
+        <div class="content">
+            <p>Each round follows the same basic sequence of decisions. Be mindful that you need 
+                to understand both roles in order to answer the comprehension questions and make 
+                sensible decisions that determine your final bonus payoff.</p>
+            
+            <p>Each round, clients receive either a big problem with a probability of x%, 
+                or a small problem with a probability of y%. Clients will never be informed 
+                about which problem they actually have. In order to solve the problem, a client 
+                needs to approach an expert. Alternatively, each client can also choose not to 
+                enter the market, and avoid interaction with an expert. If a client decides to 
+                enter the market, he or she can choose one of z experts. If the chosen expert 
+                successfully solves the client’s problem, the client receives 150 Coins for that 
+                round. If the problem is not solved, the client does not receive anything. 
+                Irrespective of the outcome, the client has to pay the price chosen by the expert. 
+                All prices by each expert and their respective ability level are visible to the 
+                client when deciding which expert to approach.</p>
+        </div>
+
+
+    {% else %}
+        <!-- THIS IS AN EXPERT -->
+        <input type="checkbox" id="title2" />
+        <label for="title2">Consumer Role</label>
+        
+        <div class="content">
+            <p>text</p>
+        </div>
+
+
+    {% endif %}
+        
+        
+</div>
+
     </div>
 
     {{ formfields }}
