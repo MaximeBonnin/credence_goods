@@ -1,0 +1,37 @@
+{{ block title }}
+    Experimental Procedure
+{{ endblock }}
+{{ block content }}
+
+{% if participant.is_expert %}
+<p>Each round follows the same basic sequence of decisions. Be mindful that you need 
+    to understand both roles in order to answer the comprehension questions and make 
+    sensible decisions that determine your final bonus payoff.</p>
+
+<p>Each round, clients receive either a big problem with a probability of x%, 
+    or a small problem with a probability of y%. Clients will never be informed 
+    about which problem they actually have. In order to solve the problem, a client 
+    needs to approach an expert. Alternatively, each client can also choose not to 
+    enter the market, and avoid interaction with an expert. If a client decides to 
+    enter the market, he or she can choose one of z experts. If the chosen expert 
+    successfully solves the client’s problem, the client receives 150 Coins for that 
+    round. If the problem is not solved, the client does not receive anything. 
+    Irrespective of the outcome, the client has to pay the price chosen by the expert. 
+    All prices by each expert and their respective ability level are visible to the 
+    client when deciding which expert to approach.</p>
+
+<p>Each round, the expert’s (your) job is to diagnose the client’s problem and treat 
+    them. You can either choose a low-quality treatment, or a high-quality treatment. 
+    The low-quality treatment only solves the small problem of the client. The high-quality 
+    treatment solves both the small problem and the big problem. You always have to pay 
+    X Coins for the low-quality treatment, and Y Coins for the high-quality treatment.</p>
+{% else %}
+
+{% endif %}
+
+    {{ formfields }}
+    {{ next_button }}
+
+    {{ include_sibling "InstructionAccordion.html" }}
+
+{{ endblock }}

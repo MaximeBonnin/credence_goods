@@ -1,0 +1,24 @@
+{{ block title }}
+    Role
+{{ endblock }}
+{{ block content }}
+
+{% if participant.is_expert %}
+<p>As stated before, there are two roles in this experiment: client and expert.  
+    You have been randomly selected to be an expert. There are two types of expert. 
+    A high-ability expert, and a low-ability expert. The probability that an expert 
+    is a high-ability expert is 50% and the probability that an expert is a low-ability 
+    expert is 50%. These probabilities are common knowledge, and clients also know them. 
+    You have been randomly assigned to be a x expert. You keep that role for the entire 
+    experiment. All clients can observe your ability level. The experiment consists of 
+    25 rounds. In total, there are {% C.NUM_CONSUMERS_PER_GROUP %} clients and {% C.NUM_EXPERTS_PER_GROUP %} experts.</p>
+{% else %}
+
+{% endif %}
+
+    {{ formfields }}
+    {{ next_button }}
+
+    {{ include_sibling "InstructionAccordion.html" }}
+
+{{ endblock }}

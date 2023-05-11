@@ -1,0 +1,25 @@
+{{ block title }}
+    Setting Prices
+{{ endblock }}
+{{ block content }}
+
+{% if participant.is_expert %}
+<p>At the beginning of each round, you set your prices. You choose between three price vectors. 
+    Each price vector determines the price you will charge any client that approaches you, 
+    depending on which treatment you choose. The three price vectors are:</p>
+
+<ul>
+    <li>P1: X</li>
+    <li>P2: X</li>
+    <li>P3: X</li>
+</ul>
+{% else %}
+
+{% endif %}
+
+    {{ formfields }}
+    {{ next_button }}
+
+    {{ include_sibling "InstructionAccordion.html" }}
+
+{{ endblock }}

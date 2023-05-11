@@ -12,7 +12,7 @@ class C(BaseConstants):
     # DEV VARS FOR TESTING
     ENABLE_WAITING_PAGES = True
 
-    #
+    #TODO REMEMBER TO COPY ANY CHANGES TO practice_round FOR CORRECT INTRO
 
     NAME_IN_URL = 'credence_goods'
     NUM_ROUNDS = 4
