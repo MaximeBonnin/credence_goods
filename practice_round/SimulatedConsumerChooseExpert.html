@@ -3,7 +3,58 @@
 {{ endblock }}
 {{ block content }}
 
-    {{ formfields }}
-    {{ next_button }}
+
+<style>
+    .expert-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1em;
+    }
+
+    .expert-card {
+        background-color: lightcyan;
+        text-align: center;
+        border: solid;
+        border-radius: 1em;
+        padding-bottom: 0.3em;
+        margin: 1em;
+        overflow: hidden;
+    }
+
+    .expert-name {
+        width: 100%;
+        padding: 0.3em;
+        margin-bottom: 0.3em;
+    }
+</style>
+
+<div class="expert-list">
+
+    <div class="expert-card">
+        <p class="expert-name" style="background-color: blue"><b> Expert Blue {% if participant.treatment_skill_visible %}(high skill){% endif %}</b></p>
+    
+        <!-- Display skill level if treatment is appropirate-->
+        {% if participant.treatment_skill_visible %}
+            <p>Accuracy: <b>X%</b></p>
+        {% endif %}
+    
+        <p>Price small service: <b>X</b> (Expert Profit: <b>X</b>)</p>
+        <p>Price large service: <b>X</b> (Expert Profit: <b>X</b>)</p>
+        <button class="btn btn-primary">Choose Expert</button>
+    </div>
+    
+    <div class="expert-card">
+        <p class="expert-name" style="background-color: yellow"><b> Expert Yellow {% if participant.treatment_skill_visible %}(low skill){% endif %}</b></p>
+    
+        <!-- Display skill level if treatment is appropirate-->
+        {% if participant.treatment_skill_visible %}
+            <p>Accuracy: <b>X%</b></p>
+        {% endif %}
+    
+        <p>Price small service: <b>X</b> (Expert Profit: <b>X</b>)</p>
+        <p>Price large service: <b>X</b> (Expert Profit: <b>X</b>)</p>
+        <button class="btn btn-primary">Choose Expert</button>
+    </div>
+</div>
 
 {{ endblock }}
