@@ -33,7 +33,28 @@
     for the other client, you will receive the price of 1 high-quality treatment and 1 low-quality 
     treatment as payoff, while also paying the costs of 1 high-quality treatment and 1 low-quality treatment.</p>
 {% else %}
+<p>After experts set their prices, they proceed with the diagnosis. Remember that there are two types 
+    of expert, a low-ability and a high-ability expert. When deciding which expert to approach, you 
+    can observe each expert’s ability level.</p>
 
+<p>Experts receive a signal in each round, that tells them which of the two problems a client has. 
+    This signal is x% accurate for the low-ability expert, and y% accurate for the high-ability expert. 
+    Thus, if e.g. you have a small problem, then, the high-ability experts gets the signal that the 
+    problem is small with a probability of x%, and the low-ability expert gets the signal that the 
+    problem is small with a probability of y%. Remember that you only receive the 150 Coins if your 
+    problem is solved. Additionally, once you approach an expert, you will have to pay for whatever 
+    treatment the expert decided to implement.</p>
+
+<p>To receive the signal, experts need to complete a short prediction task. The prediction task works 
+    as follows: Your problem (small or big) is determined by 5 symptoms, which are assigned to you 
+    randomly at the beginning of each round. The 5 symptoms determine whether you have a big or a 
+    small problem. High-ability experts can observe three of your symptoms. Low-ability experts can 
+    observe two of your symptoms. Therefore, high-ability experts are better at diagnosing you. Using 
+    the symptoms, the expert makes a diagnosis and receives a diagnostic signal.</p>
+
+<p>After making their diagnosis, each expert decides which treatment they want to implement for a given client. </p>
+
+<p>If no client approaches an expert, the expert does not earn any money for that specific round.</p>
 {% endif %}
 
     {{ formfields }}

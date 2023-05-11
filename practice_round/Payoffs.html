@@ -20,7 +20,18 @@
                             <li>Expert is approached by multiple clients: Number of approaching clients * Option #2</li>
                         </ol>
 {% else %}
+<h5>Clients</h5>
+                        <ol>
+                            <li>You do not enter the market: 0 Coins</li>
+                            <li>You approach an expert and the treatment was solved: 150 Coins – treatment price</li>
+                            <li>You approach an expert and the treatment was not solved: - treatment price</li>
+                        </ol>
 
+                        <h5>Experts</h5>
+                        <ol>
+                            <li>Expert is not approached by any client: 0 Coins</li>
+                            <li>Expert is approached by one client: treatment price – treatment costs</li>
+                            <li>Expert is approached by multiple clients: Number of approaching clients * Option #2</li>
 {% endif %}
 
     {{ formfields }}

@@ -87,6 +87,9 @@ class Diagnosis(Page):
 class Payoffs(Page):
     pass
 
+class RoundOverview(Page):
+    pass
+
 
 class SimulatedConsumerChooseExpert(Page):
     @staticmethod
@@ -118,6 +121,7 @@ page_sequence = [
     SettingPrices,
     Diagnosis,
     Payoffs,
+    RoundOverview,
     SimulatedConsumerChooseExpert,
     SimualtedExpertChoosePrices,
     SimualtedExpertDiagnosisI,
