@@ -12,7 +12,7 @@
     }
 
     .expert-card {
-        background-color: lightcyan;
+        background-color: #f1eef6;
         text-align: center;
         border: solid;
         border-radius: 1em;
@@ -40,7 +40,7 @@
 
             {% if p.is_expert %}
                 <div class="expert-card">
-                    <p class="expert-name" style="background-color: {% p.player_color.lower() %}"><b> Expert {% p.player_color %} {% if group.treatment_skill_visible %}({% p.ability_level %} skill){% endif %}</b></p>
+                    <p class="expert-name" style="background-color: #bdc9e1"><b> Expert {% p.player_name %} {% if group.treatment_skill_visible %}({% p.ability_level %} skill){% endif %}</b></p>
 
                     <!-- Display skill level if treatment is appropirate-->
                     {% if group.treatment_skill_visible %}
@@ -68,6 +68,10 @@
         {% endif %}    
 
     {% endfor %}
+    <div class="expert-card">
+        <p class="expert-name"><b>No Expert</b></p>
+        <button class="btn btn-primary" name="expert_chosen" value=0>Choose no treatment</button>
+    </div>
 </div>
 
 {{ formfield_errors 'expert_chosen' }}

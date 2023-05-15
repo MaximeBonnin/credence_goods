@@ -14,6 +14,8 @@ class C(BaseConstants):
 
     #TODO REMEMBER TO COPY ANY CHANGES TO practice_round FOR CORRECT INTRO
 
+    # colors: #f1eef6, #bdc9e1, #74a9cf, #0570b0
+
     NAME_IN_URL = 'credence_goods'
     NUM_ROUNDS = 4
     PLAYERS_PER_GROUP = 6
@@ -69,7 +71,7 @@ class Player(BasePlayer):
     is_dropout = models.BooleanField(initial=False)
 
     is_expert = models.BooleanField(initial=False)
-    player_color = models.StringField()
+    player_name = models.StringField()
     coins = models.IntegerField(initial=0)
 
     # expert variables
@@ -89,7 +91,7 @@ class Player(BasePlayer):
     # customer variables
     enter_market = models.BooleanField(initial=True)
     expert_chosen = models.IntegerField(initial=0)                                          # this should be a player.id_in_group
-    expert_chosen_color = models.StringField()
+    expert_chosen_name = models.StringField()
     service_needed = models.StringField(choices=("small", "large"), initial="none")
     service_recieved = models.StringField(choices=("small", "large", "none"))
 
@@ -105,9 +107,7 @@ def setup_player(player: Player) -> Player:
         player.participant.number_of_timeouts = 0
         player.participant.is_dropout = False
         player.coins = C.ENDOWMENT
-        player.player_color = ["Red", "Aquamarine", "Coral", "Yellow", 
-                                "Cyan", "Pink", "Salmon", "Grey",
-                                "Lime", "Teal", "Silver", "White"][player.id_in_group-1] #TODO add more colors
+        player.player_name = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[player.id_in_group-1]
 
         if (player.id_in_group % 2) == 0 :  # id is even
             player.is_expert = True
@@ -132,7 +132,7 @@ def setup_player(player: Player) -> Player:
     else:
         # later rounds setup
         player.is_expert = player.in_round(1).is_expert
-        player.player_color = player.in_round(1).player_color
+        player.player_name = player.in_round(1).player_name
         player.coins = player.in_previous_rounds()[-1].coins
 
         if player.is_expert:
@@ -286,33 +286,6 @@ class ExpertSetPrices(Page):
 
 
 # Consumer choose expert
-class ConsumerEnterMarket(Page):
-    # handle timer for dropouts
-    @staticmethod
-    def get_timeout_seconds(player):
-        if player.participant.is_dropout:
-            return 1  # instant timeout, 1 second
-        else:
-            return C.TIMEOUT_IN_SECONDS
-    form_model = "player"
-    form_fields = ["enter_market"]
-
-    @staticmethod
-    def is_displayed(player):
-        return not player.is_expert
-    
-    @staticmethod
-    def before_next_page(player, timeout_happened):
-        # handle timeout and setting is_dropout status
-        if timeout_happened:
-            player.participant.number_of_timeouts += 1
-            if player.participant.number_of_timeouts >= C.DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS:
-                player.participant.is_dropout = True
-                player.is_dropout = True
-                print(f"Player {player.id_in_group} excluded due to timeout.")
-
-
-# Consumer choose expert
 class ConsumerChooseExpert(Page):
     # handle timer for dropouts
     @staticmethod
@@ -340,8 +313,10 @@ class ConsumerChooseExpert(Page):
                 print(f"Player {player.id_in_group} excluded due to timeout.")
 
         if player.expert_chosen:
-            player.expert_chosen_color = player.group.get_player_by_id(
-                player.expert_chosen).player_color
+            player.expert_chosen_name = player.group.get_player_by_id(
+                player.expert_chosen).player_name
+        else:
+            player.enter_market = False
             
     @staticmethod
     def js_vars(player: Player):
@@ -555,17 +530,23 @@ class Results(Page):
             print("Timeout happened. No timeout given because results page.")
 
 
+class FinalResults(Page):
+    @staticmethod
+    def is_displayed(player: Player):
+        # last round
+        return player.round_number == C.NUM_ROUNDS
+    
 page_sequence = [MatchingWaitPage,  # only first round
                  Intro,             # only first round
                  SetupWaitPage,     # all later rounds
                  InvestmentChoice,  # only later rounds
                  ExpertSetPrices,   # Experts | all rounds
-                 ConsumerEnterMarket,   # Consumers | all rounds
                  ConsumerWaitPage,      # Consumers | all rounds
                  ConsumerChooseExpert,  # Consumers | all rounds
                  ExpertWaitPage,    # Experts | all rounds
                  ExpertDiagnosisI,  # Experts | all rounds
                  ExpertDiagnosisII, # Experts | all rounds
                  ConsumerWaitPage,  # Consumers | all rounds
-                 Results            # all rounds
+                 Results,           # all rounds
+                 FinalResults       # last round
                  ]
