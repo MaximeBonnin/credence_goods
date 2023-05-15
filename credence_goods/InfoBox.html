@@ -12,11 +12,11 @@
     }
 </style>
 
+{{ if player.participant.number_of_timeouts > 0 }}
+    <p><b><span id="warning">WARNING: You have {% player.participant.number_of_timeouts %} timeouts. You will be excluded from the experiment at {% C.DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS %} timeouts.</span></b></p>
+{{ endif }}
 <div class="info-box">
     <div class="info-left info-container">
-        {{ if player.participant.number_of_timeouts > 0 }}
-            <p><b><span id="warning">WARNING: You have {% player.participant.number_of_timeouts %} timeouts. You will be excluded from the experiment at {% C.DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS %} timeouts.</span></b></p>
-        {{ endif }}
         <p>Round number: <b>{% player.round_number %} / {% C.NUM_ROUNDS %}</b></p>
         <p>You Role is: <b>{{ if player.is_expert }}Expert ({% player.ability_level %} ability){{ else }}Consumer{{ endif }}</b></p>
         <p>Coins: <b>{% player.coins %}</b></p>

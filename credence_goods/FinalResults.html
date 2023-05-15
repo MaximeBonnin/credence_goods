@@ -6,82 +6,67 @@
 
 {{ include_sibling "InfoBox.html" }}
 
-    <div class="expert-results">
-        {{ if player.is_expert }}
-            <style type="text/css">
-                .tg  {border-collapse:collapse;border-spacing:0;}
-                .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-                  overflow:hidden;padding:10px 5px;word-break:normal;}
-                .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-                  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-                .tg .tg-amwm{font-weight:bold;text-align:center;vertical-align:top}
-                .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
-                </style>
-                <table class="tg">
-                <thead>
-                  <tr>
-                    <th class="tg-amwm" colspan="4">Results so far</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="tg-0pky">Round</td>
-                    <td class="tg-0pky">Number of services provided</td>
-                    {% if player.round_number >= C.INVESTMENT_STARTING_ROUND %}
-                    <td class="tg-0pky">Investment made</td>
-                    {% endif %}
-                    <td class="tg-0pky">Coins recieved</td>
-                  </tr>
-                  {% for p in player.in_all_rounds() %}
-                  <tr>
-                    <td class="tg-0pky">{% p.round_number %}</td>
-                    <td class="tg-0pky">{% p.number_of_services_provided %}</td>
-                    {% if player.round_number >= C.INVESTMENT_STARTING_ROUND %}
-                    <td class="tg-0pky">{% p.investment_decision %}</td>
-                    {% endif %}
-                    <td class="tg-0pky">{% p.coins %} coins</td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-                </table>
+<div class="expert-results">
+  {{ if player.is_expert }}
+          <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="tg-amwm" colspan="4">Results so far</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th class="tg-0pky">Round</th>
+              <th class="tg-0pky">Number of services provided</th>
+              {% if player.round_number >= C.INVESTMENT_STARTING_ROUND %}
+              <th class="tg-0pky">Investment made</th>
+              {% endif %}
+              <th class="tg-0pky">Total Coins at end of round</th>
+            </tr>
+            {% for p in player.in_all_rounds() %}
+            <tr>
+              <td class="tg-0pky">{% p.round_number %}</td>
+              <td class="tg-0pky">{% p.number_of_services_provided %}</td>
+              {% if player.round_number >= C.INVESTMENT_STARTING_ROUND %}
+              <td class="tg-0pky">{% p.investment_decision %}</td>
+              {% endif %}
+              <td class="tg-0pky">{% p.coins %} coins</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+          </table>
 
-        {{ endif }}
-    </div>
+  {{ endif }}
+</div>
 
-    <div class="consumer-results">
-        {{ if not player.is_expert }}
-            <style type="text/css">
-                .tg  {border-collapse:collapse;border-spacing:0;}
-                .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-                  overflow:hidden;padding:10px 5px;word-break:normal;}
-                .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-                  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-                .tg .tg-amwm{font-weight:bold;text-align:center;vertical-align:top}
-                .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
-                </style>
-                <table class="tg">
-                <thead>
-                  <tr>
-                    <th class="tg-amwm" colspan="4">Results so far</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="tg-0pky">Round</td>
-                    <td class="tg-0pky">Expert chosen</td>
-                    <td class="tg-0pky">Coins recieved</td>
-                  </tr>
-                  {% for p in player.in_all_rounds() %}
-                  <tr>
-                    <td class="tg-0pky">{% p.round_number %}</td>
-                    <td class="tg-0pky">{% p.field_maybe_none('expert_chosen_name') %}</td>
-                    <td class="tg-0pky">{% p.coins %} coins</td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-                </table>
+<div class="consumer-results">
+  {{ if not player.is_expert }}
+      
+          <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="tg-amwm" colspan="3">Results so far</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th class="tg-0pky">Round</th>
+              <th class="tg-0pky">Expert chosen</th>
+              <th class="tg-0pky">Total Coins at end of round</th>
+            </tr>
+            {% for p in player.in_all_rounds() %}
+            <tr>
+              <td class="tg-0pky">{% p.round_number %}</td>
+              <td class="tg-0pky">{% p.field_maybe_none('expert_chosen_name') %}</td>
+              <td class="tg-0pky">{% p.coins %} coins</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+          </table>
 
-        {{ endif }}
+  {{ endif }}
+</div>
+
     </div>
 {{ endblock }}
 

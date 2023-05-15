@@ -529,6 +529,11 @@ class Results(Page):
         if timeout_happened:
             print("Timeout happened. No timeout given because results page.")
 
+    @staticmethod
+    def is_displayed(player: Player):
+        # last round
+        return player.round_number != C.NUM_ROUNDS
+
 
 class FinalResults(Page):
     @staticmethod
