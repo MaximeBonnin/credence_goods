@@ -163,30 +163,6 @@ class Group(BaseGroup):
 
 # PAGES
 
-# Tutorial
-class Tutorial(Page):
-    timeout_seconds = 60 * 5 # 5 min
-
-
-# Intro
-class Intro(Page):
-    timeout_seconds = C.TIMEOUT_IN_SECONDS # timeout doesnt need to get checked on first page
-
-    @staticmethod
-    def before_next_page(player, timeout_happened):
-        # setup_players(player.subsession)
-        # handle timeout and setting is_dropout status
-        if timeout_happened:
-            player.participant.number_of_timeouts += 1
-            if player.participant.number_of_timeouts >= C.DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS:
-                player.participant.is_dropout = True
-                player.is_dropout = True
-                print(f"Player {player.id_in_group} excluded due to timeout.")
-    
-    @staticmethod
-    def is_displayed(player):
-        return player.round_number == 1  # only display in first round
-
 
 # Expert investment choice
 class InvestmentChoice(Page):
@@ -542,7 +518,6 @@ class FinalResults(Page):
         return player.round_number == C.NUM_ROUNDS
     
 page_sequence = [MatchingWaitPage,  # only first round
-                 Intro,             # only first round
                  SetupWaitPage,     # all later rounds
                  InvestmentChoice,  # only later rounds
                  ExpertSetPrices,   # Experts | all rounds
