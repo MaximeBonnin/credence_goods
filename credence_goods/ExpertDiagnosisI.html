@@ -73,12 +73,12 @@
                           </tr>
                         </tbody>
                       </table>
-
-                      <p><input type="checkbox" required="required"> Run Diagnosis
+                    
+                    <p>
                         {% if group.treatment_investment_option == "algo" %}
                         {% if player.investment_decision %}
                         <!-- display option to use algo if treatment appropriate and player invested -->
-                        <input type="checkbox"> Use Algorithm
+                        <input type="checkbox"> <b>Do not use Algorithmic Decision Aid</b>
                         {% endif %}
                         {% endif %}
                     </p>
@@ -110,6 +110,17 @@
                 
                 {% if player.investment_decision %}
                     <script>
+                        document.getElementById("calc-C-{% p.id_in_group %}").disabled = false;
+
+                        if ("{% p.service_needed %}" == "small") {
+                            input_3 = getRandomInt(21, 30); /* input_3_1 | random var 3-30 if small */ 
+                        }
+                        else {
+                            input_3 = getRandomInt(31, 40);   /* input_3_2 |  random var 4-40 if large */
+                        };
+                        document.getElementById("calc-C-{% p.id_in_group %}").value = input_3;
+
+
                         if ("{% p.service_needed %}" == "small") {
                             input_4 = getRandomInt(41, 50);  /* input_4_1 | random var 5-50 if small */
                         }
@@ -129,6 +140,6 @@
 
 <!-- hidden input for oTree formfield -->
 <input type="hidden" id="">
-<p><button class="btn btn-primary">Next</button></p>
+<p><button class="btn btn-primary">Diagnose all consumers</button></p>
 
 {{ endblock }}

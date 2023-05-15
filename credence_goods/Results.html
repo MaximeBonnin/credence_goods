@@ -11,17 +11,17 @@
                 <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th class="tg-amwm" colspan="3">Results so far</th>
+                    <th class="tg-amwm" colspan="4">Results so far</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td class="tg-0pky">Round</td>
-                    <td class="tg-0pky">Number of services provided</td>
+                    <th class="tg-0pky">Round</th>
+                    <th class="tg-0pky">Number of services provided</th>
                     {% if player.round_number >= C.INVESTMENT_STARTING_ROUND %}
-                    <td class="tg-0pky">Investment made</td>
+                    <th class="tg-0pky">Investment made</th>
                     {% endif %}
-                    <td class="tg-0pky">Coins recieved</td>
+                    <th class="tg-0pky">Coins recieved</th>
                   </tr>
                   {% for p in player.in_all_rounds() %}
                   <tr>
@@ -50,9 +50,9 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td class="tg-0pky">Round</td>
-                    <td class="tg-0pky">Expert chosen</td>
-                    <td class="tg-0pky">Coins recieved</td>
+                    <th class="tg-0pky">Round</th>
+                    <th class="tg-0pky">Expert chosen</th>
+                    <th class="tg-0pky">Coins recieved</th>
                   </tr>
                   {% for p in player.in_all_rounds() %}
                   <tr>
@@ -67,7 +67,7 @@
         {{ endif }}
     </div>
 
-    {{ next_button }}
+    <button class="otree-btn-next btn btn-primary">Next</button>
 {{ endblock }}
 
 

@@ -25,10 +25,14 @@
         width: 100%;
         padding: 0.3em;
         margin-bottom: 0.3em;
+        background-color: #bdc9e1;
     }
 </style>
 
 {{ include_sibling "InfoBox.html" }}
+
+<p>Please choose which expert you want to visit. After your decision, 
+    your expert will diagnose you, choose your treatment, and charge the corresponding price.”</p>
 
 <div class="expert-list">
     <script>
@@ -39,22 +43,36 @@
         {% if not p.is_dropout %}
 
             {% if p.is_expert %}
+
+
                 <div class="expert-card">
-                    <p class="expert-name" style="background-color: #bdc9e1"><b> Expert {% p.player_name %} {% if group.treatment_skill_visible %}({% p.ability_level %} skill){% endif %}</b></p>
+                    <p class="expert-name"><b> Expert {% p.player_name %}<br>
+                        {% if group.treatment_skill_visible %}[{% p.total_diagnosis_accuracy_percent %}% Accuracy] {% endif %}{% if group.treatment_skill_visible %}[{% p.ability_level %} skill]{% endif %} {% if p.investment_decision %}[has invested]{% endif %}</b></p>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                            <th scope="col" colspan="2">Minor Service</th>
+                            <th scope="col" colspan="2">Major Service</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Price</th>
+                                <th>Expert Profit</th>
+                                <th>Price</th>
+                                <th>Expert Profit</th>
+                            </tr>
+                            <tr>
+                                <td>{% p.price_small_service %} Coins</td>
+                                <td><span id="profit-small-{% p.id_in_group %}"></span> Coins</td>
+                                <td>{% p.price_large_service %} Coins</td>
+                                <td><span id="profit-large-{% p.id_in_group %}"></span> Coins</td>
+                            </tr>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                    <!-- Display skill level if treatment is appropirate-->
-                    {% if group.treatment_skill_visible %}
-                        <p>Accuracy: <b>{% p.total_diagnosis_accuracy_percent %}%</b></p>
-                    {% endif %}
-
-                    <!-- Display investment choices after they happen -->
-                    {% if p.round_number >= C.INVESTMENT_STARTING_ROUND %}
-                        <p>Investment: <b>{% p.investment_decision %}</b></p>
-                    {% endif %}
-
-                    <p>Price small service: <b>{% p.price_small_service %}</b> (Expert Profit: <b><span id="profit-small-{% p.id_in_group %}"></span></b>)</p>
-                    <p>Price large service: <b>{% p.price_large_service %}</b> (Expert Profit: <b><span id="profit-large-{% p.id_in_group %}"></span></b>)</p>
-                    <button class="btn btn-primary" name="expert_chosen" value="{% p.id_in_group %}">Choose Expert</button>
+                    <button class="btn btn-primary" name="expert_chosen" value="{% p.id_in_group %}">Choose Expert {% p.player_name %}</button>
                 </div>
                 
                 <script>
@@ -70,7 +88,8 @@
     {% endfor %}
     <div class="expert-card">
         <p class="expert-name"><b>No Expert</b></p>
-        <button class="btn btn-primary" name="expert_chosen" value=0>Choose no treatment</button>
+        <p>You can decide not a choose an expert. Your will not get treated and not gain coins.</p>
+        <button class="btn btn-primary" name="expert_chosen" value=0>Choose no expert</button>
     </div>
 </div>
 
