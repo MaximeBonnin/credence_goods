@@ -28,7 +28,7 @@
                 <thead>
                     <tr>
                     <th scope="col">Your diagnostic accuracy</th>
-                    <th scope="col" colspan="2">{% player.total_diagnosis_accuracy_percent %}% ({% player.ability_level %} ability {{ if player.investment_decision}} | invested{{ endif }})</th>
+                    <th scope="col" colspan="2">{% player.total_diagnosis_accuracy_percent %}% ({% player.ability_level %} ability{{ if player.investment_decision}} | invested{{ endif }})</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,8 +44,8 @@
                     </tr>
                     <tr>
                         <th scope="row">Prices paid by consumer</th>
-                        <td>X Coins</td>
-                        <td>X Coins</td>
+                        <td>{% player.price_small_service %} Coins</td>
+                        <td>{% player.price_large_service %} Coins</td>
                     </tr>
                     <tr>
                         <th scope="row">Your Profit per consumer</th>

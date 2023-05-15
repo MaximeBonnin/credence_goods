@@ -76,8 +76,8 @@ class Player(BasePlayer):
 
     # expert variables
     price_vector_chosen = models.StringField(choices=["bias_small", "bias_large", "no_bias"], initial="no_bias")
-    price_small_service = models.IntegerField(initial=C.PRICE_VECTOR_OPTIONS["no_bias"][0]) # initialize as small value of "no_bias" option in constants
-    price_large_service = models.IntegerField(initial=C.PRICE_VECTOR_OPTIONS["no_bias"][1]) # initialize as large value of "no_bias" option in constants
+    price_small_service = models.IntegerField() # initialize as small value of "no_bias" option in constants
+    price_large_service = models.IntegerField() # initialize as large value of "no_bias" option in constants
 
     ability_level = models.StringField(choices=("high", "low"))                             # 
     base_diagnosis_accuracy_percent = models.IntegerField()                                 # depends on high / low ability
@@ -324,7 +324,8 @@ class ExpertDiagnosisI(Page):
     @staticmethod
     def js_vars(player: Player):
         return dict(
-            diagnosis_correct_for_all_patients = json.loads(player.diagnosis_correct_for_all_patients)
+            diagnosis_correct_for_all_patients = json.loads(player.diagnosis_correct_for_all_patients),
+            price_vectors=C.PRICE_VECTOR_OPTIONS
         )
 
     @staticmethod
@@ -506,12 +507,24 @@ class Results(Page):
             print("Timeout happened. No timeout given because results page.")
 
     @staticmethod
+    def js_vars(player):
+        return dict(
+            price_vectors=C.PRICE_VECTOR_OPTIONS
+        )
+
+    @staticmethod
     def is_displayed(player: Player):
         # last round
         return player.round_number != C.NUM_ROUNDS
 
 
 class FinalResults(Page):
+    @staticmethod
+    def js_vars(player):
+        return dict(
+            price_vectors=C.PRICE_VECTOR_OPTIONS
+        )
+
     @staticmethod
     def is_displayed(player: Player):
         # last round
