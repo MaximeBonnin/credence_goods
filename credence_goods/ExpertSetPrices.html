@@ -1,5 +1,5 @@
 {{ block title }}
-    Set Prices
+[Round {% player.round_number %}/{% C.NUM_ROUNDS %}] Set Prices
 {{ endblock }}
 {{ block content }}
 
@@ -28,23 +28,19 @@
         background-color: #bdc9e1;
     }
 </style>
-<p>Please choose your prices for this round. Each of the three price vectors has 
-  different profit implications for you. Remember that all consumers observe your prices, 
-  the prices from other experts, and the costs for each treatment. Therefore, consumers may 
-  choose different experts depending on the offered price vector.</p>
 <div class="info">
 
   <!-- SMALL BIAS -->
   <div class="price-choices-list">
     <div class="choice-small-bias choices-card">
-      <p class="bias-name"><b>Bias small</b></p>
+      <p class="bias-name"><b>Price vector small</b></p>
       <p>By choosing this option, you will make more money when selling small services than large services.</p>
       <table class="table table-bordered">
         <tbody>
             <tr>
                 <th scope="row">Your service</th>
-                <th>Minor</th>
-                <th>Major</th>
+                <th>High-quality</th>
+                <th>Low-quality</th>
             </tr>
             <tr>
                 <th scope="row">Your prices</th>
@@ -71,14 +67,14 @@
 
     <!-- LARGE BIAS -->
     <div class="choice-large-bias choices-card">
-      <p class="bias-name"><b>Bias large</b></p>
+      <p class="bias-name"><b>Price vector large</b></p>
       <p>By choosing this option, you will make more money when selling large services than small services.</p>
       <table class="table table-bordered">
         <tbody>
             <tr>
                 <th scope="row">Your service</th>
-                <th>Minor</th>
-                <th>Major</th>
+                <th>High-quality</th>
+                <th>Low-quality</th>
             </tr>
             <tr>
                 <th scope="row">Your prices</th>
@@ -105,14 +101,14 @@
 
     <!-- NO BIAS -->
     <div class="choice-no-bias choices-card">
-      <p class="bias-name"><b>No bias</b></p>
+      <p class="bias-name"><b>Price vector equal</b></p>
       <p>By choosing this option, you will make the same amount of money when selling small and large services.</p>
       <table class="table table-bordered">
         <tbody>
             <tr>
                 <th scope="row">Your service</th>
-                <th>Minor</th>
-                <th>Major</th>
+                <th>High-quality</th>
+                <th>Low-quality</th>
             </tr>
             <tr>
                 <th scope="row">Your prices</th>

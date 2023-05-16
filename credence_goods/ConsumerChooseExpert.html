@@ -1,9 +1,11 @@
 {{ block title }}
-    Choose an Expert
+[Round {% player.round_number %}/{% C.NUM_ROUNDS %}] Please choose an expert
 {{ endblock }}
 
 
 {{ block content }}
+
+
 <style>
     .expert-list {
         display: grid;
@@ -31,9 +33,6 @@
 
 {{ include_sibling "InfoBox.html" }}
 
-<p>Please choose which expert you want to visit. After your decision, 
-    your expert will diagnose you, choose your treatment, and charge the corresponding price.”</p>
-
 <div class="expert-list">
     <script>
         let price_vector = js_vars.price_vector;
@@ -46,26 +45,48 @@
 
 
                 <div class="expert-card">
-                    <p class="expert-name"><b> Expert {% p.player_name %}<br>
-                        {% if group.treatment_skill_visible %}[{% p.total_diagnosis_accuracy_percent %}% Accuracy] {% endif %}{% if group.treatment_skill_visible %}[{% p.ability_level %} skill]{% endif %} {% if p.investment_decision %}[has invested]{% endif %}</b></p>
+                    <p class="expert-name"><b> Expert {% p.player_name %}</b></p>
                     <table class="table">
+                        {% if group.treatment_skill_visible %}
+                            {% if group.treatment_investment_option == "skill" %}
+                                <thead>
+                                    <tr>
+                                        <th colspan="4">Diagnostic accuracy</th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">{% p.total_diagnosis_accuracy_percent %}%</td>
+                                    </tr>
+                                </thead>
+                            {% else %}
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">Personal accuracy</th>
+                                        <th colspan="2">Maximum accuracy</th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">{% p.base_diagnosis_accuracy_percent %}%</td>
+                                        <td colspan="2">{% p.total_diagnosis_accuracy_percent %}%</td>
+                                    </tr>
+                                </thead>
+                            {% endif %}
+                        {% endif %}
                         <thead>
                             <tr>
-                            <th scope="col" colspan="2">Minor Service</th>
-                            <th scope="col" colspan="2">Major Service</th>
+                            <th scope="col" colspan="2">Low-quality service</th>
+                            <th scope="col" colspan="2">High-quality service</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <th>Price</th>
-                                <th>Expert Profit</th>
+                                <td>Expert Profit</td>
                                 <th>Price</th>
-                                <th>Expert Profit</th>
+                                <td>Expert Profit</td>
                             </tr>
                             <tr>
-                                <td>{% p.price_small_service %} Coins</td>
+                                <th>{% p.price_small_service %} Coins</th>
                                 <td><span id="profit-small-{% p.id_in_group %}"></span> Coins</td>
-                                <td>{% p.price_large_service %} Coins</td>
+                                <th>{% p.price_large_service %} Coins</th>
                                 <td><span id="profit-large-{% p.id_in_group %}"></span> Coins</td>
                             </tr>
                             </tr>

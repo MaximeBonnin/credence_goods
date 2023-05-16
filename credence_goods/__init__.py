@@ -87,6 +87,7 @@ class Player(BasePlayer):
     number_of_services_provided = models.IntegerField(initial=0)
 
     investment_decision = models.BooleanField(initial=False)
+    ignore_algorithmic_decision_per_consumer = models.LongStringField()                        # json/dict format string
 
     # customer variables
     enter_market = models.BooleanField(initial=True)
@@ -303,6 +304,9 @@ class ConsumerChooseExpert(Page):
 
 # Expert diagnosis I
 class ExpertDiagnosisI(Page):
+    form_model = "player"
+    form_fields = ["ignore_algorithmic_decision_per_consumer"]
+
     # handle timer for dropouts
     @staticmethod
     def get_timeout_seconds(player):

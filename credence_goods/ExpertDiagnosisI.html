@@ -1,5 +1,5 @@
 {{ block title }}
-    Diagnosis I
+[Round {% player.round_number %}/{% C.NUM_ROUNDS %}] Diagnosis I             
 {{ endblock }}
 {{ block content }}
 
@@ -31,6 +31,8 @@
 <script>
     // Returns a random integer between min (included) and max (excluded)
     // Using Math.round() will give you a non-uniform distribution!
+    dict_ignore_algo = {};
+
     function getRandomInt(min, max) {
         return Math.floor(Math.random() * (max - min)) + min;
     }
@@ -38,7 +40,8 @@
     diag = js_vars.diagnosis_correct_for_all_patients
     console.log(diag)
 </script>
-
+<!-- hidden input for oTree formfield ignore_algorithmic_decision_per_consumer -->
+<input type="text" id="ignore_algorithmic_decision_per_consumer" name="ignore_algorithmic_decision_per_consumer">
 <div class="consumer-list">
     {% for p in group.get_players() %}
 
@@ -78,7 +81,7 @@
                         {% if group.treatment_investment_option == "algo" %}
                         {% if player.investment_decision %}
                         <!-- display option to use algo if treatment appropriate and player invested -->
-                        <input type="checkbox"> <b>Do not use Algorithmic Decision Aid</b>
+                        <input type="checkbox" value=0 onclick="ignoreAlgo(key='{% p.id_in_group %}')"> <b>Do not use Algorithmic Decision Aid</b>
                         {% endif %}
                         {% endif %}
                     </p>
@@ -86,6 +89,8 @@
                 </div>
 
                 <script>
+                    dict_ignore_algo['{% p.id_in_group %}'] = 0;
+
                     input_1 = getRandomInt(1, 10); /* random var 1-10 */
                     document.getElementById("calc-A-{% p.id_in_group %}").value = input_1;
 
@@ -138,8 +143,22 @@
     {% endfor %}
 </div>
 
-<!-- hidden input for oTree formfield -->
-<input type="hidden" id="">
+
+<script>
+    document.getElementById("ignore_algorithmic_decision_per_consumer").value = JSON.stringify(dict_ignore_algo);
+    console.log(dict_ignore_algo);
+    function ignoreAlgo(key) {
+        if (dict_ignore_algo[key] == 1) {
+            dict_ignore_algo[key] = 0;
+            document.getElementById("calc-D-" + key).disabled = false;
+        } else {
+            dict_ignore_algo[key] = 1;
+            document.getElementById("calc-D-" + key).disabled = true;
+        };
+        document.getElementById("ignore_algorithmic_decision_per_consumer").value = JSON.stringify(dict_ignore_algo);
+        console.log(dict_ignore_algo);
+    }
+</script>
 <p><button class="btn btn-primary">Diagnose all consumers</button></p>
 
 {{ endblock }}
