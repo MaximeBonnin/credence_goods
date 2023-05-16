@@ -329,11 +329,9 @@ class ExpertDiagnosisI(Page):
         if player.group.treatment_investment_option == "algo":
             diagnosis_correct_for_all_patients = json.loads(player.diagnosis_correct_for_all_patients)
             ignore_algorithmic_decision_per_consumer = json.loads(player.ignore_algorithmic_decision_per_consumer)
-            print(ignore_algorithmic_decision_per_consumer)
             for consumer in player.get_others_in_group():
                 if ignore_algorithmic_decision_per_consumer.get(str(consumer.id_in_group), 0):
                     diagnosis_correct_for_all_patients[str(consumer.id_in_group)] = int(random.randint(1, 100) <= player.base_diagnosis_accuracy_percent)
-                    print(f"Consumer {consumer.id_in_group} result re-randomized without algo: {diagnosis_correct_for_all_patients[str(consumer.id_in_group)]}")
             player.diagnosis_correct_for_all_patients = json.dumps(diagnosis_correct_for_all_patients)
 
     @staticmethod
