@@ -23,25 +23,42 @@
 {{ endif }}
 <div class="info-box">
     <div class="info-left info-container">
-        <p>Round number: <b>{% player.round_number %} / {% C.NUM_ROUNDS %}</b></p>
-        <p>You Role is: <b>{{ if player.is_expert }}Expert ({% player.ability_level %} ability){{ else }}Consumer{{ endif }}</b></p>
-        <p>Coins: <b>{% player.coins %}</b></p>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Round number</th>
+                    <td>{% player.round_number %} / {% C.NUM_ROUNDS %}</td>
+                </tr>
+                <tr>
+                    <th>Total Coins</th>
+                    <td>{% player.coins %}</td>
+                </tr>
+                <tr>
+                    <th>Your Role</th>
+                    <td>{{ if player.is_expert }}Expert ({% player.ability_level %} ability){{ else }}Consumer{{ endif }}</td>
+                </tr>
+                {% if player.is_expert %}
+                <tr>
+                    <th>Diagnostic accuracy</th>
+                    <td>{% player.base_diagnosis_accuracy_percent %}%</td>
+                </tr>
+                <tr>
+                    <th>Accuracy using investment</th>
+                    <td>{% player.total_diagnosis_accuracy_percent %}%</td>
+                </tr>
+                {% endif %}
+            </thead>
+        </table>
     </div>
 
     <div class="info-right info-container">
         {% if player.is_expert %}
             <table class="table table-bordered">
-                <thead>
-                    <tr>
-                    <th scope="col">Your diagnostic accuracy</th>
-                    <th scope="col" colspan="2">{% player.total_diagnosis_accuracy_percent %}% ({% player.ability_level %} ability{{ if player.investment_decision}} | invested{{ endif }})</th>
-                    </tr>
-                </thead>
                 <tbody>
                     <tr>
                         <th scope="row">Your service</th>
-                        <th>Minor Service</th>
-                        <th>Major Service</th>
+                        <th>Minor</th>
+                        <th>Major</th>
                     </tr>
                     <tr>
                         <th scope="row">Your costs</th>
@@ -49,12 +66,12 @@
                         <td>{% C.COST_OF_PROVIDING_LARGE_SERVICE %} Coins</td>
                     </tr>
                     <tr>
-                        <th scope="row">Prices paid by consumer</th>
+                        <th scope="row">Your prices</th>
                         <td>{% if player.field_maybe_none("price_small_service") %}{% player.field_maybe_none("price_small_service") %} Coins {% else %} Not set {% endif %}</td>
                         <td>{% if player.field_maybe_none("price_large_service") %}{% player.field_maybe_none("price_large_service") %} Coins {% else %} Not set {% endif %}</td>
                     </tr>
                     <tr>
-                        <th scope="row">Your Profit per consumer</th>
+                        <th scope="row">Your profit per consumer</th>
                         <td>{% if player.field_maybe_none("price_small_service") %}<span id="profit_small"></span> Coins {% else %} Not set {% endif %}</td>
                         <td>{% if player.field_maybe_none("price_large_service") %}<span id="profit_large"></span> Coins {% else %} Not set {% endif %}</td>
                     </tr>
