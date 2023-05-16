@@ -82,12 +82,12 @@ class Player(BasePlayer):
     ability_level = models.StringField(choices=("high", "low"))                             # 
     base_diagnosis_accuracy_percent = models.IntegerField()                                 # depends on high / low ability
     total_diagnosis_accuracy_percent = models.IntegerField()                                # depends on high/low ability and investment
-    diagnosis_correct_for_all_patients = models.LongStringField()                           # json/dict format string
-    services_provided_to_all_consumers = models.LongStringField()                           # json/dict format string 
+    diagnosis_correct_for_all_patients = models.StringField()                           # json/dict format string
+    services_provided_to_all_consumers = models.StringField()                           # json/dict format string 
     number_of_services_provided = models.IntegerField(initial=0)
 
     investment_decision = models.BooleanField(initial=False)
-    ignore_algorithmic_decision_per_consumer = models.LongStringField()                        # json/dict format string
+    ignore_algorithmic_decision_per_consumer = models.StringField()                        # json/dict format string
 
     # customer variables
     enter_market = models.BooleanField(initial=True)
