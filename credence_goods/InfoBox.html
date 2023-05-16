@@ -12,6 +12,12 @@
     }
 </style>
 
+<script>
+    price_vector_chosen = "{% player.price_vector_chosen %}";
+    price_vector = js_vars.price_vectors;
+    console.log(price_vector)
+</script>
+
 {{ if player.participant.number_of_timeouts > 0 }}
     <p><b><span id="warning">WARNING: You have {% player.participant.number_of_timeouts %} timeouts. You will be excluded from the experiment at {% C.DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS %} timeouts.</span></b></p>
 {{ endif }}
@@ -44,16 +50,21 @@
                     </tr>
                     <tr>
                         <th scope="row">Prices paid by consumer</th>
-                        <td>{% player.price_small_service %} Coins</td>
-                        <td>{% player.price_large_service %} Coins</td>
+                        <td>{% if player.field_maybe_none("price_small_service") %}{% player.field_maybe_none("price_small_service") %} Coins {% else %} Not set {% endif %}</td>
+                        <td>{% if player.field_maybe_none("price_large_service") %}{% player.field_maybe_none("price_large_service") %} Coins {% else %} Not set {% endif %}</td>
                     </tr>
                     <tr>
                         <th scope="row">Your Profit per consumer</th>
-                        <td>X Coins</td>
-                        <td>X Coins</td>
+                        <td>{% if player.field_maybe_none("price_small_service") %}<span id="profit_small"></span> Coins {% else %} Not set {% endif %}</td>
+                        <td>{% if player.field_maybe_none("price_large_service") %}<span id="profit_large"></span> Coins {% else %} Not set {% endif %}</td>
                     </tr>
                 </tbody>
             </table>
+
+            <script>
+                document.getElementById("profit_small").innerHTML = price_vector[price_vector_chosen][2]
+                document.getElementById("profit_large").innerHTML = price_vector[price_vector_chosen][3]
+            </script>
         {% else %}
         
         {% endif %}
