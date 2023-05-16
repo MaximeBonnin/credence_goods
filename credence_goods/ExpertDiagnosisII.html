@@ -33,6 +33,8 @@
 
     <script>
         var dict_of_names = {};
+        var ignore_algorithmic_decision_per_consumer = js_vars.ignore_algorithmic_decision_per_consumer;
+        console.log(ignore_algorithmic_decision_per_consumer)
         var diagnosis_correct_for_all_patients = js_vars.diagnosis_correct_for_all_patients;
     </script>
 
@@ -42,7 +44,7 @@
                 <div class="consumer-card">
                     <p class="consumer-name" style="background-color: #bdc9e1"><b>Consumer {% p.player_name %}</b></p>
 
-                    <p>Diagnosis result: <b><span id="result-{% p.id_in_group %}"></span> service needed ({% player.total_diagnosis_accuracy_percent %}% Acc)</b></p>
+                    <p>Diagnosis result: <b><span id="result-{% p.id_in_group %}"></span> service needed (<span id="acc-{% p.id_in_group %}">X</span>% Acc)</b></p>
 
 
                     <p><input class="radio-button" id="consumer_{% p.id_in_group %}_service_small" type="radio" name="{% p.id_in_group %}" value="small" required="required" onclick="updateService(key='{% p.id_in_group %}', value='small')">
@@ -52,7 +54,15 @@
                 </div>
 
             <script>
+                /* display accuracy */ 
                 dict_of_names["{% p.id_in_group %}"] = "none"
+                if (ignore_algorithmic_decision_per_consumer["{% p.id_in_group %}"] == 1) {
+                    document.getElementById("acc-{% p.id_in_group %}").innerHTML = "{% player.base_diagnosis_accuracy_percent %}"
+                } else {
+                    document.getElementById("acc-{% p.id_in_group %}").innerHTML = "{% player.total_diagnosis_accuracy_percent %}"
+                }
+
+
                 if (diagnosis_correct_for_all_patients["{% p.id_in_group %}"]) {
                     /* correct diagnosis */ 
                     document.getElementById("result-{% p.id_in_group %}").innerHTML = "{% p.service_needed %}"

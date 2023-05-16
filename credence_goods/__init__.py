@@ -17,7 +17,7 @@ class C(BaseConstants):
     # colors: #f1eef6, #bdc9e1, #74a9cf, #0570b0
 
     NAME_IN_URL = 'credence_goods'
-    NUM_ROUNDS = 4
+    NUM_ROUNDS = 8
     PLAYERS_PER_GROUP = 6
     TIMEOUT_IN_SECONDS = 1500               # Intro page is different
     DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS = 3 # players get excluded from the experiment if they have X number of timeouts
@@ -324,6 +324,17 @@ class ExpertDiagnosisI(Page):
                 player.participant.is_dropout = True
                 player.is_dropout = True
                 print(f"Player {player.id_in_group} excluded due to timeout.")
+        
+        # set diagnosis_correct_for_all_patients based on ignore_algorithmic_decision_per_consumer
+        if player.group.treatment_investment_option == "algo":
+            diagnosis_correct_for_all_patients = json.loads(player.diagnosis_correct_for_all_patients)
+            ignore_algorithmic_decision_per_consumer = json.loads(player.ignore_algorithmic_decision_per_consumer)
+            print(ignore_algorithmic_decision_per_consumer)
+            for consumer in player.get_others_in_group():
+                if ignore_algorithmic_decision_per_consumer.get(str(consumer.id_in_group), 0):
+                    diagnosis_correct_for_all_patients[str(consumer.id_in_group)] = int(random.randint(1, 100) <= player.base_diagnosis_accuracy_percent)
+                    print(f"Consumer {consumer.id_in_group} result re-randomized without algo: {diagnosis_correct_for_all_patients[str(consumer.id_in_group)]}")
+            player.diagnosis_correct_for_all_patients = json.dumps(diagnosis_correct_for_all_patients)
 
     @staticmethod
     def js_vars(player: Player):
@@ -358,7 +369,8 @@ class ExpertDiagnosisII(Page):
     def js_vars(player):
         return dict(
             price_vectors=C.PRICE_VECTOR_OPTIONS,
-            diagnosis_correct_for_all_patients = json.loads(player.diagnosis_correct_for_all_patients)
+            diagnosis_correct_for_all_patients = json.loads(player.diagnosis_correct_for_all_patients),
+            ignore_algorithmic_decision_per_consumer = json.loads(player.ignore_algorithmic_decision_per_consumer)
         )
 
     @staticmethod
@@ -480,8 +492,6 @@ class ExpertWaitPage(WaitPage):
 
 
 class ConsumerWaitPage(WaitPage):
-    title_text = "Waiting for experts"
-    body_text = "You are currently waiting for the consumers to make a decision. It will only take a minute..."
 
 
     @staticmethod

@@ -1,10 +1,7 @@
-{{ block title }}
-[Round {% player.round_number %}/{% C.NUM_ROUNDS %}] Results of this round
-{{ endblock }}
-
+{{ extends 'otree/WaitPage.html' }}
+{{ block title }} Waiting for experts... {{ title_text }}{{ endblock }}
 {{ block content }}
-
-{{ include_sibling "InfoBox.html" }}
+    {{ body_text }}
 
     <div class="expert-results">
         {{ if player.is_expert }}
@@ -66,8 +63,4 @@
 
         {{ endif }}
     </div>
-
-    <button class="otree-btn-next btn btn-primary">Next</button>
 {{ endblock }}
-
-
