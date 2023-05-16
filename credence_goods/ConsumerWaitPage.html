@@ -1,7 +1,6 @@
 {{ extends 'otree/WaitPage.html' }}
-{{ block title }} Waiting for experts... {{ title_text }}{{ endblock }}
+{{ block title }} Waiting for experts... {{ endblock }}
 {{ block content }}
-    {{ body_text }}
 
     <div class="expert-results">
         {{ if player.is_expert }}
@@ -18,7 +17,7 @@
                     {% if player.round_number >= C.INVESTMENT_STARTING_ROUND %}
                     <th class="tg-0pky">Investment made</th>
                     {% endif %}
-                    <th class="tg-0pky">Total Coins at end of round</th>
+                    <th class="tg-0pky">Total Coins</th>
                   </tr>
                   {% for p in player.in_all_rounds() %}
                   <tr>
@@ -49,7 +48,7 @@
                   <tr>
                     <th class="tg-0pky">Round</th>
                     <th class="tg-0pky">Expert chosen</th>
-                    <th class="tg-0pky">Total Coins at end of round</th>
+                    <th class="tg-0pky">Total Coins</th>
                   </tr>
                   {% for p in player.in_all_rounds() %}
                   <tr>

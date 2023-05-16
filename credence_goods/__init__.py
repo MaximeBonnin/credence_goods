@@ -19,7 +19,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'credence_goods'
     NUM_ROUNDS = 8
     PLAYERS_PER_GROUP = 6
-    TIMEOUT_IN_SECONDS = 1500               # Intro page is different
+    TIMEOUT_IN_SECONDS = 1500               # Investment Explain page is different
     DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS = 3 # players get excluded from the experiment if they have X number of timeouts
 
     NUM_EXPERTS_PER_GROUP = 3                         # consumers = players - experts #TODO currently not working, every second person is set to expert
@@ -164,6 +164,20 @@ class Group(BaseGroup):
 
 # PAGES
 
+
+# Explain investment
+class InvestmentExplanation(Page):
+    # handle timer for dropouts
+    @staticmethod
+    def get_timeout_seconds(player):
+        if player.participant.is_dropout:
+            return 1  # instant timeout, 1 second
+        else:
+            return C.TIMEOUT_IN_SECONDS * 5
+        
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == C.INVESTMENT_STARTING_ROUND
 
 # Expert investment choice
 class InvestmentChoice(Page):
@@ -490,7 +504,7 @@ class ExpertWaitPage(WaitPage):
 
 
 class ConsumerWaitPage(WaitPage):
-
+    template_name = 'credence_goods/ConsumerWaitPage.html'
 
     @staticmethod
     def is_displayed(player):
@@ -544,6 +558,7 @@ class FinalResults(Page):
     
 page_sequence = [MatchingWaitPage,  # only first round
                  SetupWaitPage,     # all later rounds
+                 InvestmentExplanation, # only invesment starting round
                  InvestmentChoice,  # only later rounds
                  ExpertSetPrices,   # Experts | all rounds
                  ConsumerWaitPage,      # Consumers | all rounds
