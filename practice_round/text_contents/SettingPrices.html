@@ -4,19 +4,54 @@
     Each price vector determines the price you will charge any client that approaches you, 
     depending on which treatment you choose. The three price vectors are:</p>
 
-<ul>
-    <li>(P1) Price vector large: X</li>
-    <li>P2: X</li>
-    <li>P3: X</li>
-</ul>
+<table class="table table-bordered">
+    <tr>
+        <th></th>
+        <th>Low-quality service</th>
+        <th>High-quality service</th>
+    </tr>
+    <tr>
+        <th>(P1) Price vector large</th>
+        <td>{% C.PRICE_VECTOR_OPTIONS.bias_large.0 %} Coins</td>
+        <td>{% C.PRICE_VECTOR_OPTIONS.bias_large.1 %} Coins</td>
+    </tr>
+    <tr>
+        <th>(P2) Price vector small</th>
+        <td>{% C.PRICE_VECTOR_OPTIONS.bias_small.0 %} Coins</td>
+        <td>{% C.PRICE_VECTOR_OPTIONS.bias_small.1 %} Coins</td>
+    </tr>
+    <tr>
+        <th>(P3) Price vector equal</th>
+        <td>{% C.PRICE_VECTOR_OPTIONS.no_bias.0 %} Coins</td>
+        <td>{% C.PRICE_VECTOR_OPTIONS.no_bias.1 %} Coins</td>
+    </tr>
+</table>
+
 {% else %}
 <p>At the beginning of each round, experts set their prices. Experts choose between three price vectors. 
     Each price vector determines the price of the low-quality and the high-quality treatment. The three price vectors are:</p>
 
-    <ul>
-        <li>(P1) Price vector large: X</li>
-        <li>P2: X</li>
-        <li>P3: X</li>
-    </ul>
+<table class="table table-bordered">
+    <tr>
+        <th></th>
+        <th>Low-quality service</th>
+        <th>High-quality service</th>
+    </tr>
+    <tr>
+        <th>(P1) Price vector large</th>
+        <td>{% C.PRICE_VECTOR_OPTIONS.bias_large.0 %} Coins</td>
+        <td>{% C.PRICE_VECTOR_OPTIONS.bias_large.1 %} Coins</td>
+    </tr>
+    <tr>
+        <th>(P2) Price vector small</th>
+        <td>{% C.PRICE_VECTOR_OPTIONS.bias_small.0 %} Coins</td>
+        <td>{% C.PRICE_VECTOR_OPTIONS.bias_small.1 %} Coins</td>
+    </tr>
+    <tr>
+        <th>(P3) Price vector equal</th>
+        <td>{% C.PRICE_VECTOR_OPTIONS.no_bias.0 %} Coins</td>
+        <td>{% C.PRICE_VECTOR_OPTIONS.no_bias.1 %} Coins</td>
+    </tr>
+</table>
 {% endif %}
 

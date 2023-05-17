@@ -2,30 +2,112 @@
 {% if participant.is_expert %}
 <p>If either no client approached you, or no client entered the market, you do not earn any additional payoff. </p>
 
-                        <h5>Clients</h5>
-                        <ol>
-                            <li>Client does not enter the market: 0 Coins</li>
-                            <li>Client approaches an expert and the treatment was solved: 150 Coins – treatment price</li>
-                            <li>Client approaches an expert and the treatment was not solved: - treatment price</li>
-                        </ol>
+<table class="table">
+    <thead>
+        <tr>
+            <th colspan="3">Clients</th>
+        </tr>
+    </thead>
+    <tr>
+        <th>#</th>
+        <th>Client round</th>
+        <th>Payoff</th>
+    </tr>
+    <tr>
+        <th>1</th>
+        <td>Client does not enter the market</td>
+        <td>0</td>
+    </tr>
+    <tr>
+        <th>2</th>
+        <td>Client approaches an expert and the treatment was solved</td>
+        <td>{% C.CONSUMER_PAYOFFS.problem_solved %} Coins – treatment price</td>
+    </tr>
+    <tr>
+        <th>3</th>
+        <td>Client approaches an expert and the treatment was not solved</td>
+        <td>- treatment price</td>
+    </tr>
+    <thead>
+        <tr>
+            <th colspan="3">Experts</th>
+        </tr>
+    </thead>
+    <tr>
+        <th>#</th>
+        <th>Expert round</th>
+        <th>Payoff</th>
+    </tr>
+    <tr>
+        <th>1</th>
+        <td>Expert is not approached by any client</td>
+        <td>0</td>
+    </tr>
+    <tr>
+        <th>2</th>
+        <td>Expert is approached by one client</td>
+        <td>treatment price – treatment costs</td>
+    </tr>
+    <tr>
+        <th>3</th>
+        <td>Expert is approached by multiple clients</td>
+        <td>Number of approaching clients * Option #2</td>
+    </tr>
+</table>
 
-                        <h5>Experts</h5>
-                        <ol>
-                            <li>Expert is not approached by any client: 0 Coins</li>
-                            <li>Expert is approached by one client: treatment price – treatment costs</li>
-                            <li>Expert is approached by multiple clients: Number of approaching clients * Option #2</li>
-                        </ol>
+
 {% else %}
-<h5>Clients</h5>
-                        <ol>
-                            <li>You do not enter the market: 0 Coins</li>
-                            <li>You approach an expert and the treatment was solved: 150 Coins – treatment price</li>
-                            <li>You approach an expert and the treatment was not solved: - treatment price</li>
-                        </ol>
 
-                        <h5>Experts</h5>
-                        <ol>
-                            <li>Expert is not approached by any client: 0 Coins</li>
-                            <li>Expert is approached by one client: treatment price – treatment costs</li>
-                            <li>Expert is approached by multiple clients: Number of approaching clients * Option #2</li>
+<table class="table">
+    <thead>
+        <tr>
+            <th colspan="3">Clients</th>
+        </tr>
+    </thead>
+    <tr>
+        <th>#</th>
+        <th>Client round</th>
+        <th>Payoff</th>
+    </tr>
+    <tr>
+        <th>1</th>
+        <td>You do not enter the market</td>
+        <td>0</td>
+    </tr>
+    <tr>
+        <th>2</th>
+        <td>You approach an expert and the treatment was solved</td>
+        <td>{% C.CONSUMER_PAYOFFS.problem_solved %} Coins – treatment price</td>
+    </tr>
+    <tr>
+        <th>3</th>
+        <td>You approach an expert and the treatment was not solved</td>
+        <td>- treatment price</td>
+    </tr>
+    <thead>
+        <tr>
+            <th colspan="3">Experts</th>
+        </tr>
+    </thead>
+    <tr>
+        <th>#</th>
+        <th>Expert round</th>
+        <th>Payoff</th>
+    </tr>
+    <tr>
+        <th>1</th>
+        <td>Expert is not approached by any client</td>
+        <td>0</td>
+    </tr>
+    <tr>
+        <th>2</th>
+        <td>Expert is approached by one client</td>
+        <td>treatment price – treatment costs</td>
+    </tr>
+    <tr>
+        <th>3</th>
+        <td>Expert is approached by multiple clients</td>
+        <td>Number of approaching clients * Option #2</td>
+    </tr>
+</table>
 {% endif %}

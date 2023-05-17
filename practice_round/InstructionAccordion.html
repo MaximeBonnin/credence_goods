@@ -89,15 +89,16 @@
 <script>
     page_sequence = ["Introduction", "Role", "ExperimentalProcedure", "SettingPrices", "Diagnosis", "Payoffs"];
     current_page = "{% participant._current_page_name %}";
+    console.log("Current page:", current_page);
     
-    if (current_page in page_sequence) {
+    if (page_sequence.includes(current_page)) {
         // only display up to current page //
         console.log("Set visible up to {% participant._current_page_name %}")
         for (let i = 0; i <= page_sequence.indexOf("{% participant._current_page_name %}"); i++) {
             document.getElementById(page_sequence[i]).hidden = false;
         }
     } else {
-        console.log("Page not in practice_round sequence.")
+        console.log("Page not in page_sequence. Setting all to visible...")
         for (let i = 0; i < page_sequence.length; i++) {
             document.getElementById(page_sequence[i]).hidden = false;
         }

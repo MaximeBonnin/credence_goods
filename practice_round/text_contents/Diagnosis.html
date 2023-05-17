@@ -2,44 +2,53 @@
 {% if participant.is_expert %}
 <p>After you set your prices, you will proceed with the diagnosis.  
     Remember that there are two types of expert, and you have been 
-    selected to be a low-ability/high-ability expert. When deciding which 
-    expert to approach, the clients can [NOT] observe your and all other expert’s ability levels. </p>
+    selected to be a {% participant.ability_level %}-ability expert. When deciding which 
+    expert to approach, the <b>clients can {% if not session.config.treatment_skill_visible %} not {% endif %} observe your and all other expert’s ability levels</b>. </p>
 
-<p>As a low/high-ability expert, you will receive a signal in each round, that tells you which of 
-    the two problems a client has. This signal is x% accurate for the low-ability expert (you), 
-    and y% accurate for the high-ability expert (you). Thus, if e.g. a client has a small problem, 
-    then, you get the signal that the problem is small with a probability of x/y%.</p>
+<p>As a {% participant.ability_level %}-ability expert, you will receive a signal in each round, that tells you which of 
+    the two problems a client has. This signal is <b>{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}% accurate for the low-ability expert</b>{% if participant.ability_level == "low" %} (you){% endif %}, 
+    and <b>{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.high %}% accurate for the high-ability expert</b>{% if participant.ability_level == "high" %} (you){% endif %}. Thus, if e.g. a client has a small problem, 
+    then, you get the signal that the problem is small with a probability of {% if participant.ability_level == "low" %}{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}{% else %}{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.high %}{% endif %}%.</p>
 
 <p>To receive the signal, you need to complete a short prediction task (see image below). 
-    A client’s problem is determined by 4 symptoms, and as a low/high-ability expert, 
-    you receive 2/3 input factors. A high/low-ability receives 3/2 input factors. 
+    A client’s problem is determined by 4 symptoms, and as a 
+    {% if participant.ability_level == "low" %}low-ability expert <b>you receive 2 input factors</b>. A high-ability expert receives 3{% else %}
+    high-ability expert <b>you receive 3 input factors</b>. A low-ability expert receives 2{% endif %} input factors.
     To make your diagnosis, you only need to click on the blue diagnosis button. 
     You need to do nothing else. Afterwards, you will receive the diagnostic signal.</p>
 
+<img src="" alt="prediction task">
+
 <p>Finally, you decide which treatment you want to implement for a given client.</p>
 
-<p>Importantly, you will diagnose and treat all X possible clients in each round. 
+<p>Importantly, you will diagnose and treat all {% C.NUM_CONSUMERS_PER_GROUP %} possible clients in each round. 
     However, your decisions will only affect your payoff if at least one client decided 
-    to approach you. Then, for each client that approached you, you will receive the price 
-    associated with your chosen treatment for that client as payoff. For example, if a client 
+    to approach you. Then, <b>for each client that approached you, you will receive the price 
+        associated with your chosen treatment for that client as payoff</b>. For example, if a client 
     approached you, and you decided to implement the high-quality treatment, you will receive 
-    the price for the high-quality treatment as a payoff. Remember however that you will also 
-    need to pay the costs of the high-quality treatment. If e.g. two clients approached you, 
+    the price for the high-quality treatment as a payoff. <b>Remember however that you will also 
+        need to pay the costs of the high-quality treatment</b>. If e.g. two clients approached you, 
     and you chose to implement the high-quality treatment for one and the low-quality treatment 
     for the other client, you will receive the price of 1 high-quality treatment and 1 low-quality 
     treatment as payoff, while also paying the costs of 1 high-quality treatment and 1 low-quality treatment.</p>
+
+
+
+
 {% else %}
 <p>After experts set their prices, they proceed with the diagnosis. Remember that there are two types 
-    of expert, a low-ability and a high-ability expert. When deciding which expert to approach, you 
-    can observe each expert’s ability level.</p>
+    of expert, a low-ability and a high-ability expert. When deciding which expert to approach, <b>you 
+        can {% if not session.config.treatment_skill_visible %} not {% endif %} observe each expert’s ability level</b>.</p>
 
 <p>Experts receive a signal in each round, that tells them which of the two problems a client has. 
-    This signal is x% accurate for the low-ability expert, and y% accurate for the high-ability expert. 
+    This <b>signal is{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}% accurate for the low-ability expert, 
+        and {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.high %}% accurate for the high-ability expert</b>. 
     Thus, if e.g. you have a small problem, then, the high-ability experts gets the signal that the 
-    problem is small with a probability of x%, and the low-ability expert gets the signal that the 
-    problem is small with a probability of y%. Remember that you only receive the 150 Coins if your 
+    problem is small with a probability of {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.high %}%, and the low-ability expert gets the signal that the 
+    problem is small with a probability of {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}%. Remember that you only receive the {% C.CONSUMER_PAYOFFS.problem_solved %} Coins if your 
     problem is solved. Additionally, once you approach an expert, you will have to pay for whatever 
     treatment the expert decided to implement.</p>
+
 
 <p>To receive the signal, experts need to complete a short prediction task. The prediction task works 
     as follows: Your problem (small or big) is determined by 5 symptoms, which are assigned to you 
@@ -47,6 +56,8 @@
     small problem. High-ability experts can observe three of your symptoms. Low-ability experts can 
     observe two of your symptoms. Therefore, high-ability experts are better at diagnosing you. Using 
     the symptoms, the expert makes a diagnosis and receives a diagnostic signal.</p>
+
+<img src="" alt="prediction task">
 
 <p>After making their diagnosis, each expert decides which treatment they want to implement for a given client. </p>
 
