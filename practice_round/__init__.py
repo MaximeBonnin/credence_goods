@@ -25,6 +25,7 @@ class C(BaseConstants):
     COST_OF_PROVIDING_LARGE_SERVICE = 2     # c_g
 
     CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT = 40 # %
+    CHANCE_TO_HAVE_SMALL_PROBLEM_IN_PERCENT = 100-CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT
 
     PRICE_VECTOR_OPTIONS = {                # (price_small, price_large, profit_small, profit_large)
         "bias_small": (4, 4, 
@@ -44,7 +45,7 @@ class C(BaseConstants):
     CONSUMER_PAYOFFS = {
         "no_market_entry": 0,
         "problem_remains": 0,
-        "problem_solved": 10
+        "problem_solved": 150
     }
 
     INVESTMENT_STARTING_ROUND = 2

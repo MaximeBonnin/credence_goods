@@ -18,7 +18,7 @@ SESSION_CONFIG_DEFAULTS = dict(
     real_world_currency_per_point=1.00, participation_fee=10.00, doc=""
 )
 
-PARTICIPANT_FIELDS = ['treatment_skill_visible', "is_expert", "number_of_timeouts", "is_dropout"]
+PARTICIPANT_FIELDS = ['treatment_skill_visible', "is_expert", "number_of_timeouts", "is_dropout", "ability_level"]
 SESSION_FIELDS = []
 
 # ISO-639 code
@@ -26,7 +26,7 @@ SESSION_FIELDS = []
 LANGUAGE_CODE = 'en'
 
 # e.g. EUR, GBP, CNY, JPY
-REAL_WORLD_CURRENCY_CODE = 'USD'
+REAL_WORLD_CURRENCY_CODE = 'GBP'
 USE_POINTS = True
 
 ADMIN_USERNAME = 'admin'

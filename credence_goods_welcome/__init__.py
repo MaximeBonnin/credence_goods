@@ -37,6 +37,7 @@ def creating_session(subsession: Subsession):
         #TODO make this random not just even/uneven
         if player.id_in_group % 2 == 0:
             player.participant.is_expert = True
+            player.participant.ability_level = random.choice(("low", "high"))
         else:
             player.participant.is_expert = False
 

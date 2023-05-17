@@ -114,7 +114,7 @@ def setup_player(player: Player) -> Player:
             player.is_expert = True
 
             # setup expert
-            player.ability_level = random.choice(("low", "high"))
+            player.ability_level = player.participant.ability_level
             player.base_diagnosis_accuracy_percent = C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT[player.ability_level]
             player.total_diagnosis_accuracy_percent = player.base_diagnosis_accuracy_percent
 
