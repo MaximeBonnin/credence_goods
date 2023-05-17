@@ -3,8 +3,115 @@
 {{ endblock }}
 {{ block content }}
 
+<style>
+    .price-choices-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1em;
+    }
+    .choices-card {
+        background-color: #f1eef6;
+        text-align: center;
+        border: solid;
+        border-radius: 1em;
+        padding-bottom: 0.3em;
+        margin: 1em;
+        overflow: hidden;
+    }
+  
+    .bias-name {
+          width: 100%;
+          padding: 0.3em;
+          margin-bottom: 0.3em;
+          background-color: #bdc9e1;
+      }
+  </style>
+  <div class="info">
+  
+    <!-- SMALL BIAS -->
+    <div class="price-choices-list">
+      <div class="choice-small-bias choices-card">
+        <p class="bias-name"><b>Price vector small</b></p>
+        <p>By choosing this option, you will make more money when selling small services than large services.</p>
+        <table class="table table-bordered">
+          <tbody>
+              <tr>
+                  <th scope="row">Your service</th>
+                  <th>High-quality</th>
+                  <th>Low-quality</th>
+              </tr>
+              <tr>
+                  <th scope="row">Your prices</th>
+                  <th>{% C.PRICE_VECTOR_OPTIONS.bias_small.0 %} Coins</th>
+                  <th>{% C.PRICE_VECTOR_OPTIONS.bias_small.1 %} Coins</th>
+              </tr>
+              <tr>
+                  <th scope="row">Your profit per consumer</th>
+                  <th>{% C.PRICE_VECTOR_OPTIONS.bias_small.2 %} Coins</th>
+                  <th>{% C.PRICE_VECTOR_OPTIONS.bias_small.3 %} Coins</th>
+              </tr>
+          </tbody>
+      </table>
+        <button class="btn btn-primary" name="price_vector_chosen" value="bias_small">Choose Option</button>
 
-{{ include_sibling "InstructionAccordion.html" }}
+      </div>
+  
+      <!-- LARGE BIAS -->
+      <div class="choice-large-bias choices-card">
+        <p class="bias-name"><b>Price vector large</b></p>
+        <p>By choosing this option, you will make more money when selling large services than small services.</p>
+        <table class="table table-bordered">
+          <tbody>
+              <tr>
+                  <th scope="row">Your service</th>
+                  <th>High-quality</th>
+                  <th>Low-quality</th>
+              </tr>
+              <tr>
+                <th scope="row">Your prices</th>
+                <th>{% C.PRICE_VECTOR_OPTIONS.bias_large.0 %} Coins</th>
+                <th>{% C.PRICE_VECTOR_OPTIONS.bias_large.1 %} Coins</th>
+            </tr>
+            <tr>
+                <th scope="row">Your profit per consumer</th>
+                <th>{% C.PRICE_VECTOR_OPTIONS.bias_large.2 %} Coins</th>
+                <th>{% C.PRICE_VECTOR_OPTIONS.bias_large.3 %} Coins</th>
+            </tr>
+          </tbody>
+      </table>
+        <button class="btn btn-primary" name="price_vector_chosen" value="bias_large">Choose Option</button>
+      </div>
+  
+      <!-- NO BIAS -->
+      <div class="choice-no-bias choices-card">
+        <p class="bias-name"><b>Price vector equal</b></p>
+        <p>By choosing this option, you will make the same amount of money when selling small and large services.</p>
+        <table class="table table-bordered">
+          <tbody>
+              <tr>
+                  <th scope="row">Your service</th>
+                  <th>High-quality</th>
+                  <th>Low-quality</th>
+              </tr>
+              <tr>
+                <th scope="row">Your prices</th>
+                <th>{% C.PRICE_VECTOR_OPTIONS.no_bias.0 %} Coins</th>
+                <th>{% C.PRICE_VECTOR_OPTIONS.no_bias.1 %} Coins</th>
+            </tr>
+            <tr>
+                <th scope="row">Your profit per consumer</th>
+                <th>{% C.PRICE_VECTOR_OPTIONS.no_bias.2 %} Coins</th>
+                <th>{% C.PRICE_VECTOR_OPTIONS.no_bias.3 %} Coins</th>
+            </tr>
+          </tbody>
+      </table>
+        <button class="btn btn-primary" name="price_vector_chosen" value="no_bias">Choose Option</button>
+      </div>
+  
+</div>
+  
+
+<p>{{ include_sibling "InstructionAccordion.html" }}</p>
 
 
     {{ formfields }}

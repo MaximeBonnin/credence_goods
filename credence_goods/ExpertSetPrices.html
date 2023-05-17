@@ -30,8 +30,8 @@
 </style>
 <div class="info">
 
-  <!-- SMALL BIAS -->
   <div class="price-choices-list">
+    <!-- SMALL BIAS -->
     <div class="choice-small-bias choices-card">
       <p class="bias-name"><b>Price vector small</b></p>
       <p>By choosing this option, you will make more money when selling small services than large services.</p>
@@ -44,25 +44,18 @@
             </tr>
             <tr>
                 <th scope="row">Your prices</th>
-                <th><span id="bias_small_service_small_price">X</span> Coins</th>
-                <th><span id="bias_small_service_large_price">X</span> Coins</th>
+                <th>{% C.PRICE_VECTOR_OPTIONS.bias_small.0 %} Coins</th>
+                <th>{% C.PRICE_VECTOR_OPTIONS.bias_small.1 %} Coins</th>
             </tr>
             <tr>
                 <th scope="row">Your profit per consumer</th>
-                <th><span id="bias_small_service_small_profit">X</span> Coins</th>
-                <th><span id="bias_small_service_large_profit">X</span> Coins</th>
+                <th>{% C.PRICE_VECTOR_OPTIONS.bias_small.2 %} Coins</th>
+                <th>{% C.PRICE_VECTOR_OPTIONS.bias_small.3 %} Coins</th>
             </tr>
         </tbody>
     </table>
       <button class="btn btn-primary" name="price_vector_chosen" value="bias_small">Choose Option</button>
 
-      <script>
-        document.getElementById("bias_small_service_small_price").innerHTML = js_vars.price_vectors["bias_small"][0]
-        document.getElementById("bias_small_service_large_price").innerHTML = js_vars.price_vectors["bias_small"][1]
-        document.getElementById("bias_small_service_small_profit").innerHTML = js_vars.price_vectors["bias_small"][2]
-        document.getElementById("bias_small_service_large_profit").innerHTML = js_vars.price_vectors["bias_small"][3]
-        console.log(js_vars.price_vectors)
-      </script>
     </div>
 
     <!-- LARGE BIAS -->
@@ -77,26 +70,18 @@
                 <th>Low-quality</th>
             </tr>
             <tr>
-                <th scope="row">Your prices</th>
-                <th><span id="bias_large_service_small_price">X</span> Coins</th>
-                <th><span id="bias_large_service_large_price">X</span> Coins</th>
-            </tr>
-            <tr>
-                <th scope="row">Your profit per consumer</th>
-                <th><span id="bias_large_service_small_profit">X</span> Coins</th>
-                <th><span id="bias_large_service_large_profit">X</span> Coins</th>
-            </tr>
+              <th scope="row">Your prices</th>
+              <th>{% C.PRICE_VECTOR_OPTIONS.bias_large.0 %} Coins</th>
+              <th>{% C.PRICE_VECTOR_OPTIONS.bias_large.1 %} Coins</th>
+          </tr>
+          <tr>
+              <th scope="row">Your profit per consumer</th>
+              <th>{% C.PRICE_VECTOR_OPTIONS.bias_large.2 %} Coins</th>
+              <th>{% C.PRICE_VECTOR_OPTIONS.bias_large.3 %} Coins</th>
+          </tr>
         </tbody>
     </table>
       <button class="btn btn-primary" name="price_vector_chosen" value="bias_large">Choose Option</button>
-
-      <script>
-        document.getElementById("bias_large_service_small_price").innerHTML = js_vars.price_vectors["bias_large"][0]
-        document.getElementById("bias_large_service_large_price").innerHTML = js_vars.price_vectors["bias_large"][1]
-        document.getElementById("bias_large_service_small_profit").innerHTML = js_vars.price_vectors["bias_large"][2]
-        document.getElementById("bias_large_service_large_profit").innerHTML = js_vars.price_vectors["bias_large"][3]
-        console.log(js_vars.price_vectors)
-      </script>
     </div>
 
     <!-- NO BIAS -->
@@ -111,29 +96,21 @@
                 <th>Low-quality</th>
             </tr>
             <tr>
-                <th scope="row">Your prices</th>
-                <th><span id="no_bias_service_small_price">X</span> Coins</th>
-                <th><span id="no_bias_service_large_price">X</span> Coins</th>
-            </tr>
-            <tr>
-                <th scope="row">Your profit per consumer</th>
-                <th><span id="no_bias_service_small_profit">X</span> Coins</th>
-                <th><span id="no_bias_service_large_profit">X</span> Coins</th>
-            </tr>
+              <th scope="row">Your prices</th>
+              <th>{% C.PRICE_VECTOR_OPTIONS.no_bias.0 %} Coins</th>
+              <th>{% C.PRICE_VECTOR_OPTIONS.no_bias.1 %} Coins</th>
+          </tr>
+          <tr>
+              <th scope="row">Your profit per consumer</th>
+              <th>{% C.PRICE_VECTOR_OPTIONS.no_bias.2 %} Coins</th>
+              <th>{% C.PRICE_VECTOR_OPTIONS.no_bias.3 %} Coins</th>
+          </tr>
         </tbody>
     </table>
       <button class="btn btn-primary" name="price_vector_chosen" value="no_bias">Choose Option</button>
-
-      <script>
-        document.getElementById("no_bias_service_small_price").innerHTML = js_vars.price_vectors["no_bias"][0]
-        document.getElementById("no_bias_service_large_price").innerHTML = js_vars.price_vectors["no_bias"][1]
-        document.getElementById("no_bias_service_small_profit").innerHTML = js_vars.price_vectors["no_bias"][2]
-        document.getElementById("no_bias_service_large_profit").innerHTML = js_vars.price_vectors["no_bias"][3]
-        console.log(js_vars.price_vectors)
-      </script>
     </div>
-
   </div>
+</div>
 
  
 

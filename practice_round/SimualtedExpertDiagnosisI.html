@@ -3,7 +3,232 @@
 {{ endblock }}
 {{ block content }}
 
+<style>
+    .consumer-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1em;
+    }
+    .consumer-card {
+        background-color: #f1eef6;
+        text-align: center;
+        border: solid;
+        border-radius: 1em;
+        padding-bottom: 0.3em;
+        overflow: hidden;
+        margin: 1em;
+    }
+    .consumer-name {
+        width: 100%;
+        padding: 0.3em;
+        margin-bottom: 0.3em;
+    } 
+
+</style>
+
+
+<script>
+    // Returns a random integer between min (included) and max (excluded)
+    // Using Math.round() will give you a non-uniform distribution!
+    dict_ignore_algo = {};
+
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+    diag = js_vars.diagnosis_correct_for_all_patients
+    console.log(diag)
+</script>
+<!-- hidden input for oTree formfield ignore_algorithmic_decision_per_consumer -->
+<input type="hidden" id="ignore_algorithmic_decision_per_consumer" name="ignore_algorithmic_decision_per_consumer">
+<div class="consumer-list">
+    <div class="consumer-card">
+        <p class="consumer-name" style="background-color: #bdc9e1"><b>Consumer A</b></p>
+
+        <table class="table table-striped">
+            <thead>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Symptom I</td>
+                <td><input id="calc-A-A" type="text" size="1" placeholder="A" required="required"></td>
+              </tr>
+              <tr>
+                <td>Symptom II</td>
+                <td><input id="calc-B-A" type="text" size="1" placeholder="B" required="required"></td>
+              </tr>
+              <tr>
+                <td>Symptom III</td>
+                <td><input id="calc-C-A" type="text" size="1" placeholder="C" required="required" disabled></td>
+              </tr>
+              <tr>
+                <td>Symptom IV</td>
+                <td><input id="calc-D-A" type="text" size="1" placeholder="D" required="required" disabled></td>
+              </tr>
+              <tr>
+                <td>Symptom V</td>
+                <td><input id="calc-E" type="text" size="1" placeholder="E" disabled></td>
+              </tr>
+            </tbody>
+          </table>
+        
+    </div>
+
+    <script>
+        input_1 = getRandomInt(1, 10); /* random var 1-10 */
+        document.getElementById("calc-A-A").value = input_1;
+
+        input_2 = getRandomInt(11, 20); /* random var 2-20 */
+        document.getElementById("calc-B-A").value = input_2;  
+    </script>
+
+    {% if participant.ability_level == "high" %}
+        <script>
+            document.getElementById("calc-C-A").disabled = false;
+
+            if (true) {
+                input_3 = getRandomInt(21, 30); /* input_3_1 | random var 3-30 if small */ 
+            }
+            else {
+                input_3 = getRandomInt(31, 40);   /* input_3_2 |  random var 4-40 if large */
+            };
+            document.getElementById("calc-C-A").value = input_3; 
+
+        </script>
+    {% endif %}
+
+
+    <div class="consumer-card">
+        <p class="consumer-name" style="background-color: #bdc9e1"><b>Consumer B</b></p>
+
+        <table class="table table-striped">
+            <thead>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Symptom I</td>
+                <td><input id="calc-A-B" type="text" size="1" placeholder="A" required="required"></td>
+              </tr>
+              <tr>
+                <td>Symptom II</td>
+                <td><input id="calc-B-B" type="text" size="1" placeholder="B" required="required"></td>
+              </tr>
+              <tr>
+                <td>Symptom III</td>
+                <td><input id="calc-C-B" type="text" size="1" placeholder="C" required="required" disabled></td>
+              </tr>
+              <tr>
+                <td>Symptom IV</td>
+                <td><input id="calc-D-B" type="text" size="1" placeholder="D" required="required" disabled></td>
+              </tr>
+              <tr>
+                <td>Symptom V</td>
+                <td><input id="calc-E" type="text" size="1" placeholder="E" disabled></td>
+              </tr>
+            </tbody>
+          </table>
+        
+    </div>
+
+    <script>
+        input_1 = getRandomInt(1, 10); /* random var 1-10 */
+        document.getElementById("calc-A-B").value = input_1;
+
+        input_2 = getRandomInt(11, 20); /* random var 2-20 */
+        document.getElementById("calc-B-B").value = input_2;  
+    </script>
+
+    {% if participant.ability_level == "high" %}
+        <script>
+            document.getElementById("calc-C-B").disabled = false;
+
+            if (true) {
+                input_3 = getRandomInt(21, 30); /* input_3_1 | random var 3-30 if small */ 
+            }
+            else {
+                input_3 = getRandomInt(31, 40);   /* input_3_2 |  random var 4-40 if large */
+            };
+            document.getElementById("calc-C-B").value = input_3; 
+
+        </script>
+    {% endif %}
+
+
+
+    <div class="consumer-card">
+        <p class="consumer-name" style="background-color: #bdc9e1"><b>Consumer C</b></p>
+
+        <table class="table table-striped">
+            <thead>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Symptom I</td>
+                <td><input id="calc-A-C" type="text" size="1" placeholder="A" required="required"></td>
+              </tr>
+              <tr>
+                <td>Symptom II</td>
+                <td><input id="calc-B-C" type="text" size="1" placeholder="B" required="required"></td>
+              </tr>
+              <tr>
+                <td>Symptom III</td>
+                <td><input id="calc-C-C" type="text" size="1" placeholder="C" required="required" disabled></td>
+              </tr>
+              <tr>
+                <td>Symptom IV</td>
+                <td><input id="calc-D-C" type="text" size="1" placeholder="D" required="required" disabled></td>
+              </tr>
+              <tr>
+                <td>Symptom V</td>
+                <td><input id="calc-E" type="text" size="1" placeholder="E" disabled></td>
+              </tr>
+            </tbody>
+          </table>
+        
+    </div>
+
+    <script>
+        input_1 = getRandomInt(1, 10); /* random var 1-10 */
+        document.getElementById("calc-A-C").value = input_1;
+
+        input_2 = getRandomInt(11, 20); /* random var 2-20 */
+        document.getElementById("calc-B-C").value = input_2;  
+    </script>
+
+    {% if participant.ability_level == "high" %}
+        <script>
+            document.getElementById("calc-C-C").disabled = false;
+
+            if (true) {
+                input_3 = getRandomInt(21, 30); /* input_3_1 | random var 3-30 if small */ 
+            }
+            else {
+                input_3 = getRandomInt(31, 40);   /* input_3_2 |  random var 4-40 if large */
+            };
+            document.getElementById("calc-C-C").value = input_3; 
+
+        </script>
+    {% endif %}
+</div>
+
+
+<script>
+    document.getElementById("ignore_algorithmic_decision_per_consumer").value = JSON.stringify(dict_ignore_algo);
+    console.log(dict_ignore_algo);
+    function ignoreAlgo(key) {
+        if (dict_ignore_algo[key] == 1) {
+            dict_ignore_algo[key] = 0;
+            document.getElementById("calc-D-" + key).disabled = false;
+        } else {
+            dict_ignore_algo[key] = 1;
+            document.getElementById("calc-D-" + key).disabled = true;
+        };
+        document.getElementById("ignore_algorithmic_decision_per_consumer").value = JSON.stringify(dict_ignore_algo);
+        console.log(dict_ignore_algo);
+    }
+</script>
+<p><button class="btn btn-primary">Diagnose all consumers</button></p>
+
     {{ formfields }}
-    {{ next_button }}
 
 {{ endblock }}

@@ -12,7 +12,7 @@
     }
 
     .expert-card {
-        background-color: lightcyan;
+        background-color: #f1eef6;
         text-align: center;
         border: solid;
         border-radius: 1em;
@@ -25,36 +25,133 @@
         width: 100%;
         padding: 0.3em;
         margin-bottom: 0.3em;
+        background-color: #bdc9e1;
     }
 </style>
 
 <div class="expert-list">
 
     <div class="expert-card">
-        <p class="expert-name" style="background-color: blue"><b> Expert Blue {% if participant.treatment_skill_visible %}(high skill){% endif %}</b></p>
-    
-        <!-- Display skill level if treatment is appropirate-->
-        {% if participant.treatment_skill_visible %}
-            <p>Accuracy: <b>X%</b></p>
-        {% endif %}
-    
-        <p>Price small service: <b>X</b> (Expert Profit: <b>X</b>)</p>
-        <p>Price large service: <b>X</b> (Expert Profit: <b>X</b>)</p>
-        <button class="btn btn-primary">Choose Expert</button>
+        <p class="expert-name"><b> Expert A {% if participant.treatment_skill_visible %}(high skill){% endif %}</b></p>
+        <table class="table">
+            {% if participant.treatment_skill_visible %}
+                    <thead>
+                        <tr>
+                            <th colspan="4">Diagnostic accuracy</th>
+                        </tr>
+                        <tr>
+                            <td colspan="4">{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.high %}%</td>
+                        </tr>
+                    </thead>
+            {% endif %}
+            <thead>
+                <tr>
+                <th scope="col" colspan="2">Low-quality service</th>
+                <th scope="col" colspan="2">High-quality service</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Price</th>
+                    <td>Expert Profit</td>
+                    <th>Price</th>
+                    <td>Expert Profit</td>
+                </tr>
+                <tr>
+                    <th>{% C.PRICE_VECTOR_OPTIONS.bias_small.0 %} Coins</th>
+                    <td>{% C.PRICE_VECTOR_OPTIONS.bias_small.2 %} Coins</td>
+                    <th>{% C.PRICE_VECTOR_OPTIONS.bias_small.1 %} Coins</th>
+                    <td>{% C.PRICE_VECTOR_OPTIONS.bias_small.3 %} Coins</td>
+                </tr>
+                </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-primary">Choose Expert A</button>
     </div>
     
     <div class="expert-card">
-        <p class="expert-name" style="background-color: yellow"><b> Expert Yellow {% if participant.treatment_skill_visible %}(low skill){% endif %}</b></p>
-    
-        <!-- Display skill level if treatment is appropirate-->
-        {% if participant.treatment_skill_visible %}
-            <p>Accuracy: <b>X%</b></p>
-        {% endif %}
-    
-        <p>Price small service: <b>X</b> (Expert Profit: <b>X</b>)</p>
-        <p>Price large service: <b>X</b> (Expert Profit: <b>X</b>)</p>
-        <button class="btn btn-primary">Choose Expert</button>
+        <p class="expert-name"><b> Expert B {% if participant.treatment_skill_visible %}(low skill){% endif %}</b></p>
+        <table class="table">
+            {% if participant.treatment_skill_visible %}
+                    <thead>
+                        <tr>
+                            <th colspan="4">Diagnostic accuracy</th>
+                        </tr>
+                        <tr>
+                            <td colspan="4">{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}%</td>
+                        </tr>
+                    </thead>
+            {% endif %}
+            <thead>
+                <tr>
+                <th scope="col" colspan="2">Low-quality service</th>
+                <th scope="col" colspan="2">High-quality service</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Price</th>
+                    <td>Expert Profit</td>
+                    <th>Price</th>
+                    <td>Expert Profit</td>
+                </tr>
+                <tr>
+                    <th>{% C.PRICE_VECTOR_OPTIONS.bias_large.0 %} Coins</th>
+                    <td>{% C.PRICE_VECTOR_OPTIONS.bias_large.2 %} Coins</td>
+                    <th>{% C.PRICE_VECTOR_OPTIONS.bias_large.1 %} Coins</th>
+                    <td>{% C.PRICE_VECTOR_OPTIONS.bias_large.3 %} Coins</td>
+                </tr>
+                </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-primary">Choose Expert B</button>
+    </div>
+
+    <div class="expert-card">
+        <p class="expert-name"><b> Expert C {% if participant.treatment_skill_visible %}(low skill){% endif %}</b></p>
+        <table class="table">
+            {% if participant.treatment_skill_visible %}
+                    <thead>
+                        <tr>
+                            <th colspan="4">Diagnostic accuracy</th>
+                        </tr>
+                        <tr>
+                            <td colspan="4">{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}%</td>
+                        </tr>
+                    </thead>
+            {% endif %}
+            <thead>
+                <tr>
+                <th scope="col" colspan="2">Low-quality service</th>
+                <th scope="col" colspan="2">High-quality service</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Price</th>
+                    <td>Expert Profit</td>
+                    <th>Price</th>
+                    <td>Expert Profit</td>
+                </tr>
+                <tr>
+                    <th>{% C.PRICE_VECTOR_OPTIONS.no_bias.0 %} Coins</th>
+                    <td>{% C.PRICE_VECTOR_OPTIONS.no_bias.2 %} Coins</td>
+                    <th>{% C.PRICE_VECTOR_OPTIONS.no_bias.1 %} Coins</th>
+                    <td>{% C.PRICE_VECTOR_OPTIONS.no_bias.3 %} Coins</td>
+                </tr>
+                </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-primary">Choose Expert C</button>
+    </div>
+
+    <div class="expert-card">
+        <p class="expert-name"><b>No Expert</b></p>
+        <p>You can decide not a choose an expert. Your will not get treated and not gain coins.</p>
+        <button class="btn btn-primary" name="expert_chosen" value=0>Choose no expert</button>
     </div>
 </div>
+
+{{ include_sibling "InstructionAccordion.html" }}
 
 {{ endblock }}
