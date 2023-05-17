@@ -68,6 +68,9 @@ class Player(BasePlayer):
     valid_player = models.BooleanField(initial=True)
     is_dropout = models.BooleanField(initial=False)
 
+    # vars for simulation
+    price_vector_chosen = models.StringField(choices=["bias_small", "bias_large", "no_bias"], initial="no_bias")
+
 # PAGES
 
 class Introduction(Page):
@@ -97,19 +100,32 @@ class SimulatedConsumerChooseExpert(Page):
     def is_displayed(player):
         return not player.participant.is_expert
 
+
 class SimualtedExpertChoosePrices(Page):
+    form_model = "player"
+    form_fields = ["price_vector_chosen"]
     @staticmethod
     def is_displayed(player):
         return player.participant.is_expert
+    
+
 class SimualtedExpertDiagnosisI(Page):
     @staticmethod
     def is_displayed(player):
         return player.participant.is_expert
 
+
 class SimualtedExpertDiagnosisII(Page):
     @staticmethod
     def is_displayed(player):
         return player.participant.is_expert
+
+    @staticmethod
+    def js_vars(player):
+        return dict(
+            price_vectors=C.PRICE_VECTOR_OPTIONS,
+        )
+
 
 class SimulatedResults(Page):
     pass

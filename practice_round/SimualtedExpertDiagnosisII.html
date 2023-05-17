@@ -2,8 +2,95 @@
     Practice: Diagnosis II
 {{ endblock }}
 {{ block content }}
+<style>
+    .consumer-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1em;
+    }
+    .consumer-card {
+        background-color: #f1eef6;
+        text-align: center;
+        border: solid;
+        border-radius: 1em;
+        padding-bottom: 0.3em;
+        overflow: hidden;
+        margin: 1em;
+    }
+    .consumer-name {
+        width: 100%;
+        padding: 0.3em;
+        margin-bottom: 0.3em;
+    } 
+</style>
 
-    {{ formfields }}
-    {{ next_button }}
 
+
+<div class="consumer-list">
+
+    <script>
+        console.log(js_vars.price_vectors)
+    </script>
+
+
+    <div class="consumer-card">
+        <p class="consumer-name" style="background-color: #bdc9e1"><b>Consumer A</b></p>
+
+        <p>Diagnosis result: <b>small service needed ({% if participant.ability_level == "low" %}{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}{% else %}{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.high %}{% endif %}% Acc)</b></p>
+
+
+        <p><input class="radio-button" id="consumer_A_service_small" type="radio" name="A" value="small" required="required" onclick="updateService(key='A', value='small')">
+            Provide small service <b>(Profit: <span class="profit-small"></span>)</b></p>
+        <p><input class="radio-button" id="consumer_A_service_large" type="radio" name="A" value="large" required="required" onclick="updateService(key='A', value='large')">
+            Provide large service <b>(Profit: <span class="profit-large"></span>)</b></p>
+    </div>
+
+    <input type="hidden" name="services_provided_to_all_consumers" id="services_provided_to_all_consumers">
+
+    <div class="consumer-card">
+        <p class="consumer-name" style="background-color: #bdc9e1"><b>Consumer A</b></p>
+
+        <p>Diagnosis result: <b>small service needed ({% if participant.ability_level == "low" %}{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}{% else %}{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.high %}{% endif %}% Acc)</b></p>
+
+
+        <p><input class="radio-button" id="consumer_A_service_small" type="radio" name="A" value="small" required="required" onclick="updateService(key='A', value='small')">
+            Provide small service <b>(Profit: <span class="profit-small"></span>)</b></p>
+        <p><input class="radio-button" id="consumer_A_service_large" type="radio" name="A" value="large" required="required" onclick="updateService(key='A', value='large')">
+            Provide large service <b>(Profit: <span class="profit-large"></span>)</b></p>
+    </div>
+
+    <input type="hidden" name="services_provided_to_all_consumers" id="services_provided_to_all_consumers">
+
+    <div class="consumer-card">
+        <p class="consumer-name" style="background-color: #bdc9e1"><b>Consumer A</b></p>
+
+        <p>Diagnosis result: <b>small service needed ({% if participant.ability_level == "low" %}{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}{% else %}{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.high %}{% endif %}% Acc)</b></p>
+
+
+        <p><input class="radio-button" id="consumer_A_service_small" type="radio" name="A" value="small" required="required" onclick="updateService(key='A', value='small')">
+            Provide small service <b>(Profit: <span class="profit-small"></span>)</b></p>
+        <p><input class="radio-button" id="consumer_A_service_large" type="radio" name="A" value="large" required="required" onclick="updateService(key='A', value='large')">
+            Provide large service <b>(Profit: <span class="profit-large"></span>)</b></p>
+    </div>
+
+    <input type="hidden" name="services_provided_to_all_consumers" id="services_provided_to_all_consumers">
+
+    <script>
+        const small_price = document.querySelectorAll(".profit-small");
+
+        small_price.forEach(small_price => {
+            small_price.innerHTML = js_vars.price_vectors["{% player.price_vector_chosen %}"][2]
+        })
+
+        const large_price = document.querySelectorAll(".profit-large");
+
+        large_price.forEach(large_price => {
+            large_price.innerHTML = js_vars.price_vectors["{% player.price_vector_chosen %}"][3]
+        })
+
+
+    </script>
+
+</div>
+    <p><button class="btn btn-primary">Next</button></p>
 {{ endblock }}
