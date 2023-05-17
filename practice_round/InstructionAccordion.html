@@ -39,264 +39,69 @@
 <div class="outer-accordion">
     <input type="checkbox" id="outer" />
         <label for="outer">Click here for all instructions</label>
-        
         <div class="content">
             <div class="accordion">
                 <input type="checkbox" id="title1" />
-                <label for="title1">Introduction</label>
+                <label for="title1" id="Introduction" hidden>Introduction</label>
                 
                 <div class="content">
-                    <p>In this experiment, three experts interact with three clients. 
-                        You have been randomly assigned the role of client/expert. 
-                        Your role determines your decisions throughout the experiment. 
-                        However, to make informed choices that determine your bonus, you need 
-                        to understand both roles. Please click on the button below to proceed 
-                        to the instructions. Read them carefully, because you will need to 
-                        answer a few comprehension questions afterwards. During the instructions, 
-                        you will also complete a practice round to familiarize yourself with the decision environment.</p>
-            
-                    <p>Thank you for participating in this experiment. Please stay attentive 
-                        until the end of the experiment and avoid any distractions. Because 
-                        you will continuously interact with your group members, is it essential 
-                        that you do not (a) leave this experiment or (b) take a longer pause. At 
-                        the top of every decision screen, you will see a countdown (example picture). 
-                        If you fail three times to make a decision within that time frame, we have to 
-                        assume that you left, and will therefore kick you from the experiment.</p>
-                    
-                    <p>During the study, your payoffs are stated in Coins. The exchange rate is: X</p>
+                    {{ include 'practice_round/text_contents/Introduction.html' }}
                 </div>
+
+                <input type="checkbox" id="title2" />
+                <label for="title2" id="Role" hidden>Role</label>
                 
-                {% if participant.is_expert %}
-                <!-- THIS IS AN EXPERT -->
-                    <input type="checkbox" id="title2" />
-                    <label for="title2">Expert Role</label>
-                    
-                    <div class="content">
-                        <p>As stated before, there are two roles in this experiment: client and expert.  
-                            You have been randomly selected to be an expert. There are two types of expert. 
-                            A high-ability expert, and a low-ability expert. The probability that an expert 
-                            is a high-ability expert is 50% and the probability that an expert is a low-ability 
-                            expert is 50%. These probabilities are common knowledge, and clients also know them. 
-                            You have been randomly assigned to be a x expert. You keep that role for the entire 
-                            experiment. All clients can observe your ability level. The experiment consists of 
-                            25 rounds. In total, there are {% C.NUM_CONSUMERS_PER_GROUP %} clients and {% C.NUM_EXPERTS_PER_GROUP %} experts.</p>
-                    </div>
-            
-                    <!-- accordion tab -->
-                    <input type="checkbox" id="title3" />
-                    <label for="title3">Experimental Procedure</label>
-                    
-                    <div class="content">
-                        <p>Each round follows the same basic sequence of decisions. Be mindful that you need 
-                            to understand both roles in order to answer the comprehension questions and make 
-                            sensible decisions that determine your final bonus payoff.</p>
-                        
-                        <p>Each round, clients receive either a big problem with a probability of x%, 
-                            or a small problem with a probability of y%. Clients will never be informed 
-                            about which problem they actually have. In order to solve the problem, a client 
-                            needs to approach an expert. Alternatively, each client can also choose not to 
-                            enter the market, and avoid interaction with an expert. If a client decides to 
-                            enter the market, he or she can choose one of z experts. If the chosen expert 
-                            successfully solves the client’s problem, the client receives 150 Coins for that 
-                            round. If the problem is not solved, the client does not receive anything. 
-                            Irrespective of the outcome, the client has to pay the price chosen by the expert. 
-                            All prices by each expert and their respective ability level are visible to the 
-                            client when deciding which expert to approach.</p>
-            
-                        <p>Each round, the expert’s (your) job is to diagnose the client’s problem and treat 
-                            them. You can either choose a low-quality treatment, or a high-quality treatment. 
-                            The low-quality treatment only solves the small problem of the client. The high-quality 
-                            treatment solves both the small problem and the big problem. You always have to pay 
-                            X Coins for the low-quality treatment, and Y Coins for the high-quality treatment.</p>
-                    </div>
-            
-                    <!-- accordion tab -->
-                    <input type="checkbox" id="title4" />
-                    <label for="title4">Setting Prices</label>
-                    
-                    <div class="content">
-                        <p>At the beginning of each round, you set your prices. You choose between three price vectors. 
-                            Each price vector determines the price you will charge any client that approaches you, 
-                            depending on which treatment you choose. The three price vectors are:</p>
-            
-                        <ul>
-                            <li>P1: X</li>
-                            <li>P2: X</li>
-                            <li>P3: X</li>
-                        </ul>
-                    </div>
-            
-                    <!-- accordion tab -->
-                    <input type="checkbox" id="title5" />
-                    <label for="title5">Diagnosis</label>
-                    
-                    <div class="content">
-                        <p>After you set your prices, you will proceed with the diagnosis.  
-                            Remember that there are two types of expert, and you have been 
-                            selected to be a low-ability/high-ability expert. When deciding which 
-                            expert to approach, the clients can [NOT] observe your and all other expert’s ability levels. </p>
-            
-                        <p>As a low/high-ability expert, you will receive a signal in each round, that tells you which of 
-                            the two problems a client has. This signal is x% accurate for the low-ability expert (you), 
-                            and y% accurate for the high-ability expert (you). Thus, if e.g. a client has a small problem, 
-                            then, you get the signal that the problem is small with a probability of x/y%.</p>
-            
-                        <p>To receive the signal, you need to complete a short prediction task (see image below). 
-                            A client’s problem is determined by 4 symptoms, and as a low/high-ability expert, 
-                            you receive 2/3 input factors. A high/low-ability receives 3/2 input factors. 
-                            To make your diagnosis, you only need to click on the blue diagnosis button. 
-                            You need to do nothing else. Afterwards, you will receive the diagnostic signal.</p>
-            
-                        <p>Finally, you decide which treatment you want to implement for a given client.</p>
-            
-                        <p>Importantly, you will diagnose and treat all X possible clients in each round. 
-                            However, your decisions will only affect your payoff if at least one client decided 
-                            to approach you. Then, for each client that approached you, you will receive the price 
-                            associated with your chosen treatment for that client as payoff. For example, if a client 
-                            approached you, and you decided to implement the high-quality treatment, you will receive 
-                            the price for the high-quality treatment as a payoff. Remember however that you will also 
-                            need to pay the costs of the high-quality treatment. If e.g. two clients approached you, 
-                            and you chose to implement the high-quality treatment for one and the low-quality treatment 
-                            for the other client, you will receive the price of 1 high-quality treatment and 1 low-quality 
-                            treatment as payoff, while also paying the costs of 1 high-quality treatment and 1 low-quality treatment.</p>
-                            
-                        <p>If either no client approached you, or no client entered the market, you do not earn any additional payoff. </p>
-                    </div>
-            
-                    <!-- accordion tab -->
-                    <input type="checkbox" id="title6" />
-                    <label for="title6">Payoffs</label>
-                    
-                    <div class="content">
+                <div class="content">
+                    {{ include 'practice_round/text_contents/Role.html' }}
+                </div>
 
-                        <h5>Clients</h5>
-                        <ol>
-                            <li>Client does not enter the market: 0 Coins</li>
-                            <li>Client approaches an expert and the treatment was solved: 150 Coins – treatment price</li>
-                            <li>Client approaches an expert and the treatment was not solved: - treatment price</li>
-                        </ol>
+                <input type="checkbox" id="title3" />
+                <label for="title3" id="ExperimentalProcedure" hidden>Experimental Procedure</label>
+                
+                <div class="content">
+                    {{ include 'practice_round/text_contents/ExperimentalProcedure.html' }}
+                </div>
 
-                        <h5>Experts</h5>
-                        <ol>
-                            <li>Expert is not approached by any client: 0 Coins</li>
-                            <li>Expert is approached by one client: treatment price – treatment costs</li>
-                            <li>Expert is approached by multiple clients: Number of approaching clients * Option #2</li>
-                        </ol>
-                    </div>
-                   
-                {% else %}
-                    <!-- THIS IS AN EXPERT -->
+                <input type="checkbox" id="title4" />
+                <label for="title4" id="SettingPrices" hidden>Setting Prices</label>
+                
+                <div class="content">
+                    {{ include 'practice_round/text_contents/SettingPrices.html' }}
+                </div>
 
-                    <!-- accordion tab -->
-                    <input type="checkbox" id="title2" />
-                    <label for="title2">Consumer Role</label>
-                    
-                    <div class="content">
-                        <p>As stated before, there are two roles in this experiment: client and expert.  
-                            You have been randomly selected to be a client. You keep that role for the entire 
-                            experiment. You will play within a group of 6 participants, 3 clients and 3 experts. 
-                            There are two types of expert. A high-ability expert, and a low-ability expert. 
-                            For any expert, the probability that they are a high-ability expert is x% and 
-                            the probability that they are a low-ability expert is y%. You will always be 
-                            able to observe the ability level of each expert. The experiment consists of 
-                            25 rounds.</p>
-                    </div>
+                <input type="checkbox" id="title5" />
+                <label for="title5" id="Diagnosis" hidden>Diagnosis</label>
+                
+                <div class="content">
+                    {{ include 'practice_round/text_contents/Diagnosis.html' }}
+                </div>
 
-                    <!-- accordion tab -->
-                    <input type="checkbox" id="title3" />
-                    <label for="title3">Experimental Procedure</label>
-                    
-                    <div class="content">
-                        <p>Each round follows the same basic sequence of decisions. Be mindful that you need 
-                            to understand both roles in order to answer the comprehension questions and make s
-                            ensible decisions that determine your final bonus payoff.</p>
-
-                        <p>Each round, clients (you) receive either a big problem with a probability of x%, or 
-                            a small problem with a probability of y%. You will never be informed about which 
-                            problem you actually have. In order to solve the problem, you need to approach an 
-                            expert. Alternatively, you (and all other clients) can also choose not to enter 
-                            the market, and avoid interacting with an expert. If you decide to enter the market, 
-                            you choose one of the 3 experts. If the chosen expert successfully solves your problem, 
-                            you receive 150 Coins for that round. If the problem is not solved, you receive nothing. 
-                            Irrespective of the outcome, you have to pay the treatment-price as chosen and posted by 
-                            the expert. All prices by each expert and each expert’s respective ability level are visible 
-                            to you when deciding which expert to approach.</p>
-
-                        <p>Each round, the expert’s job is to diagnose the client’s problem and treat them. Experts can 
-                            either choose a low-quality treatment, or a high-quality treatment. The low-quality treatment 
-                            only solves the small problem of the client. The high-quality treatment solves both the small 
-                            problem and the big problem. Experts always have to pay X Coins for the low-quality treatment, 
-                            and Y Coins for the high-quality treatment.</p>
-                    </div>
-
-                    <!-- accordion tab -->
-                    <input type="checkbox" id="title4" />
-                    <label for="title4">Setting Prices</label>
-                    
-                    <div class="content">
-                        <p>At the beginning of each round, experts set their prices. Experts choose between three price vectors. 
-                            Each price vector determines the price of the low-quality and the high-quality treatment. The three price vectors are:</p>
-
-                            <ul>
-                                <li>P1: X</li>
-                                <li>P2: X</li>
-                                <li>P3: X</li>
-                            </ul>
-                    </div>
-
-                    <!-- accordion tab -->
-                    <input type="checkbox" id="title5" />
-                    <label for="title5">Diagnosis</label>
-                    
-                    <div class="content">
-                        <p>After experts set their prices, they proceed with the diagnosis. Remember that there are two types 
-                            of expert, a low-ability and a high-ability expert. When deciding which expert to approach, you 
-                            can observe each expert’s ability level.</p>
-
-                        <p>Experts receive a signal in each round, that tells them which of the two problems a client has. 
-                            This signal is x% accurate for the low-ability expert, and y% accurate for the high-ability expert. 
-                            Thus, if e.g. you have a small problem, then, the high-ability experts gets the signal that the 
-                            problem is small with a probability of x%, and the low-ability expert gets the signal that the 
-                            problem is small with a probability of y%. Remember that you only receive the 150 Coins if your 
-                            problem is solved. Additionally, once you approach an expert, you will have to pay for whatever 
-                            treatment the expert decided to implement.</p>
-
-                        <p>To receive the signal, experts need to complete a short prediction task. The prediction task works 
-                            as follows: Your problem (small or big) is determined by 5 symptoms, which are assigned to you 
-                            randomly at the beginning of each round. The 5 symptoms determine whether you have a big or a 
-                            small problem. High-ability experts can observe three of your symptoms. Low-ability experts can 
-                            observe two of your symptoms. Therefore, high-ability experts are better at diagnosing you. Using 
-                            the symptoms, the expert makes a diagnosis and receives a diagnostic signal.</p>
-                        
-                        <p>After making their diagnosis, each expert decides which treatment they want to implement for a given client. </p>
-
-                        <p>If no client approaches an expert, the expert does not earn any money for that specific round.</p>
-                    </div>
-
-                    <!-- accordion tab -->
-                    <input type="checkbox" id="title6" />
-                    <label for="title6">Payoffs</label>
-                    
-                    <div class="content">
-                        <h5>Clients</h5>
-                        <ol>
-                            <li>You do not enter the market: 0 Coins</li>
-                            <li>You approach an expert and the treatment was solved: 150 Coins – treatment price</li>
-                            <li>You approach an expert and the treatment was not solved: - treatment price</li>
-                        </ol>
-
-                        <h5>Experts</h5>
-                        <ol>
-                            <li>Expert is not approached by any client: 0 Coins</li>
-                            <li>Expert is approached by one client: treatment price – treatment costs</li>
-                            <li>Expert is approached by multiple clients: Number of approaching clients * Option #2</li>
-                        </ol>
-                    </div>
-            
-            
-                {% endif %}
-                    
-                    
+                <input type="checkbox" id="title6" />
+                <label for="title6" id="Payoffs" hidden>Payoffs</label>
+                
+                <div class="content">
+                    {{ include 'practice_round/text_contents/Payoffs.html' }}
+                </div>
             </div>        
         </div>
 </div>
+
+<script>
+    page_sequence = ["Introduction", "Role", "ExperimentalProcedure", "SettingPrices", "Diagnosis", "Payoffs"];
+    current_page = "{% participant._current_page_name %}";
+    
+    if (current_page in page_sequence) {
+        // only display up to current page //
+        console.log("Set visible up to {% participant._current_page_name %}")
+        for (let i = 0; i <= page_sequence.indexOf("{% participant._current_page_name %}"); i++) {
+            document.getElementById(page_sequence[i]).hidden = false;
+        }
+    } else {
+        console.log("Page not in practice_round sequence.")
+        for (let i = 0; i < page_sequence.length; i++) {
+            document.getElementById(page_sequence[i]).hidden = false;
+        }
+    };
+
+
+</script>

@@ -3,36 +3,7 @@
 {{ endblock }}
 {{ block content }}
 
-{% if participant.is_expert %}
-<p>If either no client approached you, or no client entered the market, you do not earn any additional payoff. </p>
-
-                        <h5>Clients</h5>
-                        <ol>
-                            <li>Client does not enter the market: 0 Coins</li>
-                            <li>Client approaches an expert and the treatment was solved: 150 Coins – treatment price</li>
-                            <li>Client approaches an expert and the treatment was not solved: - treatment price</li>
-                        </ol>
-
-                        <h5>Experts</h5>
-                        <ol>
-                            <li>Expert is not approached by any client: 0 Coins</li>
-                            <li>Expert is approached by one client: treatment price – treatment costs</li>
-                            <li>Expert is approached by multiple clients: Number of approaching clients * Option #2</li>
-                        </ol>
-{% else %}
-<h5>Clients</h5>
-                        <ol>
-                            <li>You do not enter the market: 0 Coins</li>
-                            <li>You approach an expert and the treatment was solved: 150 Coins – treatment price</li>
-                            <li>You approach an expert and the treatment was not solved: - treatment price</li>
-                        </ol>
-
-                        <h5>Experts</h5>
-                        <ol>
-                            <li>Expert is not approached by any client: 0 Coins</li>
-                            <li>Expert is approached by one client: treatment price – treatment costs</li>
-                            <li>Expert is approached by multiple clients: Number of approaching clients * Option #2</li>
-{% endif %}
+{{ include 'practice_round/text_contents/Payoffs.html' }}
 
     {{ formfields }}
     {{ next_button }}

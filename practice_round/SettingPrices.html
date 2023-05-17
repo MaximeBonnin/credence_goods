@@ -3,26 +3,7 @@
 {{ endblock }}
 {{ block content }}
 
-{% if participant.is_expert %}
-<p>At the beginning of each round, you set your prices. You choose between three price vectors. 
-    Each price vector determines the price you will charge any client that approaches you, 
-    depending on which treatment you choose. The three price vectors are:</p>
-
-<ul>
-    <li>P1: X</li>
-    <li>P2: X</li>
-    <li>P3: X</li>
-</ul>
-{% else %}
-<p>At the beginning of each round, experts set their prices. Experts choose between three price vectors. 
-    Each price vector determines the price of the low-quality and the high-quality treatment. The three price vectors are:</p>
-
-    <ul>
-        <li>P1: X</li>
-        <li>P2: X</li>
-        <li>P3: X</li>
-    </ul>
-{% endif %}
+{{ include 'practice_round/text_contents/SettingPrices.html' }}
 
     {{ formfields }}
     {{ next_button }}
