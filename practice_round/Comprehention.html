@@ -20,7 +20,27 @@
     }
 </style>
 
+{% if player.comprehention_questions_mistakes > 0 %}
+<p style="color: red">Your answers were incorrect. You have a total of 3 attempts to pass these questions. Please try again.</p>
+{% endif %}
 
+<div class="card">
+    <h5 class="card-header">Please choose the correct answer:</h5>
+    <div class="card-content">
+        <div class="answer">
+            <input type="radio" name="q0" required onclick="checkAnswers(question_nr='q0', answer_nr=1)"> <label for="q0">Clients do not know their problem type, and cannot observe which treatment you chose. They only see their payoff at the end of each round</label>
+        </div>
+        <div class="answer">
+            <input type="radio" name="q0" onclick="checkAnswers(question_nr='q0', answer_nr=2)"> <label for="q0">Clients know their problem type, and can observe which treatment you chose. Additionally, they see their payoff at the end of each round</label>
+        </div>
+        <div class="answer">
+            <input type="radio" name="q0" onclick="checkAnswers(question_nr='q0', answer_nr=3)"> <label for="q0">Clients know their problem type, but cannot observe which treatment you chose. Additionally, they see their payoff at the end of each round</label>
+        </div>
+        <div class="answer">
+            <input type="radio" name="q0" onclick="checkAnswers(question_nr='q0', answer_nr=4)"> <label for="q0">Clients receive no information about their own payoff</label>
+        </div>
+    </div>
+</div>
 
 {% if participant.treatment_skill_visible %}
 <!-- Transparent -->
@@ -30,16 +50,16 @@
         <h5 class="card-header">Please choose the correct answer:</h5>
         <div class="card-content">
             <div class="answer">
-                <input type="radio" name="q1" required> <label for="q1">A low-quality treatment does not solve a client’s problem</label>
+                <input type="radio" name="q1" onclick="checkAnswers(question_nr='q1', answer_nr=1)" required> <label for="q1">A low-quality treatment does not solve a client’s problem</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q1"> <label for="q1">A high-quality treatment only solves a large problem and a low-quality treatment only solves a small problem</label>
+                <input type="radio" name="q1" onclick="checkAnswers(question_nr='q1', answer_nr=2)"> <label for="q1">A high-quality treatment only solves a large problem and a low-quality treatment only solves a small problem</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q1"> <label for="q1">A high-quality treatment solves both a large problem and a small problem, a low-quality treatment only solves a small problem</label>
+                <input type="radio" name="q1" onclick="checkAnswers(question_nr='q1', answer_nr=3)"> <label for="q1">A high-quality treatment solves both a large problem and a small problem, a low-quality treatment only solves a small problem</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q1"> <label for="q1">Your treatment choice does not affect whether a client’s problem is solved</label>
+                <input type="radio" name="q1" onclick="checkAnswers(question_nr='q1', answer_nr=3)"> <label for="q1">Your treatment choice does not affect whether a client’s problem is solved</label>
             </div>
         </div>
     </div>
@@ -48,16 +68,16 @@
         <h5 class="card-header">Each round, you diagnose all clients and choose the treatment you want to provide for them.</h5>
         <div class="card-content">
             <div class="answer">
-                <input type="radio" name="q2" required> <label for="q2">You pay the costs of all chosen treatments, irrespective of whether clients approach you</label>
+                <input type="radio" name="q2" required onclick="checkAnswers(question_nr='q2', answer_nr=1)"> <label for="q2">You pay the costs of all chosen treatments, irrespective of whether clients approach you</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q2"> <label for="q2">You receive payoff equal to your chosen price and treatment for all clients, irrespective of whether they approach you</label>
+                <input type="radio" name="q2" onclick="checkAnswers(question_nr='q2', answer_nr=2)"> <label for="q2">You receive payoff equal to your chosen price and treatment for all clients, irrespective of whether they approach you</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q2"> <label for="q2">Your choices do not affect your payoff</label>
+                <input type="radio" name="q2" onclick="checkAnswers(question_nr='q2', answer_nr=3)"> <label for="q2">Your choices do not affect your payoff</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q2"> <label for="q2">For each client that approaches you, you pay the costs of your chosen treatment and receive your chosen price as payoff</label>
+                <input type="radio" name="q2" onclick="checkAnswers(question_nr='q2', answer_nr=4)"> <label for="q2">For each client that approaches you, you pay the costs of your chosen treatment and receive your chosen price as payoff</label>
             </div>
         </div>
     </div>
@@ -66,16 +86,16 @@
         <h5 class="card-header">You are playing with 3 other experts and 4 clients.</h5>
         <div class="card-content">
             <div class="answer">
-                <input type="radio" name="q3" required> <label for="q3">All experts have the same diagnostic abilities and clients can observe them</label>
+                <input type="radio" name="q3" required onclick="checkAnswers(question_nr='q3', answer_nr=1)"> <label for="q3">All experts have the same diagnostic abilities and clients can observe them</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q3"> <label for="q3">Each expert has a 50% chance of being a low-ability expert and a 50% chance of being a high-ability expert. Clients can observe expert abilities.</label>
+                <input type="radio" name="q3" onclick="checkAnswers(question_nr='q3', answer_nr=2)"> <label for="q3">Each expert has a 50% chance of being a low-ability expert and a 50% chance of being a high-ability expert. Clients can observe expert abilities.</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q3"> <label for="q3">Each expert has a 50% chance of being a low-ability expert and a 50% chance of being a high-ability expert. Clients cannot observe expert abilities.</label>
+                <input type="radio" name="q3" onclick="checkAnswers(question_nr='q3', answer_nr=3)"> <label for="q3">Each expert has a 50% chance of being a low-ability expert and a 50% chance of being a high-ability expert. Clients cannot observe expert abilities.</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q3"> <label for="q3">All experts have different diagnostic abilities and clients cannot observe them</label>
+                <input type="radio" name="q3" onclick="checkAnswers(question_nr='q3', answer_nr=4)"> <label for="q3">All experts have different diagnostic abilities and clients cannot observe them</label>
             </div>
         </div>
     </div>
@@ -86,16 +106,16 @@
         <h5 class="card-header">Please choose the correct answer:</h5>
         <div class="card-content">
             <div class="answer">
-                <input type="radio" name="q1" required> <label for="q1">A low-quality treatment does not solve a client’s problem</label>
+                <input type="radio" name="q1" onclick="checkAnswers(question_nr='q1', answer_nr=1)" required> <label for="q1">A low-quality treatment does not solve a client’s problem</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q1"> <label for="q1">A high-quality treatment only solves a large problem and a low-quality treatment only solves a small problem</label>
+                <input type="radio" name="q1" onclick="checkAnswers(question_nr='q1', answer_nr=2)"> <label for="q1">A high-quality treatment only solves a large problem and a low-quality treatment only solves a small problem</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q1"> <label for="q1">A high-quality treatment solves both a large problem and a small problem, a low-quality treatment only solves a small problem</label>
+                <input type="radio" name="q1" onclick="checkAnswers(question_nr='q1', answer_nr=3)"> <label for="q1">A high-quality treatment solves both a large problem and a small problem, a low-quality treatment only solves a small problem</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q1"> <label for="q1">An expert’s treatment choice does not affect whether a client’s problem is solved</label>
+                <input type="radio" name="q1" onclick="checkAnswers(question_nr='q1', answer_nr=4)"> <label for="q1">An expert’s treatment choice does not affect whether a client’s problem is solved</label>
             </div>
         </div>
     </div>
@@ -104,16 +124,16 @@
         <h5 class="card-header">Each round, you can choose to approach 1 of 4 experts. Alternatively, you can choose to not enter the market.</h5>
         <div class="card-content">
             <div class="answer">
-                <input type="radio" name="q2" required> <label for="q2">If you approach an expert, and the expert does not solve your problem, you still receive a positive payoff for that round</label>
+                <input type="radio" name="q2" required onclick="checkAnswers(question_nr='q2', answer_nr=1)"> <label for="q2">If you approach an expert, and the expert does not solve your problem, you still receive a positive payoff for that round</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q2"> <label for="q2">If you decide not to enter the market and therefore do not approach an expert, you earn 150 Coins.</label>
+                <input type="radio" name="q2" onclick="checkAnswers(question_nr='q2', answer_nr=2)"> <label for="q2">If you decide not to enter the market and therefore do not approach an expert, you earn 150 Coins.</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q2"> <label for="q2">All experts always charge the same prices</label>
+                <input type="radio" name="q2" onclick="checkAnswers(question_nr='q2', answer_nr=3)"> <label for="q2">All experts always charge the same prices</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q2"> <label for="q2">If you approach an expert, and the expert solves your problem, you earn 150 Coins, while paying the treatment price as chosen by your approached expert. If the expert does not solve your problem, you only pay the treatment price.</label>
+                <input type="radio" name="q2" onclick="checkAnswers(question_nr='q2', answer_nr=4)"> <label for="q2">If you approach an expert, and the expert solves your problem, you earn 150 Coins, while paying the treatment price as chosen by your approached expert. If the expert does not solve your problem, you only pay the treatment price.</label>
             </div>
         </div>
     </div>
@@ -122,20 +142,19 @@
         <h5 class="card-header">You are playing with 4 other experts and 3 clients.</h5>
         <div class="card-content">
             <div class="answer">
-                <input type="radio" name="q3" required> <label for="q3">All experts have the same diagnostic abilities and clients can observe them</label>
+                <input type="radio" name="q3" onclick="checkAnswers(question_nr='q3', answer_nr=1)" required> <label for="q3">All experts have the same diagnostic abilities and clients can observe them</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q3"> <label for="q3">Each expert has a X% chance of being a low-ability expert and a Y% chance of being a high-ability expert. Clients can observe expert abilities</label>
+                <input type="radio" name="q3" onclick="checkAnswers(question_nr='q3', answer_nr=2)"> <label for="q3">Each expert has a X% chance of being a low-ability expert and a Y% chance of being a high-ability expert. Clients can observe expert abilities</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q3"> <label for="q3">Each expert has a X% chance of being a low-ability expert and a Y% chance of being a high-ability expert. Clients cannot observe expert abilities</label>
+                <input type="radio" name="q3" onclick="checkAnswers(question_nr='q3', answer_nr=3)"> <label for="q3">Each expert has a X% chance of being a low-ability expert and a Y% chance of being a high-ability expert. Clients cannot observe expert abilities</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q3"> <label for="q3">All experts have different diagnostic abilities and clients cannot observe them</label>
+                <input type="radio" name="q3" onclick="checkAnswers(question_nr='q3', answer_nr=4)"> <label for="q3">All experts have different diagnostic abilities and clients cannot observe them</label>
             </div>
         </div>
     </div>
-    
 
     {% endif %}
 
@@ -148,16 +167,16 @@
         <h5 class="card-header">Please choose the correct answer:</h5>
         <div class="card-content">
             <div class="answer">
-                <input type="radio" name="q1" required> <label for="q1">A low-quality treatment does not solve a client’s problem</label>
+                <input type="radio" name="q1" value=1 onclick="checkAnswers(question_nr='q1', answer_nr=1)" required> <label for="q1">A low-quality treatment does not solve a client’s problem</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q1"> <label for="q1">A high-quality treatment only solves a large problem and a low-quality treatment only solves a small problem</label>
+                <input type="radio" name="q1" value=2 onclick="checkAnswers(question_nr='q1', answer_nr=2)"> <label for="q1">A high-quality treatment only solves a large problem and a low-quality treatment only solves a small problem</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q1"> <label for="q1">A high-quality treatment solves both a large problem and a small problem, a low-quality treatment only solves a small problem</label>
+                <input type="radio" name="q1" value=3 onclick="checkAnswers(question_nr='q1', answer_nr=3)"> <label for="q1">A high-quality treatment solves both a large problem and a small problem, a low-quality treatment only solves a small problem</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q1"> <label for="q1">Your treatment choice does not affect whether a client’s problem is solved</label>
+                <input type="radio" name="q1" value=4 onclick="checkAnswers(question_nr='q1', answer_nr=4)"> <label for="q1">Your treatment choice does not affect whether a client’s problem is solved</label>
             </div>
         </div>
     </div>
@@ -166,16 +185,16 @@
         <h5 class="card-header">Each round, you diagnose all clients and choose the treatment you want to provide for them.</h5>
         <div class="card-content">
             <div class="answer">
-                <input type="radio" name="q2" required> <label for="q2">You pay the costs of all chosen treatments, irrespective of whether clients approach you</label>
+                <input type="radio" name="q2" value=1 required onclick="checkAnswers(question_nr='q2', answer_nr=1)"> <label for="q2">You pay the costs of all chosen treatments, irrespective of whether clients approach you</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q2"> <label for="q2">You receive payoff equal to your chosen price and treatment for all clients, irrespective of whether they approach you</label>
+                <input type="radio" name="q2" value=2 onclick="checkAnswers(question_nr='q2', answer_nr=2)"> <label for="q2">You receive payoff equal to your chosen price and treatment for all clients, irrespective of whether they approach you</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q2"> <label for="q2">Your choices do not affect your payoff</label>
+                <input type="radio" name="q2" value=3 onclick="checkAnswers(question_nr='q2', answer_nr=3)"> <label for="q2">Your choices do not affect your payoff</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q2"> <label for="q2">For each client that approaches you, you pay the costs of your chosen treatment and receive your chosen price as payoff</label>
+                <input type="radio" name="q2" value=4 onclick="checkAnswers(question_nr='q2', answer_nr=4)"> <label for="q2">For each client that approaches you, you pay the costs of your chosen treatment and receive your chosen price as payoff</label>
             </div>
         </div>
     </div>
@@ -184,19 +203,20 @@
         <h5 class="card-header">You are playing with 3 other experts and 4 clients.</h5>
         <div class="card-content">
             <div class="answer">
-                <input type="radio" name="q3" required> <label for="q3">All experts have the same diagnostic abilities and clients can observe them</label>
+                <input type="radio" name="q3" value=1 required onclick="checkAnswers(question_nr='q3', answer_nr=1)"> <label for="q3">All experts have the same diagnostic abilities and clients can observe them</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q3"> <label for="q3">Each expert has a 50% chance of being a low-ability expert and a 50% chance of being a high-ability expert. Clients can observe expert abilities.</label>
+                <input type="radio" name="q3" value=2 onclick="checkAnswers(question_nr='q3', answer_nr=2)"> <label for="q3">Each expert has a 50% chance of being a low-ability expert and a 50% chance of being a high-ability expert. Clients cannot observe expert abilities.</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q3"> <label for="q3">Each expert has a 50% chance of being a low-ability expert and a 50% chance of being a high-ability expert. Clients cannot observe expert abilities.</label>
+                <input type="radio" name="q3" value=3 onclick="checkAnswers(question_nr='q3', answer_nr=3)"> <label for="q3">Each expert has a 50% chance of being a low-ability expert and a 50% chance of being a high-ability expert. Clients can observe expert abilities.</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q3"> <label for="q3">All experts have different diagnostic abilities and clients cannot observe them</label>
+                <input type="radio" name="q3" value=4 onclick="checkAnswers(question_nr='q3', answer_nr=4)"> <label for="q3">All experts have different diagnostic abilities and clients cannot observe them</label>
             </div>
         </div>
     </div>
+
 
     {% else %}
     <!-- Client  -->
@@ -204,16 +224,16 @@
         <h5 class="card-header">Please choose the correct answer:</h5>
         <div class="card-content">
             <div class="answer">
-                <input type="radio" name="q1" required> <label for="q1">A low-quality treatment does not solve a client’s problem</label>
+                <input type="radio" name="q1" value=1 required onclick="checkAnswers(question_nr='q1', answer_nr=1)"> <label for="q1">A low-quality treatment does not solve a client’s problem</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q1"> <label for="q1">A high-quality treatment only solves a large problem and a low-quality treatment only solves a small problem</label>
+                <input type="radio" name="q1" value=2 onclick="checkAnswers(question_nr='q1', answer_nr=2)"> <label for="q1">A high-quality treatment only solves a large problem and a low-quality treatment only solves a small problem</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q1"> <label for="q1">A high-quality treatment solves both a large problem and a small problem, a low-quality treatment only solves a small problem</label>
+                <input type="radio" name="q1" value=3 onclick="checkAnswers(question_nr='q1', answer_nr=3)"> <label for="q1">A high-quality treatment solves both a large problem and a small problem, a low-quality treatment only solves a small problem</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q1"> <label for="q1">An expert’s treatment choice does not affect whether a client’s problem is solved</label>
+                <input type="radio" name="q1" value=4 onclick="checkAnswers(question_nr='q1', answer_nr=4)"> <label for="q1">An expert’s treatment choice does not affect whether a client’s problem is solved</label>
             </div>
         </div>
     </div>
@@ -222,16 +242,16 @@
         <h5 class="card-header">Each round, you can choose to approach 1 of 4 experts. Alternatively, you can choose to not enter the market.</h5>
         <div class="card-content">
             <div class="answer">
-                <input type="radio" name="q2" required> <label for="q2">If you approach an expert, and the expert does not solve your problem, you still receive a positive payoff for that round</label>
+                <input type="radio" name="q2" value=1 onclick="checkAnswers(question_nr='q2', answer_nr=1)" required> <label for="q2">If you approach an expert, and the expert does not solve your problem, you still receive a positive payoff for that round</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q2"> <label for="q2">If you decide not to enter the market and therefore do not approach an expert, you earn 150 Coins.</label>
+                <input type="radio" name="q2" value=2 onclick="checkAnswers(question_nr='q2', answer_nr=2)"> <label for="q2">If you decide not to enter the market and therefore do not approach an expert, you earn 150 Coins.</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q2"> <label for="q2">All experts always charge the same prices</label>
+                <input type="radio" name="q2" value=3 onclick="checkAnswers(question_nr='q2', answer_nr=3)"> <label for="q2">All experts always charge the same prices</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q2"> <label for="q2">If you approach an expert, and the expert solves your problem, you earn 150 Coins, while paying the treatment price as chosen by your approached expert. If the expert does not solve your problem, you only pay the treatment price.</label>
+                <input type="radio" name="q2" value=4 onclick="checkAnswers(question_nr='q2', answer_nr=4)"> <label for="q2">If you approach an expert, and the expert solves your problem, you earn 150 Coins, while paying the treatment price as chosen by your approached expert. If the expert does not solve your problem, you only pay the treatment price.</label>
             </div>
         </div>
     </div>
@@ -240,27 +260,56 @@
         <h5 class="card-header">You are playing with 4 other experts and 3 clients.</h5>
         <div class="card-content">
             <div class="answer">
-                <input type="radio" name="q3" required> <label for="q3">All experts have the same diagnostic abilities and clients can observe them</label>
+                <input type="radio" name="q3" value=1 onclick="checkAnswers(question_nr='q3', answer_nr=1)" required> <label for="q3">All experts have the same diagnostic abilities and clients can observe them</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q3"> <label for="q3">Each expert has a X% chance of being a low-ability expert and a Y% chance of being a high-ability expert. Clients can observe expert abilities</label>
+                <input type="radio" name="q3" value=2 onclick="checkAnswers(question_nr='q3', answer_nr=2)"> <label for="q3">Each expert has a 50% chance of being a low-ability expert and a 50% chance of being a high-ability expert. Clients cannot observe expert abilities</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q3"> <label for="q3">Each expert has a X% chance of being a low-ability expert and a Y% chance of being a high-ability expert. Clients cannot observe expert abilities</label>
+                <input type="radio" name="q3" value=3 onclick="checkAnswers(question_nr='q3', answer_nr=3)"> <label for="q3">Each expert has a 50% chance of being a low-ability expert and a 50% chance of being a high-ability expert. Clients can observe expert abilities</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q3"> <label for="q3">All experts have different diagnostic abilities and clients cannot observe them</label>
+                <input type="radio" name="q3" value=4 onclick="checkAnswers(question_nr='q3', answer_nr=4)"> <label for="q3">All experts have different diagnostic abilities and clients cannot observe them</label>
             </div>
         </div>
     </div>
+
     {% endif %}
 {% endif %}
 
+<input id="comprehention_questions_passed" name="comprehention_questions_passed" type="hidden" value=false>
+{{ formfield_errors 'comprehention_questions_passed' }}
+<script>
+    answers = {
+        "q0": 0,
+        "q1": 0,
+        "q2": 0,
+        "q3": 0   
+    };
+    correct_answers = {
+        "q0": 1,
+        "q1": 3,
+        "q2": 4,
+        "q3": 2
+    };
+    console.log(correct_answers)
+    result = false
+    function checkAnswers(question_nr, answer_nr) {
+        console.log(question_nr, answer_nr);
+        answers[question_nr] = answer_nr;
+        console.log(answers);
+
+        if (answers["q0"] == correct_answers["q0"] & (answers["q1"] == correct_answers["q1"]) & (answers["q2"] == correct_answers["q2"]) & (answers["q3"] == correct_answers["q3"])) {
+            console.log("Correct!")
+            result = true
+        };
+        document.getElementById("comprehention_questions_passed").value = result;
+    }
+</script>
+
 <p></p>
 
-    {{ formfields }}
     {{ next_button }}
 
-    {{ include_sibling "InstructionAccordion.html" }}
 
 {{ endblock }}

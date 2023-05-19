@@ -71,6 +71,8 @@ class Player(BasePlayer):
     # vars for simulation
     price_vector_chosen = models.StringField(choices=["bias_small", "bias_large", "no_bias"], initial="no_bias")
     expert_chosen_name = models.StringField(initial="None")
+    comprehention_questions_mistakes = models.IntegerField(initial=0)
+    comprehention_questions_passed = models.BooleanField(initial=False)
 
 # PAGES
 
@@ -135,7 +137,24 @@ class SimulatedResults(Page):
     pass
 
 class Comprehention(Page):
-    pass
+    form_model = "player"
+    form_fields = ["comprehention_questions_passed"]
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return not player.comprehention_questions_passed
+    
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        if not player.comprehention_questions_passed:
+            player.comprehention_questions_mistakes += 1
+
+class ComprehentionError(Page):
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.comprehention_questions_mistakes >= 3
+    
 
 
 page_sequence = [
@@ -151,5 +170,8 @@ page_sequence = [
     SimualtedExpertDiagnosisI,
     SimualtedExpertDiagnosisII,
     SimulatedResults,
-    Comprehention
+    Comprehention,
+    Comprehention,
+    Comprehention,
+    ComprehentionError
     ]
