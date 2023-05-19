@@ -20,7 +20,7 @@
                 <th class="tg-0pky">Total Coins at end of round</th>
               </tr>
               <tr>
-                <td class="tg-0pky">1</td>
+                <td class="tg-0pky">practice</td>
                 <td class="tg-0pky">1</td>
                 
                 <td class="tg-0pky">
@@ -56,20 +56,19 @@
                 <th class="tg-0pky">Expert chosen</th>
                 <th class="tg-0pky">Total Coins</th>
               </tr>
-              {% for p in player.in_all_rounds() %}
               <tr>
-                <td class="tg-0pky">{% p.round_number %}</td>
-                <td class="tg-0pky">{% p.field_maybe_none('expert_chosen_name') %}</td>
-                <td class="tg-0pky">{% p.coins %} coins</td>
+                <td class="tg-0pky">practice</td>
+                <td class="tg-0pky">{% player.field_maybe_none('expert_chosen_name') %}</td>
+                <td class="tg-0pky">{% C.CONSUMER_PAYOFFS.problem_solved %} coins</td>
               </tr>
-              {% endfor %}
             </tbody>
             </table>
 
     {{ endif }}
 </div>
-
-    {{ next_button }}
+<p></p>
+<p>{{ next_button }}</p>
+{{ include_sibling "InstructionAccordion.html" }}
 {{ endblock }}
 
 

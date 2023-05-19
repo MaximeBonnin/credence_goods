@@ -44,7 +44,7 @@
                 <div class="consumer-card">
                     <p class="consumer-name" style="background-color: #bdc9e1"><b>Consumer {% p.player_name %}</b></p>
 
-                    <p>Diagnosis result: <b><span id="result-{% p.id_in_group %}"></span> service needed (<span id="acc-{% p.id_in_group %}">X</span>% Acc)</b></p>
+                    <p>Diagnosis result: <b><span id="result-{% p.id_in_group %}"></span> problem found (<span id="acc-{% p.id_in_group %}">X</span>% Acc)</b></p>
 
 
                     <p><input class="radio-button" id="consumer_{% p.id_in_group %}_service_small" type="radio" name="{% p.id_in_group %}" value="small" required="required" onclick="updateService(key='{% p.id_in_group %}', value='small')">

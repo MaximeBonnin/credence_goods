@@ -64,7 +64,7 @@
     <div class="consumer-card">
         <p class="consumer-name" style="background-color: #bdc9e1"><b>Consumer C</b></p>
 
-        <p>Diagnosis result: <b>small problem found ({% if participant.ability_level == "low" %}{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}{% else %}{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.high %}{% endif %}% Acc)</b></p>
+        <p>Diagnosis result: <b>small service needed ({% if participant.ability_level == "low" %}{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}{% else %}{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.high %}{% endif %}% Acc)</b></p>
 
 
         <p><input class="radio-button" id="consumer_A_service_small" type="radio" name="C" value="small" required="required" onclick="updateService(key='A', value='small')">
@@ -93,4 +93,5 @@
 
 </div>
     <p><button class="btn btn-primary">Next</button></p>
+    <p>{{ include_sibling "InstructionAccordion.html" }}</p>
 {{ endblock }}

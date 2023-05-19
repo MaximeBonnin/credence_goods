@@ -70,6 +70,7 @@ class Player(BasePlayer):
 
     # vars for simulation
     price_vector_chosen = models.StringField(choices=["bias_small", "bias_large", "no_bias"], initial="no_bias")
+    expert_chosen_name = models.StringField(initial="None")
 
 # PAGES
 
@@ -96,6 +97,9 @@ class RoundOverview(Page):
 
 
 class SimulatedConsumerChooseExpert(Page):
+    form_model = "player"
+    form_fields = ["expert_chosen_name"]
+    
     @staticmethod
     def is_displayed(player):
         return not player.participant.is_expert
