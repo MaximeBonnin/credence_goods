@@ -11,11 +11,11 @@
 {% else %}
 <p>As stated before, there are two roles in this experiment: client and expert.  
     <b>You have been randomly selected to be a client</b>. You keep that role for the entire 
-    experiment. You will play within a group of 6 participants, 3 clients and 3 experts. 
+    experiment. You will play within a group of {% C.PLAYERS_PER_GROUP %} participants, {% C.NUM_CONSUMERS_PER_GROUP %} clients and {% C.NUM_EXPERTS_PER_GROUP %} experts. 
     There are two types of expert. A high-ability expert, and a low-ability expert. 
     For any expert, the probability that they are a high-ability expert is 50% and 
     the probability that they are a low-ability expert is 50%. You will always be 
-    able to observe the ability level of each expert. The experiment consists of 
-    <b>25 rounds</b>. In total, there are {% C.NUM_CONSUMERS_PER_GROUP %} clients and {% C.NUM_EXPERTS_PER_GROUP %} experts.</p>
+    able to observe the ability level of each expert. Experts know that you can see their ability. The experiment consists of 
+    <b>25 rounds</b>. 
 
 {% endif %}
