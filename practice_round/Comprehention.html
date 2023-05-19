@@ -1,0 +1,266 @@
+{{ block title }}
+    Comprehention Questions
+{{ endblock }}
+{{ block content }}
+
+<style>
+    .card-content {
+        margin: 1em;
+    }
+    .card {
+        margin-bottom: 1em;
+    }
+    .answer {
+        display: flex;
+        margin: 1em;
+    }
+
+    .answer > label {
+        margin-left: 1em;
+    }
+</style>
+
+
+
+{% if participant.treatment_skill_visible %}
+<!-- Transparent -->
+{% if participant.is_expert %}
+    <!-- Expert  -->
+    <div class="card">
+        <h5 class="card-header">Please choose the correct answer:</h5>
+        <div class="card-content">
+            <div class="answer">
+                <input type="radio" name="q1" required> <label for="q1">A low-quality treatment does not solve a client’s problem</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q1"> <label for="q1">A high-quality treatment only solves a large problem and a low-quality treatment only solves a small problem</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q1"> <label for="q1">A high-quality treatment solves both a large problem and a small problem, a low-quality treatment only solves a small problem</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q1"> <label for="q1">Your treatment choice does not affect whether a client’s problem is solved</label>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h5 class="card-header">Each round, you diagnose all clients and choose the treatment you want to provide for them.</h5>
+        <div class="card-content">
+            <div class="answer">
+                <input type="radio" name="q2" required> <label for="q2">You pay the costs of all chosen treatments, irrespective of whether clients approach you</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q2"> <label for="q2">You receive payoff equal to your chosen price and treatment for all clients, irrespective of whether they approach you</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q2"> <label for="q2">Your choices do not affect your payoff</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q2"> <label for="q2">For each client that approaches you, you pay the costs of your chosen treatment and receive your chosen price as payoff</label>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h5 class="card-header">You are playing with 3 other experts and 4 clients.</h5>
+        <div class="card-content">
+            <div class="answer">
+                <input type="radio" name="q3" required> <label for="q3">All experts have the same diagnostic abilities and clients can observe them</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q3"> <label for="q3">Each expert has a 50% chance of being a low-ability expert and a 50% chance of being a high-ability expert. Clients can observe expert abilities.</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q3"> <label for="q3">Each expert has a 50% chance of being a low-ability expert and a 50% chance of being a high-ability expert. Clients cannot observe expert abilities.</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q3"> <label for="q3">All experts have different diagnostic abilities and clients cannot observe them</label>
+            </div>
+        </div>
+    </div>
+
+    {% else %}
+    <!-- Client  -->
+    <div class="card">
+        <h5 class="card-header">Please choose the correct answer:</h5>
+        <div class="card-content">
+            <div class="answer">
+                <input type="radio" name="q1" required> <label for="q1">A low-quality treatment does not solve a client’s problem</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q1"> <label for="q1">A high-quality treatment only solves a large problem and a low-quality treatment only solves a small problem</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q1"> <label for="q1">A high-quality treatment solves both a large problem and a small problem, a low-quality treatment only solves a small problem</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q1"> <label for="q1">An expert’s treatment choice does not affect whether a client’s problem is solved</label>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h5 class="card-header">Each round, you can choose to approach 1 of 4 experts. Alternatively, you can choose to not enter the market.</h5>
+        <div class="card-content">
+            <div class="answer">
+                <input type="radio" name="q2" required> <label for="q2">If you approach an expert, and the expert does not solve your problem, you still receive a positive payoff for that round</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q2"> <label for="q2">If you decide not to enter the market and therefore do not approach an expert, you earn 150 Coins.</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q2"> <label for="q2">All experts always charge the same prices</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q2"> <label for="q2">If you approach an expert, and the expert solves your problem, you earn 150 Coins, while paying the treatment price as chosen by your approached expert. If the expert does not solve your problem, you only pay the treatment price.</label>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h5 class="card-header">You are playing with 4 other experts and 3 clients.</h5>
+        <div class="card-content">
+            <div class="answer">
+                <input type="radio" name="q3" required> <label for="q3">All experts have the same diagnostic abilities and clients can observe them</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q3"> <label for="q3">Each expert has a X% chance of being a low-ability expert and a Y% chance of being a high-ability expert. Clients can observe expert abilities</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q3"> <label for="q3">Each expert has a X% chance of being a low-ability expert and a Y% chance of being a high-ability expert. Clients cannot observe expert abilities</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q3"> <label for="q3">All experts have different diagnostic abilities and clients cannot observe them</label>
+            </div>
+        </div>
+    </div>
+    
+
+    {% endif %}
+
+
+{% else %}
+<!-- Obfuscated  -->
+    {% if participant.is_expert %}
+    <!-- Expert  -->
+    <div class="card">
+        <h5 class="card-header">Please choose the correct answer:</h5>
+        <div class="card-content">
+            <div class="answer">
+                <input type="radio" name="q1" required> <label for="q1">A low-quality treatment does not solve a client’s problem</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q1"> <label for="q1">A high-quality treatment only solves a large problem and a low-quality treatment only solves a small problem</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q1"> <label for="q1">A high-quality treatment solves both a large problem and a small problem, a low-quality treatment only solves a small problem</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q1"> <label for="q1">Your treatment choice does not affect whether a client’s problem is solved</label>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h5 class="card-header">Each round, you diagnose all clients and choose the treatment you want to provide for them.</h5>
+        <div class="card-content">
+            <div class="answer">
+                <input type="radio" name="q2" required> <label for="q2">You pay the costs of all chosen treatments, irrespective of whether clients approach you</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q2"> <label for="q2">You receive payoff equal to your chosen price and treatment for all clients, irrespective of whether they approach you</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q2"> <label for="q2">Your choices do not affect your payoff</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q2"> <label for="q2">For each client that approaches you, you pay the costs of your chosen treatment and receive your chosen price as payoff</label>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h5 class="card-header">You are playing with 3 other experts and 4 clients.</h5>
+        <div class="card-content">
+            <div class="answer">
+                <input type="radio" name="q3" required> <label for="q3">All experts have the same diagnostic abilities and clients can observe them</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q3"> <label for="q3">Each expert has a 50% chance of being a low-ability expert and a 50% chance of being a high-ability expert. Clients can observe expert abilities.</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q3"> <label for="q3">Each expert has a 50% chance of being a low-ability expert and a 50% chance of being a high-ability expert. Clients cannot observe expert abilities.</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q3"> <label for="q3">All experts have different diagnostic abilities and clients cannot observe them</label>
+            </div>
+        </div>
+    </div>
+
+    {% else %}
+    <!-- Client  -->
+    <div class="card">
+        <h5 class="card-header">Please choose the correct answer:</h5>
+        <div class="card-content">
+            <div class="answer">
+                <input type="radio" name="q1" required> <label for="q1">A low-quality treatment does not solve a client’s problem</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q1"> <label for="q1">A high-quality treatment only solves a large problem and a low-quality treatment only solves a small problem</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q1"> <label for="q1">A high-quality treatment solves both a large problem and a small problem, a low-quality treatment only solves a small problem</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q1"> <label for="q1">An expert’s treatment choice does not affect whether a client’s problem is solved</label>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h5 class="card-header">Each round, you can choose to approach 1 of 4 experts. Alternatively, you can choose to not enter the market.</h5>
+        <div class="card-content">
+            <div class="answer">
+                <input type="radio" name="q2" required> <label for="q2">If you approach an expert, and the expert does not solve your problem, you still receive a positive payoff for that round</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q2"> <label for="q2">If you decide not to enter the market and therefore do not approach an expert, you earn 150 Coins.</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q2"> <label for="q2">All experts always charge the same prices</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q2"> <label for="q2">If you approach an expert, and the expert solves your problem, you earn 150 Coins, while paying the treatment price as chosen by your approached expert. If the expert does not solve your problem, you only pay the treatment price.</label>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h5 class="card-header">You are playing with 4 other experts and 3 clients.</h5>
+        <div class="card-content">
+            <div class="answer">
+                <input type="radio" name="q3" required> <label for="q3">All experts have the same diagnostic abilities and clients can observe them</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q3"> <label for="q3">Each expert has a X% chance of being a low-ability expert and a Y% chance of being a high-ability expert. Clients can observe expert abilities</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q3"> <label for="q3">Each expert has a X% chance of being a low-ability expert and a Y% chance of being a high-ability expert. Clients cannot observe expert abilities</label>
+            </div>
+            <div class="answer">
+                <input type="radio" name="q3"> <label for="q3">All experts have different diagnostic abilities and clients cannot observe them</label>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endif %}
+
+<p></p>
+
+    {{ formfields }}
+    {{ next_button }}
+
+    {{ include_sibling "InstructionAccordion.html" }}
+
+{{ endblock }}

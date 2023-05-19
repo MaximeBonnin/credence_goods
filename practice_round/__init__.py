@@ -134,6 +134,9 @@ class SimualtedExpertDiagnosisII(Page):
 class SimulatedResults(Page):
     pass
 
+class Comprehention(Page):
+    pass
+
 
 page_sequence = [
     Introduction,
@@ -147,5 +150,6 @@ page_sequence = [
     SimualtedExpertChoosePrices,
     SimualtedExpertDiagnosisI,
     SimualtedExpertDiagnosisII,
-    SimulatedResults
+    SimulatedResults,
+    Comprehention
     ]
