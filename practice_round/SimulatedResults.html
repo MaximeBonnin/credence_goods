@@ -4,6 +4,71 @@
 
 {{ block content }}
 
+<div class="expert-results">
+    {{ if participant.is_expert }}
+            <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class="tg-amwm" colspan="4">Results so far</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th class="tg-0pky">Round</th>
+                <th class="tg-0pky">Number of services provided</th>
+                
+                <th class="tg-0pky">Total Coins at end of round</th>
+              </tr>
+              <tr>
+                <td class="tg-0pky">1</td>
+                <td class="tg-0pky">1</td>
+                
+                <td class="tg-0pky">
+                    {% if player.price_vector_chosen == "bias_small" %}
+                        {% C.PRICE_VECTOR_OPTIONS.bias_small.3 %}
+                    {% elif player.price_vector_chosen == "bias_large" %}
+                        {% C.PRICE_VECTOR_OPTIONS.bias_large.3 %}
+                    {% else %}
+                        {% C.PRICE_VECTOR_OPTIONS.no_bias.3 %}
+                    {% endif %}
+                        
+                    coins</td>
+                        
+              </tr>
+            </tbody>
+            </table>
+
+    {{ endif }}
+</div>
+
+<div class="consumer-results">
+    {{ if not participant.is_expert }}
+        
+            <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class="tg-amwm" colspan="3">Results so far</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th class="tg-0pky">Round</th>
+                <th class="tg-0pky">Expert chosen</th>
+                <th class="tg-0pky">Total Coins</th>
+              </tr>
+              {% for p in player.in_all_rounds() %}
+              <tr>
+                <td class="tg-0pky">{% p.round_number %}</td>
+                <td class="tg-0pky">{% p.field_maybe_none('expert_chosen_name') %}</td>
+                <td class="tg-0pky">{% p.coins %} coins</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+            </table>
+
+    {{ endif }}
+</div>
+
     {{ next_button }}
 {{ endblock }}
 

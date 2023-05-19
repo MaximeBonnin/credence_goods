@@ -36,7 +36,7 @@
     <div class="consumer-card">
         <p class="consumer-name" style="background-color: #bdc9e1"><b>Consumer A</b></p>
 
-        <p>Diagnosis result: <b>small service needed ({% if participant.ability_level == "low" %}{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}{% else %}{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.high %}{% endif %}% Acc)</b></p>
+        <p>Diagnosis result: <b>small problem found ({% if participant.ability_level == "low" %}{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}{% else %}{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.high %}{% endif %}% Acc)</b></p>
 
 
         <p><input class="radio-button" id="consumer_A_service_small" type="radio" name="A" value="small" required="required" onclick="updateService(key='A', value='small')">
@@ -48,28 +48,28 @@
     <input type="hidden" name="services_provided_to_all_consumers" id="services_provided_to_all_consumers">
 
     <div class="consumer-card">
-        <p class="consumer-name" style="background-color: #bdc9e1"><b>Consumer A</b></p>
+        <p class="consumer-name" style="background-color: #bdc9e1"><b>Consumer B</b></p>
 
-        <p>Diagnosis result: <b>small service needed ({% if participant.ability_level == "low" %}{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}{% else %}{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.high %}{% endif %}% Acc)</b></p>
+        <p>Diagnosis result: <b>large problem found ({% if participant.ability_level == "low" %}{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}{% else %}{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.high %}{% endif %}% Acc)</b></p>
 
 
-        <p><input class="radio-button" id="consumer_A_service_small" type="radio" name="A" value="small" required="required" onclick="updateService(key='A', value='small')">
+        <p><input class="radio-button" id="consumer_A_service_small" type="radio" name="B" value="small" required="required" onclick="updateService(key='A', value='small')">
             Provide small service <b>(Profit: <span class="profit-small"></span>)</b></p>
-        <p><input class="radio-button" id="consumer_A_service_large" type="radio" name="A" value="large" required="required" onclick="updateService(key='A', value='large')">
+        <p><input class="radio-button" id="consumer_A_service_large" type="radio" name="B" value="large" required="required" onclick="updateService(key='A', value='large')">
             Provide large service <b>(Profit: <span class="profit-large"></span>)</b></p>
     </div>
 
     <input type="hidden" name="services_provided_to_all_consumers" id="services_provided_to_all_consumers">
 
     <div class="consumer-card">
-        <p class="consumer-name" style="background-color: #bdc9e1"><b>Consumer A</b></p>
+        <p class="consumer-name" style="background-color: #bdc9e1"><b>Consumer C</b></p>
 
-        <p>Diagnosis result: <b>small service needed ({% if participant.ability_level == "low" %}{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}{% else %}{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.high %}{% endif %}% Acc)</b></p>
+        <p>Diagnosis result: <b>small problem found ({% if participant.ability_level == "low" %}{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}{% else %}{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.high %}{% endif %}% Acc)</b></p>
 
 
-        <p><input class="radio-button" id="consumer_A_service_small" type="radio" name="A" value="small" required="required" onclick="updateService(key='A', value='small')">
+        <p><input class="radio-button" id="consumer_A_service_small" type="radio" name="C" value="small" required="required" onclick="updateService(key='A', value='small')">
             Provide small service <b>(Profit: <span class="profit-small"></span>)</b></p>
-        <p><input class="radio-button" id="consumer_A_service_large" type="radio" name="A" value="large" required="required" onclick="updateService(key='A', value='large')">
+        <p><input class="radio-button" id="consumer_A_service_large" type="radio" name="C" value="large" required="required" onclick="updateService(key='A', value='large')">
             Provide large service <b>(Profit: <span class="profit-large"></span>)</b></p>
     </div>
 

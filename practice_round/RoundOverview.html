@@ -2,32 +2,43 @@
     Round Overview
 {{ endblock }}
 {{ block content }}
-<table class="table">
-  <thead>
-      <tr>
-          <th>#</th>
-          <th>Expert</th>
-          <th>Client</th>
-      </tr>
-  </thead>
-  <tr>
-      <th>1</th>
-      <td>The experts sets the prices by choosing one of three price vectors.</td>
-      <td>The client decides if he or she wants to enter the market.</td>
-  </tr>
-  <tr>
-    <th>2</th>
-    <td>The expert diagnoses all three clients, receives the signal about each client’s problem, and decides if he or she wants to implement the high-quality or the low-quality treatment.</td>
-    <td>The client observes all expert prices, each expert’s ability levels, and decides which expert to approach.</td>
-</tr>
-<tr>
-  <th>3</th>
-  <td colspan="2">Payoffs are realized. Clients are treated according to the treatment decision of their chosen expert. Experts charge each client that approached them.</td>
-</tr>
-</table>
 
-<p>You will now complete a practice round. This round does not affect your bonus payoff. It is solely meant for you to familiarize yourself with the decision environment.</p>
+<style>
+    .card-content {
+        margin: 1em;
+    }
+    </style>
 
+<div class="card">
+    <div class="card-content">
+        <table class="table">
+          <thead>
+              <tr>
+                  <th>#</th>
+                  <th>Expert</th>
+                  <th>Client</th>
+              </tr>
+          </thead>
+          <tr>
+              <th>1</th>
+              <td>The experts sets the prices by choosing one of three price vectors.</td>
+              <td>The client decides if he or she wants to enter the market.</td>
+          </tr>
+          <tr>
+            <th>2</th>
+            <td>The expert diagnoses all three clients, receives the signal about each client’s problem, and decides if he or she wants to implement the high-quality or the low-quality treatment.</td>
+            <td>The client observes all expert prices, each expert’s ability levels, and decides which expert to approach.</td>
+        </tr>
+        <tr>
+          <th>3</th>
+          <td colspan="2">Payoffs are realized. Clients are treated according to the treatment decision of their chosen expert. Experts charge each client that approached them.</td>
+        </tr>
+        </table>
+        
+        <p>You will now complete a practice round. This round does not affect your bonus payoff. It is solely meant for you to familiarize yourself with the decision environment.</p>
+    </div>
+</div>
+<p></p>
 
     {{ formfields }}
     <p><button class="otree-btn-next btn btn-primary">Continue to pratice round</button></p>

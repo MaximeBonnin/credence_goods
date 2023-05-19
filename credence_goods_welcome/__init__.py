@@ -1,5 +1,5 @@
 from otree.api import *
-import random
+import itertools
 
 
 doc = """
@@ -35,9 +35,15 @@ def creating_session(subsession: Subsession):
     print(f"Skill visible: {subsession.session.config['treatment_skill_visible']} | to change this go to settings -> SESSION_CONFIGS -> treatment_skill_visible")
     for player in subsession.get_players():
         #TODO make this random not just even/uneven
+        n_experts = 0
         if player.id_in_group % 2 == 0:
             player.participant.is_expert = True
-            player.participant.ability_level = random.choice(("low", "high"))
+            n_experts += 1
+            # itertools doesn't work, this will
+            if n_experts % 2 == 0:
+                player.participant.ability_level = "high"
+            else:
+                player.participant.ability_level = "low"
         else:
             player.participant.is_expert = False
 

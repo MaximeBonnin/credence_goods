@@ -3,9 +3,18 @@
 {{ endblock }}
 {{ block content }}
 
-{{ include 'practice_round/text_contents/Introduction.html' }}
+<style>
+    .card-content {
+        margin: 1em;
+    }
+</style>
 
-    {{ formfields }}
+<div class="card">
+    <div class="card-content">
+        {{ include 'practice_round/text_contents/Introduction.html' }}
+    </div>
+</div>
+<p></p>
     {{ next_button }}
 
     {{ include_sibling "InstructionAccordion.html" }}

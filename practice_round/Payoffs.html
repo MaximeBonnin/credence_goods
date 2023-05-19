@@ -3,7 +3,18 @@
 {{ endblock }}
 {{ block content }}
 
-{{ include 'practice_round/text_contents/Payoffs.html' }}
+<style>
+    .card-content {
+        margin: 1em;
+    }
+</style>
+
+<div class="card">
+    <div class="card-content">
+        {{ include 'practice_round/text_contents/Payoffs.html' }}
+    </div>
+</div>
+<p></p>
 
     {{ formfields }}
     {{ next_button }}

@@ -36,7 +36,7 @@ class C(BaseConstants):
                     3-COST_OF_PROVIDING_SMALL_SERVICE, 4-COST_OF_PROVIDING_LARGE_SERVICE)
     }
 
-    EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT = { # currently just random.choice() for selection
+    EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT = { # currently just itertools.cycle() for selection
         "low": 50,
         "high": 75,
         "invested": 90

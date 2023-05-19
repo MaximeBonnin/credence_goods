@@ -3,11 +3,20 @@
 {{ endblock }}
 {{ block content }}
 
-<div class="welcome-text">
-    <p>Please choose the device you are using:</p>
+<style>
+    .card-content {
+        margin: 1em;
+    }
+</style>
+
+<div class="card">
+    <h5 class="card-header">Please Choose what device you are using</h5>
+        <div class="card-content">
+    
+        {{ formfields }}
+        </div>
 </div>
 
-    {{ formfields }}
-    {{ next_button }}
+    <p>{{ next_button }}</p>
 
 {{ endblock }}
