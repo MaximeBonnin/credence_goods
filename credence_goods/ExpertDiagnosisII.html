@@ -112,5 +112,7 @@
 </div>
     {{ formfield_errors 'services_provided_to_all_consumers' }}
     <p><button class="btn btn-primary">Next</button></p>
-
+    <p>
+        {{ include "practice_round/InstructionAccordion.html" }}
+    </p>
 {{ endblock }}

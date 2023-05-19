@@ -32,6 +32,7 @@ class C(BaseConstants):
     COST_OF_PROVIDING_LARGE_SERVICE = 2     # c_g
 
     CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT = 40 # %
+    CHANCE_TO_HAVE_SMALL_PROBLEM_IN_PERCENT = 100-CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT
 
     PRICE_VECTOR_OPTIONS = {                # (price_small, price_large, profit_small, profit_large)
         "bias_small": (4, 4, 

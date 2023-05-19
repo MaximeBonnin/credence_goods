@@ -68,7 +68,11 @@
         document.getElementById("investment-cost").innerHTML = investment_cost;
         document.getElementById("total_diagnosis_accuracy_percent").innerHTML = js_vars.accuracies["invested"];
     </script>
+</div>
 
 {{ formfield_errors 'investment_decision' }}
+<p>
+    {{ include "practice_round/InstructionAccordion.html" }}
+</p>
 
 {{ endblock }}
