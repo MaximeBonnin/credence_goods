@@ -19,7 +19,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'credence_goods'
     NUM_ROUNDS = 8
     PLAYERS_PER_GROUP = 2
-    TIMEOUT_IN_SECONDS = 1500               # Investment Explain page is different
+    TIMEOUT_IN_SECONDS = 30               # Investment Explain page is different
     DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS = 3 # players get excluded from the experiment if they have X number of timeouts
 
     NUM_EXPERTS_PER_GROUP = PLAYERS_PER_GROUP // 2                         # consumers = players - experts #TODO currently not working, every second person is set to expert

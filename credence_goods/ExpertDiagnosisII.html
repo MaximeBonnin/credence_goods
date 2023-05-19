@@ -1,5 +1,5 @@
 {{ block title }}
-[Round {% player.round_number %}/{% C.NUM_ROUNDS %}] Diagnosis II
+[Round: {% player.round_number %}/{% C.NUM_ROUNDS %} | Time left: <span class="otree-timer__time-left">time_left</span>] Diagnosis II
 {{ endblock }}
 {{ block content }}
 
@@ -23,6 +23,9 @@
         padding: 0.3em;
         margin-bottom: 0.3em;
     } 
+    .otree-timer {
+        display: none;
+    }
 </style>
 
 
@@ -48,9 +51,9 @@
 
 
                     <p><input class="radio-button" id="consumer_{% p.id_in_group %}_service_small" type="radio" name="{% p.id_in_group %}" value="small" required="required" onclick="updateService(key='{% p.id_in_group %}', value='small')">
-                        Provide small service <b>(Profit: <span class="profit-small"></span>)</b></p>
+                        Provide low-quality service <b>(Profit: <span class="profit-small"></span>)</b></p>
                     <p><input class="radio-button" id="consumer_{% p.id_in_group %}_service_large" type="radio" name="{% p.id_in_group %}" value="large" required="required" onclick="updateService(key='{% p.id_in_group %}', value='large')">
-                        Provide large service <b>(Profit: <span class="profit-large"></span>)</b></p>
+                        Provide high-quality service <b>(Profit: <span class="profit-large"></span>)</b></p>
                 </div>
 
             <script>
