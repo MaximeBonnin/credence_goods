@@ -1,6 +1,7 @@
 {{ block title }}
 [Round {% player.round_number %}/{% C.NUM_ROUNDS %}] Experts can now investment
 {{ endblock }}
+
 {{ block content }}
 
 {% if player.is_expert %}
@@ -93,7 +94,7 @@
                 is  x% [y%].</p>
             <p>You do not have to invest in the next round. You can also invest in any one of the following rounds. The price stays the same, irrespective 
                 of the round. However, you can only invest once. There will be no opportunity to increase your maximum diagnostic ability beyond 90%. </p>
-
+            {% endif %}
         {% endif %}
     {% else %}
     <!-- expert | not visible -->
@@ -192,7 +193,7 @@
             <p>You do not have to invest in the next round. You can also invest in any one of the following rounds. The price stays the same, 
                 irrespective of the round. However, you can only invest once. There will be no opportunity to increase your maximum diagnostic 
                 ability beyond 90%. </p>
-
+            {% endif %}
         {% endif %}
     {% endif %}
 {% else %}
@@ -269,7 +270,7 @@
             <p>Experts do not have to invest immediately. They can invest at any time during the final 15 rounds, and the price 
                 always stays the same. If an expert has not earned enough money to finance the algorithmic decision aid, they can 
                 still invest by incurring debts. Debts are paid off through profits during the remainder of the experiment.</p>
-
+            {% endif %}
         {% endif %}
     {% else %}
     <!-- consumer | not visible -->
@@ -338,6 +339,7 @@
             <p>Experts do not have to invest immediately. They can invest at any time during the final 15 rounds, and the price always stays the same. 
                 If an expert has not earned enough money to finance the algorithmic decision aid, they can still invest by incurring debts. Debts are 
                 paid off through profits during the remainder of the experiment.</p>
+            {% endif %}
 
         {% endif %}
 

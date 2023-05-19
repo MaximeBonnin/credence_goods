@@ -18,11 +18,11 @@ class C(BaseConstants):
 
     NAME_IN_URL = 'credence_goods'
     NUM_ROUNDS = 8
-    PLAYERS_PER_GROUP = 6
+    PLAYERS_PER_GROUP = 2
     TIMEOUT_IN_SECONDS = 1500               # Investment Explain page is different
     DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS = 3 # players get excluded from the experiment if they have X number of timeouts
 
-    NUM_EXPERTS_PER_GROUP = 3                         # consumers = players - experts #TODO currently not working, every second person is set to expert
+    NUM_EXPERTS_PER_GROUP = PLAYERS_PER_GROUP // 2                         # consumers = players - experts #TODO currently not working, every second person is set to expert
     NUM_CONSUMERS_PER_GROUP = PLAYERS_PER_GROUP - NUM_EXPERTS_PER_GROUP
 
     ENDOWMENT = 10                      #TODO maybe different for consumers and experts?
@@ -110,7 +110,7 @@ def setup_player(player: Player) -> Player:
         player.coins = C.ENDOWMENT
         player.player_name = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[player.id_in_group-1]
 
-        if (player.id_in_group % 2) == 0 :  # id is even
+        if (player.participant.is_expert):
             player.is_expert = True
 
             # setup expert
