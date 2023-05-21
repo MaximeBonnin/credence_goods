@@ -655,7 +655,10 @@ class Demograpgics(Page):
     
 
 class PayoffCode(Page):
-    pass
+    @staticmethod
+    def is_displayed(player: Player):
+        # last round
+        return player.round_number == C.NUM_ROUNDS
 
     
     

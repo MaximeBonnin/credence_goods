@@ -1,4 +1,10 @@
 
+<style>
+    .img-container {
+        text-align: center;
+    }
+</style>
+
 {% if participant.is_expert %}
 <p>After you set your prices, you will proceed with the diagnosis.  
     Remember that there are two types of expert, and you have been 
@@ -17,7 +23,9 @@
     To make your diagnosis, you only need to click on the blue diagnosis button. 
     You need to do nothing else. Afterwards, you will receive the diagnostic signal.</p>
 
-<img src="" alt="prediction task">
+<div class="img-container">
+    <img src="{{ static 'diagnosis.png' }}" alt="prediction task">
+</div>
 
 <p>Finally, you decide which treatment you want to implement for a given client.</p>
 
@@ -57,7 +65,9 @@
     observe two of your symptoms. Therefore, high-ability experts are better at diagnosing you. Using 
     the symptoms, the expert makes a diagnosis and receives a diagnostic signal.</p>
 
-<img src="" alt="prediction task">
+<div class="img-container">
+    <img src="{{ static 'diagnosis.png' }}" alt="prediction task">
+</div>
 
 <p>After making their diagnosis, each expert decides which treatment they want to implement for a given client. </p>
 
