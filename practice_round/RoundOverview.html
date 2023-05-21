@@ -9,6 +9,7 @@
     }
     </style>
 
+
 <div class="card">
     <div class="card-content">
         <table class="table">
@@ -27,7 +28,9 @@
           <tr>
             <th>2</th>
             <td>The expert diagnoses all three clients, receives the signal about each client’s problem, and decides if he or she wants to implement the high-quality or the low-quality treatment.</td>
-            <td>The client observes all expert prices, each expert’s ability levels, and decides which expert to approach.</td>
+            <td>{% if participant.treatment_skill_visible %}
+                The client observes all expert prices, each expert’s ability levels, and decides which expert to approach.
+                {% else %} The client observes all expert prices, and decides which expert to approach. {% endif %}</td>
         </tr>
         <tr>
           <th>3</th>
