@@ -17,7 +17,7 @@ class C(BaseConstants):
     # colors: #f1eef6, #bdc9e1, #74a9cf, #0570b0
 
     NAME_IN_URL = 'credence_goods'
-    NUM_ROUNDS = 8
+    NUM_ROUNDS = 3
     PLAYERS_PER_GROUP = 2
     TIMEOUT_IN_SECONDS = 300               # Investment Explain page is different
     DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS = 3 # players get excluded from the experiment if they have X number of timeouts
@@ -102,6 +102,71 @@ class Player(BasePlayer):
     # variables for documentation
     cost_of_providing_small_service =  models.IntegerField(initial=C.COST_OF_PROVIDING_SMALL_SERVICE) # c_k
     cost_of_providing_large_service =  models.IntegerField(initial=C.COST_OF_PROVIDING_LARGE_SERVICE) # c_g
+
+    # demographics
+    dem_risk = models.IntegerField(
+        choices=[
+            [1, "1"],
+            [2, "2"],
+            [3, "3"],
+            [4, "4"],
+            [5, "5"],
+            [6, "6"],
+            [7, "7"],
+            [8, "8"],
+            [9, "9"],
+            [10, "10"]
+        ], widget=widgets.RadioSelectHorizontal, blank=False
+    )
+
+    dem_year = models.IntegerField(blank=False, min=1900, max=2023)
+
+    dem_sex = models.IntegerField(
+        choices=[
+            [1, "Male"],
+            [2, "Female"],
+            [3, "Other"],
+            [4, "Prefer not to answer"]
+        ], widget=widgets.RadioSelect, blank=False
+    )
+
+    dem_employment = models.IntegerField(
+        choices=[
+            [1, "Working (paid employee)"],
+            [2, "Working (self-employed)"],
+            [3, "Not working (temporary layoff from a job)"],
+            [4, "Not working (looking for work)"],
+            [5, "Not working (retired)"],
+            [6, "Not working (diabled)"],
+            [7, "Not working (other)"],
+            [8, "Prefer not to answer"]
+        ], widget=widgets.RadioSelect, blank=False
+    )
+
+    dem_education = models.IntegerField(
+        choices=[
+            [1, "Less than high school degree"],
+            [2, "High school graduate (high school diploma or equivalent including GED)"],
+            [3, "Some college but no degree"],
+            [4, "Associate degree in college (2-year)"],
+            [5, "Bachelor's degree in college (4-year)"],
+            [6, "Master's degree"],
+            [7, "Doctoral degree"],
+            [8, "Professional degree (JD, MD)"]
+        ], widget=widgets.RadioSelect, blank=False
+    )
+
+    dem_ethnicity = models.IntegerField(
+        choices=[
+            [1, "African American"],
+            [2, "American Indian"],
+            [3, "Asian"],
+            [4, "Hispanic/Latino"],
+            [5, "White/Caucasion"],
+            [6, "Other"]
+        ], widget=widgets.RadioSelect, blank=False
+    )
+
 
 
 def setup_player(player: Player) -> Player:
@@ -578,6 +643,23 @@ class FinalResults(Page):
         # last round
         return player.round_number == C.NUM_ROUNDS
     
+
+class Demograpgics(Page):
+    form_model = "player"
+    form_fields = ["dem_risk", "dem_year", "dem_sex", "dem_employment", "dem_education", "dem_ethnicity"]
+
+    @staticmethod
+    def is_displayed(player: Player):
+        # last round
+        return player.round_number == C.NUM_ROUNDS
+    
+
+class PayoffCode(Page):
+    pass
+
+    
+    
+
 page_sequence = [MatchingWaitPage,  # only first round
                  MatchSuccessful,   # only first round
                  SetupWaitPage,     # all later rounds
@@ -591,5 +673,7 @@ page_sequence = [MatchingWaitPage,  # only first round
                  ExpertDiagnosisII, # Experts | all rounds
                  ConsumerWaitPage,  # Consumers | all rounds
                  Results,           # all rounds
-                 FinalResults       # last round
+                 FinalResults,      # last round
+                 Demograpgics,      # last round
+                 PayoffCode         # last round
                  ]
