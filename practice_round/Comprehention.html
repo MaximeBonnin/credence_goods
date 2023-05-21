@@ -21,23 +21,23 @@
 </style>
 
 {% if player.comprehention_questions_mistakes > 0 %}
-<p style="color: red">Your answers were incorrect. You have a total of 3 attempts to pass these questions. Please try again.</p>
+<p style="color: red">Your answers were incorrect. You have a total of 3 attempts to pass these questions. Please try again. You can re-read the instructions at the bottom of the page</p>
 {% endif %}
 
 <div class="card">
     <h5 class="card-header">Please choose the correct answer:</h5>
     <div class="card-content">
         <div class="answer">
-            <input type="radio" name="q0" required onclick="checkAnswers(question_nr='q0', answer_nr=1)"> <label for="q0">Clients do not know their problem type, and cannot observe which treatment you chose. They only see their payoff at the end of each round</label>
+            <input type="radio" name="q0" required onclick="checkAnswers(question_nr='q0', answer_nr=1)"> <label for="q0">Clients <i> do not know </i>  their problem type, and <i> cannot observe </i> which treatment the expert chose. Clients only see their payoff at the end of each round</label>
         </div>
         <div class="answer">
-            <input type="radio" name="q0" onclick="checkAnswers(question_nr='q0', answer_nr=2)"> <label for="q0">Clients know their problem type, and can observe which treatment you chose. Additionally, they see their payoff at the end of each round</label>
+            <input type="radio" name="q0" onclick="checkAnswers(question_nr='q0', answer_nr=2)"> <label for="q0">Clients <i> know </i> their problem type, and <i>can </i> observe which treatment you chose. Additionally, they see their payoff at the end of each round</label>
         </div>
         <div class="answer">
-            <input type="radio" name="q0" onclick="checkAnswers(question_nr='q0', answer_nr=3)"> <label for="q0">Clients know their problem type, but cannot observe which treatment you chose. Additionally, they see their payoff at the end of each round</label>
+            <input type="radio" name="q0" onclick="checkAnswers(question_nr='q0', answer_nr=3)"> <label for="q0">Clients <i> know </i> their problem type, but <i> cannot observe </i> which treatment you chose. Additionally, they see their payoff at the end of each round</label>
         </div>
         <div class="answer">
-            <input type="radio" name="q0" onclick="checkAnswers(question_nr='q0', answer_nr=4)"> <label for="q0">Clients receive no information about their own payoff</label>
+            <input type="radio" name="q0" onclick="checkAnswers(question_nr='q0', answer_nr=4)"> <label for="q0">Clients receive no information about anything</label>
         </div>
     </div>
 </div>
@@ -50,7 +50,7 @@
         <h5 class="card-header">Please choose the correct answer:</h5>
         <div class="card-content">
             <div class="answer">
-                <input type="radio" name="q1" onclick="checkAnswers(question_nr='q1', answer_nr=1)" required> <label for="q1">A low-quality treatment does not solve a client’s problem</label>
+                <input type="radio" name="q1" onclick="checkAnswers(question_nr='q1', answer_nr=1)" required> <label for="q1">A low-quality treatment never solves a client’s problem</label>
             </div>
             <div class="answer">
                 <input type="radio" name="q1" onclick="checkAnswers(question_nr='q1', answer_nr=2)"> <label for="q1">A high-quality treatment only solves a large problem and a low-quality treatment only solves a small problem</label>
@@ -86,16 +86,16 @@
         <h5 class="card-header">You are playing with 3 other experts and 4 clients.</h5>
         <div class="card-content">
             <div class="answer">
-                <input type="radio" name="q3" required onclick="checkAnswers(question_nr='q3', answer_nr=1)"> <label for="q3">All experts have the same diagnostic abilities and clients can observe them</label>
+                <input type="radio" name="q3" required onclick="checkAnswers(question_nr='q3', answer_nr=1)"> <label for="q3">All experts have the same diagnostic abilities and clients <i> can </i> observe them</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q3" onclick="checkAnswers(question_nr='q3', answer_nr=2)"> <label for="q3">Each expert has a 50% chance of being a low-ability expert and a 50% chance of being a high-ability expert. Clients can observe expert abilities.</label>
+                <input type="radio" name="q3" onclick="checkAnswers(question_nr='q3', answer_nr=2)"> <label for="q3">Each expert has a 50% chance of being a low-ability expert and a 50% chance of being a high-ability expert. Clients <i> can </i> observe expert abilities.</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q3" onclick="checkAnswers(question_nr='q3', answer_nr=3)"> <label for="q3">Each expert has a 50% chance of being a low-ability expert and a 50% chance of being a high-ability expert. Clients cannot observe expert abilities.</label>
+                <input type="radio" name="q3" onclick="checkAnswers(question_nr='q3', answer_nr=3)"> <label for="q3">Each expert has a 50% chance of being a low-ability expert and a 50% chance of being a high-ability expert. Clients <i> cannot </i> observe expert abilities.</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q3" onclick="checkAnswers(question_nr='q3', answer_nr=4)"> <label for="q3">All experts have different diagnostic abilities and clients cannot observe them</label>
+                <input type="radio" name="q3" onclick="checkAnswers(question_nr='q3', answer_nr=4)"> <label for="q3">All experts have different diagnostic abilities and clients <i> cannot </i> observe them</label>
             </div>
         </div>
     </div>
@@ -106,7 +106,7 @@
         <h5 class="card-header">Please choose the correct answer:</h5>
         <div class="card-content">
             <div class="answer">
-                <input type="radio" name="q1" onclick="checkAnswers(question_nr='q1', answer_nr=1)" required> <label for="q1">A low-quality treatment does not solve a client’s problem</label>
+                <input type="radio" name="q1" onclick="checkAnswers(question_nr='q1', answer_nr=1)" required> <label for="q1">A low-quality treatment never solves a client’s problem</label>
             </div>
             <div class="answer">
                 <input type="radio" name="q1" onclick="checkAnswers(question_nr='q1', answer_nr=2)"> <label for="q1">A high-quality treatment only solves a large problem and a low-quality treatment only solves a small problem</label>
@@ -139,19 +139,19 @@
     </div>
     
     <div class="card">
-        <h5 class="card-header">You are playing with 4 other experts and 3 clients.</h5>
+        <h5 class="card-header">You are playing with 4 experts and 3 other clients.</h5>
         <div class="card-content">
             <div class="answer">
-                <input type="radio" name="q3" onclick="checkAnswers(question_nr='q3', answer_nr=1)" required> <label for="q3">All experts have the same diagnostic abilities and clients can observe them</label>
+                <input type="radio" name="q3" onclick="checkAnswers(question_nr='q3', answer_nr=1)" required> <label for="q3">All experts have the same diagnostic abilities and clients <i> can </i> observe them</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q3" onclick="checkAnswers(question_nr='q3', answer_nr=2)"> <label for="q3">Each expert has a X% chance of being a low-ability expert and a Y% chance of being a high-ability expert. Clients can observe expert abilities</label>
+                <input type="radio" name="q3" onclick="checkAnswers(question_nr='q3', answer_nr=2)"> <label for="q3">Each expert has a X% chance of being a low-ability expert and a Y% chance of being a high-ability expert. Clients <i> can </i> observe expert abilities</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q3" onclick="checkAnswers(question_nr='q3', answer_nr=3)"> <label for="q3">Each expert has a X% chance of being a low-ability expert and a Y% chance of being a high-ability expert. Clients cannot observe expert abilities</label>
+                <input type="radio" name="q3" onclick="checkAnswers(question_nr='q3', answer_nr=3)"> <label for="q3">Each expert has a X% chance of being a low-ability expert and a Y% chance of being a high-ability expert. Clients <i> cannot </i> observe expert abilities</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q3" onclick="checkAnswers(question_nr='q3', answer_nr=4)"> <label for="q3">All experts have different diagnostic abilities and clients cannot observe them</label>
+                <input type="radio" name="q3" onclick="checkAnswers(question_nr='q3', answer_nr=4)"> <label for="q3">All experts have different diagnostic abilities and clients <i> cannot </i> observe them</label>
             </div>
         </div>
     </div>
@@ -167,7 +167,7 @@
         <h5 class="card-header">Please choose the correct answer:</h5>
         <div class="card-content">
             <div class="answer">
-                <input type="radio" name="q1" value=1 onclick="checkAnswers(question_nr='q1', answer_nr=1)" required> <label for="q1">A low-quality treatment does not solve a client’s problem</label>
+                <input type="radio" name="q1" value=1 onclick="checkAnswers(question_nr='q1', answer_nr=1)" required> <label for="q1">A low-quality treatment never solves a client’s problem</label>
             </div>
             <div class="answer">
                 <input type="radio" name="q1" value=2 onclick="checkAnswers(question_nr='q1', answer_nr=2)"> <label for="q1">A high-quality treatment only solves a large problem and a low-quality treatment only solves a small problem</label>
@@ -203,16 +203,16 @@
         <h5 class="card-header">You are playing with 3 other experts and 4 clients.</h5>
         <div class="card-content">
             <div class="answer">
-                <input type="radio" name="q3" value=1 required onclick="checkAnswers(question_nr='q3', answer_nr=1)"> <label for="q3">All experts have the same diagnostic abilities and clients can observe them</label>
+                <input type="radio" name="q3" value=1 required onclick="checkAnswers(question_nr='q3', answer_nr=1)"> <label for="q3">All experts have the same diagnostic abilities and clients <i>can </i> observe them</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q3" value=2 onclick="checkAnswers(question_nr='q3', answer_nr=2)"> <label for="q3">Each expert has a 50% chance of being a low-ability expert and a 50% chance of being a high-ability expert. Clients cannot observe expert abilities.</label>
+                <input type="radio" name="q3" value=2 onclick="checkAnswers(question_nr='q3', answer_nr=2)"> <label for="q3">Each expert has a 50% chance of being a low-ability expert and a 50% chance of being a high-ability expert. Clients <i> cannot </i> observe expert abilities.</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q3" value=3 onclick="checkAnswers(question_nr='q3', answer_nr=3)"> <label for="q3">Each expert has a 50% chance of being a low-ability expert and a 50% chance of being a high-ability expert. Clients can observe expert abilities.</label>
+                <input type="radio" name="q3" value=3 onclick="checkAnswers(question_nr='q3', answer_nr=3)"> <label for="q3">Each expert has a 50% chance of being a low-ability expert and a 50% chance of being a high-ability expert. Clients <i> can </i> observe expert abilities.</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q3" value=4 onclick="checkAnswers(question_nr='q3', answer_nr=4)"> <label for="q3">All experts have different diagnostic abilities and clients cannot observe them</label>
+                <input type="radio" name="q3" value=4 onclick="checkAnswers(question_nr='q3', answer_nr=4)"> <label for="q3">All experts have different diagnostic abilities and clients <i> cannot </i> observe them</label>
             </div>
         </div>
     </div>
@@ -224,7 +224,7 @@
         <h5 class="card-header">Please choose the correct answer:</h5>
         <div class="card-content">
             <div class="answer">
-                <input type="radio" name="q1" value=1 required onclick="checkAnswers(question_nr='q1', answer_nr=1)"> <label for="q1">A low-quality treatment does not solve a client’s problem</label>
+                <input type="radio" name="q1" value=1 required onclick="checkAnswers(question_nr='q1', answer_nr=1)"> <label for="q1">A low-quality treatment never solves a client’s problem</label>
             </div>
             <div class="answer">
                 <input type="radio" name="q1" value=2 onclick="checkAnswers(question_nr='q1', answer_nr=2)"> <label for="q1">A high-quality treatment only solves a large problem and a low-quality treatment only solves a small problem</label>
@@ -257,19 +257,19 @@
     </div>
     
     <div class="card">
-        <h5 class="card-header">You are playing with 4 other experts and 3 clients.</h5>
+        <h5 class="card-header">You are playing with 4 experts and 3 other clients.</h5>
         <div class="card-content">
             <div class="answer">
-                <input type="radio" name="q3" value=1 onclick="checkAnswers(question_nr='q3', answer_nr=1)" required> <label for="q3">All experts have the same diagnostic abilities and clients can observe them</label>
+                <input type="radio" name="q3" value=1 onclick="checkAnswers(question_nr='q3', answer_nr=1)" required> <label for="q3">All experts have the same diagnostic abilities and clients <i> can </i> observe them</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q3" value=2 onclick="checkAnswers(question_nr='q3', answer_nr=2)"> <label for="q3">Each expert has a 50% chance of being a low-ability expert and a 50% chance of being a high-ability expert. Clients cannot observe expert abilities</label>
+                <input type="radio" name="q3" value=2 onclick="checkAnswers(question_nr='q3', answer_nr=2)"> <label for="q3">Each expert has a 50% chance of being a low-ability expert and a 50% chance of being a high-ability expert. Clients <i> cannot </i> observe expert abilities</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q3" value=3 onclick="checkAnswers(question_nr='q3', answer_nr=3)"> <label for="q3">Each expert has a 50% chance of being a low-ability expert and a 50% chance of being a high-ability expert. Clients can observe expert abilities</label>
+                <input type="radio" name="q3" value=3 onclick="checkAnswers(question_nr='q3', answer_nr=3)"> <label for="q3">Each expert has a 50% chance of being a low-ability expert and a 50% chance of being a high-ability expert. Clients <i> can </i> observe expert abilities</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q3" value=4 onclick="checkAnswers(question_nr='q3', answer_nr=4)"> <label for="q3">All experts have different diagnostic abilities and clients cannot observe them</label>
+                <input type="radio" name="q3" value=4 onclick="checkAnswers(question_nr='q3', answer_nr=4)"> <label for="q3">All experts have different diagnostic abilities and clients <i> cannot </i> observe them</label>
             </div>
         </div>
     </div>
