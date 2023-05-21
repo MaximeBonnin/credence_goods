@@ -35,16 +35,17 @@
 <div class="card">
     <div class="card-content">
         {% if participant.is_expert %}
-        <p>You will now proceed with your pricing decision, and then implement all potential diagnoses + treatments. 
+        <p>You will now proceed with your pricing decision, and then conduct all potential diagnoses + treatments.
             Remember that all consumers observe your prices, the prices from other experts and the costs for each treatment. 
             Therefore, consumers also see your potential profits. Consumers do not observe (1) the nature of their problem or 
-            (2) which treatment you implemented. However, they do observe whether they earned any profits. If a consumer decided 
+            (2) which treatment you implemented. However, they do observe whether they earned any profits. </p>
+        <p> If a consumer decided
             to approach you after seeing all the prices from all the experts, your treatment decision will be implemented 
-            nd both you and the consumer will be paid out accordingly. Then, the next round begins.</p>
-        
+            and both you and the client will be paid out accordingly. Then, the next round begins.</p>
+
         {% else %}
-        <p>You will now decide whether you want to approach an expert, or leave the market and thereby neither earn, nor lose, 
-            any money. If you decide to approach an expert, the expert will diagnose and treat you. At the end of the round, 
+        <p>You will now decide whether you want to approach an expert, or leave the market and earn the outside fee of {% C.EXPERT_PAYOFF_NO_CONSUMER %} Coins.
+            If you decide to approach an expert, the expert will diagnose and treat you. At the end of the round,
             both you and the expert will be paid out. Remember that your payoff is determined as follows:</p>
         <p>If your problem is solved: {% C.CONSUMER_PAYOFFS.problem_solved %} Coins – price of treatment</p>
         <p>If your problem is not solved: -price of treatment</p>
