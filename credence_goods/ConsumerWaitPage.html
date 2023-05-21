@@ -1,6 +1,9 @@
 {{ extends 'otree/WaitPage.html' }}
 {{ block title }} Waiting for experts... {{ endblock }}
 {{ block content }}
+<script>
+  coins_in_all_rounds = {};
+</script>
 
     <div class="expert-results">
         {{ if player.is_expert }}
@@ -54,8 +57,18 @@
                   <tr>
                     <td class="tg-0pky">{% p.round_number %}</td>
                     <td class="tg-0pky">{% p.field_maybe_none('expert_chosen_name') %}</td>
-                    <td class="tg-0pky">{% p.coins %} coins</td>
+                    <td class="tg-0pky"><span id="coins_in_round_{% p.round_number %}"></span> coins</td>
                   </tr>
+                  <script>
+                    // calculate coins per round //
+                    coins_this_round = parseInt("{% p.coins %}");
+                    coins_in_all_rounds["{% p.round_number %}"] = coins_this_round;
+                    round_nr = parseInt("{% p.round_number %}");
+                    if (round_nr != 1) {
+                        coins_this_round -= coins_in_all_rounds[String(round_nr-1)]
+                    } 
+                    document.getElementById("coins_in_round_{% p.round_number %}").innerHTML = coins_this_round;
+                  </script>
                   {% endfor %}
                   
                 </tbody>
