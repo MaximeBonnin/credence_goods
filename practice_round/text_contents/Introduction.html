@@ -3,7 +3,15 @@
     <b>You have been randomly assigned the role of {% if participant.is_expert %} expert{%else %} client{% endif %}</b>. 
     Your role determines your decisions throughout the experiment. 
     However, to make informed choices that determine your bonus, you need 
-    to <b>understand both roles</b>. Please click on the button below to proceed 
+    to understand both roles. </p>
+
+    <p> During the experiment, all your payoffs will be stated in Coins. At the end of the experiment, all your Coins will be
+        converted into Dollars.</p>
+
+    <p> The exchange rate is: {% session.config.real_world_currency_per_point %}. Thus 100 Coins = 1$ </p>
+
+
+    <p> Please click on the button below to proceed
     to the instructions. Read them carefully, because you will need to 
     answer a few comprehension questions afterwards. During the instructions, 
     you will also complete a practice round to familiarize yourself with the decision environment.</p>
