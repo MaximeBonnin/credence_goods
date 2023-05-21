@@ -20,7 +20,7 @@
                     {% if player.round_number >= C.INVESTMENT_STARTING_ROUND %}
                     <th class="tg-0pky">Investment made</th>
                     {% endif %}
-                    <th class="tg-0pky">Total Coins</th>
+                    <th class="tg-0pky">Coins earned</th>
                   </tr>
                   {% for p in player.in_all_rounds() %}
                   <tr>
@@ -68,6 +68,10 @@
                         coins_this_round -= coins_in_all_rounds[String(round_nr-1)]
                     } 
                     document.getElementById("coins_in_round_{% p.round_number %}").innerHTML = coins_this_round;
+                    
+                    if ("{% p.round_number %}" == "{% player.round_number %}") {
+                      document.getElementById("coins_in_round_{% p.round_number %}").innerHTML = "???";
+                    }
                   </script>
                   {% endfor %}
                   

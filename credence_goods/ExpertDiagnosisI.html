@@ -66,6 +66,7 @@
 
     diag = js_vars.diagnosis_correct_for_all_patients
     console.log(diag)
+    all_random_vars = {};
 </script>
 <!-- hidden input for oTree formfield ignore_algorithmic_decision_per_consumer -->
 <input type="hidden" id="ignore_algorithmic_decision_per_consumer" name="ignore_algorithmic_decision_per_consumer">
@@ -83,19 +84,19 @@
                         <tbody>
                           <tr>
                             <td>Symptom I</td>
-                            <td><input id="calc-A-{% p.id_in_group %}" type="text" size="1" placeholder="A" required="required"></td>
+                            <td><input id="calc-A-{% p.id_in_group %}" type="text" size="1" placeholder="A" required="required" onkeydown="resetInput(this, id='{% p.id_in_group %}')"></td>
                           </tr>
                           <tr>
                             <td>Symptom II</td>
-                            <td><input id="calc-B-{% p.id_in_group %}" type="text" size="1" placeholder="B" required="required"></td>
+                            <td><input id="calc-B-{% p.id_in_group %}" type="text" size="1" placeholder="B" required="required" onkeydown="resetInput(this, id='{% p.id_in_group %}')"></td>
                           </tr>
                           <tr>
                             <td>Symptom III</td>
-                            <td><input id="calc-C-{% p.id_in_group %}" type="text" size="1" placeholder="C" required="required" disabled></td>
+                            <td><input id="calc-C-{% p.id_in_group %}" type="text" size="1" placeholder="C" required="required" onkeydown="resetInput(this, id='{% p.id_in_group %}')" disabled></td>
                           </tr>
                           <tr>
                             <td>Symptom IV</td>
-                            <td><input id="calc-D-{% p.id_in_group %}" type="text" size="1" placeholder="D" required="required" disabled></td>
+                            <td><input id="calc-D-{% p.id_in_group %}" type="text" size="1" placeholder="D" required="required" onkeydown="resetInput(this, id='{% p.id_in_group %}')" disabled></td>
                           </tr>
                           <tr>
                             <td>Symptom V</td>
@@ -117,12 +118,16 @@
 
                 <script>
                     dict_ignore_algo['{% p.id_in_group %}'] = 0;
+                    all_random_vars['{% p.id_in_group %}'] = {}
 
                     input_1 = getRandomInt(1, 10); /* random var 1-10 */
                     document.getElementById("calc-A-{% p.id_in_group %}").value = input_1;
 
                     input_2 = getRandomInt(11, 20); /* random var 2-20 */
                     document.getElementById("calc-B-{% p.id_in_group %}").value = input_2;  
+
+                    all_random_vars['{% p.id_in_group %}']["A"] = input_1
+                    all_random_vars['{% p.id_in_group %}']["B"] = input_2
                 </script>
 
                 {% if player.ability_level == "high" %}
@@ -135,7 +140,9 @@
                         else {
                             input_3 = getRandomInt(31, 40);   /* input_3_2 |  random var 4-40 if large */
                         };
-                        document.getElementById("calc-C-{% p.id_in_group %}").value = input_3; 
+                        document.getElementById("calc-C-{% p.id_in_group %}").value = input_3;
+
+                        all_random_vars['{% p.id_in_group %}']["C"] = input_3
         
                     </script>
                 {% endif %}
@@ -162,6 +169,8 @@
                         
                         document.getElementById("calc-D-{% p.id_in_group %}").value = input_4; 
                         document.getElementById("calc-D-{% p.id_in_group %}").disabled = false;
+
+                        all_random_vars['{% p.id_in_group %}']["D"] = input_4
                     </script>
                 {% endif %}
             {% endif %}
@@ -184,6 +193,12 @@
         };
         document.getElementById("ignore_algorithmic_decision_per_consumer").value = JSON.stringify(dict_ignore_algo);
         console.log(dict_ignore_algo);
+    }
+
+
+    function resetInput(ele, id) {
+        
+        ele.value = all_random_vars[id][ele.getAttribute("placeholder")]
     }
 </script>
 <p><button class="btn btn-primary">Diagnose all consumers</button></p>

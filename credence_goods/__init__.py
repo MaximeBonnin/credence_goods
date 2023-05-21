@@ -25,7 +25,7 @@ class C(BaseConstants):
     NUM_EXPERTS_PER_GROUP = PLAYERS_PER_GROUP // 2                         # consumers = players - experts #TODO currently not working, every second person is set to expert
     NUM_CONSUMERS_PER_GROUP = PLAYERS_PER_GROUP - NUM_EXPERTS_PER_GROUP
 
-    ENDOWMENT = 10                      #TODO maybe different for consumers and experts?
+    ENDOWMENT = 0                      #TODO maybe different for consumers and experts?
 
 
     COST_OF_PROVIDING_SMALL_SERVICE = 1     # c_k
@@ -52,8 +52,10 @@ class C(BaseConstants):
     CONSUMER_PAYOFFS = {
         "no_market_entry": 0,
         "problem_remains": 0,
-        "problem_solved": 10
+        "problem_solved": 150
     }
+
+    EXPERT_PAYOFF_NO_CONSUMER = 10
 
     INVESTMENT_STARTING_ROUND = 2
     INVESTMENT_COST = {
@@ -436,6 +438,10 @@ class ExpertDiagnosisII(Page):
                 elif consumer.service_recieved == "large":
                     player.coins += C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][3]   # profit large
                     consumer.coins -= C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][1]        # price large
+
+            if player.number_of_services_provided == 0:
+                # small payoff for when expert not chosen
+                player.coins += C.EXPERT_PAYOFF_NO_CONSUMER
 
 
 def group_by_arrival_time_method(subsession, waiting_players):

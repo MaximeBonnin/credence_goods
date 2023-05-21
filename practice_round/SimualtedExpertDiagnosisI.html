@@ -38,6 +38,7 @@
 
     diag = js_vars.diagnosis_correct_for_all_patients
     console.log(diag)
+    all_random_vars = {};
 </script>
 <!-- hidden input for oTree formfield ignore_algorithmic_decision_per_consumer -->
 <input type="hidden" id="ignore_algorithmic_decision_per_consumer" name="ignore_algorithmic_decision_per_consumer">
@@ -51,19 +52,19 @@
             <tbody>
               <tr>
                 <td>Symptom I</td>
-                <td><input id="calc-A-A" type="text" size="1" placeholder="A" required="required"></td>
+                <td><input id="calc-A-A" type="text" size="1" placeholder="A" required="required" onkeydown="resetInput(this, id='A')"></td>
               </tr>
               <tr>
                 <td>Symptom II</td>
-                <td><input id="calc-B-A" type="text" size="1" placeholder="B" required="required"></td>
+                <td><input id="calc-B-A" type="text" size="1" placeholder="B" required="required" onkeydown="resetInput(this, id='A')"></td>
               </tr>
               <tr>
                 <td>Symptom III</td>
-                <td><input id="calc-C-A" type="text" size="1" placeholder="C" required="required" disabled></td>
+                <td><input id="calc-C-A" type="text" size="1" placeholder="C" required="required" onkeydown="resetInput(this, id='A')" disabled></td>
               </tr>
               <tr>
                 <td>Symptom IV</td>
-                <td><input id="calc-D-A" type="text" size="1" placeholder="D" required="required" disabled></td>
+                <td><input id="calc-D-A" type="text" size="1" placeholder="D" required="required" onkeydown="resetInput(this, id='A')" disabled></td>
               </tr>
               <tr>
                 <td>Symptom V</td>
@@ -75,11 +76,14 @@
     </div>
 
     <script>
-        input_1 = getRandomInt(1, 10); /* random var 1-10 */
-        document.getElementById("calc-A-A").value = input_1;
-
-        input_2 = getRandomInt(11, 20); /* random var 2-20 */
-        document.getElementById("calc-B-A").value = input_2;  
+      input_1 = getRandomInt(1, 10); /* random var 1-10 */
+      document.getElementById("calc-A-A").value = input_1;
+      
+      input_2 = getRandomInt(11, 20); /* random var 2-20 */
+      document.getElementById("calc-B-A").value = input_2;  
+      all_random_vars['A'] = {}
+      all_random_vars['A']["A"] = input_1
+      all_random_vars['A']["B"] = input_2
     </script>
 
     {% if participant.ability_level == "high" %}
@@ -93,7 +97,7 @@
                 input_3 = getRandomInt(31, 40);   /* input_3_2 |  random var 4-40 if large */
             };
             document.getElementById("calc-C-A").value = input_3; 
-
+            all_random_vars['A']["C"] = input_3
         </script>
     {% endif %}
 
@@ -107,19 +111,19 @@
             <tbody>
               <tr>
                 <td>Symptom I</td>
-                <td><input id="calc-A-B" type="text" size="1" placeholder="A" required="required"></td>
+                <td><input id="calc-A-B" type="text" size="1" placeholder="A" required="required"  onkeydown="resetInput(this, id='B')"></td>
               </tr>
               <tr>
                 <td>Symptom II</td>
-                <td><input id="calc-B-B" type="text" size="1" placeholder="B" required="required"></td>
+                <td><input id="calc-B-B" type="text" size="1" placeholder="B" required="required" onkeydown="resetInput(this, id='B')"></td>
               </tr>
               <tr>
                 <td>Symptom III</td>
-                <td><input id="calc-C-B" type="text" size="1" placeholder="C" required="required" disabled></td>
+                <td><input id="calc-C-B" type="text" size="1" placeholder="C" required="required" onkeydown="resetInput(this, id='B')" disabled></td>
               </tr>
               <tr>
                 <td>Symptom IV</td>
-                <td><input id="calc-D-B" type="text" size="1" placeholder="D" required="required" disabled></td>
+                <td><input id="calc-D-B" type="text" size="1" placeholder="D" required="required" onkeydown="resetInput(this, id='B')" disabled></td>
               </tr>
               <tr>
                 <td>Symptom V</td>
@@ -136,6 +140,10 @@
 
         input_2 = getRandomInt(11, 20); /* random var 2-20 */
         document.getElementById("calc-B-B").value = input_2;  
+
+        all_random_vars['B'] = {}
+        all_random_vars['B']["A"] = input_1
+        all_random_vars['B']["B"] = input_2
     </script>
 
     {% if participant.ability_level == "high" %}
@@ -149,7 +157,8 @@
                 input_3 = getRandomInt(31, 40);   /* input_3_2 |  random var 4-40 if large */
             };
             document.getElementById("calc-C-B").value = input_3; 
-
+            
+            all_random_vars['B']["C"] = input_3
         </script>
     {% endif %}
 
@@ -164,19 +173,19 @@
             <tbody>
               <tr>
                 <td>Symptom I</td>
-                <td><input id="calc-A-C" type="text" size="1" placeholder="A" required="required"></td>
+                <td><input id="calc-A-C" type="text" size="1" placeholder="A" required="required" onkeydown="resetInput(this, id='C')"></td>
               </tr>
               <tr>
                 <td>Symptom II</td>
-                <td><input id="calc-B-C" type="text" size="1" placeholder="B" required="required"></td>
+                <td><input id="calc-B-C" type="text" size="1" placeholder="B" required="required" onkeydown="resetInput(this, id='C')"></td>
               </tr>
               <tr>
                 <td>Symptom III</td>
-                <td><input id="calc-C-C" type="text" size="1" placeholder="C" required="required" disabled></td>
+                <td><input id="calc-C-C" type="text" size="1" placeholder="C" required="required" onkeydown="resetInput(this, id='C')" disabled></td>
               </tr>
               <tr>
                 <td>Symptom IV</td>
-                <td><input id="calc-D-C" type="text" size="1" placeholder="D" required="required" disabled></td>
+                <td><input id="calc-D-C" type="text" size="1" placeholder="D" required="required" onkeydown="resetInput(this, id='C')" disabled></td>
               </tr>
               <tr>
                 <td>Symptom V</td>
@@ -193,6 +202,9 @@
 
         input_2 = getRandomInt(11, 20); /* random var 2-20 */
         document.getElementById("calc-B-C").value = input_2;  
+        all_random_vars['C'] = {}
+        all_random_vars['C']["A"] = input_1
+        all_random_vars['C']["B"] = input_2
     </script>
 
     {% if participant.ability_level == "high" %}
@@ -206,6 +218,8 @@
                 input_3 = getRandomInt(31, 40);   /* input_3_2 |  random var 4-40 if large */
             };
             document.getElementById("calc-C-C").value = input_3; 
+            
+            all_random_vars['C']["C"] = input_3
 
         </script>
     {% endif %}
@@ -225,6 +239,10 @@
         };
         document.getElementById("ignore_algorithmic_decision_per_consumer").value = JSON.stringify(dict_ignore_algo);
         console.log(dict_ignore_algo);
+    }
+
+    function resetInput(ele, id) {
+        ele.value = all_random_vars[id][ele.getAttribute("placeholder")]
     }
 </script>
 <p><button class="btn btn-primary">Diagnose all consumers</button></p>
