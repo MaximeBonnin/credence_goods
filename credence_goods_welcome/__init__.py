@@ -27,7 +27,7 @@ class Player(BasePlayer):
     valid_player = models.BooleanField(initial=False)
     year_of_birth = models.IntegerField(label="Your year of birth (e.g. 1995)")
     occupation = models.StringField(label="Your current occupation (e.g. Student, Employed)")
-    device = models.StringField(choices=["Smartphone", "Laptop", "Tablet", "Desktop PC"], widget=widgets.RadioSelect)
+    device = models.StringField(choices=["Smartphone", "Laptop", "Tablet", "Desktop PC"], widget=widgets.RadioSelect, label="",)
 
 
 def creating_session(subsession: Subsession):
