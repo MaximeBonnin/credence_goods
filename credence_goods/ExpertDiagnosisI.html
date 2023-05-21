@@ -1,7 +1,35 @@
 {{ block title }}
-[Round {% player.round_number %}/{% C.NUM_ROUNDS %}] Diagnosis I             
+    Diagnosis I
 {{ endblock }}
 {{ block content }}
+
+<style>
+    .title-container {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 2em;
+        padding-bottom: 2em;
+    }
+    .otree-timer {
+        display: none;
+    }
+    .otree-title {
+        display: none;
+    }
+  </style>
+  
+  <div class="title-container">
+    <div class="title_element">
+        <h2>Diagnosis I</h2>
+    </div>
+    <div class="title_element">
+        <h2>Round: {% player.round_number %}/{% C.NUM_ROUNDS %} | Time left: <span class="otree-timer__time-left">time_left</span></h2>
+    </div>
+  </div>
+  
+  
+  {{ include_sibling "InfoBox.html" }}
+
 
 <style>
     .consumer-list {
@@ -26,7 +54,6 @@
 
 </style>
 
-{{ include_sibling "InfoBox.html" }}
 
 <script>
     // Returns a random integer between min (included) and max (excluded)

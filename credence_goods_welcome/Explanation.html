@@ -14,14 +14,14 @@
 <div class="card">
     <div class="card-content">
         <div class="text">
-            <p>Welcome! In this experiment, you will be matched with 5 <!-- HARDCODED --> other participants.
-                You will interact with these 5 <!-- HARDCODED --> other players over the course of many rounds, 
+            <p>Welcome! In this experiment, you will be matched with <span class="num_other_players"></span> other participants.
+                You will interact with these <span class="num_other_players"></span> other players over the course of many rounds, 
                 and your group will always stay the same. It is therefore very important that 
                 you <b>only accept this experiment if you are able to complete it without any interruption</b>, 
                 and if you are certain that you will stay over the whole course of the experiment, 
                 which will take about <b>45 minutes</b>. </p>
     
-            <p>In addition to the base payment of <b>{% session.config.participation_fee %} <!-- HARDCODED --> Pound</b>, you will be able to earn an additional
+            <p>In addition to the base payment of <b>{% session.config.participation_fee %} Pound</b>, you will be able to earn an additional
                  bonus that is <b>substantially higher</b> than you base payment. This additional bonus 
                  will depend on your actions, as explained on the instructions you will receive 
                  after this page. </p>
@@ -30,12 +30,12 @@
                 click the button below to receive your role and proceed to your role-specific instructions. </p>
     
             <p>Please also note that you will only be able to proceed to the full experiment after correctly 
-                answering a number of comprehension questions. <b>You need to answer them correctly within Y <!-- HARDCODED --> trials</b>, 
+                answering a number of comprehension questions. <b>You need to answer them correctly within 3 <!-- HARDCODED --> trials</b>, 
                 otherwise, you will be barred from participating. If you read the instructions carefully, you 
                 won’t have any issues with them.</p>
     
             <p>Once you completed the comprehension questions, you will be forwarded to a waiting room. 
-                Here, you will be matched with your 5 <!-- HARDCODED --> other participants. Once the matching procedure has 
+                Here, you will be matched with your <span class="num_other_players"></span> other participants. Once the matching procedure has 
                 completed, you will need to confirm that you want to proceed with the experiment within 30 seconds. 
                 It is thus very important that you are attentive while waiting.</p>
     
@@ -45,6 +45,16 @@
         
     </div>
 </div>
+
+<script>
+    num_other_players = parseInt("{% C.PLAYERS_PER_GROUP %}") - 1;
+    const boxes = document.querySelectorAll('.num_other_players');
+
+    boxes.forEach(box => {
+    box.innerHTML = num_other_players;
+    });
+</script>
+
 <p></p>
 <p><button class="btn btn-primary">I am ready</button></p>
 

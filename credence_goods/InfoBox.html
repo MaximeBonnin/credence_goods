@@ -7,9 +7,6 @@
         grid-template-columns: 1fr 1fr;
         background-color: #f1eef6;
     }
-    #warning {
-        color:red;
-    }
 </style>
 
 <script>
@@ -37,10 +34,10 @@
                     <th>Diagnostic accuracy</th>
                     <td>{% player.base_diagnosis_accuracy_percent %}%</td>
                 </tr>
-                <tr>
+                <!--<tr>
                     <th>Accuracy using investment</th>
                     <td>{% player.total_diagnosis_accuracy_percent %}%</td>
-                </tr>
+                </tr>-->
                 {% endif %}
             </thead>
         </table>
@@ -51,25 +48,14 @@
             <table class="table table-bordered">
                 <tbody>
                     <tr>
-                        <th scope="row">Your service</th>
-                        <th>High-quality</th>
-                        <th>Low-quality</th>
+                        <th>Cost high-quality service</th>
+                        <td>{% C.COST_OF_PROVIDING_SMALL_SERVICE %} Coins</td>
                     </tr>
                     <tr>
-                        <th scope="row">Your costs</th>
-                        <td>{% C.COST_OF_PROVIDING_SMALL_SERVICE %} Coins</td>
+                        <th>Cost low-quality service</th>
                         <td>{% C.COST_OF_PROVIDING_LARGE_SERVICE %} Coins</td>
                     </tr>
-                    <tr>
-                        <th scope="row">Your prices</th>
-                        <td>{% if player.field_maybe_none("price_small_service") %}{% player.field_maybe_none("price_small_service") %} Coins {% else %} Not set {% endif %}</td>
-                        <td>{% if player.field_maybe_none("price_large_service") %}{% player.field_maybe_none("price_large_service") %} Coins {% else %} Not set {% endif %}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Your profit per consumer</th>
-                        <td>{% if player.field_maybe_none("price_small_service") %}<span id="profit_small"></span> Coins {% else %} Not set {% endif %}</td>
-                        <td>{% if player.field_maybe_none("price_large_service") %}<span id="profit_large"></span> Coins {% else %} Not set {% endif %}</td>
-                    </tr>
+                    
                 </tbody>
             </table>
 

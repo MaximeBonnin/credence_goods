@@ -1,7 +1,31 @@
 {{ block title }}
-[Round: {% player.round_number %}/{% C.NUM_ROUNDS %} | Time left: <span class="otree-timer__time-left">time_left</span>] Diagnosis II
+    Diagnosis II
 {{ endblock }}
 {{ block content }}
+
+<style>
+    .title-container {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 2em;
+        padding-bottom: 2em;
+    }
+    .otree-timer {
+        display: none;
+    }
+    .otree-title {
+        display: none;
+    }
+  </style>
+  
+  <div class="title-container">
+    <div class="title_element">
+        <h2>Diagnosis II</h2>
+    </div>
+    <div class="title_element">
+        <h2>Round: {% player.round_number %}/{% C.NUM_ROUNDS %} | Time left: <span class="otree-timer__time-left">time_left</span></h2>
+    </div>
+  </div>
 
 <style>
     .consumer-list {
@@ -23,9 +47,7 @@
         padding: 0.3em;
         margin-bottom: 0.3em;
     } 
-    .otree-timer {
-        display: none;
-    }
+    
 </style>
 
 
@@ -47,13 +69,13 @@
                 <div class="consumer-card">
                     <p class="consumer-name" style="background-color: #bdc9e1"><b>Consumer {% p.player_name %}</b></p>
 
-                    <p>Diagnosis result: <b><span id="result-{% p.id_in_group %}"></span> problem found (<span id="acc-{% p.id_in_group %}">X</span>% Acc)</b></p>
+                    <p>Diagnosis result: <b><span id="result-{% p.id_in_group %}"></span> problem (<span id="acc-{% p.id_in_group %}">X</span>%)</b></p>
 
 
                     <p><input class="radio-button" id="consumer_{% p.id_in_group %}_service_small" type="radio" name="{% p.id_in_group %}" value="small" required="required" onclick="updateService(key='{% p.id_in_group %}', value='small')">
-                        Provide low-quality service <b>(Profit: <span class="profit-small"></span>)</b></p>
+                        Provide low-quality service (Profit: <span class="profit-small"></span>)</p>
                     <p><input class="radio-button" id="consumer_{% p.id_in_group %}_service_large" type="radio" name="{% p.id_in_group %}" value="large" required="required" onclick="updateService(key='{% p.id_in_group %}', value='large')">
-                        Provide high-quality service <b>(Profit: <span class="profit-large"></span>)</b></p>
+                        Provide high-quality service (Profit: <span class="profit-large"></span>)</p>
                 </div>
 
             <script>

@@ -1,10 +1,31 @@
 {{ block title }}
-[Round {% player.round_number %}/{% C.NUM_ROUNDS %}] Results of this round
+    Results
 {{ endblock }}
-
 {{ block content }}
 
-{{ include_sibling "InfoBox.html" }}
+<style>
+    .title-container {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 2em;
+        padding-bottom: 2em;
+    }
+    .otree-timer {
+        display: none;
+    }
+    .otree-title {
+        display: none;
+    }
+  </style>
+  
+  <div class="title-container">
+    <div class="title_element">
+        <h2>Results</h2>
+    </div>
+    <div class="title_element">
+        <h2>Round: {% player.round_number %}/{% C.NUM_ROUNDS %} | Time left: <span class="otree-timer__time-left">time_left</span></h2>
+    </div>
+  </div>
 
     <div class="expert-results">
         {{ if player.is_expert }}

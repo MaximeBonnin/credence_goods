@@ -79,6 +79,9 @@ class Player(BasePlayer):
 class Introduction(Page):
     pass
 
+class IntroductionII(Page):
+    pass
+
 class Role(Page):
     pass
 
@@ -159,6 +162,7 @@ class ComprehentionError(Page):
 
 page_sequence = [
     Introduction,
+    IntroductionII,
     Role,
     ExperimentalProcedure,
     SettingPrices,

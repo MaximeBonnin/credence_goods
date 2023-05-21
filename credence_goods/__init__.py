@@ -166,6 +166,21 @@ class Group(BaseGroup):
 # PAGES
 
 
+# Transition after matching
+class MatchSuccessful(Page):
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
+    
+    # handle timer for dropouts
+    @staticmethod
+    def get_timeout_seconds(player):
+        if player.participant.is_dropout:
+            return 1  # instant timeout, 1 second
+        else:
+            return C.TIMEOUT_IN_SECONDS
+
+
 # Explain investment
 class InvestmentExplanation(Page):
     # handle timer for dropouts
@@ -558,13 +573,14 @@ class FinalResults(Page):
         return player.round_number == C.NUM_ROUNDS
     
 page_sequence = [MatchingWaitPage,  # only first round
+                 MatchSuccessful,   # only first round
                  SetupWaitPage,     # all later rounds
                  InvestmentExplanation, # only invesment starting round
                  InvestmentChoice,  # only later rounds
                  ExpertSetPrices,   # Experts | all rounds
                  ConsumerWaitPage,      # Consumers | all rounds
                  ConsumerChooseExpert,  # Consumers | all rounds
-                 ExpertWaitPage,    # Experts | all rounds
+                 #ExpertWaitPage,    # Experts | all rounds
                  ExpertDiagnosisI,  # Experts | all rounds
                  ExpertDiagnosisII, # Experts | all rounds
                  ConsumerWaitPage,  # Consumers | all rounds
