@@ -151,6 +151,9 @@ class Player(BasePlayer):
     cost_of_providing_small_service =  models.IntegerField(initial=C.COST_OF_PROVIDING_SMALL_SERVICE) # c_k
     cost_of_providing_large_service =  models.IntegerField(initial=C.COST_OF_PROVIDING_LARGE_SERVICE) # c_g
 
+    #dem
+    dem_page = models.IntegerField(initial=1)
+
     # demographics
     dem_risk = models.IntegerField(
         choices=[
@@ -313,8 +316,9 @@ class InvestmentExplanation(Page):
     @staticmethod
     def is_displayed(player: Player):
         return player.round_number == C.INVESTMENT_STARTING_ROUND
-    
-   
+
+
+# Explain investment
 class InvestmentExplanation2(Page):
     # handle timer for dropouts
     @staticmethod
@@ -327,7 +331,6 @@ class InvestmentExplanation2(Page):
     @staticmethod
     def is_displayed(player: Player):
         return player.round_number == C.INVESTMENT_STARTING_ROUND
-
 
 # Expert investment choice
 class InvestmentChoice(Page):
@@ -712,14 +715,22 @@ class FinalResults(Page):
         return player.round_number == C.NUM_ROUNDS
     
 
-class Demograpgics(Page):
+class Demographics(Page):
     form_model = "player"
-    form_fields = ["dem_risk", "dem_year", "dem_sex", "dem_employment", "dem_education", "dem_ethnicity"]
+
 
     @staticmethod
     def is_displayed(player: Player):
         # last round
         return player.round_number == C.NUM_ROUNDS
+
+    @staticmethod
+    def get_form_fields(player: Player):
+        if player.dem_page == 1:
+            return ["dem_risk"]
+        elif player.dem_page == 2:
+            return ["dem_year", "dem_sex", "dem_employment", "dem_education", "dem_ethnicity"]
+
     
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
@@ -727,6 +738,8 @@ class Demograpgics(Page):
             player.payoff += player.coins * player.subsession.session.config["real_world_currency_per_point"]
         else:
             player.payoff = 0
+
+        player.dem_page += 1
     
 
 class PayoffCode(Page):
@@ -753,6 +766,7 @@ page_sequence = [MatchingWaitPage,  # only first round
                  ExpertWaitPage,    # Experts | all rounds
                  Results,           # all rounds
                  FinalResults,      # last round
-                 Demograpgics,      # last round
+                 Demographics,      # last round
+                 Demographics,      # last round
                  PayoffCode         # last round
                  ]
