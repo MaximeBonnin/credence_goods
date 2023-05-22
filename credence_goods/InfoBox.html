@@ -32,12 +32,16 @@
                 {% if player.is_expert %}
                 <tr>
                     <th>Diagnostic accuracy</th>
-                    <td>{% player.base_diagnosis_accuracy_percent %}%</td>
+                    <td>{% if group.treatment_investment_option == "skill" %}{% player.total_diagnosis_accuracy_percent %}{% else %}{% player.base_diagnosis_accuracy_percent %}{% endif %}%</td>
                 </tr>
-                <!--<tr>
-                    <th>Accuracy using investment</th>
-                    <td>{% player.total_diagnosis_accuracy_percent %}%</td>
-                </tr>-->
+                    {% if group.treatment_investment_option == "algo" %}
+                        {% if player.round_number >= C.INVESTMENT_STARTING_ROUND %}
+                        <tr>
+                            <th>Accuracy using investment</th>
+                            <td>{% player.total_diagnosis_accuracy_percent %}%</td>
+                        </tr>
+                        {% endif %}
+                    {% endif %}
                 {% endif %}
             </thead>
         </table>
