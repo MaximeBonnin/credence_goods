@@ -89,6 +89,7 @@
                                     </tr>
                                 </thead>
                             {% else %}
+                                {% if player.round_number >= C.INVESTMENT_STARTING_ROUND %}
                                 <thead>
                                     <tr>
                                         <th colspan="2">Personal accuracy</th>
@@ -99,6 +100,16 @@
                                         <td colspan="2">{% p.total_diagnosis_accuracy_percent %}%</td>
                                     </tr>
                                 </thead>
+                                {% else %}
+                                <thead>
+                                    <tr>
+                                        <th colspan="4">Diagnostic accuracy</th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">{% p.total_diagnosis_accuracy_percent %}%</td>
+                                    </tr>
+                                </thead>
+                                {% endif %}
                             {% endif %}
                         {% endif %}
                         <thead>

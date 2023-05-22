@@ -297,7 +297,7 @@ class InvestmentChoice(Page):
         if not player.is_expert:
             return False
         
-        # display only once if treatment "once"
+        # display every round until invested
         if player.group.treatment_investment_frequency == "once":
             return (player.round_number >= C.INVESTMENT_STARTING_ROUND) and (not player.investment_decision)
         
