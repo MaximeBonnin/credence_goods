@@ -34,6 +34,9 @@ class C(BaseConstants):
     CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT = 40 # %
     CHANCE_TO_HAVE_SMALL_PROBLEM_IN_PERCENT = 100-CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT
 
+
+    PRICE_MULTIPLIER_AFTER_INVESTING = 0.5
+    
     PRICE_VECTOR_OPTIONS = {                # (price_small, price_large, profit_small, profit_large)
         "bias_small": (4, 4, 
                        4-COST_OF_PROVIDING_SMALL_SERVICE, 4-COST_OF_PROVIDING_LARGE_SERVICE),
@@ -42,6 +45,8 @@ class C(BaseConstants):
         "no_bias": (3, 4, 
                     3-COST_OF_PROVIDING_SMALL_SERVICE, 4-COST_OF_PROVIDING_LARGE_SERVICE)
     }
+
+
 
     EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT = { # currently just random.choice() for selection
         "low": 50,
@@ -61,6 +66,49 @@ class C(BaseConstants):
     INVESTMENT_COST = {
         "once": 20,
         "repeated": 2
+    }
+
+    PRICE_VECTOR_OPTIONS_MULTIPLIED = {
+        "once": {                # (price_small, price_large, profit_small, profit_large)
+            "bias_small": (
+                int(INVESTMENT_COST["once"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_small"][0],
+                int(INVESTMENT_COST["once"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_small"][1],
+                int(INVESTMENT_COST["once"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_small"][2],
+                int(INVESTMENT_COST["once"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_small"][3]
+                ),
+            "bias_large": (
+                int(INVESTMENT_COST["once"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_large"][0],
+                int(INVESTMENT_COST["once"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_large"][1],
+                int(INVESTMENT_COST["once"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_large"][2],
+                int(INVESTMENT_COST["once"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_large"][3]
+                ),
+            "no_bias": (
+                int(INVESTMENT_COST["once"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["no_bias"][0],
+                int(INVESTMENT_COST["once"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["no_bias"][1],
+                int(INVESTMENT_COST["once"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["no_bias"][2],
+                int(INVESTMENT_COST["once"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["no_bias"][3]
+                )
+        },
+        "repeated": {                # (price_small, price_large, profit_small, profit_large)
+            "bias_small": (
+                int(INVESTMENT_COST["repeated"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_small"][0],
+                int(INVESTMENT_COST["repeated"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_small"][1],
+                int(INVESTMENT_COST["repeated"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_small"][2],
+                int(INVESTMENT_COST["repeated"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_small"][3]
+                ),
+            "bias_large": (
+                int(INVESTMENT_COST["repeated"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_large"][0],
+                int(INVESTMENT_COST["repeated"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_large"][1],
+                int(INVESTMENT_COST["repeated"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_large"][2],
+                int(INVESTMENT_COST["repeated"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_large"][3]
+                ),
+            "no_bias": (
+                int(INVESTMENT_COST["repeated"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["no_bias"][0],
+                int(INVESTMENT_COST["repeated"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["no_bias"][1],
+                int(INVESTMENT_COST["repeated"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["no_bias"][2],
+                int(INVESTMENT_COST["repeated"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["no_bias"][3]
+                )
+        }
     }
 
     

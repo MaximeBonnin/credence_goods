@@ -56,6 +56,7 @@
 <div class="info">
 
   <div class="price-choices-list">
+    {% if not player.investment_decision %}
     <!-- SMALL BIAS -->
     <div class="choice-small-bias choices-card">
       <p class="bias-name"><b>Price vector small</b></p>
@@ -134,6 +135,171 @@
     </table>
       <button class="btn btn-primary" name="price_vector_chosen" value="no_bias">Choose Option</button>
     </div>
+
+    {% else %}
+      {% if player.group.treatment_investment_frequency == "once" %}
+      <!-- ONCE -->
+        <!-- SMALL BIAS INVEST -->
+        <div class="choice-small-bias choices-card">
+          <p class="bias-name"><b>Price vector small (investment surcharge)</b></p>
+          <!--<p>By choosing this option, you will make more money when selling low-quality services than high-quality services.</p>-->
+          <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th scope="row"></th>
+                    <th>High-quality service</th>
+                    <th>Low-quality service</th>
+                </tr>
+                <tr>
+                    <th scope="row">Your prices</th>
+                    <td>{% C.PRICE_VECTOR_OPTIONS_MULTIPLIED.once.bias_small.0 %} Coins</td>
+                    <td>{% C.PRICE_VECTOR_OPTIONS_MULTIPLIED.once.bias_small.1 %} Coins</td>
+                </tr>
+                <tr>
+                    <th scope="row">Profit per consumer</th>
+                    <td>{% C.PRICE_VECTOR_OPTIONS_MULTIPLIED.once.bias_small.2 %} Coins</td>
+                    <td>{% C.PRICE_VECTOR_OPTIONS_MULTIPLIED.once.bias_small.3 %} Coins</td>
+                </tr>
+            </tbody>
+        </table>
+          <button class="btn btn-primary" name="price_vector_chosen" value="bias_small">Choose Option</button>
+    
+        </div>
+    
+        <!-- LARGE BIAS INVEST -->
+        <div class="choice-large-bias choices-card">
+          <p class="bias-name"><b>Price vector large (investment surcharge)</b></p>
+          <!-- <p>By choosing this option, you will make more money when selling high-quality services than low-quality services.</p>-->
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th scope="row"></th>
+                <th>High-quality service</th>
+                <th>Low-quality service</th>
+              </tr>
+              <tr>
+                  <th scope="row">Your prices</th>
+                  <td>{% C.PRICE_VECTOR_OPTIONS_MULTIPLIED.once.bias_large.0 %} Coins</td>
+                  <td>{% C.PRICE_VECTOR_OPTIONS_MULTIPLIED.once.bias_large.1 %} Coins</td>
+              </tr>
+              <tr>
+                  <th scope="row">Profit per consumer</th>
+                  <td>{% C.PRICE_VECTOR_OPTIONS_MULTIPLIED.once.bias_large.2 %} Coins</td>
+                  <td>{% C.PRICE_VECTOR_OPTIONS_MULTIPLIED.once.bias_large.3 %} Coins</td>
+              </tr>
+            </tbody>
+        </table>
+          <button class="btn btn-primary" name="price_vector_chosen" value="bias_large">Choose Option</button>
+        </div>
+    
+        <!-- NO BIAS INVEST -->
+        <div class="choice-no-bias choices-card">
+          <p class="bias-name"><b>Price vector equal (investment surcharge)</b></p>
+          <!-- <p>By choosing this option, you will make the same amount of money when selling low-quality and high-quality services.</p>-->
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th scope="row"></th>
+                <th>High-quality service</th>
+                <th>Low-quality service</th>
+              </tr>
+              <tr>
+                  <th scope="row">Your prices</th>
+                  <td>{% C.PRICE_VECTOR_OPTIONS_MULTIPLIED.once.no_bias.0 %} Coins</td>
+                  <td>{% C.PRICE_VECTOR_OPTIONS_MULTIPLIED.once.no_bias.1 %} Coins</td>
+              </tr>
+              <tr>
+                  <th scope="row">Profit per consumer</th>
+                  <td>{% C.PRICE_VECTOR_OPTIONS_MULTIPLIED.once.no_bias.2 %} Coins</td>
+                  <td>{% C.PRICE_VECTOR_OPTIONS_MULTIPLIED.once.no_bias.3 %} Coins</td>
+              </tr>
+            </tbody>
+        </table>
+          <button class="btn btn-primary" name="price_vector_chosen" value="no_bias">Choose Option</button>
+        </div>
+      {% else %}
+      <!-- REPEAT -->
+        <!-- SMALL BIAS INVEST -->
+        <div class="choice-small-bias choices-card">
+          <p class="bias-name"><b>Price vector small (investment surcharge)</b></p>
+          <!--<p>By choosing this option, you will make more money when selling low-quality services than high-quality services.</p>-->
+          <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th scope="row"></th>
+                    <th>High-quality service</th>
+                    <th>Low-quality service</th>
+                </tr>
+                <tr>
+                    <th scope="row">Your prices</th>
+                    <td>{% C.PRICE_VECTOR_OPTIONS_MULTIPLIED.repeated.bias_small.0 %} Coins</td>
+                    <td>{% C.PRICE_VECTOR_OPTIONS_MULTIPLIED.repeated.bias_small.1 %} Coins</td>
+                </tr>
+                <tr>
+                    <th scope="row">Profit per consumer</th>
+                    <td>{% C.PRICE_VECTOR_OPTIONS_MULTIPLIED.repeated.bias_small.2 %} Coins</td>
+                    <td>{% C.PRICE_VECTOR_OPTIONS_MULTIPLIED.repeated.bias_small.3 %} Coins</td>
+                </tr>
+            </tbody>
+        </table>
+          <button class="btn btn-primary" name="price_vector_chosen" value="bias_small">Choose Option</button>
+    
+        </div>
+    
+        <!-- LARGE BIAS INVEST -->
+        <div class="choice-large-bias choices-card">
+          <p class="bias-name"><b>Price vector large (investment surcharge)</b></p>
+          <!-- <p>By choosing this option, you will make more money when selling high-quality services than low-quality services.</p>-->
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th scope="row"></th>
+                <th>High-quality service</th>
+                <th>Low-quality service</th>
+              </tr>
+              <tr>
+                  <th scope="row">Your prices</th>
+                  <td>{% C.PRICE_VECTOR_OPTIONS_MULTIPLIED.repeated.bias_large.0 %} Coins</td>
+                  <td>{% C.PRICE_VECTOR_OPTIONS_MULTIPLIED.repeated.bias_large.1 %} Coins</td>
+              </tr>
+              <tr>
+                  <th scope="row">Profit per consumer</th>
+                  <td>{% C.PRICE_VECTOR_OPTIONS_MULTIPLIED.repeated.bias_large.2 %} Coins</td>
+                  <td>{% C.PRICE_VECTOR_OPTIONS_MULTIPLIED.repeated.bias_large.3 %} Coins</td>
+              </tr>
+            </tbody>
+        </table>
+          <button class="btn btn-primary" name="price_vector_chosen" value="bias_large">Choose Option</button>
+        </div>
+    
+        <!-- NO BIAS INVEST -->
+        <div class="choice-no-bias choices-card">
+          <p class="bias-name"><b>Price vector equal (investment surcharge)</b></p>
+          <!-- <p>By choosing this option, you will make the same amount of money when selling low-quality and high-quality services.</p>-->
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th scope="row"></th>
+                <th>High-quality service</th>
+                <th>Low-quality service</th>
+              </tr>
+              <tr>
+                  <th scope="row">Your prices</th>
+                  <td>{% C.PRICE_VECTOR_OPTIONS_MULTIPLIED.repeated.no_bias.0 %} Coins</td>
+                  <td>{% C.PRICE_VECTOR_OPTIONS_MULTIPLIED.repeated.no_bias.1 %} Coins</td>
+              </tr>
+              <tr>
+                  <th scope="row">Profit per consumer</th>
+                  <td>{% C.PRICE_VECTOR_OPTIONS_MULTIPLIED.repeated.no_bias.2 %} Coins</td>
+                  <td>{% C.PRICE_VECTOR_OPTIONS_MULTIPLIED.repeated.no_bias.3 %} Coins</td>
+              </tr>
+            </tbody>
+        </table>
+          <button class="btn btn-primary" name="price_vector_chosen" value="no_bias">Choose Option</button>
+        </div>
+      {% endif %}
+    {% endif %}
+
   </div>
 </div>
 
