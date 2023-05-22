@@ -299,7 +299,7 @@ class InvestmentChoice(Page):
         
         # display only once if treatment "once"
         if player.group.treatment_investment_frequency == "once":
-            return player.round_number == C.INVESTMENT_STARTING_ROUND
+            return (player.round_number >= C.INVESTMENT_STARTING_ROUND) and (not player.investment_decision)
         
         # display every round (after set invest starting round) if set to "repeated"
         return player.round_number >= C.INVESTMENT_STARTING_ROUND
