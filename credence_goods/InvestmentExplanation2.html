@@ -1,0 +1,48 @@
+{{ block title }}
+    Investment Explanation
+{{ endblock }}
+{{ block content }}
+
+<style>
+    .title-container {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 2em;
+        padding-bottom: 2em;
+    }
+    .otree-timer {
+        display: none;
+    }
+    .otree-title {
+        display: none;
+    }
+  </style>
+  
+  <div class="title-container">
+    <div class="title_element">
+        <h2>Expert Investments: Important Information!</h2>
+    </div>
+    <div class="title_element">
+        <h2>Round: {% player.round_number %}/{% C.NUM_ROUNDS %} | Time left: <span class="otree-timer__time-left">time_left</span></h2>
+    </div>
+  </div>
+
+<style>
+    .card-content {
+        margin: 1em;
+    }
+</style>
+
+<div class="card">
+    <div class="card-content">
+        {{ include "practice_round/text_contents/Investment2.html" }}
+    </div>
+</div>
+<p></p>
+
+{{ next_button }}
+<p>
+    {{ include "practice_round/InstructionAccordion.html" }}
+</p>
+
+{{ endblock }}
