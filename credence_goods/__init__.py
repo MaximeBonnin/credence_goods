@@ -35,7 +35,7 @@ class C(BaseConstants):
     CHANCE_TO_HAVE_SMALL_PROBLEM_IN_PERCENT = 100-CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT
 
 
-    PRICE_MULTIPLIER_AFTER_INVESTING = 0.5
+    PRICE_MULTIPLIER_AFTER_INVESTING = 0
     
     PRICE_VECTOR_OPTIONS = {                # (price_small, price_large, profit_small, profit_large)
         "bias_small": (4, 4, 
@@ -218,6 +218,9 @@ class Player(BasePlayer):
 
 
 def setup_player(player: Player) -> Player:
+    # add multipliert to data
+    player.group.treatment_price_multiplier = C.PRICE_MULTIPLIER_AFTER_INVESTING
+
     # sets up a single player
     if player.round_number == 1:
         # first round setup
@@ -273,6 +276,7 @@ class Group(BaseGroup):
     treatment_investment_option = models.StringField(choices=["skill", "algo"])
     treatment_investment_frequency = models.StringField(choices=["once", "repeated"])
     treatment_skill_visible = models.BooleanField()
+    treatment_price_multiplier = models.FloatField(initial=0)
 
 
 
