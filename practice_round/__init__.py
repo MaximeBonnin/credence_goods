@@ -43,7 +43,7 @@ class C(BaseConstants):
     }
 
     CONSUMER_PAYOFFS = {
-        "no_market_entry": 0,
+        "no_market_entry": 10,
         "problem_remains": 0,
         "problem_solved": 150
     }

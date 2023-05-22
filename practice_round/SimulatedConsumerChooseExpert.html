@@ -27,6 +27,12 @@
         margin-bottom: 0.3em;
         background-color: #bdc9e1;
     }
+
+    .outside-option {
+        margin-bottom: 1em;
+        margin-right: 1em;
+        text-align: center;
+    }
 </style>
 
 <div class="expert-list">
@@ -142,11 +148,11 @@
         <button class="btn btn-primary"  name="expert_chosen_name" value="C">Choose Expert C</button>
     </div>
 
-    <div class="expert-card">
-        <p class="expert-name"><b>No Expert</b></p>
-        <p>You can decide not a choose an expert. Your will not get treated and not gain coins.</p>
-        <button class="btn btn-primary" name="expert_chosen_name" value="None">Choose no expert</button>
-    </div>
+</div>
+
+
+<div class="outside-option">
+    <button class="btn btn-primary" name="expert_chosen_name" value="None">Leave the market (Gain {% C.CONSUMER_PAYOFFS.no_market_entry %} Coins)</button>
 </div>
 
 {{ include_sibling "InstructionAccordion.html" }}

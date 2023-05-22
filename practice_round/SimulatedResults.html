@@ -59,7 +59,7 @@
               <tr>
                 <td class="tg-0pky">practice</td>
                 <td class="tg-0pky">{% player.field_maybe_none('expert_chosen_name') %}</td>
-                <td class="tg-0pky">{% C.CONSUMER_PAYOFFS.problem_solved %} coins</td>
+                <td class="tg-0pky">{% if player.field_maybe_none('expert_chosen_name') == "None" %}{% C.CONSUMER_PAYOFFS.no_market_entry %}{% else %}{% C.CONSUMER_PAYOFFS.problem_solved %}{% endif %} coins</td>
               </tr>
             </tbody>
             </table>
