@@ -1,0 +1,343 @@
+
+{% if player.is_expert %}
+<!-- expert explanation -->
+    {% if group.treatment_skill_visible %}
+    <!-- expert | visible -->
+        {% if group.treatment_investment_option == "skill" %}
+        <!-- expert | visible | skill -->
+            {% if group.treatment_investment_frequency == "repeated" %}
+            <!-- expert | visible | skill | repeated-->
+            <p>For the remainder of this experiment, you will have the opportunity to invest into your 
+                diagnostic ability. Each round, you can decide to buy information about the 4th [3rd and 4th] 
+                symptom for Y Coins. Like before, should you decide to buy, the information signal [signals] 
+                will be automatically integrated into your diagnosis. Purchasing information about the 4th 
+                [3rd and 4th] symptom increases your diagnostic ability to 90%. Thus, if you decide to purchase, 
+                you will be able to correctly diagnose a client’s problem with a probability of 90%.</p>
+            <p>A low-ability expert [high-ability expert] pays the same price, but receives information about 
+                the 3rd and the 4th [only the 4th] symptom. Therefore, after investing, all experts receive a 
+                signal that is correct with a probability of 90%, irrespective of their prior diagnostic ability.</p>
+            <p>All clients are also informed about this new opportunity to purchase more information. Clients can 
+                observe whether an expert decided to purchase the new information. Clients also still observe (1) 
+                each expert’s original ability level, and (2) their current ability level that depends on their investment. 
+                For example, should you decide not to purchase more information, clients see that your ability level is x% 
+                [depending on ability level]. If you decide to buy more information in a round, clients see that your current 
+                ability level is 90%, and that your prior ability level was x% [y%].</p>
+
+            {% else %}
+            <!-- expert | visible | skill | once -->
+            <p>You will now have the opportunity to make one large investment into your diagnostic ability. You can 
+                decide to buy permanent information about the 4th [3rd and 4th] symptom for (15*Y) Coins. Like 
+                before, should you decide to buy, the information signal [signals] will be automatically integrated 
+                into your diagnosis. If your current amount of coins is insufficient to finance the investment, you 
+                can still invest, but you will have to incur debts. Debts will be repaid by your profits throughout the 
+                remainder of the experiment.</p>
+            <p>Purchasing information about the 4th [3rd and 4th] symptom permanently increases your diagnostic ability to 90%. 
+                Thus, if you decide to purchase, you will be able to correctly diagnose a client’s problem with a probability of 90%.</p>
+            <p>A low-ability expert [high-ability expert] pays the same price, but receives information about the 3rd and the 4th [only the 4th] 
+                symptom. Therefore, after investing, all experts receive a signal that is correct with a probability of 90%, irrespective of 
+                their prior diagnostic ability.</p>
+            <p>All clients are informed about this new opportunity to invest into more information. Clients can observe whether an expert decided 
+                to purchase the new information. Clients also still observe (1) each expert’s original ability level, and (2) the expert’s current 
+                ability level that depends on their investment. For example, should you decide not to purchase more information, clients see that 
+                your ability level is x% [depending on ability level]. Once you decide to buy more information, clients see that your current 
+                ability level is 90%, and that your prior ability level was x% [y%].</p>
+            <p>You do not have to invest in the next round. You can also invest in any one of the following rounds. The price stays the same, 
+                irrespective of the round. However, you can only invest once. There will be no opportunity to increase your diagnostic 
+                ability beyond 90%. </p>
+
+            {% endif %}
+        {% else %}
+        <!-- expert | visible | algo -->
+            {% if group.treatment_investment_frequency == "repeated" %}
+            <!-- expert | visible | algo | repeated-->
+            <p>For the remainder of this experiment, you will have the opportunity to invest into the precision of your diagnosis. 
+                Each round, you can decide to rent an algorithmic decision aid for Y Coins. The algorithmic decision aid can accurately 
+                diagnose the 3rd and the 4th symptom of each client. Renting the algorithmic decision aid increases your combined diagnostic 
+                ability to 90%. Thus, if you decide to rent the decision aid in a round, you will be able to correctly diagnose a client’s 
+                problem with a probability of 90%. After renting the algorithmic decision aid, your are not forced to use it. Instead, 
+                you can still decide to rely on your own diagnosis and forego the 4th [3rd and 4th] symptom as diagnosed by the algorithm.</p>
+            <p>A low-ability expert [high-ability expert] pays the same price, but profits from both the information about the 3rd and the 
+                information about the 4th symptom [only from the information about the 4th symptom]. Therefore, after investing, all experts 
+                receive a signal that is correct with a probability of 90%, irrespective of their prior diagnostic ability.</p>
+            <p>Importantly, all clients are also informed about the opportunity to rent an algorithmic decision aid. Clients can observe whether 
+                an expert decided to rent the decision aid. Clients also observe (1) each expert’s personal ability level, and (2) the expert’s 
+                current maximum ability level that that depends on their renting decision. Additionally, clients know that renting the algorithmic 
+                decision aid does not automatically increase an expert’s diagnostic ability, but that experts need to correctly utilize it.</p>
+            <p>For example, should you decide not to rent the decision aid, clients see that your ability level is x% [depending on ability level]. 
+                If you decide to rent the algorithmic decision aid in a given round, clients see that your current maximum ability level is 90%, 
+                and that your personal ability level is  x% [y%].</p>
+
+            {% else %}
+            <!-- expert | visible | algo | once -->
+            <p>You will now have the opportunity to make one large investment into your diagnostic precision. You can decide to buy an algorithmic 
+                decision aid for (15*Y) Coins. The algorithmic decision aid can accurately diagnose the 3rd and the 4th symptom of each client. 
+                If your current amount of coins is insufficient to finance the investment, you can still invest, but you will have to incur debts. 
+                Debts will be repaid by your profits throughout the remainder of the experiment.</p>
+            <p>Purchasing the algorithmic decision aid permanently increases your combined diagnostic ability to 90%. Thus, if you decide to buy 
+                the decision aid, you will be able to correctly diagnose a client’s problem with a probability of 90%. After purchasing the algorithmic 
+                decision aid, you are not forced to use it. Instead, you can still decide to rely on your own diagnosis and forego the 4th [3rd and 4th] 
+                symptom as diagnosed by the algorithm.</p>
+            <p>A low-ability expert [high-ability expert] pays the same price, but profits from both the information about the 3rd and the information 
+                about the 4th symptom [only from the information about the 4th symptom]. Therefore, after investing, all experts receive a signal that 
+                is correct with a probability of 90%, irrespective of their prior diagnostic ability.</p>
+            <p>Importantly, all clients are also informed about the opportunity to purchase an algorithmic decision aid. Clients can observe whether an 
+                expert decided to buy the decision aid. Clients also observe (1) each expert’s personal ability level, and (2) the expert’s current 
+                maximum ability level that depends on their investment. Additionally, clients know that purchasing the algorithmic decision aid does 
+                not automatically increase an expert’s diagnostic ability, but that experts need to correctly utilize it.</p>
+            <p>For example, should you decide not to buy the decision aid, clients see that your ability level is x% [depending on ability level]. Once 
+                you decide to buy the decision aid, clients see that your current maximum ability level is 90%, and that your personal ability level 
+                is  x% [y%].</p>
+            <p>You do not have to invest in the next round. You can also invest in any one of the following rounds. The price stays the same, irrespective 
+                of the round. However, you can only invest once. There will be no opportunity to increase your maximum diagnostic ability beyond 90%. </p>
+            {% endif %}
+        {% endif %}
+    {% else %}
+    <!-- expert | not visible -->
+    {% if group.treatment_investment_option == "skill" %}
+        <!-- expert | not visible | skill -->
+            {% if group.treatment_investment_frequency == "repeated" %}
+            <!-- expert | not visible | skill | repeated-->
+            <p>For the remainder of this experiment, you will have the opportunity to invest into your diagnostic ability. Each round, 
+                you can decide to buy information about the 4th [3rd and 4th] symptom for Y Coins. Like before, should you decide to buy, 
+                the information signal [signals] will be automatically integrated into your diagnosis. Purchasing information about the 
+                4th [3rd and 4th] symptom increases your diagnostic ability to 90%. Thus, if you decide to purchase, you will be able 
+                to correctly diagnose a client’s problem with a probability of 90%.</p>
+            <p>A low-ability expert [high-ability expert] pays the same price, but receives information about the 3rd and the 4th [only the 4th] 
+                ymptom. Therefore, after investing, all experts receive a signal that is correct with a probability of 90%, irrespective of their 
+                prior diagnostic ability.</p>
+            <p>All clients are also informed about this new opportunity to purchase more information. Clients can observe whether 
+                an expert decided to purchase the new information. Clients also learn that an expert has a diagnostic ability of 
+                90% after purchasing more information in a round. Thus, clients know about an expert’s current ability level if 
+                the expert decided to invest. However, clients still do not observe an expert’s original ability level.</p>
+            <p>For example, should you decide not to purchase more information, clients do not observe your ability level and can 
+                only use the information they gathered during the prior rounds. If you decide to buy more information in a round, 
+                clients know that your current ability level is 90%, but not that your prior ability level was x% [y%].</p>
+
+            {% else %}
+            <!-- expert | not visible | skill | once -->
+            <p>You will now have the opportunity to make one large investment into your diagnostic ability. You can decide to 
+                buy permanent information about the 4th [3rd and 4th] symptom for (15*Y) Coins. Like before, should you decide 
+                to buy, the information signal [signals] will be automatically integrated into your diagnosis. If your current 
+                amount of coins is insufficient to finance the investment, you can still invest, but you will have to incur debts. 
+                Debts will be repaid by your profits throughout the remainder of the experiment.</p>
+            <p>Purchasing information about the 4th [3rd and 4th] symptom permanently increases your diagnostic ability to 90%. 
+                Thus, if you decide to purchase, you will be able to correctly diagnose a client’s problem with a probability of 90%.</p>
+            <p>A low-ability expert [high-ability expert] pays the same price, but receives information about the 3rd and the 4th 
+                [only the 4th] symptom. Therefore, after investing, all experts receive a signal that is correct with a probability 
+                of 90%, irrespective of their prior diagnostic ability.</p>
+            <p>All clients are informed about this new opportunity to invest into more information. Clients can observe whether 
+                an expert decided to purchase the new information. Clients also learn that an expert has a diagnostic ability of 
+                90% after making the investment. Thus, clients know about an expert’s current ability level if the expert decided 
+                to invest. However, clients still do not observe an expert’s original ability level.</p>
+            <p>For example, should you decide not to purchase more information, clients do not observe your ability level and can 
+                only use the information they gathered during the prior rounds. Once you decide to buy more information, clients 
+                know that your current ability level is 90%, but not that your prior ability level was x% [y%].</p>
+            <p>You do not have to invest in the next round. You can also invest in any one of the following rounds. The price stays 
+                the same, irrespective of the round. However, you can only invest once. There will be no opportunity to increase 
+                your diagnostic ability beyond 90%. </p>
+
+            {% endif %}
+        {% else %}
+        <!-- expert | not visible | algo -->
+            {% if group.treatment_investment_frequency == "repeated" %}
+            <!-- expert | not visible | algo | repeated-->
+            <p>For the remainder of this experiment, you will have the option to invest into the precision of your diagnosis. 
+                Each round, you can decide to rent an algorithmic decision aid for Y Coins. The algorithmic decision aid 
+                can accurately diagnose the 3rd and the 4th symptom of each client. Renting the algorithmic decision aid 
+                increases your combined diagnostic ability to 90%. Thus, if you decide to rent the decision aid in a round, 
+                you will be able to correctly diagnose a client’s problem with a probability of 90%. After renting the 
+                algorithmic decision aid, your are not forced to use it. Instead, you can still decide to rely on your 
+                own diagnosis and forego the 4th [3rd and 4th] symptom as diagnosed by the algorithm.</p>
+            <p>A low-ability expert [high-ability expert] pays the same price, but profits from both the information about 
+                the 3rd and the information about the 4th symptom [only from the information about the 4th symptom]. 
+                Therefore, after investing, all experts receive a signal that is correct with a probability of 90%, 
+                irrespective of their prior diagnostic ability.</p>
+            <p>Importantly, all clients are also informed about the opportunity to rent an algorithmic decision aid. 
+                Clients can observe whether an expert decided to rent the decision aid. Clients also learn that an expert 
+                has a maximum diagnostic ability of 90% after renting the algorithmic decision aid. Thus, clients know about 
+                an expert’s current maximum ability level if the expert decided to invest. However, clients still do not 
+                observe an expert’s personal ability level. Additionally, clients know that renting the algorithmic decision 
+                aid does not automatically increase an expert’s diagnostic ability, but that experts need to correctly utilize it.</p>
+            <p>For example, should you decide not to rent the decision aid, clients do not observe your ability level and can only use 
+                the information they gathered during the prior rounds. If you decide to rent the algorithmic decision aid in a given round, 
+                clients know that your current ability level is 90%, but not that your personal ability level is x% [y%].</p>
+
+            {% else %}
+            <!-- expert | not visible | algo | once -->
+            <p>You will now have the opportunity to make one large investment into your diagnostic precision. You can decide to buy an 
+                algorithmic decision aid for (15*Y) Coins. The algorithmic decision aid can accurately diagnose the 3rd and the 4th 
+                symptom of each client. If your current amount of coins is insufficient to finance the investment, you can still invest, 
+                but you will have to incur debts. Debts will be repaid by your profits throughout the remainder of the experiment.</p>
+            <p>Purchasing the algorithmic decision aid permanently increases your combined diagnostic ability to 90%. Thus, if you decide 
+                to buy the decision aid, you will be able to correctly diagnose a client’s problem with a probability of 90%. After 
+                purchasing the algorithmic decision aid, you are not forced to use it. Instead, you can still decide to rely on your 
+                own diagnosis and forego the 4th [3rd and 4th] symptom as diagnosed by the algorithm.</p>
+            <p>Purchasing the algorithmic decision aid permanently increases your combined diagnostic ability to 90%. Thus, if you decide 
+                to buy the decision aid, you will be able to correctly diagnose a client’s problem with a probability of 90%. After 
+                purchasing the algorithmic decision aid, you are not forced to use it. Instead, you can still decide to rely on your 
+                own diagnosis and forego the 4th [3rd and 4th] symptom as diagnosed by the algorithm.</p>
+            <p>Importantly, all clients are also informed about the opportunity to purchase an algorithmic decision aid. Clients 
+                can observe whether an expert decided to buy the decision aid. Clients also learn that an expert has a maximum 
+                diagnostic ability of 90% after buying the algorithmic decision aid. Thus, clients know about an expert’s 
+                current maximum ability level if the expert decided to invest. However, clients still do not observe an expert’s 
+                personal ability level. Additionally, clients know that buying the algorithmic decision aid does not automatically 
+                increase an expert’s diagnostic ability, but that experts need to correctly utilize it.</p>
+            <p>For example, should you decide not to buy the decision aid, clients do not observe your ability level and 
+                can only use the information they gathered during the prior rounds. Once you decide buy the algorithmic decision 
+                aid, clients know that your current maximum ability level is 90%, but not that your personal ability level is x% [y%].</p>
+            <p>You do not have to invest in the next round. You can also invest in any one of the following rounds. The price stays the same, 
+                irrespective of the round. However, you can only invest once. There will be no opportunity to increase your maximum diagnostic 
+                ability beyond 90%. </p>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+{% else %}
+<!-- consumer explanation -->
+    {% if group.treatment_skill_visible %}
+    <!-- consumer | visible -->
+        {% if group.treatment_investment_option == "skill" %}
+        <!-- consumer | visible | skill -->
+            {% if group.treatment_investment_frequency == "repeated" %}
+            <!-- consumer | visible | skill | repeated-->
+            <p>For the remainder of this experiment, all experts will have the 
+                opportunity to invest into their diagnostic ability. Each round, 
+                experts can decide to increase their diagnostic ability to 90% 
+                by paying Y Coins. An expert that decided to improve their 
+                diagnosis in a given round thus correctly diagnoses your problem 
+                with a probability of 90%.</p>
+            <p>Low-ability experts and high-ability experts pay the same price. After 
+                investing, all expert types receive a signal that is correct with a probability of 
+                90%, irrespective of their prior diagnostic ability.</p>
+            <p>You will be able to observe whether an expert decided to invest. You will also see (1) 
+                the expert’s current ability level and (2) the expert’s prior ability level.</p>
+
+            {% else %}
+            <!-- consumer | visible | skill | once -->
+            <p>From now on, all experts will have the opportunity to make a large, one-time investment 
+                into their diagnostic ability. For a price of Y Coins, an expert can permanently increase 
+                their probability to correctly diagnose a client’s problem to 90%. Thus, once an expert 
+                decides to invest, they correctly diagnose your problem with a probability of 90%.</p>
+            <p>Low-ability experts and high-ability experts pay the same price. After investing, all expert types 
+                receive a signal that is correct with a probability of 90%, irrespective of their prior diagnostic ability.</p>
+            <p>You will be able to observe whether an expert decided to invest. You will also see (1) the expert’s current 
+                ability level and (2) the expert’s prior ability level.</p>
+            <p>Experts do not have to invest immediately. They can invest at any time during the final 15 rounds, and the price 
+                always stays the same. If an expert has not earned enough money to finance their improved diagnostic ability, 
+                they can still invest by incurring debts. Debts are paid off through profits during the remainder of the experiment.</p>
+
+            {% endif %}
+        {% else %}
+        <!-- consumer | visible | algo -->
+            {% if group.treatment_investment_frequency == "repeated" %}
+            <!-- consumer | visible | algo | repeated-->
+            <p>For the remainder of this experiment, all experts will have the opportunity to rent an 
+                algorithmic decision aid that can improve the accuracy of their diagnosis. Renting the decision 
+                aid costs an expert Y Coins per round. However, if the expert correctly utilizes the algorithm, 
+                he or she increases their diagnostic ability to 90%. Thus, an expert that decides to rent the 
+                algorithmic decision aid in a given round, and utilizes it correctly, diagnoses your problem with 
+                a probability of 90%.</p>
+            <p>The algorithmic decision aid can improve a diagnosis by identifying symptoms that determine whether 
+                you have a large or a small problem. These symptoms have been allocated to you at the beginning of 
+                the experiment. As already mentioned in the beginning, you will never be able to observe them.</p>
+            <p>Low-ability experts and high-ability experts pay the same price for the decision aid. After investing, 
+                all expert types receive additional diagnostic information from the algorithm that increase their 
+                maximum diagnostic ability to 90%, irrespective of their prior diagnostic ability. Thus, the best-possible 
+                diagnosis is the same for the low-ability expert and the high-ability expert.</p>
+            <p>You will be able to observe whether an expert decided to rent the algorithmic decision aid in a given round. 
+                You will also see (1) the expert’s current maximum ability level and (2) the expert’s personal ability level.</p>
+
+            {% else %}
+            <!-- consumer | visible | algo | once -->
+            <p>From now on, all experts will have the opportunity to make a large, one-time investment into an algorithmic 
+                decision aid that can improve the accuracy of their diagnosis. For a price of Y Coins, an expert can permanently 
+                buy a decision aid that increases their diagnostic ability to 90% if they utilize it correctly. Thus, an expert 
+                that decides to purchase the algorithmic decision aid and utilizes it correctly, diagnoses your problem with a 
+                probability of 90%.</p>
+            <p>The algorithmic decision aid can improve a diagnosis by identifying symptoms that determine whether you have a 
+                large or a small problem. These symptoms have been allocated to you at the beginning of the experiment. As already 
+                mentioned in the beginning, you will never be able to observe them.</p>
+            <p>Low-ability experts and high-ability experts pay the same price for the decision aid. After investing, all expert 
+                types receive additional diagnostic information from the algorithm that increase their maximum diagnostic ability 
+                to 90%, irrespective of their prior diagnostic ability. Thus, the best-possible diagnosis is the same for the 
+                low-ability expert and the high-ability expert.</p>
+            <p>You will be able to observe whether an expert decided to purchase the algorithmic decision aid. You will also see 
+                (1) the expert’s current maximum ability level and (2) the expert’s personal ability level.</p>
+            <p>Experts do not have to invest immediately. They can invest at any time during the final 15 rounds, and the price 
+                always stays the same. If an expert has not earned enough money to finance the algorithmic decision aid, they can 
+                still invest by incurring debts. Debts are paid off through profits during the remainder of the experiment.</p>
+            {% endif %}
+        {% endif %}
+    {% else %}
+    <!-- consumer | not visible -->
+    {% if group.treatment_investment_option == "skill" %}
+        <!-- consumer | not visible | skill -->
+            {% if group.treatment_investment_frequency == "repeated" %}
+            <!-- consumer | not visible | skill | repeated-->
+            <p>For the remainder of this experiment, all experts will 
+                have the opportunity to invest into their diagnostic ability. 
+                Each round, experts can decide to increase their diagnostic ability to 90% 
+                by paying Y Coins. An expert that decided to improve their diagnosis in a given 
+                round thus correctly diagnoses your problem with a probability of 90%.</p>
+            <p>Low-ability experts and high-ability experts pay the same price. After investing, 
+                all expert types receive a signal that is correct with a probability of 90%, irrespective of their prior diagnostic ability.</p>
+            <p>You will be able to observe whether an expert decided to invest in any given round. 
+                However, you will not be able to see the expert’s prior ability level. </p>
+
+            {% else %}
+            <!-- consumer | not visible | skill | once -->
+            <p>From now on, all experts will have the opportunity to make a large, one-time investment into their 
+                diagnostic ability. For a price of Y Coins, an expert can permanently increase their probability 
+                to correctly diagnose a client’s problem to 90%. Thus, once an expert decides to invest, they 
+                correctly diagnose your problem with a probability of 90%.</p>
+            <p>Low-ability experts and high-ability experts pay the same price. After investing, all expert types 
+                receive a signal that is correct with a probability of 90%, irrespective of their prior diagnostic ability.</p>
+            <p>You will be able to observe whether an expert decided to invest. However, you will not be able to see 
+                the expert’s prior ability level.</p>
+            <p>Experts do not have to invest immediately. They can invest at any time during the final 15 rounds, and the price always stays the same. 
+                If an expert has not earned enough money to finance their improved diagnostic ability, they can still invest by incurring debts. 
+                Debts are paid off through profits during the remainder of the experiment.</p>
+
+            {% endif %}
+        {% else %}
+        <!-- consumer | not visible | algo -->
+            {% if group.treatment_investment_frequency == "repeated" %}
+            <!-- consumer | not visible | algo | repeated-->
+            <p>For the remainder of this experiment, all experts will have the opportunity to rent an algorithmic decision aid that can 
+                improve the accuracy of their diagnosis. Renting the decision aid costs an expert Y Coins per round. However, 
+                if the expert correctly utilizes the algorithm, he or she increases their diagnostic ability to 90%. Thus, an 
+                expert that decides to rent the algorithmic decision aid in a given round, and utilizes it correctly, diagnoses 
+                your problem with a probability of 90%.</p>
+            <p>The algorithmic decision aid can improve a diagnosis by identifying symptoms that determine whether you have a large 
+                or a small problem. These symptoms have been allocated to you at the beginning of the experiment. As already 
+                mentioned in the beginning, you will never be able to observe them.</p>
+            <p>Low-ability experts and high-ability experts pay the same price for the decision aid. After investing, all expert types 
+                receive additional diagnostic information from the algorithm that increase their maximum diagnostic ability to 90%, 
+                irrespective of their prior diagnostic ability. Thus, the best-possible diagnosis is the same for the low-ability 
+                expert and the high-ability expert.</p>
+            <p>You will be able to observe whether an expert decided to invest into the algorithmic decision aid in any given round. 
+                However, you will not be able to see the expert’s personal ability level. </p>
+
+            {% else %}
+            <!-- consumer | not visible | algo | once -->
+            <p>From now on, all experts will have the opportunity to make a large, one-time investment into an algorithmic decision aid 
+                that can improve the accuracy of their diagnosis. For a price of Y Coins, an expert can permanently buy a decision aid 
+                that increases their diagnostic ability to 90% if they utilize it correctly. Thus, an expert that decides to purchase 
+                the algorithmic decision aid and utilizes it correctly, diagnoses your problem with a probability of 90%.</p>
+            <p>The algorithmic decision aid can improve a diagnosis by identifying symptoms that determine whether you have a large or 
+                a small problem. These symptoms have been allocated to you at the beginning of the experiment. As already mentioned in the 
+                beginning, you will never be able to observe them.</p>
+            <p>Low-ability experts and high-ability experts pay the same price for the decision aid. After investing, all expert types receive 
+                additional diagnostic information from the algorithm that increase their maximum diagnostic ability to 90%, irrespective of their 
+                prior diagnostic ability. Thus, the best-possible diagnosis is the same for the low-ability expert and the high-ability expert.</p>
+            <p>You will be able to observe whether an expert decided to invest into the algorithmic decision aid in any given round. However, you 
+                will not be able to see the expert’s personal ability level. </p>
+            <p>Experts do not have to invest immediately. They can invest at any time during the final 15 rounds, and the price always stays the same. 
+                If an expert has not earned enough money to finance the algorithmic decision aid, they can still invest by incurring debts. Debts are 
+                paid off through profits during the remainder of the experiment.</p>
+            {% endif %}
+
+        {% endif %}
+
+    {% endif %}
+
+{% endif %}

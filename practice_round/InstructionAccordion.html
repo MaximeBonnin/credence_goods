@@ -89,6 +89,15 @@
                 <div class="content">
                     {{ include 'practice_round/text_contents/Payoffs.html' }}
                 </div>
+
+                {% if player.round_number >= C.INVESTMENT_STARTING_ROUND %}
+                <input type="checkbox" id="title8" />
+                <label for="title8" id="Payoffs" >Investment</label>
+                
+                <div class="content">
+                    {{ include 'practice_round/text_contents/Investment.html' }}
+                </div>
+                {% endif %}
             </div>        
         </div>
 </div>
