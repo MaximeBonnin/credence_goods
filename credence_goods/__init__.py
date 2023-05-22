@@ -313,6 +313,21 @@ class InvestmentExplanation(Page):
     @staticmethod
     def is_displayed(player: Player):
         return player.round_number == C.INVESTMENT_STARTING_ROUND
+    
+   
+class InvestmentExplanation2(Page):
+    # handle timer for dropouts
+    @staticmethod
+    def get_timeout_seconds(player):
+        if player.participant.is_dropout:
+            return 1  # instant timeout, 1 second
+        else:
+            return C.TIMEOUT_IN_SECONDS * 5
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == C.INVESTMENT_STARTING_ROUND
+
 
 # Expert investment choice
 class InvestmentChoice(Page):
@@ -727,6 +742,7 @@ page_sequence = [MatchingWaitPage,  # only first round
                  MatchSuccessful,   # only first round
                  SetupWaitPage,     # all later rounds
                  InvestmentExplanation, # only invesment starting round
+                 InvestmentExplanation2, # only invesment starting round
                  InvestmentChoice,  # only later rounds
                  ExpertSetPrices,   # Experts | all rounds
                  ConsumerWaitPage,      # Consumers | all rounds
