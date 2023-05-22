@@ -1,5 +1,5 @@
 {{ block title }}
-    Payoff code
+    Payoff
 {{ endblock }}
 
 
@@ -15,11 +15,10 @@
 </style>
 
 <div class="card">
-    <div class="card-header">
-        <h5>Your payoff code is</h5>
-    </div>
     <div class="card-content">
-        payoff_code
+        <p>Total Coins: {% player.coins %}</p>
+        <p>Total Payoff: {% participant.payoff_plus_participation_fee() %}</p>
+        <p>Payoff code: ???</p>
     </div>
 </div>
 

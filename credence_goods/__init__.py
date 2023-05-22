@@ -50,7 +50,7 @@ class C(BaseConstants):
     }
 
     CONSUMER_PAYOFFS = {
-        "no_market_entry": 0,
+        "no_market_entry": 10,
         "problem_remains": 0,
         "problem_solved": 150
     }
@@ -391,6 +391,7 @@ class ConsumerChooseExpert(Page):
                 player.expert_chosen).player_name
         else:
             player.enter_market = False
+            player.coins += C.CONSUMER_PAYOFFS["no_market_entry"]
             
     @staticmethod
     def js_vars(player: Player):
@@ -653,6 +654,13 @@ class Demograpgics(Page):
         # last round
         return player.round_number == C.NUM_ROUNDS
     
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        if player.coins > 0:
+            player.payoff += player.coins * player.subsession.session.config["real_world_currency_per_point"]
+        else:
+            player.payoff = 0
+    
 
 class PayoffCode(Page):
     @staticmethod
@@ -671,10 +679,10 @@ page_sequence = [MatchingWaitPage,  # only first round
                  ExpertSetPrices,   # Experts | all rounds
                  ConsumerWaitPage,      # Consumers | all rounds
                  ConsumerChooseExpert,  # Consumers | all rounds
-                 # ExpertWaitPage,    # Experts | all rounds
                  ExpertDiagnosisI,  # Experts | all rounds
                  ExpertDiagnosisII, # Experts | all rounds
                  ConsumerWaitPage,  # Consumers | all rounds
+                 ExpertWaitPage,    # Experts | all rounds
                  Results,           # all rounds
                  FinalResults,      # last round
                  Demograpgics,      # last round
