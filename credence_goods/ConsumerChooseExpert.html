@@ -52,7 +52,6 @@
         background-color: #bdc9e1;
     }
     .outside-option {
-        margin-top: 1em;
         margin-right: 1em;
         text-align: center;
     }
@@ -60,9 +59,7 @@
 
 {{ include_sibling "InfoBox.html" }}
 
-<div class="outside-option">
-    <button class="btn btn-primary" name="expert_chosen" value=0>Leave the market (Gain {% C.CONSUMER_PAYOFFS.no_market_entry %} Coins)</button>
-</div>
+
 
 <div class="expert-list">
     <script>
@@ -149,6 +146,10 @@
         {% endif %}    
 
     {% endfor %}
+</div>
+
+<div class="outside-option">
+    <button class="btn btn-primary" name="expert_chosen" value=0>Leave the market (Gain {% C.CONSUMER_PAYOFFS.no_market_entry %} Coins)</button>
 </div>
 
 <p>
