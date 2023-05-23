@@ -73,7 +73,15 @@
 
 
                 <div class="expert-card">
-                    <p class="expert-name"><b> Expert {% p.player_name %}</b></p>
+                    <p class="expert-name"><b> Expert {% p.player_name %}
+                        {% if player.round_number >= C.INVESTMENT_STARTING_ROUND %}
+                            {% if p.investment_decision %}
+                             – Invested
+                            {% else %}
+                             – Did not invest
+                            {% endif %}
+                        {% endif %}
+                    </b></p>
                     <table class="table">
                         {% if group.treatment_skill_visible %}
                             {% if group.treatment_investment_option == "skill" %}
