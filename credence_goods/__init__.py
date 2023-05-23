@@ -11,7 +11,7 @@ Your app description
 class C(BaseConstants):
     # DEV VARS FOR TESTING
     ENABLE_WAITING_PAGES = True
-    RANDOMIZE_DIV_ORDER = True
+    RANDOMIZE_DIV_ORDER = True      # randomized order of choice cards on Choose Expert and Diagnosis 1 & 2. Consistent order through all rounds.
 
     #TODO REMEMBER TO COPY ANY CHANGES TO practice_round FOR CORRECT INTRO
 
@@ -230,7 +230,7 @@ def setup_player(player: Player) -> Player:
     if player.round_number == 1:
         ids_of_others_in_group = [p.id_in_group for p in player.get_others_in_group()]
         player.participant.randomized_others_in_group = json.dumps(random.sample(ids_of_others_in_group, len(ids_of_others_in_group)))
-        
+
         # first round setup
         player.participant.number_of_timeouts = 0
         player.participant.is_dropout = False
