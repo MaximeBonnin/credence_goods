@@ -696,24 +696,7 @@ class Results(Page):
             price_vectors=C.PRICE_VECTOR_OPTIONS
         )
 
-    @staticmethod
-    def is_displayed(player: Player):
-        # last round
-        return player.round_number != C.NUM_ROUNDS
 
-
-class FinalResults(Page):
-    @staticmethod
-    def js_vars(player):
-        return dict(
-            price_vectors=C.PRICE_VECTOR_OPTIONS
-        )
-
-    @staticmethod
-    def is_displayed(player: Player):
-        # last round
-        return player.round_number == C.NUM_ROUNDS
-    
 
 class Demographics(Page):
     form_model = "player"
@@ -765,7 +748,6 @@ page_sequence = [MatchingWaitPage,  # only first round
                  ConsumerWaitPage,  # Consumers | all rounds
                  ExpertWaitPage,    # Experts | all rounds
                  Results,           # all rounds
-                 FinalResults,      # last round
                  Demographics,      # last round
                  Demographics,      # last round
                  PayoffCode         # last round
