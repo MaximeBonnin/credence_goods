@@ -145,7 +145,7 @@
                 </div>
                 
                 <script>
-                    all_cards.push("{% p.id_in_group %}")
+                    all_cards.push("{% p.id_in_group %}");
 
                     document.getElementById("profit-small-{% p.id_in_group %}").innerHTML = price_vector["{% p.price_vector_chosen %}"][2]
                     document.getElementById("profit-large-{% p.id_in_group %}").innerHTML = price_vector["{% p.price_vector_chosen %}"][3]

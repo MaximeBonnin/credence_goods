@@ -54,19 +54,21 @@
 {{ include_sibling "InfoBox.html" }}
 
 
-<div class="consumer-list">
+<div class="consumer-list"  id="consumer-list">
 
     <script>
         var dict_of_names = {};
         var ignore_algorithmic_decision_per_consumer = js_vars.ignore_algorithmic_decision_per_consumer;
         console.log(ignore_algorithmic_decision_per_consumer)
         var diagnosis_correct_for_all_patients = js_vars.diagnosis_correct_for_all_patients;
+
+        const all_cards = [];
     </script>
 
     {% for p in group.get_players() %}
         {% if not p.is_dropout %}
             {% if not p.is_expert %}
-                <div class="consumer-card">
+                <div class="consumer-card" id="card-{% p.id_in_group %}">
                     <p class="consumer-name" style="background-color: #bdc9e1"><b>Client {% p.player_name %}</b></p>
 
                     <p>Diagnosis result: <b><span id="result-{% p.id_in_group %}"></span> problem (<span id="acc-{% p.id_in_group %}">X</span>%)</b></p>
@@ -79,6 +81,8 @@
                 </div>
 
             <script>
+                all_cards.push("{% p.id_in_group %}");
+
                 /* display accuracy */ 
                 dict_of_names["{% p.id_in_group %}"] = "none"
                 if (ignore_algorithmic_decision_per_consumer["{% p.id_in_group %}"] == 1) {
@@ -129,6 +133,17 @@
             console.log(dict_of_names);
         };
 
+    </script>
+
+    <script>
+        // shuffle divs?
+        const shuffled_all_cards = all_cards.sort((a, b) => 0.5 - Math.random());
+        if ("{% C.RANDOMIZE_DIV_ORDER %}" == "True") {
+            for (const element of shuffled_all_cards) {
+                console.log(element)
+                $("#consumer-list").append($("#card-" + element))
+            }
+        }
     </script>
 
 </div>

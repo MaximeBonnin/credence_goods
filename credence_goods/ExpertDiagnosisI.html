@@ -67,15 +67,17 @@
     diag = js_vars.diagnosis_correct_for_all_patients
     console.log(diag)
     all_random_vars = {};
+
+    const all_cards = []
 </script>
 <!-- hidden input for oTree formfield ignore_algorithmic_decision_per_consumer -->
 <input type="hidden" id="ignore_algorithmic_decision_per_consumer" name="ignore_algorithmic_decision_per_consumer">
-<div class="consumer-list">
+<div class="consumer-list" id="consumer-list">
     {% for p in group.get_players() %}
 
         {% if not p.is_dropout %}
             {% if not p.is_expert %}
-                <div class="consumer-card">
+                <div class="consumer-card" id="card-{% p.id_in_group %}">
                     <p class="consumer-name" style="background-color: #bdc9e1"><b>Client {% p.player_name %}</b></p>
 
                     <table class="table table-striped">
@@ -117,6 +119,8 @@
                 </div>
 
                 <script>
+                    all_cards.push("{% p.id_in_group %}");
+
                     dict_ignore_algo['{% p.id_in_group %}'] = 0;
                     all_random_vars['{% p.id_in_group %}'] = {}
 
@@ -201,6 +205,18 @@
         ele.value = all_random_vars[id][ele.getAttribute("placeholder")]
     }
 </script>
+
+<script>
+    // shuffle divs?
+    const shuffled_all_cards = all_cards.sort((a, b) => 0.5 - Math.random());
+    if ("{% C.RANDOMIZE_DIV_ORDER %}" == "True") {
+        for (const element of shuffled_all_cards) {
+            console.log(element)
+            $("#consumer-list").append($("#card-" + element))
+        }
+    }
+</script>
+
 <p><button class="btn btn-primary">Diagnose all clients</button></p>
 <p>
     {{ include "practice_round/InstructionAccordion.html" }}

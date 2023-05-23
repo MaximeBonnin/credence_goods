@@ -11,7 +11,7 @@ Your app description
 class C(BaseConstants):
     # DEV VARS FOR TESTING
     ENABLE_WAITING_PAGES = True
-    RANDOMIZE_DIV_ORDER = False
+    RANDOMIZE_DIV_ORDER = True
 
     #TODO REMEMBER TO COPY ANY CHANGES TO practice_round FOR CORRECT INTRO
 
