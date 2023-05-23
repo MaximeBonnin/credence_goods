@@ -4,12 +4,12 @@ SESSION_CONFIGS = [
     dict(
         name='credence_goods_skill_visible',
         app_sequence=["credence_goods_welcome",'practice_round', 'credence_goods'],
-        num_demo_participants=18,
+        num_demo_participants=12,
         treatment_skill_visible = True,
     ), dict(
         name='credence_goods_skill_not_visible',
         app_sequence=["credence_goods_welcome",'practice_round', 'credence_goods'],
-        num_demo_participants=18,
+        num_demo_participants=12,
         treatment_skill_visible = False,
     ),
 ]

@@ -11,6 +11,7 @@ Your app description
 class C(BaseConstants):
     # DEV VARS FOR TESTING
     ENABLE_WAITING_PAGES = True
+    RANDOMIZE_DIV_ORDER = False
 
     #TODO REMEMBER TO COPY ANY CHANGES TO practice_round FOR CORRECT INTRO
 
@@ -18,7 +19,7 @@ class C(BaseConstants):
 
     NAME_IN_URL = 'credence_goods'
     NUM_ROUNDS = 3
-    PLAYERS_PER_GROUP = 2
+    PLAYERS_PER_GROUP = 4
     TIMEOUT_IN_SECONDS = 300               # Investment Explain page is different
     DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS = 3 # players get excluded from the experiment if they have X number of timeouts
 
@@ -331,6 +332,7 @@ class InvestmentExplanation2(Page):
     @staticmethod
     def is_displayed(player: Player):
         return player.round_number == C.INVESTMENT_STARTING_ROUND
+
 
 # Expert investment choice
 class InvestmentChoice(Page):
@@ -695,7 +697,6 @@ class Results(Page):
         return dict(
             price_vectors=C.PRICE_VECTOR_OPTIONS
         )
-
 
 
 class Demographics(Page):
