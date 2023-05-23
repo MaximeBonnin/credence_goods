@@ -62,7 +62,6 @@
         console.log(ignore_algorithmic_decision_per_consumer)
         var diagnosis_correct_for_all_patients = js_vars.diagnosis_correct_for_all_patients;
 
-        const all_cards = [];
     </script>
 
     {% for p in group.get_players() %}
@@ -81,7 +80,6 @@
                 </div>
 
             <script>
-                all_cards.push("{% p.id_in_group %}");
 
                 /* display accuracy */ 
                 dict_of_names["{% p.id_in_group %}"] = "none"
@@ -135,16 +133,16 @@
 
     </script>
 
-    <script>
-        // shuffle divs?
-        const shuffled_all_cards = all_cards.sort((a, b) => 0.5 - Math.random());
-        if ("{% C.RANDOMIZE_DIV_ORDER %}" == "True") {
-            for (const element of shuffled_all_cards) {
-                console.log(element)
-                $("#consumer-list").append($("#card-" + element))
-            }
+<script>
+    // shuffle divs?
+    randomized_ids = JSON.parse("{% participant.randomized_others_in_group %}")
+    console.log(randomized_ids)
+    if ("{% C.RANDOMIZE_DIV_ORDER %}" == "True") {
+        for (const element of randomized_ids) {
+            $("#consumer-list").append($("#card-" + element))
         }
-    </script>
+    }
+</script>
 
 </div>
     {{ formfield_errors 'services_provided_to_all_consumers' }}

@@ -23,7 +23,7 @@ SESSION_CONFIG_DEFAULTS = dict(
     real_world_currency_per_point=0.10, participation_fee=10.00, doc=""
 )
 
-PARTICIPANT_FIELDS = ['treatment_skill_visible', "is_expert", "number_of_timeouts", "is_dropout", "ability_level"]
+PARTICIPANT_FIELDS = ['treatment_skill_visible', "is_expert", "number_of_timeouts", "is_dropout", "ability_level", "randomized_others_in_group"]
 SESSION_FIELDS = []
 
 # ISO-639 code

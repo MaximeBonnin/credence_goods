@@ -21,6 +21,7 @@ class C(BaseConstants):
     NUM_ROUNDS = 3
     PLAYERS_PER_GROUP = 4
     TIMEOUT_IN_SECONDS = 300               # Investment Explain page is different
+    EXPLANATION_TIMEOUT_IN_SECONDS = TIMEOUT_IN_SECONDS * 5
     DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS = 3 # players get excluded from the experiment if they have X number of timeouts
 
     NUM_EXPERTS_PER_GROUP = PLAYERS_PER_GROUP // 2                         # consumers = players - experts #TODO currently not working, every second person is set to expert
@@ -222,11 +223,14 @@ class Player(BasePlayer):
 
 
 def setup_player(player: Player) -> Player:
-    # add multipliert to data
+    # add multiplier to data
     player.group.treatment_price_multiplier = C.PRICE_MULTIPLIER_AFTER_INVESTING
 
     # sets up a single player
     if player.round_number == 1:
+        ids_of_others_in_group = [p.id_in_group for p in player.get_others_in_group()]
+        player.participant.randomized_others_in_group = json.dumps(random.sample(ids_of_others_in_group, len(ids_of_others_in_group)))
+        
         # first round setup
         player.participant.number_of_timeouts = 0
         player.participant.is_dropout = False
@@ -312,7 +316,7 @@ class InvestmentExplanation(Page):
         if player.participant.is_dropout:
             return 1  # instant timeout, 1 second
         else:
-            return C.TIMEOUT_IN_SECONDS * 5
+            return C.EXPLANATION_TIMEOUT_IN_SECONDS
         
     @staticmethod
     def is_displayed(player: Player):
@@ -327,7 +331,7 @@ class InvestmentExplanation2(Page):
         if player.participant.is_dropout:
             return 1  # instant timeout, 1 second
         else:
-            return C.TIMEOUT_IN_SECONDS * 5
+            return C.EXPLANATION_TIMEOUT_IN_SECONDS
 
     @staticmethod
     def is_displayed(player: Player):
