@@ -52,11 +52,11 @@
             <table class="table table-bordered">
                 <tbody>
                     <tr>
-                        <th>Cost high-quality service</th>
+                        <th>Costs high-quality service</th>
                         <td>{% C.COST_OF_PROVIDING_SMALL_SERVICE %} Coins</td>
                     </tr>
                     <tr>
-                        <th>Cost low-quality service</th>
+                        <th>Costs low-quality service</th>
                         <td>{% C.COST_OF_PROVIDING_LARGE_SERVICE %} Coins</td>
                     </tr>
                     
@@ -64,7 +64,29 @@
             </table>
 
         {% else %}
-        
+
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th>Costs high-quality service (expert)</th>
+                        <td>{% C.COST_OF_PROVIDING_SMALL_SERVICE %} Coins</td>
+                    </tr>
+                    <tr>
+                        <th>Costs low-quality service (expert)</th>
+                        <td>{% C.COST_OF_PROVIDING_LARGE_SERVICE %} Coins</td>
+                    </tr>
+                    {% if player.round_number >= C.INVESTMENT_STARTING_ROUND %}
+                     <tr>
+                        <th>Investment costs (expert)</th>
+                        <td>{% if group.treatment_investment_frequency == "repeated" %} {% C.INVESTMENT_COST.repeated %} Coins {% elif group.treatment_investment_frequency == "once" %}  {% C.INVESTMENT_COST.once %} Coins {% endif %} </td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+
+
+
+
         {% endif %}
     </div>
 
