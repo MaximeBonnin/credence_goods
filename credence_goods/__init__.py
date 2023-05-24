@@ -581,9 +581,9 @@ class ExpertDiagnosisII(Page):
                     player.coins += C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][3]   # profit large
                     consumer.coins -= C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][1]        # price large
 
-            if player.number_of_services_provided == 0:
-                # small payoff for when expert not chosen
-                player.coins += C.EXPERT_PAYOFF_NO_CONSUMER
+        if player.number_of_services_provided == 0:
+            # small payoff for when expert not chosen
+            player.coins += C.EXPERT_PAYOFF_NO_CONSUMER
 
 
 def group_by_arrival_time_method(subsession, waiting_players):
