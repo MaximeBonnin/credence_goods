@@ -618,7 +618,7 @@ class MatchingWaitPage(WaitPage):
     group_by_arrival_time = True
 
     title_text = "Matching in progress"
-    body_text = "You are currently waiting to be matched with other players. Please keep this browser tab active (green symbol) in order to be matched."
+    body_text = "You are currently waiting to be matched with other players. Please keep this browser tab active (🟢 symbol) in order to be matched."
 
     @staticmethod
     def is_displayed(player: Player):
