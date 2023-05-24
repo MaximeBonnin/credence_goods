@@ -184,7 +184,8 @@
                 <!-- consumer | visible | algo -->
                     {% if group.treatment_investment_frequency == "repeated" %}
                     <!-- consumer | visible | algo | repeated-->
-                    <p>Low-ability experts and high-ability experts pay the same price for the decision aid. After investing, 
+                    <p>Low-ability experts and high-ability experts pay the same price for the decision aid.</p>
+                    <p>After investing,
                         all expert types can utilize the additional diagnostic information from the algorithm to increase their
                         maximum diagnostic ability to {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%.
                         Thus, the best-possible
@@ -195,14 +196,15 @@
         
                     {% else %}
                     <!-- consumer | visible | algo | once -->
-                    <p>Low-ability experts and high-ability experts pay the same price for the decision aid. After investing,
+                    <p>Low-ability experts and high-ability experts pay the same price for the decision aid.</p>
+                    <p>After investing,
                         all expert types can utilize the additional diagnostic information from the algorithm to increase their
                         maximum diagnostic ability to {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%.
                         Thus, the best-possible
                         diagnosis is the same for the low-ability expert and the high-ability expert.</p>
                     <p>You will be able to observe whether an expert decided to purchase the algorithmic decision aid. You will also see 
                         (1) the expert’s current maximum ability level and (2) the expert’s personal ability level.
-                        Note that an expert does not have to use the algorithmic decision aid after renting it in a given round.</p>
+                        Note that an expert does not have to use the algorithmic decision aid after purchasing it.</p>
                     <p>Experts do not have to invest immediately. They can invest at any time during the final 15 rounds, and the price 
                         always stays the same. If an expert has not earned enough money to finance the algorithmic decision aid, they can 
                         still invest by incurring debts. Debts are paid off through profits during the remainder of the experiment.</p>
@@ -230,7 +232,8 @@
                 <!-- consumer | not visible | algo -->
                     {% if group.treatment_investment_frequency == "repeated" %}
                     <!-- consumer | not visible | algo | repeated-->
-                    <p>Low-ability experts and high-ability experts pay the same price for the decision aid. After investing,
+                    <p>Low-ability experts and high-ability experts pay the same price for the decision aid.</p>
+                    <p>After investing,
                         all expert types can utilize the additional diagnostic information from the algorithm to increase their
                         maximum diagnostic ability to {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%.
                         Thus, the best-possible
@@ -241,7 +244,8 @@
         
                     {% else %}
                     <!-- consumer | not visible | algo | once -->
-                    <p>Low-ability experts and high-ability experts pay the same price for the decision aid. After investing,
+                    <p>Low-ability experts and high-ability experts pay the same price for the decision aid.</p>
+                    <p>After investing,
                         all expert types can utilize the additional diagnostic information from the algorithm to increase their
                         maximum diagnostic ability to {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%.
                         Thus, the best-possible

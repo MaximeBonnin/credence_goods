@@ -1,4 +1,4 @@
-
+<p><b>Experts can now invest into their diagnostic ability.</b></p>
         {% if player.is_expert %}
         <!-- expert explanation -->
             {% if group.treatment_skill_visible %}
@@ -237,7 +237,7 @@
                     <p>For the remainder of this experiment, all experts will have the 
                         opportunity to invest into their diagnostic ability. Each round, 
                         experts can decide to increase their diagnostic ability to {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%
-                        by paying {% C.INVESTMENT_COST.repeated %} Coins. An expert that decided to improve their
+                        by paying <b>{% C.INVESTMENT_COST.repeated %} Coins</b>. An expert that decided to improve their
                         diagnosis in a given round thus correctly diagnoses your problem 
                         with a probability of {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%.</p>
                     <p>Low-ability experts and high-ability experts pay the same price. After 
@@ -248,7 +248,7 @@
                     {% else %}
                     <!-- consumer | visible | skill | once -->
                     <p>From now on, all experts will have the opportunity to make a large, one-time investment 
-                        into their diagnostic ability. For a price of {% C.INVESTMENT_COST.once %} Coins, an expert can permanently increase
+                        into their diagnostic ability. For a price of <b>{% C.INVESTMENT_COST.once %} Coins</b>, an expert can permanently increase
                         their probability to correctly diagnose a client’s problem to {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%.
                         Thus, once an expert
                         decides to invest, they correctly diagnose your problem with a probability of {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%.</p>
@@ -260,9 +260,9 @@
                 <!-- consumer | visible | algo -->
                     {% if group.treatment_investment_frequency == "repeated" %}
                     <!-- consumer | visible | algo | repeated-->
-                    <p>For the remainder of this experiment, all experts will have the opportunity to rent an 
-                        algorithmic decision aid that can improve the accuracy of their diagnosis. Renting the decision 
-                        aid costs an expert {% C.INVESTMENT_COST.repeated %} Coins per round. However, if the expert correctly utilizes the algorithm,
+                    <p>For the remainder of this experiment, all experts will have the opportunity to <b>rent an
+                        algorithmic decision aid</b> that can improve the accuracy of their diagnosis. Renting the decision
+                        aid costs an expert <b>{% C.INVESTMENT_COST.repeated %} Coins per round</b>. However, if the expert correctly utilizes the algorithm,
                         he or she increases their diagnostic ability for that round to {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%.
                         Thus, an expert that decides to rent the
                         algorithmic decision aid in a given round, and utilizes it correctly, diagnoses your problem with 
@@ -273,8 +273,9 @@
 
                     {% else %}
                     <!-- consumer | visible | algo | once -->
-                    <p>From now on, all experts will have the opportunity to make a large, one-time investment into an algorithmic 
-                        decision aid that can improve the maximum accuracy of their diagnosis. For a price of {% C.INVESTMENT_COST.once %} Coins, an expert can permanently
+                    <p>From now on, all experts will have the opportunity to make a large, <b> one-time investment into an algorithmic
+                        decision aid </b> that can improve the maximum accuracy of their diagnosis. </p>
+                    <p> For a price of <b>{% C.INVESTMENT_COST.once %} Coins</b>, an expert can permanently
                         buy a decision aid that increases their diagnostic ability to {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%
                         if they utilize it correctly. Thus, an expert
                         that decides to purchase the algorithmic decision aid, and utilizes it correctly, diagnoses your problem with a
@@ -294,7 +295,7 @@
                     <p>For the remainder of this experiment, all experts will 
                         have the opportunity to invest into their diagnostic ability. 
                         Each round, experts can decide to increase their diagnostic ability to {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%
-                        by paying {% C.INVESTMENT_COST.repeated %} Coins. An expert that decided to improve their diagnosis in a given
+                        by paying <b>{% C.INVESTMENT_COST.repeated %} Coins</b>. An expert that decided to improve their diagnosis in a given
                         round thus correctly diagnoses your problem with a probability of {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}% .</p>
                     <p>Low-ability experts and high-ability experts pay the same price. After investing, 
                         all expert types receive a signal that is correct with a probability of {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%, irrespective of their prior diagnostic ability.</p>
@@ -302,7 +303,7 @@
                     {% else %}
                     <!-- consumer | not visible | skill | once -->
                      <p>From now on, all experts will have the opportunity to make a large, one-time investment into their
-                        diagnostic ability. For a price of {% C.INVESTMENT_COST.once %} Coins, an expert can permanently increase their probability
+                        diagnostic ability. For a price of <b>{% C.INVESTMENT_COST.once %} Coins</b>, an expert can permanently increase their probability
                         to correctly diagnose a client’s problem to {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%. Thus, once an expert decides to invest, they
                         correctly diagnose your problem with a probability of {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%.</p>
                     <p>Low-ability experts and high-ability experts pay the same price. After investing, all expert types
@@ -313,8 +314,8 @@
                 <!-- consumer | not visible | algo -->
                     {% if group.treatment_investment_frequency == "repeated" %}
                     <!-- consumer | not visible | algo | repeated-->
-                    <p>For the remainder of this experiment, all experts will have the opportunity to rent an algorithmic decision aid that can 
-                        improve the accuracy of their diagnosis. Renting the decision aid costs an expert {% C.INVESTMENT_COST.repeated %} Coins per round. However,
+                    <p>For the remainder of this experiment, all experts will have the opportunity to <b>rent an algorithmic decision aid</b> that can
+                        improve the accuracy of their diagnosis. Renting the decision aid costs an expert <b>{% C.INVESTMENT_COST.repeated %} Coins per round</b>. However,
                         if the expert correctly utilizes the algorithm, he or she increases their diagnostic ability to {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%.
                         Thus, an
                         expert that decides to rent the algorithmic decision aid in a given round, and utilizes it correctly, diagnoses 
@@ -325,8 +326,8 @@
 
                     {% else %}
                     <!-- consumer | not visible | algo | once -->
-                    <p>From now on, all experts will have the opportunity to make a large, one-time investment into an algorithmic decision aid 
-                        that can improve the accuracy of their diagnosis. For a price of {% C.INVESTMENT_COST.once %} Coins, an expert can permanently buy a decision aid
+                    <p>From now on, all experts will have the opportunity to make a large, <b>one-time investment into an algorithmic decision aid</b>
+                        that can improve the accuracy of their diagnosis. For a price of <b>{% C.INVESTMENT_COST.once %} Coins</b>, an expert can permanently buy a decision aid
                         that increases their diagnostic ability to {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}% if they utilize it correctly. Thus, an expert that decides to purchase
                         the algorithmic decision aid and utilizes it correctly, diagnoses your problem with a probability of {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%.</p>
                     <p>The algorithmic decision aid can improve a diagnosis by identifying symptoms that determine whether you have a large or 
