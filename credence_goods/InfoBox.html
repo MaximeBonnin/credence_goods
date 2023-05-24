@@ -42,6 +42,12 @@
                         </tr>
                         {% endif %}
                     {% endif %}
+                {% else %}
+                <tr>
+                    <th>% big problem</th>
+                    <td>{% C.CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT %}</td>
+                </tr>
+
                 {% endif %}
             </thead>
         </table>
