@@ -295,13 +295,14 @@
     console.log(correct_answers)
     result = false
     function checkAnswers(question_nr, answer_nr) {
-        console.log(question_nr, answer_nr);
         answers[question_nr] = answer_nr;
-        console.log(answers);
+        console.log("Current answer:", answers);
 
         if (answers["q0"] == correct_answers["q0"] & (answers["q1"] == correct_answers["q1"]) & (answers["q2"] == correct_answers["q2"]) & (answers["q3"] == correct_answers["q3"])) {
             console.log("Correct!")
             result = true
+        } else {
+            result = false
         };
         document.getElementById("comprehention_questions_passed").value = result;
     }
