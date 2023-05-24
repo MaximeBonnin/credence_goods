@@ -18,7 +18,7 @@ class C(BaseConstants):
     # colors: #f1eef6, #bdc9e1, #74a9cf, #0570b0
 
     NAME_IN_URL = 'credence_goods'
-    NUM_ROUNDS = 3
+    NUM_ROUNDS = 6
     PLAYERS_PER_GROUP = 4
     TIMEOUT_IN_SECONDS = 300               # Investment Explain page is different
     EXPLANATION_TIMEOUT_IN_SECONDS = TIMEOUT_IN_SECONDS * 5
@@ -748,10 +748,10 @@ page_sequence = [MatchingWaitPage,  # only first round
                  ExpertSetPrices,   # Experts | all rounds
                  ConsumerWaitPage,      # Consumers | all rounds
                  ConsumerChooseExpert,  # Consumers | all rounds
+                 ExpertWaitPage,    # Experts | all rounds
                  ExpertDiagnosisI,  # Experts | all rounds
                  ExpertDiagnosisII, # Experts | all rounds
                  ConsumerWaitPage,  # Consumers | all rounds
-                 ExpertWaitPage,    # Experts | all rounds
                  Results,           # all rounds
                  Demographics,      # last round
                  Demographics,      # last round
