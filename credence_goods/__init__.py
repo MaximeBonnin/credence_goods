@@ -472,7 +472,8 @@ class ConsumerChooseExpert(Page):
     @staticmethod
     def js_vars(player: Player):
         return dict(
-            price_vector = C.PRICE_VECTOR_OPTIONS
+            price_vector = C.PRICE_VECTOR_OPTIONS,
+            price_vectors_multi = C.PRICE_VECTOR_OPTIONS_MULTIPLIED,
         )
 
 
@@ -541,6 +542,7 @@ class ExpertDiagnosisII(Page):
     def js_vars(player):
         return dict(
             price_vectors=C.PRICE_VECTOR_OPTIONS,
+            price_vectors_multi = C.PRICE_VECTOR_OPTIONS_MULTIPLIED,
             diagnosis_correct_for_all_patients = json.loads(player.diagnosis_correct_for_all_patients),
             ignore_algorithmic_decision_per_consumer = json.loads(player.ignore_algorithmic_decision_per_consumer)
         )
@@ -574,12 +576,23 @@ class ExpertDiagnosisII(Page):
                     consumer.coins += C.CONSUMER_PAYOFFS["problem_remains"]
 
                 # set expert coin payoff and consumer pay price
-                if consumer.service_recieved == "small":
-                    player.coins += C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][2]   # profit small
-                    consumer.coins -= C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][0]        # price small
-                elif consumer.service_recieved == "large":
-                    player.coins += C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][3]   # profit large
-                    consumer.coins -= C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][1]        # price large
+                if player.investment_decision:
+                    # multiplied price vector
+                    if consumer.service_recieved == "small":
+                        player.coins += C.PRICE_VECTOR_OPTIONS_MULTIPLIED[player.group.treatment_investment_frequency][player.price_vector_chosen][2]   # profit small
+                        consumer.coins -= C.PRICE_VECTOR_OPTIONS_MULTIPLIED[player.group.treatment_investment_frequency][player.price_vector_chosen][0]        # price small
+                    elif consumer.service_recieved == "large":
+                        player.coins += C.PRICE_VECTOR_OPTIONS_MULTIPLIED[player.group.treatment_investment_frequency][player.price_vector_chosen][3]   # profit large
+                        consumer.coins -= C.PRICE_VECTOR_OPTIONS_MULTIPLIED[player.group.treatment_investment_frequency][player.price_vector_chosen][1]        # price large
+
+                else:
+                    # normal price vector
+                    if consumer.service_recieved == "small":
+                        player.coins += C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][2]   # profit small
+                        consumer.coins -= C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][0]        # price small
+                    elif consumer.service_recieved == "large":
+                        player.coins += C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][3]   # profit large
+                        consumer.coins -= C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][1]        # price large
 
         if player.number_of_services_provided == 0:
             # small payoff for when expert not chosen

@@ -114,12 +114,18 @@
 
         small_price.forEach(small_price => {
             small_price.innerHTML = js_vars.price_vectors["{% player.price_vector_chosen %}"][2]
+            if ("{% player.investment_decision %}" == "True") {
+                small_price.innerHTML = js_vars.price_vectors_multi["{% group.treatment_investment_frequency %}"]["{% player.price_vector_chosen %}"][2]
+            }
         })
 
         const large_price = document.querySelectorAll(".profit-large");
 
         large_price.forEach(large_price => {
             large_price.innerHTML = js_vars.price_vectors["{% player.price_vector_chosen %}"][3]
+            if ("{% player.investment_decision %}" == "True") {
+                large_price.innerHTML = js_vars.price_vectors_multi["{% group.treatment_investment_frequency %}"]["{% player.price_vector_chosen %}"][3]
+            }
         })
 
         document.getElementById("services_provided_to_all_consumers").value = JSON.stringify(dict_of_names);
