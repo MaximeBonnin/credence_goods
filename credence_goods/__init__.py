@@ -4,7 +4,7 @@ import json
 
 
 doc = """
-Your app description
+Credence Goods experiments
 """
 
 
