@@ -26,8 +26,8 @@
                     <td>{% player.coins %}</td>
                 </tr>
                 <tr>
-                    <th>Your Role</th>
-                    <td>{{ if player.is_expert }}Expert ({% player.ability_level %} ability){{ else }}Client{{ endif }}</td>
+                    <th>{{ if player.is_expert }} Your Role {{ else }} % high-ability expert {{ endif }}</th>
+                    <td>{{ if player.is_expert }}Expert ({% player.ability_level %} ability){{ else }}50{{ endif }}</td>
                 </tr>
                 {% if player.is_expert %}
                 <tr>
