@@ -1,2 +1,1 @@
-# Credence Goods Experimental Design Bachelors Thesis
-
+# Credence Goods Experimental Design
