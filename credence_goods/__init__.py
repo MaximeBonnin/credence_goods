@@ -30,22 +30,28 @@ class C(BaseConstants):
     ENDOWMENT = 0                      #TODO maybe different for consumers and experts?
 
 
-    COST_OF_PROVIDING_SMALL_SERVICE = 1     # c_k
-    COST_OF_PROVIDING_LARGE_SERVICE = 2     # c_g
 
     CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT = 40 # %
     CHANCE_TO_HAVE_SMALL_PROBLEM_IN_PERCENT = 100-CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT
 
+    COST_OF_PROVIDING_SMALL_SERVICE = 1     # c_k
+    COST_OF_PROVIDING_LARGE_SERVICE = 2     # c_g
 
     PRICE_MULTIPLIER_AFTER_INVESTING = 0
     
-    PRICE_VECTOR_OPTIONS = {                # (price_small, price_large, profit_small, profit_large)
-        "bias_small": (4, 4, 
-                       4-COST_OF_PROVIDING_SMALL_SERVICE, 4-COST_OF_PROVIDING_LARGE_SERVICE),
-        "bias_large": (2, 5, 
-                       2-COST_OF_PROVIDING_SMALL_SERVICE, 5-COST_OF_PROVIDING_LARGE_SERVICE),
-        "no_bias": (3, 4, 
-                    3-COST_OF_PROVIDING_SMALL_SERVICE, 4-COST_OF_PROVIDING_LARGE_SERVICE)
+    PRICE_VECTOR_OPTIONS = {                
+        "bias_small": (4,                                   # price_small
+                       4,                                   # price_large
+                       4-COST_OF_PROVIDING_SMALL_SERVICE,   # profit_small
+                       4-COST_OF_PROVIDING_LARGE_SERVICE),  # profit_large
+        "bias_large": (2, 
+                       5, 
+                       2-COST_OF_PROVIDING_SMALL_SERVICE, 
+                       5-COST_OF_PROVIDING_LARGE_SERVICE),
+        "no_bias": (3, 
+                    4, 
+                    3-COST_OF_PROVIDING_SMALL_SERVICE, 
+                    4-COST_OF_PROVIDING_LARGE_SERVICE)
     }
 
 
