@@ -149,8 +149,9 @@
 
                     if ("{% p.investment_decision %}" == "True") {
                         console.log("Has invested")
-                        document.getElementById("profit-small-{% p.id_in_group %}").innerHTML = js_vars.price_vectors_multi["{% group.treatment_investment_frequency %}"]["{% player.price_vector_chosen %}"][2]
-                        document.getElementById("profit-large-{% p.id_in_group %}").innerHTML = js_vars.price_vectors_multi["{% group.treatment_investment_frequency %}"]["{% player.price_vector_chosen %}"][3]
+                        
+                        document.getElementById("profit-small-{% p.id_in_group %}").innerHTML = js_vars.price_vectors_multi["{% group.treatment_investment_frequency %}"]["{% p.price_vector_chosen %}"][2]
+                        document.getElementById("profit-large-{% p.id_in_group %}").innerHTML = js_vars.price_vectors_multi["{% group.treatment_investment_frequency %}"]["{% p.price_vector_chosen %}"][3]
                     }
                 </script>
                 
