@@ -91,10 +91,12 @@
                                     <tr>
                                         <th colspan="2">Prior accuracy</th>
                                         <td colspan="2">{% p.base_diagnosis_accuracy_percent %}%</td>
+                                        <td colspan="2"></td>
                                     </tr>
                                     <tr>
                                         <th colspan="2">Current accuracy</th>
                                         <td colspan="2">{% p.total_diagnosis_accuracy_percent %}%</td>
+                                        <td colspan="2"></td>
                                     </tr>
                                 </thead>
                                 {% else %}
@@ -102,6 +104,7 @@
                                     <tr>
                                         <th colspan="2">Diagnostic accuracy</th>
                                         <td colspan="2">{% p.total_diagnosis_accuracy_percent %}%</td>
+                                        <td colspan="2"></td>
                                     </tr>
                                 </thead>
                                 {% endif %}
@@ -111,10 +114,12 @@
                                     <tr>
                                         <th colspan="2">Personal accuracy</th>
                                         <td colspan="2">{% p.base_diagnosis_accuracy_percent %}%</td>
+                                        <td colspan="2"></td>
                                     </tr>
                                     <tr>
                                         <th colspan="2">Maximum accuracy</th>
                                         <td colspan="2">{% p.total_diagnosis_accuracy_percent %}%</td>
+                                        <td colspan="2"></td>
                                     </tr>
                                 </thead>
                                 {% else %}
@@ -122,6 +127,7 @@
                                     <tr>
                                         <th colspan="2">Diagnostic accuracy</th>
                                         <td colspan="2">{% p.total_diagnosis_accuracy_percent %}%</td>
+                                        <td colspan="2"></td>
                                     </tr>
                                 </thead>
                                 {% endif %}
@@ -130,18 +136,23 @@
                         <tbody>
                             <tr>
                                 <th scope="col" colspan="2">Low-quality service</th>
+                                <th scope="col" colspan="2"></th>
                                 <th scope="col" colspan="2">High-quality service</th>
                             </tr>
                             <tr>
-                                <td>Price</td>
+                                <td >Price</td>
                                 <td>{% p.price_small_service %} Coins</td>
-                                <td>Price</td>
+                                <td ></td>
+                                <td ></td>
+                                <td >Price</td>
                                 <td>{% p.price_large_service %} Coins</td>
                             </tr>
                             <tr>
-                                <td>Expert Profit</td>
+                                <td >Expert Profit</td>
                                 <td><span id="profit-small-{% p.id_in_group %}"></span> Coins</td>
-                                <td>Expert Profit</td>
+                                <td ></td>
+                                <td ></td>
+                                <td >Expert Profit</td>
                                 <td><span id="profit-large-{% p.id_in_group %}"></span> Coins</td>
                             </tr>
                             </tr>
