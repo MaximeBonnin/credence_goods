@@ -610,13 +610,23 @@ def group_by_arrival_time_method(subsession, waiting_players):
     experts = [e for e in waiting_players if e.participant.is_expert]
     experts_low = [l for l in experts if l.participant.ability_level == "low"]
     experts_high = [h for h in experts if h.participant.ability_level == "high"]
+    number_of_low_ability_experts_waiting = len(experts_low)
+    number_of_high_ability_experts_waiting = len(experts_high)
+
+    number_of_low_ability_needed = C.NUM_EXPERTS_PER_GROUP // 2                                 # integer division 
+    number_of_high_ability_needed = C.NUM_EXPERTS_PER_GROUP - number_of_low_ability_needed      # get full group
 
     consumers = [c for c in waiting_players if not c.participant.is_expert]
+    number_of_consumers_waiting = len(consumers)
+    number_of_consumers_needed = C.NUM_CONSUMERS_PER_GROUP
 
-    print(f"Currently waiting: {len(experts)}/{C.NUM_EXPERTS_PER_GROUP} Experts | {len(consumers)}/{C.NUM_CONSUMERS_PER_GROUP} Consumers")
-    if (len(experts_low) >= C.NUM_EXPERTS_PER_GROUP // 2) and (len(experts_high) >= C.NUM_EXPERTS_PER_GROUP // 2) and (len(consumers) >= C.NUM_CONSUMERS_PER_GROUP):
+    print(f"Currently waiting:\n-> {number_of_low_ability_experts_waiting}/{number_of_low_ability_needed} low-ability experts \n" +
+          f"-> {number_of_high_ability_experts_waiting}/{number_of_high_ability_needed} high-ability experts \n" + 
+          f"-> {number_of_consumers_waiting}/{number_of_consumers_needed} Consumers")
+    
+    if (number_of_low_ability_experts_waiting >= number_of_low_ability_needed) and (number_of_high_ability_experts_waiting >= number_of_high_ability_needed) and (number_of_consumers_waiting >= number_of_consumers_needed):
         print('Creating group...')
-        grouped_players = experts_low[0:C.NUM_EXPERTS_PER_GROUP // 2] + experts_high[0:C.NUM_EXPERTS_PER_GROUP // 2] + consumers[0:C.NUM_CONSUMERS_PER_GROUP]
+        grouped_players = experts_low[0:number_of_low_ability_needed] + experts_high[0:number_of_high_ability_needed] + consumers[0:number_of_consumers_needed]
         return grouped_players
     
     print('not enough players yet to create a group')
