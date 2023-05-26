@@ -55,6 +55,7 @@
         margin-right: 1em;
         text-align: center;
     }
+
 </style>
 
 {{ include_sibling "InfoBox.html" }}
@@ -98,10 +99,10 @@
                                 <thead>
                                     <tr>
                                         <th colspan="2">Personal accuracy</th>
-                                        <th colspan="2">Maximum accuracy</th>
+                                        <td colspan="2">{% p.base_diagnosis_accuracy_percent %}%</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2">{% p.base_diagnosis_accuracy_percent %}%</td>
+                                        <th colspan="2">Maximum accuracy</th>
                                         <td colspan="2">{% p.total_diagnosis_accuracy_percent %}%</td>
                                     </tr>
                                 </thead>
@@ -109,21 +110,17 @@
                                 <thead>
                                     <tr>
                                         <th colspan="4">Diagnostic accuracy</th>
-                                    </tr>
-                                    <tr>
                                         <td colspan="4">{% p.total_diagnosis_accuracy_percent %}%</td>
                                     </tr>
                                 </thead>
                                 {% endif %}
                             {% endif %}
                         {% endif %}
-                        <thead>
-                            <tr>
-                            <th scope="col" colspan="2">Low-quality service</th>
-                            <th scope="col" colspan="2">High-quality service</th>
-                            </tr>
-                        </thead>
                         <tbody>
+                            <tr>
+                                <th scope="col" colspan="2">Low-quality service</th>
+                                <th scope="col" colspan="2">High-quality service</th>
+                            </tr>
                             <tr>
                                 <td>Price</td>
                                 <td>{% p.price_small_service %} Coins</td>
