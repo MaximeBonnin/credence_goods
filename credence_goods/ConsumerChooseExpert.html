@@ -86,14 +86,25 @@
                     <table class="table">
                         {% if group.treatment_skill_visible %}
                             {% if group.treatment_investment_option == "skill" %}
+                                {% if player.round_number >= C.INVESTMENT_STARTING_ROUND %}
                                 <thead>
                                     <tr>
-                                        <th colspan="4">Diagnostic accuracy</th>
+                                        <th colspan="2">Prior accuracy</th>
+                                        <td colspan="2">{% p.base_diagnosis_accuracy_percent %}%</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="4">{% p.total_diagnosis_accuracy_percent %}%</td>
+                                        <th colspan="2">Current accuracy</th>
+                                        <td colspan="2">{% p.total_diagnosis_accuracy_percent %}%</td>
                                     </tr>
                                 </thead>
+                                {% else %}
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">Diagnostic accuracy</th>
+                                        <td colspan="2">{% p.total_diagnosis_accuracy_percent %}%</td>
+                                    </tr>
+                                </thead>
+                                {% endif %}
                             {% else %}
                                 {% if player.round_number >= C.INVESTMENT_STARTING_ROUND %}
                                 <thead>
@@ -109,8 +120,8 @@
                                 {% else %}
                                 <thead>
                                     <tr>
-                                        <th colspan="4">Diagnostic accuracy</th>
-                                        <td colspan="4">{% p.total_diagnosis_accuracy_percent %}%</td>
+                                        <th colspan="2">Diagnostic accuracy</th>
+                                        <td colspan="2">{% p.total_diagnosis_accuracy_percent %}%</td>
                                     </tr>
                                 </thead>
                                 {% endif %}
