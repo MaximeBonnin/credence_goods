@@ -624,6 +624,7 @@ def group_by_arrival_time_method(subsession, waiting_players):
           f"-> {number_of_high_ability_experts_waiting}/{number_of_high_ability_needed} high-ability experts \n" + 
           f"-> {number_of_consumers_waiting}/{number_of_consumers_needed} Consumers")
     
+    # create group when all roles can be filled
     if (number_of_low_ability_experts_waiting >= number_of_low_ability_needed) and (number_of_high_ability_experts_waiting >= number_of_high_ability_needed) and (number_of_consumers_waiting >= number_of_consumers_needed):
         print('Creating group...')
         grouped_players = experts_low[0:number_of_low_ability_needed] + experts_high[0:number_of_high_ability_needed] + consumers[0:number_of_consumers_needed]
