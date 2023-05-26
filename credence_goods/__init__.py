@@ -608,12 +608,15 @@ class ExpertDiagnosisII(Page):
 def group_by_arrival_time_method(subsession, waiting_players):
 
     experts = [e for e in waiting_players if e.participant.is_expert]
+    experts_low = [l for l in experts if l.participant.ability_level == "low"]
+    experts_high = [h for h in experts if h.participant.ability_level == "high"]
+
     consumers = [c for c in waiting_players if not c.participant.is_expert]
 
     print(f"Currently waiting: {len(experts)}/{C.NUM_EXPERTS_PER_GROUP} Experts | {len(consumers)}/{C.NUM_CONSUMERS_PER_GROUP} Consumers")
-    if (len(experts) >= C.NUM_EXPERTS_PER_GROUP) and (len(consumers) >= C.NUM_CONSUMERS_PER_GROUP):
+    if (len(experts_low) >= C.NUM_EXPERTS_PER_GROUP // 2) and (len(experts_high) >= C.NUM_EXPERTS_PER_GROUP // 2) and (len(consumers) >= C.NUM_CONSUMERS_PER_GROUP):
         print('Creating group...')
-        grouped_players = experts[0:C.NUM_EXPERTS_PER_GROUP] + consumers[0:C.NUM_CONSUMERS_PER_GROUP]
+        grouped_players = experts_low[0:C.NUM_EXPERTS_PER_GROUP // 2] + experts_high[0:C.NUM_EXPERTS_PER_GROUP // 2] + consumers[0:C.NUM_CONSUMERS_PER_GROUP]
         return grouped_players
     
     print('not enough players yet to create a group')
