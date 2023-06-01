@@ -34,24 +34,24 @@ class C(BaseConstants):
     CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT = 40 # %
     CHANCE_TO_HAVE_SMALL_PROBLEM_IN_PERCENT = 100-CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT
 
-    COST_OF_PROVIDING_SMALL_SERVICE = 1     # c_k
-    COST_OF_PROVIDING_LARGE_SERVICE = 2     # c_g
+    COST_OF_PROVIDING_SMALL_SERVICE = 20     # c_k
+    COST_OF_PROVIDING_LARGE_SERVICE = 60     # c_g
 
-    PRICE_MULTIPLIER_AFTER_INVESTING = 0
+    PRICE_MULTIPLIER_AFTER_INVESTING = 1
     
     PRICE_VECTOR_OPTIONS = {                
-        "bias_small": (4,                                   # price_small
-                       4,                                   # price_large
-                       4-COST_OF_PROVIDING_SMALL_SERVICE,   # profit_small
-                       4-COST_OF_PROVIDING_LARGE_SERVICE),  # profit_large
-        "bias_large": (2, 
-                       5, 
-                       2-COST_OF_PROVIDING_SMALL_SERVICE, 
-                       5-COST_OF_PROVIDING_LARGE_SERVICE),
-        "no_bias": (3, 
-                    4, 
-                    3-COST_OF_PROVIDING_SMALL_SERVICE, 
-                    4-COST_OF_PROVIDING_LARGE_SERVICE)
+        "bias_small": (60,                                   # price_small
+                       80,                                   # price_large
+                       60-COST_OF_PROVIDING_SMALL_SERVICE,   # profit_small
+                       80-COST_OF_PROVIDING_LARGE_SERVICE),  # profit_large
+        "bias_large": (60,
+                       120,
+                       60-COST_OF_PROVIDING_SMALL_SERVICE,
+                       120-COST_OF_PROVIDING_LARGE_SERVICE),
+        "no_bias": (60,
+                    100,
+                    60-COST_OF_PROVIDING_SMALL_SERVICE,
+                    100-COST_OF_PROVIDING_LARGE_SERVICE)
     }
 
 
@@ -72,9 +72,10 @@ class C(BaseConstants):
 
     INVESTMENT_STARTING_ROUND = 2
     INVESTMENT_COST = {
-        "once": 20,
-        "repeated": 2
+        "once": 150,
+        "repeated": 10
     }
+
 
     PRICE_VECTOR_OPTIONS_MULTIPLIED = {
         "once": {                # (price_small, price_large, profit_small, profit_large)
