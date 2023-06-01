@@ -9,7 +9,7 @@ Welcome pages and general introduction
 
 class C(BaseConstants):
     NAME_IN_URL = 'credence_goods_welcome'
-    PLAYERS_PER_GROUP = 6
+    PLAYERS_PER_GROUP = 8
     NUM_ROUNDS = 1
     VALID_DEVICES = ["Laptop", "Desktop PC"]
 
