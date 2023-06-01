@@ -11,29 +11,35 @@ class C(BaseConstants):
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 1
 
-    PLAYERS_PER_GROUP = 6
+    PLAYERS_PER_GROUP =8
     TIMEOUT_IN_SECONDS = 1500               # Intro page is different
     DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS = 3 # players get excluded from the experiment if they have X number of timeouts
 
-    NUM_EXPERTS_PER_GROUP = 3                         # consumers = players - experts #TODO currently not working, every second person is set to expert
+    NUM_EXPERTS_PER_GROUP = 4                         # consumers = players - experts #TODO currently not working, every second person is set to expert
     NUM_CONSUMERS_PER_GROUP = PLAYERS_PER_GROUP - NUM_EXPERTS_PER_GROUP
 
     ENDOWMENT = 10                      #TODO maybe different for consumers and experts?
 
 
-    COST_OF_PROVIDING_SMALL_SERVICE = 1     # c_k
-    COST_OF_PROVIDING_LARGE_SERVICE = 2     # c_g
+    COST_OF_PROVIDING_SMALL_SERVICE = 20     # c_k
+    COST_OF_PROVIDING_LARGE_SERVICE = 60     # c_g
 
     CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT = 40 # %
     CHANCE_TO_HAVE_SMALL_PROBLEM_IN_PERCENT = 100-CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT
 
-    PRICE_VECTOR_OPTIONS = {                # (price_small, price_large, profit_small, profit_large)
-        "bias_small": (4, 4, 
-                       4-COST_OF_PROVIDING_SMALL_SERVICE, 4-COST_OF_PROVIDING_LARGE_SERVICE),
-        "bias_large": (2, 5, 
-                       2-COST_OF_PROVIDING_SMALL_SERVICE, 5-COST_OF_PROVIDING_LARGE_SERVICE),
-        "no_bias": (3, 4, 
-                    3-COST_OF_PROVIDING_SMALL_SERVICE, 4-COST_OF_PROVIDING_LARGE_SERVICE)
+    PRICE_VECTOR_OPTIONS = {
+        "bias_small": (60,                                   # price_small
+                       80,                                   # price_large
+                       60-COST_OF_PROVIDING_SMALL_SERVICE,   # profit_small
+                       80-COST_OF_PROVIDING_LARGE_SERVICE),  # profit_large
+        "bias_large": (60,
+                       120,
+                       60-COST_OF_PROVIDING_SMALL_SERVICE,
+                       120-COST_OF_PROVIDING_LARGE_SERVICE),
+        "no_bias": (60,
+                    100,
+                    60-COST_OF_PROVIDING_SMALL_SERVICE,
+                    100-COST_OF_PROVIDING_LARGE_SERVICE)
     }
 
     EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT = { # currently just itertools.cycle() for selection
@@ -50,9 +56,10 @@ class C(BaseConstants):
 
     INVESTMENT_STARTING_ROUND = 2
     INVESTMENT_COST = {
-        "once": 20,
-        "repeated": 2
+        "once": 150,
+        "repeated": 10
     }
+
 
 
 class Subsession(BaseSubsession):
