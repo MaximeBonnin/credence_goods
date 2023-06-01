@@ -15,18 +15,14 @@
                         {% if participant.ability_level == "high" %} signal
                         {% elif participant.ability_level == "low" %} signals {% endif %}
                         will be automatically integrated into your diagnosis.
-                        If your current amount of coins is insufficient to finance the investment, you can still invest, but you will have to incur debts.
-                        Debts will be repaid by your profits throughout the remainder of the experiment.
                         Purchasing information
                         increases your diagnostic ability to {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%. Thus, if you decide to purchase,
                         you will be able to correctly diagnose a client’s problem with a probability of {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%.</p>
-                    <p>A {% if participant.ability_level == "high" %} low-ability expert
-                        {% elif participant.ability_level == "low" %} high-ability expert {% endif %}
-                        pays the same price, but receives information about
-                        {% if participant.ability_level == "high" %} the 3rd and the 4th
-                        {% elif participant.ability_level == "low" %} only the 4th {% endif %}
-                        symptom. Therefore, after investing, all experts receive a
-                        signal that is correct with a probability of {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%, irrespective of their prior diagnostic ability.</p>
+
+                    <p> Should you decide to purchase more information, you will pay {% C.INVESTMENT_COST.repeated %} Coins for each client that approaches you. You will pay 0 Coins if
+                        no client approaches you. Importantly,
+                        your prices for both treatments also automatically increase by {% C.INVESTMENT_COST.repeated %} Coins. Therefore, your personal profit per client stays the same.</p>
+
 
                     {% else %}
                     <!-- expert | visible | skill | once -->
@@ -72,21 +68,14 @@
                         you can still decide to rely on your own diagnosis and forego the
                         {% if participant.ability_level == "high" %} 4th
                         {% elif participant.ability_level == "low" %} 3rd and 4th {% endif %}
-                        symptom as diagnosed by the algorithm.
-                        If your current amount of coins is insufficient to finance the investment, you can still invest, but you will have to incur debts.
-                        Debts will be repaid by your profits throughout the remainder of the experiment.</p>
-                    <p>A
-                        {% if participant.ability_level == "high" %} low-ability expert
-                        {% elif participant.ability_level == "low" %} high-ability expert {% endif %}
-                        pays the same price, but profits from
-                        {% if participant.ability_level == "high" %} both the information about the 3rd and the
-                        information about the 4th symptom.
-                        {% elif participant.ability_level == "low" %} only from the information about the 4th symptom. {% endif %}
-                        Therefore, after investing, all experts
-                        receive a signal that is correct with a probability of {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%,
-                        irrespective of their prior diagnostic ability.</p>
+                        symptom as diagnosed by the algorithm.</p>
 
-        
+                     <p> Should you decide to rent the algorithmic decision aid, you will pay {% C.INVESTMENT_COST.repeated %} Coins for each
+                         client that approaches you. You will pay 0 Coins if
+                        no client approaches you. Importantly,
+                        your prices for both treatments also automatically increase by {% C.INVESTMENT_COST.repeated %} Coins. Therefore, your personal profit per client stays the same.</p>
+
+
                     {% else %}
                     <!-- expert | visible | algo | once -->
                     <p>You will now have the opportunity to make one large investment into your diagnostic precision. You can decide to buy an algorithmic 
@@ -104,7 +93,7 @@
                     <p>A
                         {% if participant.ability_level == "high" %} low-ability expert
                         {% elif participant.ability_level == "low" %} high-ability expert {% endif %}
-                        pays the same price, but profits from
+                        pays the same price, but benefits from
                         {% if participant.ability_level == "high" %} both the information about the 3rd and the
                         information about the 4th symptom.
                         {% elif participant.ability_level == "low" %} only from the information about the 4th symptom. {% endif %}
@@ -127,18 +116,13 @@
                         {% if participant.ability_level == "high" %} signal
                         {% elif participant.ability_level == "low" %} signals {% endif %}
                         will be automatically integrated into your diagnosis.
-                        If your current amount of coins is insufficient to finance the investment, you can still invest, but you will have to incur debts.
-                        Debts will be repaid by your profits throughout the remainder of the experiment.
                         Purchasing information
                         increases your diagnostic ability to {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%. Thus, if you decide to purchase,
                         you will be able to correctly diagnose a client’s problem with a probability of {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%.</p>
-                    <p>A {% if participant.ability_level == "high" %} low-ability expert
-                        {% elif participant.ability_level == "low" %} high-ability expert {% endif %}
-                        pays the same price, but receives information about
-                        {% if participant.ability_level == "high" %} the 3rd and the 4th
-                        {% elif participant.ability_level == "low" %} only the 4th {% endif %}
-                        symptom. Therefore, after investing, all experts receive a
-                        signal that is correct with a probability of {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%, irrespective of their prior diagnostic ability.</p>
+
+                      <p> Should you decide to purchase more information, you will pay {% C.INVESTMENT_COST.repeated %} Coins for each client that approaches you. You will pay 0 Coins if
+                        no client approaches you. Importantly,
+                        your prices for both treatments also automatically increase by {% C.INVESTMENT_COST.repeated %} Coins. Therefore, your personal profit per client stays the same.</p>
 
                     {% else %}
                     <!-- expert | not visible | skill | once -->
@@ -185,19 +169,12 @@
                         you can still decide to rely on your own diagnosis and forego the
                         {% if participant.ability_level == "high" %} 4th
                         {% elif participant.ability_level == "low" %} 3rd and 4th {% endif %}
-                        symptom as diagnosed by the algorithm.
-                        If your current amount of coins is insufficient to finance the investment, you can still invest, but you will have to incur debts.
-                        Debts will be repaid by your profits throughout the remainder of the experiment.</p>
-                    <p>A
-                        {% if participant.ability_level == "high" %} low-ability expert
-                        {% elif participant.ability_level == "low" %} high-ability expert {% endif %}
-                        pays the same price, but profits from
-                        {% if participant.ability_level == "high" %} both the information about the 3rd and the
-                        information about the 4th symptom.
-                        {% elif participant.ability_level == "low" %} only from the information about the 4th symptom. {% endif %}
-                        Therefore, after investing, all experts
-                        receive a signal that is correct with a probability of {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%,
-                        irrespective of their prior diagnostic ability.</p>
+                        symptom as diagnosed by the algorithm. </p>
+
+                     <p> Should you decide to rent the algorithmic decision aid, you will pay {% C.INVESTMENT_COST.repeated %} Coins for each
+                         client that approaches you. You will pay 0 Coins if
+                        no client approaches you. Importantly,
+                        your prices for both treatments also automatically increase by {% C.INVESTMENT_COST.repeated %} Coins. Therefore, your personal profit per client stays the same.</p>
 
 
                     {% else %}
@@ -216,7 +193,7 @@
                     <p>A
                         {% if participant.ability_level == "high" %} low-ability expert
                         {% elif participant.ability_level == "low" %} high-ability expert {% endif %}
-                        pays the same price, but profits from
+                        pays the same price, but benefits from
                         {% if participant.ability_level == "high" %} both the information about the 3rd and the
                         information about the 4th symptom.
                         {% elif participant.ability_level == "low" %} only from the information about the 4th symptom. {% endif %}
@@ -237,12 +214,13 @@
                     <p>For the remainder of this experiment, all experts will have the 
                         opportunity to invest into their diagnostic ability. Each round, 
                         experts can decide to increase their diagnostic ability to {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%
-                        by paying <b>{% C.INVESTMENT_COST.repeated %} Coins</b>. An expert that decided to improve their
-                        diagnosis in a given round thus correctly diagnoses your problem 
-                        with a probability of {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%.</p>
-                    <p>Low-ability experts and high-ability experts pay the same price. After 
-                        investing, all expert types receive a signal that is correct with a probability of 
-                        {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%, irrespective of their prior diagnostic ability.</p>
+                        by paying <b>{% C.INVESTMENT_COST.repeated %} Coins</b>. </p>
+
+                    <p> Experts who decide to purchase more information pay {% C.INVESTMENT_COST.repeated %} Coins for each client that approaches them. Therefore,
+                    they pay 0 Coins if no client approaches them.</p>
+
+                    <p> Importantly, the prices for both treatments automatically increase by {% C.INVESTMENT_COST.repeated %} Coins if an expert decided to invest.
+                        Therefore, clients bear all investment costs. </p>
 
         
                     {% else %}
@@ -264,12 +242,18 @@
                         algorithmic decision aid</b> that can improve the accuracy of their diagnosis. Renting the decision
                         aid costs an expert <b>{% C.INVESTMENT_COST.repeated %} Coins per round</b>. However, if the expert correctly utilizes the algorithm,
                         he or she increases their diagnostic ability for that round to {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%.
-                        Thus, an expert that decides to rent the
-                        algorithmic decision aid in a given round, and utilizes it correctly, diagnoses your problem with 
-                        a probability of {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%.</p>
-                    <p>The algorithmic decision aid can improve a diagnosis by identifying symptoms that determine whether 
+                    </p>
+
+                    <p>The algorithmic decision aid can improve a diagnosis by identifying symptoms that determine whether
                         you have a large or a small problem. These symptoms have been allocated to you at the beginning of 
                         the experiment. As already mentioned in the beginning, you will never be able to observe them.</p>
+
+                    <p> Experts who decide to rent the decision aid pay {% C.INVESTMENT_COST.repeated %} Coins for each client that approaches them. Therefore,
+                    they pay 0 Coins if no client approaches them.</p>
+
+                    <p> Importantly, the prices for both treatments automatically increase by {% C.INVESTMENT_COST.repeated %} Coins if an expert decided to pay for the algorithmic decision aid.
+                        Therefore, clients bear all renting costs. </p>
+
 
                     {% else %}
                     <!-- consumer | visible | algo | once -->
@@ -295,10 +279,13 @@
                     <p>For the remainder of this experiment, all experts will 
                         have the opportunity to invest into their diagnostic ability. 
                         Each round, experts can decide to increase their diagnostic ability to {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%
-                        by paying <b>{% C.INVESTMENT_COST.repeated %} Coins</b>. An expert that decided to improve their diagnosis in a given
-                        round thus correctly diagnoses your problem with a probability of {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}% .</p>
-                    <p>Low-ability experts and high-ability experts pay the same price. After investing, 
-                        all expert types receive a signal that is correct with a probability of {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%, irrespective of their prior diagnostic ability.</p>
+                        by paying <b>{% C.INVESTMENT_COST.repeated %} Coins</b>.</p>
+
+                    <p> Experts who decide to purchase more information pay {% C.INVESTMENT_COST.repeated %} Coins for each client that approaches them. Therefore,
+                    they pay 0 Coins if no client approaches them.</p>
+
+                    <p> Importantly, the prices for both treatments automatically increase by {% C.INVESTMENT_COST.repeated %} Coins if an expert decided to invest.
+                        Therefore, clients bear all investment costs. </p>
 
                     {% else %}
                     <!-- consumer | not visible | skill | once -->
@@ -317,12 +304,17 @@
                     <p>For the remainder of this experiment, all experts will have the opportunity to <b>rent an algorithmic decision aid</b> that can
                         improve the accuracy of their diagnosis. Renting the decision aid costs an expert <b>{% C.INVESTMENT_COST.repeated %} Coins per round</b>. However,
                         if the expert correctly utilizes the algorithm, he or she increases their diagnostic ability to {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%.
-                        Thus, an
-                        expert that decides to rent the algorithmic decision aid in a given round, and utilizes it correctly, diagnoses 
-                        your problem with a probability of {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%.</p>
-                    <p>The algorithmic decision aid can improve a diagnosis by identifying symptoms that determine whether you have a large 
+                       </p>
+
+                    <p>The algorithmic decision aid can improve a diagnosis by identifying symptoms that determine whether you have a large
                         or a small problem. These symptoms have been allocated to you at the beginning of the experiment. As already 
                         mentioned in the beginning, you will never be able to observe them.</p>
+
+                    <p> Experts who decide to rent the decision aid pay {% C.INVESTMENT_COST.repeated %} Coins for each client that approaches them. Therefore,
+                    they pay 0 Coins if no client approaches them.</p>
+
+                    <p> Importantly, the prices for both treatments automatically increase by {% C.INVESTMENT_COST.repeated %} Coins if an expert decided to pay for the algorithmic decision aid.
+                        Therefore, clients bear all renting costs. </p>
 
                     {% else %}
                     <!-- consumer | not visible | algo | once -->
