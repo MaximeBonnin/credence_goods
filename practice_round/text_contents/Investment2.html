@@ -1,21 +1,25 @@
       {% if player.is_expert %}
-        <!-- expert explanation -->
+       <!-- expert explanation -->
             {% if group.treatment_skill_visible %}
             <!-- expert | visible -->
                 {% if group.treatment_investment_option == "skill" %}
                 <!-- expert | visible | skill -->
                     {% if group.treatment_investment_frequency == "repeated" %}
                     <!-- expert | visible | skill | repeated-->
-                    <p> All clients are informed about this new opportunity to purchase more information. Clients can
-                        observe whether an expert decided to purchase the new information. Clients also still observe (1) 
-                        each expert’s original ability level, and (2) their current ability level that depends on their investment. </p>
-                    <p> For example, should you decide not to purchase more information, clients see that your ability level is
-                        {% if participant.ability_level == "high" %} {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.high %}%.
-                        {% elif participant.ability_level == "low" %} {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}%. {% endif %}
-                        If you decide to buy more information in a round, clients see that your current
-                        ability level is {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%, and that your prior ability level was
-                        {% if participant.ability_level == "high" %} {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.high %}%.
-                        {% elif participant.ability_level == "low" %} {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}%. {% endif %} </p>
+
+                      <p>A {% if participant.ability_level == "high" %} low-ability expert
+                        {% elif participant.ability_level == "low" %} high-ability expert {% endif %}
+                        pays the same price, but receives information about
+                        {% if participant.ability_level == "high" %} the 3rd and the 4th
+                        {% elif participant.ability_level == "low" %} only the 4th {% endif %}
+                        symptom. Therefore, after investing, all experts receive a
+                        signal that is correct with a probability of {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%, irrespective of their prior diagnostic ability.</p>
+
+                     <p> All clients are informed about this new opportunity to purchase more information. They also learn that they bear all investment costs through higher prices. </p>
+
+                      <p>When deciding which expert to approach, clients observe (1) whether an expert decided to purchase the new information, (2) each expert's current prices,
+                          (3) each expert’s original ability level, and (4) each expert's current ability level that depends on their investment. </p>
+
         
                     {% else %}
                     <!-- expert | visible | skill | once -->
@@ -39,13 +43,26 @@
                 <!-- expert | visible | algo -->
                     {% if group.treatment_investment_frequency == "repeated" %}
                     <!-- expert | visible | algo | repeated-->
+                    <p>A
+                        {% if participant.ability_level == "high" %} low-ability expert
+                        {% elif participant.ability_level == "low" %} high-ability expert {% endif %}
+                        pays the same price for the decision aid, but benefits from
+                        {% if participant.ability_level == "high" %} both the information about the 3rd and the
+                        information about the 4th symptom.
+                        {% elif participant.ability_level == "low" %} only from the information about the 4th symptom. {% endif %}
+                        Therefore, after using the decision aid, all experts
+                        receive a signal that is correct with a probability of {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%,
+                        irrespective of their prior diagnostic ability.</p>
 
-                    <p> Importantly, all clients are also informed about the opportunity to rent an algorithmic decision aid. Clients can observe whether
-                        an expert decided to rent the decision aid. Clients also observe (1) each expert’s personal ability level, and (2) the expert’s 
-                        current maximum ability level that that depends on their renting decision.</p>
+                    <p> All clients are informed about the opportunity to rent an algorithmic decision aid. They also learn that they bear all investment costs through higher prices. </p>
+
+                    <p> When deciding which expert to approach, clients observe (1) whether an expert decided to rent the decision aid, (2) each expert's current prices,
+                          (3) each expert’s personal ability level, and (4) each expert's current maximum ability level that depends on their renting decision. </p>
+
                     <p> Additionally, clients learn that renting the algorithmic
                         decision aid does not automatically increase an expert’s diagnostic ability, but that experts need to correctly utilize it. Clients also learn that an expert
-                        can decide not to use the decision aid after renting it.</p>
+                        can decide not to use the decision aid after renting it. </p>
+
                     <p> For example, should you decide not to rent the decision aid, clients see that your ability level is
                         {% if participant.ability_level == "high" %} {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.high %}%.
                         {% elif participant.ability_level == "low" %} {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}%. {% endif %}
@@ -83,18 +100,25 @@
                 <!-- expert | not visible | skill -->
                     {% if group.treatment_investment_frequency == "repeated" %}
                     <!-- expert | not visible | skill | repeated-->
-                    <p> All clients are informed about this new opportunity to purchase more information. Clients can observe whether
-                        an expert decided to purchase the new information. Clients also learn that an expert has a diagnostic ability of
+                   <p>A {% if participant.ability_level == "high" %} low-ability expert
+                        {% elif participant.ability_level == "low" %} high-ability expert {% endif %}
+                        pays the same price, but receives information about
+                        {% if participant.ability_level == "high" %} the 3rd and the 4th
+                        {% elif participant.ability_level == "low" %} only the 4th {% endif %}
+                        symptom. Therefore, after investing, all experts receive a
+                        signal that is correct with a probability of {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%, irrespective of their prior diagnostic ability.</p>
+
+                     <p> All clients are informed about this new opportunity to purchase more information. They also learn that they bear all investment costs through higher prices. </p>
+
+                      <p>When deciding which expert to approach, clients observe (1) whether an expert decided to purchase the new information and (2) each expert's current prices.
+                          Clients also learn that an expert has a diagnostic ability of
                         {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}% after purchasing more information in a round.
                         Thus, clients <i> know about an expert’s current ability level if
                         the expert decided to invest. </i> However, clients still <i> do not observe an expert’s original ability </i> level. </p>
-                    <p> For example, should you decide not to purchase more information in a given round, clients do not observe your ability level and can
+
+                    <p> Therefore, should you decide <i> not to purchase more information </i> in a given round, clients do not observe your ability level and can
                         only use the information they gathered during the prior rounds. </p>
-                    <p> If you purchase more information, clients
-                        know that your current ability level for this round is {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%,
-                        but not that your original ability level is
-                        {% if participant.ability_level == "high" %} {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.high %}%.
-                        {% elif participant.ability_level == "low" %} {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}%. {% endif %}</p>
+
 
                     {% else %}
                     <!-- expert | not visible | skill | once -->
@@ -118,18 +142,34 @@
                 <!-- expert | not visible | algo -->
                     {% if group.treatment_investment_frequency == "repeated" %}
                     <!-- expert | not visible | algo | repeated-->
+                    <p>A
+                        {% if participant.ability_level == "high" %} low-ability expert
+                        {% elif participant.ability_level == "low" %} high-ability expert {% endif %}
+                        pays the same price for the decision aid, but benefits from
+                        {% if participant.ability_level == "high" %} both the information about the 3rd and the
+                        information about the 4th symptom.
+                        {% elif participant.ability_level == "low" %} only from the information about the 4th symptom. {% endif %}
+                        Therefore, after using the decision aid, all experts
+                        receive a signal that is correct with a probability of {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%,
+                        irrespective of their prior diagnostic ability.</p>
 
-                    <p> Importantly, all clients are also informed about the opportunity to rent an algorithmic decision aid.
-                        Clients can observe whether an expert decided to rent the decision aid. Clients also learn that an expert 
-                        has a <i> maximum diagnostic ability </i> of {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}% after renting
-                        the algorithmic decision aid. Thus, clients know about
-                        an expert’s <i> current maximum ability </i> level if the expert decided to invest. However, clients still do not
-                        observe an expert’s <i> personal </i> ability level.</p>
-                    <p> Additionally, clients learn that renting the algorithmic decision
-                        aid does not automatically increase an expert’s diagnostic ability, but that experts need to correctly utilize it. Clients also learn that an expert
-                        can decide not to use the decision aid after renting it.</p>
+                    <p> All clients are informed about the opportunity to rent an algorithmic decision aid. They also learn that they bear all investment costs through higher prices. </p>
+
+                     <p>When deciding which expert to approach, clients observe (1) whether an expert decided to rent the decision aid and (2) each expert's current prices.
+                          Clients also learn that an expert
+                          has a <i> maximum diagnostic ability </i> of {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}% after renting
+                          the algorithmic decision aid.
+                          Thus, clients know about
+                          an expert’s <i> current maximum ability </i> level if the expert decided to invest. However, clients still do not
+                          observe an expert’s <i> personal </i> ability level.</p>
+
+                    <p> Additionally, clients learn that renting the algorithmic
+                        decision aid does not automatically increase an expert’s diagnostic ability, but that experts need to correctly utilize it. Clients also learn that an expert
+                        can decide not to use the decision aid after renting it. </p>
+
                     <p> For example, should you decide not to rent the decision aid, clients do not observe your ability level and can only use
                         the information they gathered during the prior rounds. </p>
+
                     <p> If you decide to rent the algorithmic decision aid in a given round,
                         clients know that your current maximum ability level for this round is {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%,
                         but not that your personal ability level is
@@ -167,6 +207,12 @@
                 <!-- consumer | visible | skill -->
                     {% if group.treatment_investment_frequency == "repeated" %}
                     <!-- consumer | visible | skill | repeated-->
+
+                    <p>Low-ability experts and high-ability experts pay the same price for the additional information. </p>
+                    <p> After
+                        investing, all expert types receive a signal that is correct with a probability of
+                        {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%, irrespective of their prior diagnostic ability.</p>
+
                     <p>You will be able to observe whether an expert decided to invest. You will also see (1)
                         the expert’s current ability level and (2) the expert’s prior ability level.</p>
         
@@ -184,11 +230,13 @@
                     {% if group.treatment_investment_frequency == "repeated" %}
                     <!-- consumer | visible | algo | repeated-->
                     <p>Low-ability experts and high-ability experts pay the same price for the decision aid.</p>
+
                     <p>After investing,
                         all expert types can utilize the additional diagnostic information from the algorithm to increase their
                         maximum diagnostic ability to {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%.
                         Thus, the best-possible
                         diagnosis is the same for the low-ability expert and the high-ability expert.</p>
+
                     <p>You will be able to observe whether an expert decided to rent the algorithmic decision aid in a given round. 
                         You will also see (1) the expert’s current maximum ability level and (2) the expert’s personal ability level.
                         Note that an expert does not have to use the algorithmic decision aid after renting it in a given round.</p>
@@ -215,6 +263,12 @@
                 <!-- consumer | not visible | skill -->
                     {% if group.treatment_investment_frequency == "repeated" %}
                     <!-- consumer | not visible | skill | repeated-->
+                     <p>Low-ability experts and high-ability experts pay the same price for the additional information. </p>
+
+                     <p>After investing,
+                        all expert types receive a signal that is correct with a probability of {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%,
+                         irrespective of their prior diagnostic ability.</p>
+
                     <p>You will be able to observe whether an expert decided to invest in any given round.
                         However, you will not be able to see the expert’s prior ability level. </p>
         
@@ -232,14 +286,16 @@
                     {% if group.treatment_investment_frequency == "repeated" %}
                     <!-- consumer | not visible | algo | repeated-->
                     <p>Low-ability experts and high-ability experts pay the same price for the decision aid.</p>
+
                     <p>After investing,
                         all expert types can utilize the additional diagnostic information from the algorithm to increase their
                         maximum diagnostic ability to {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%.
                         Thus, the best-possible
                         diagnosis is the same for the low-ability expert and the high-ability expert.</p>
-                    <p>You will be able to observe whether an expert decided to invest into the algorithmic decision aid in any given round. 
+
+                    <p> You will be able to observe whether an expert decided to invest into the algorithmic decision aid in any given round.
                         However, you will not be able to see the expert’s personal ability level.
-                    Note that an expert does not have to use the algorithmic decision aid after renting it in a given round.</p>
+                        Note that an expert does not have to use the algorithmic decision aid after renting it in a given round.</p>
         
                     {% else %}
                     <!-- consumer | not visible | algo | once -->
