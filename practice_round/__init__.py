@@ -61,7 +61,6 @@ class C(BaseConstants):
     }
 
 
-
 class Subsession(BaseSubsession):
     pass
 
@@ -92,6 +91,9 @@ class IntroductionII(Page):
 class Role(Page):
     pass
 
+class Role2(Page):
+    pass
+
 class ExperimentalProcedure(Page):
     pass
 
@@ -99,6 +101,9 @@ class SettingPrices(Page):
     pass
 
 class Diagnosis(Page):
+    pass
+
+class Expert_Visible(Page):
     pass
 
 class Payoffs(Page):
@@ -171,9 +176,11 @@ page_sequence = [
     Introduction,
     IntroductionII,
     Role,
+    Role2,
     ExperimentalProcedure,
     SettingPrices,
     Diagnosis,
+    Expert_Visible,
     Payoffs,
     RoundOverview,
     SimulatedConsumerChooseExpert,
