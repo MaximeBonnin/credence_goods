@@ -17,7 +17,7 @@
                 <th class="tg-0pky">Round</th>
                 <th class="tg-0pky">Number of services provided</th>
                 
-                <th class="tg-0pky">Total Coins at end of round</th>
+                <th class="tg-0pky">Coins earned</th>
               </tr>
               <tr>
                 <td class="tg-0pky">practice</td>
@@ -32,7 +32,7 @@
                         {% C.PRICE_VECTOR_OPTIONS.no_bias.3 %}
                     {% endif %}
                         
-                    coins</td>
+                    </td>
                         
               </tr>
             </tbody>
@@ -59,7 +59,7 @@
               <tr>
                 <td class="tg-0pky">practice</td>
                 <td class="tg-0pky">{% player.field_maybe_none('expert_chosen_name') %}</td>
-                <td class="tg-0pky"><span id="coins"></span> coins</td>
+                <td class="tg-0pky"><span id="coins"></span></td>
               </tr>
             </tbody>
             </table>
@@ -77,7 +77,10 @@
     coins = parseInt("{% C.CONSUMER_PAYOFFS.problem_solved %}") - parseInt("{% C.PRICE_VECTOR_OPTIONS.bias_large.1 %}");
   } else if ("{% player.field_maybe_none('expert_chosen_name') %}" == "C") {
     coins = parseInt("{% C.CONSUMER_PAYOFFS.problem_solved %}") - parseInt("{% C.PRICE_VECTOR_OPTIONS.no_bias.1 %}");
+  } else if ("{% player.field_maybe_none('expert_chosen_name') %}" == "D") {
+    coins = parseInt("{% C.CONSUMER_PAYOFFS.problem_solved %}") - parseInt("{% C.PRICE_VECTOR_OPTIONS.bias_large.1 %}");
   };
+  
   document.getElementById("coins").innerHTML = coins;
 </script>
 <p></p>
