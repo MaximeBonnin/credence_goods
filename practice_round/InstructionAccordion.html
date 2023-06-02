@@ -56,50 +56,64 @@
                 </div>
 
                 <input type="checkbox" id="title3" />
-                <label for="title3" id="Role" hidden>Role</label>
+                <label for="title3" id="Role" hidden>Group and Roles</label>
                 
                 <div class="content">
                     {{ include 'practice_round/text_contents/Role.html' }}
                 </div>
 
                 <input type="checkbox" id="title4" />
-                <label for="title4" id="ExperimentalProcedure" hidden>Experimental Procedure</label>
+                <label for="title4" id="Role2" hidden>Your Role</label>
+
+                <div class="content">
+                    {{ include 'practice_round/text_contents/Role2.html' }}
+                </div>
+
+                <input type="checkbox" id="title5" />
+                <label for="title5" id="ExperimentalProcedure" hidden>Experimental Procedure</label>
                 
                 <div class="content">
                     {{ include 'practice_round/text_contents/ExperimentalProcedure.html' }}
                 </div>
 
-                <input type="checkbox" id="title5" />
-                <label for="title5" id="SettingPrices" hidden>Setting Prices</label>
+                <input type="checkbox" id="title6" />
+                <label for="title6" id="SettingPrices" hidden>Prices</label>
                 
                 <div class="content">
                     {{ include 'practice_round/text_contents/SettingPrices.html' }}
                 </div>
 
-                <input type="checkbox" id="title6" />
-                <label for="title6" id="Diagnosis" hidden>Diagnosis</label>
+                <input type="checkbox" id="title7" />
+                <label for="title7" id="Diagnosis" hidden>Diagnosis</label>
                 
                 <div class="content">
                     {{ include 'practice_round/text_contents/Diagnosis.html' }}
                 </div>
 
-                <input type="checkbox" id="title7" />
-                <label for="title7" id="Payoffs" hidden>Payoffs</label>
+                <input type="checkbox" id="title8" />
+                <label for="title8" id="Expert_Visible" hidden>Expert Ability Type</label>
+
+                <div class="content">
+                    {{ include 'practice_round/text_contents/Expert_Visible.html' }}
+                </div>
+
+                <input type="checkbox" id="title9" />
+                <label for="title9" id="Payoffs" hidden>Payoffs</label>
                 
                 <div class="content">
                     {{ include 'practice_round/text_contents/Payoffs.html' }}
                 </div>
 
                 {% if player.round_number >= C.INVESTMENT_STARTING_ROUND %}
-                <input type="checkbox" id="title8" />
-                <label for="title8" id="Payoffs" >Investment</label>
+                <input type="checkbox" id="title10" />
+                <label for="title10" id="Investment" >Investment</label>
                 
                 <div class="content">
                     {{ include 'practice_round/text_contents/Investment.html' }}
                 </div>
                 
-                <input type="checkbox" id="title9" />
-                <label for="title9" id="investment2" >Investment2</label>
+                <input type="checkbox" id="title11" />
+                <label for="title11" id="investment2" >Investment2</label>
 
                 <div class="content">
                     {{ include 'practice_round/text_contents/Investment2.html' }}
@@ -111,7 +125,7 @@
 </div>
 
 <script>
-    page_sequence = ["Introduction", "IntroductionII", "Role", "ExperimentalProcedure", "SettingPrices", "Diagnosis", "Payoffs"];
+    page_sequence = ["Introduction", "IntroductionII", "Role", "Role2", "ExperimentalProcedure", "SettingPrices", "Diagnosis", "Expert_Visible", "Payoffs"];
     current_page = "{% participant._current_page_name %}";
     console.log("Current page:", current_page);
     

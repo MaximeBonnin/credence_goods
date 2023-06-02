@@ -1,6 +1,3 @@
-{% if participant.treatment_skill_visible %}
-
-
 {% if participant.is_expert %}
 <p>Each round follows the same basic sequence of decisions. </p>
 
@@ -9,14 +6,13 @@
     about which problem they actually have. </p>
 
 <p> In order to solve the problem, a client
-    needs to approach an expert. Alternatively, each client can also choose not to 
-    enter the market, and avoid interacting with an expert. If a client decides to
-    enter the market, he or she can choose one of {% C.NUM_EXPERTS_PER_GROUP %} experts. If the chosen expert
+    needs to approach an expert. Alternatively, each client can also choose to approach no expert, and earn an outside-payoff of 10 Coins. If a client decides to
+    approach an expert, he or she can choose any one of the {% C.NUM_EXPERTS_PER_GROUP %} experts. If the chosen expert
         successfully solves the client’s problem, the client receives <b> {% C.CONSUMER_PAYOFFS.problem_solved %} Coins </b> for that
         round. If the problem is not solved, the client does not receive anything. </p>
 
 <p> Irrespective of the outcome, the client has to pay the price chosen by the expert.
-    All prices by each expert and their respective ability level are visible to the 
+    All prices by each expert are visible to the
     client when deciding which expert to approach.</p>
 
 <p> Each round, the <b>expert’s (your) job is to diagnose the client’s problem and treat
@@ -33,13 +29,14 @@
 <p>Each round, clients (you) receive either a <b> big problem </b> with a probability of {% C.CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT %}%, or
     a <b>small problem</b> with a probability of {% C.CHANCE_TO_HAVE_SMALL_PROBLEM_IN_PERCENT %}%. You will never be informed about which
     problem you actually have. In order to solve the problem, you need to approach an 
-    expert. Alternatively, you (and all other clients) can also choose not to enter 
-    the market, and avoid interacting with an expert. </p>
-<p> If you decide to enter the market,
-    you choose one of the {% C.NUM_EXPERTS_PER_GROUP %} experts. If the chosen expert successfully solves your problem,
+    expert. Alternatively, you can also choose to approach no expert and earn an outside-payoff of 10 Coins. </p>
+
+<p> If you decide to approach an expert,
+    you can choose any one of the {% C.NUM_EXPERTS_PER_GROUP %} experts. If the chosen expert successfully solves your problem,
     you receive <b> {% C.CONSUMER_PAYOFFS.problem_solved %} Coins </b> for that round. If the problem is not solved, you receive nothing. </p>
-<p> Irrespective of the outcome, you have to pay the treatment-price as chosen and posted by
-    the expert. All prices by each expert and each expert’s respective ability level are visible 
+
+<p> Irrespective of the outcome, you have to pay the price as chosen and posted by
+    the expert. All prices by each expert are visible
     to you when deciding which expert to approach.</p>
 
 <p>Each round, the expert’s job is to diagnose the client’s problem and treat them. Experts can
@@ -50,58 +47,3 @@
 
 {% endif %}
 
-
-{% else %}
-
-
-{% if participant.is_expert %}
-<p>Each round follows the same basic sequence of decisions. </p>
-
-<p>Each round, clients receive either a <b> big problem </b> with a probability of {% C.CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT %}%,
-    or a <b> small problem </b> with a probability of {% C.CHANCE_TO_HAVE_SMALL_PROBLEM_IN_PERCENT %}%. Clients will never be informed
-    about which problem they actually have. </p>
-
-<p> In order to solve the problem, a client
-    needs to approach an expert. Alternatively, each client can also choose not to
-    enter the market, and avoid interacting with an expert. If a client decides to
-    enter the market, he or she can choose one of {% C.NUM_EXPERTS_PER_GROUP %} experts. If the chosen expert
-        successfully solves the client’s problem, the client receives <b> {% C.CONSUMER_PAYOFFS.problem_solved %} Coins </b> for that
-        round. If the problem is not solved, the client does not receive anything. </p>
-
-<p> Irrespective of the outcome, the client has to pay the price chosen by the expert.
-    All prices by each expert are visible to the client when deciding which expert to approach.</p>
-
-<p> Each round, the <b>expert’s (your) job is to diagnose the client’s problem and treat
-    them</b>. You can either choose a low-quality treatment, or a high-quality treatment.
-    The low-quality treatment only solves the small problem of the client. The high-quality
-    treatment solves both the small problem and the big problem. You always have to pay
-    <b> {% C.COST_OF_PROVIDING_SMALL_SERVICE %} Coins </b> for the low-quality treatment, and <b> {% C.COST_OF_PROVIDING_LARGE_SERVICE %} Coins </b> for the high-quality treatment.</p>
-
-
-
-
-{% else %}
-<p>Each round follows the same basic sequence of decisions. </p>
-
-<p>Each round, clients (you) receive either a <b> big problem </b> with a probability of {% C.CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT %}%, or
-    a <b>small problem</b> with a probability of {% C.CHANCE_TO_HAVE_SMALL_PROBLEM_IN_PERCENT %}%. You will never be informed about which
-    problem you actually have. In order to solve the problem, you need to approach an
-    expert. Alternatively, you (and all other clients) can also choose not to enter
-    the market, and avoid interacting with an expert. </p>
-<p> If you decide to enter the market,
-    you choose one of the {% C.NUM_EXPERTS_PER_GROUP %} experts. If the chosen expert successfully solves your problem,
-    you receive <b> {% C.CONSUMER_PAYOFFS.problem_solved %} Coins </b> for that round. If the problem is not solved, you receive nothing. </p>
-<p> Irrespective of the outcome, you have to pay the treatment-price as chosen and posted by
-    the expert. All prices by each expert are visible
-    to you when deciding which expert to approach.</p>
-
-<p>Each round, the expert’s job is to diagnose the client’s problem and treat them. Experts can
-    either choose a low-quality treatment, or a high-quality treatment. <b>The low-quality treatment
-    only solves the small problem of the client. The high-quality treatment solves both the small
-        problem and the big problem. </b> Experts always have to pay <b> {% C.COST_OF_PROVIDING_SMALL_SERVICE %} Coins </b> for the low-quality treatment,
-    and <b> {% C.COST_OF_PROVIDING_LARGE_SERVICE %} Coins </b> for the high-quality treatment.</p>
-
-{% endif %}
-
-
-{% endif %}

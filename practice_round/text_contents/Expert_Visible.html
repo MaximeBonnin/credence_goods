@@ -1,0 +1,38 @@
+{% if participant.treatment_skill_visible %}
+
+
+{% if participant.is_expert %}
+
+<p> When deciding which expert to approach, clients observe each expert's ability level. This means that all clients observe that you are a {% participant.ability_level %}-ability expert
+and therefore correctly diagnose their problem with a probability of {% if participant.ability_level == "low" %} {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}%.
+    {% else %} {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.high %}%. {% endif %} </p>
+
+
+{% else %}
+
+<p> When deciding which expert to approach, you observe each expert's ability level. This means that you see whether an expert is a high-ability expert or a low-ability expert. </p>
+
+<p> Experts know that you can observe their ability.</p>
+
+{% endif %}
+
+
+{% else %}
+{% if participant.is_expert %}
+
+<p> Clients cannot observe any expert's ability level. This means that no client can observe that you are
+a {% participant.ability_level %}-ability expert.
+    However, clients may be able to learn something about your ability type, based on their experience and your decision throughout this experiment. </p>
+<p> Additionally, all clients know about the probabilities for each expert to be either of high-ability (50%) or low-ability (50%) type.</p>
+
+{% else %}
+
+<p>You cannot observe the ability level of any individual expert. You only know that for any expert,
+    the probability that they are a high-ability expert is 50% and the probability that they are a low-ability expert is 50% </p>
+<p> Additionally, you may be able to infer an expert’s ability level by looking at their actions throughout the experiment. Experts know
+    that you cannot see their ability.</p>
+
+{% endif %}
+
+
+{% endif %}

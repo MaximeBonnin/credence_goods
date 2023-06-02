@@ -1,62 +1,17 @@
-<p>In this experiment, {% C.NUM_EXPERTS_PER_GROUP %} experts interact with {% C.NUM_CONSUMERS_PER_GROUP %} clients.
-    <b>You have been randomly assigned the role of {% if participant.is_expert %} expert{%else %} client{% endif %}</b>.
-    Your role determines your decisions throughout the experiment.
+<p>In this experiment, participants interact in groups of {% C.PLAYERS_PER_GROUP %}. There are three roles:
+<ul>
+  <li>high-ability experts,</li>
+  <li>low-ability experts,</li>
+  <li>clients.</li>
+</ul>
+
+    A group consists of {% C.NUM_EXPERTS_PER_GROUP %} experts and {% C.NUM_CONSUMERS_PER_GROUP %} clients.
+    Each expert has a 50% probability to be a high-ability expert, and a 50% probability to be a low-ability expert. Therefore, on average, there are 2 high-ability experts,
+    2 low-ability experts, and 4 clients. </p>
+
+<p> All participants are randomly assigned one role. They keep that role for the entirety of the experiment. The experiment consists of 25 rounds. </p>
+
+
+<p> Your role determines your decisions throughout the experiment.
     However, to make informed choices that determine your bonus payoff, you need
     to understand both roles. </p>
-
-{% if participant.treatment_skill_visible %}
-
-{% if participant.is_expert %}
-
-    <p> There are two types of expert.
-    A high-ability expert, and a low-ability expert. The probability that an expert 
-    is a high-ability expert is 50% and the probability that an expert is a low-ability 
-    expert is 50%. These probabilities are common knowledge, and clients also know them. </p>
-
-    <p> <b>You have been randomly assigned to be a {% participant.ability_level %}-ability expert</b>. You keep that role for the entire
-    experiment. All clients can observe your ability level, as well as the ability level of all other experts. </p>
-    <p> The experiment consists of
-    25 rounds.</p>
-
-{% else %}
-
-    <p>
-    There are two types of expert. A high-ability expert, and a low-ability expert. 
-    For any expert, the probability that they are a high-ability expert is 50% and 
-    the probability that they are a low-ability expert is 50%. </p>
-
-    <p> You will always be
-    able to observe the ability level of each expert. Experts know that you can observe their ability. The experiment consists of
-    25 rounds.
-
-{% endif %}
-    
-{% else %}
-   {% if participant.is_expert %}
-
-    <p> There are two types of expert.
-    A high-ability expert, and a low-ability expert. The probability that an expert 
-    is a high-ability expert is 50% and the probability that an expert is a low-ability 
-    expert is 50%. </p>
-
-    <p> <b>You have been randomly assigned to be a {% participant.ability_level %}-ability expert</b>.
-    Importantly, your ability is private information, and no client can ever observe your ability level, nor can they observe the ability level of any other expert.
-    However, clients may be able to guess your ability type, based on their experience and your decision throughout this experiment.  
-    Also, all clients know about the probabilities for each expert to be either of high-ability (50%) or low-ability (50%) type. </p>
-
-    <p> The experiment consists of 25 rounds. </p>
-    
-    {% else %}
-
-    <p> There are two types of expert. A high-ability expert, and a low-ability expert.
-    However, you cannot observe the ability level of any individual expert. </p>
-
-<p> You only know that for any expert, the probability that they are a <b> high-ability expert is 50% </b> and the probability that they are a <b> low-ability expert is 50% </b>.
-    Additionally, you may be able to infer an expert’s ability level by looking at their actions throughout the experiment.
-    Experts know that you cannot observe their ability. The experiment consists of 25 rounds. </p>
-    
-    {% endif %} 
-    
-    
-{% endif %}    
-    
