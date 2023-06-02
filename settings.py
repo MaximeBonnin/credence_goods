@@ -20,7 +20,7 @@ SESSION_CONFIGS = [
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = dict(
-    real_world_currency_per_point=0.10, participation_fee=10.00, doc=""
+    real_world_currency_per_point=0.10, participation_fee=10.00, doc="", treatment_investment_frequency="random"
 )
 
 PARTICIPANT_FIELDS = ['treatment_skill_visible', "is_expert", "number_of_timeouts", "is_dropout", "ability_level", "randomized_others_in_group"]
