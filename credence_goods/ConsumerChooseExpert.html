@@ -93,19 +93,19 @@
                                 {% if player.round_number >= C.INVESTMENT_STARTING_ROUND %}
                                 <thead>
                                     <tr>
-                                        <th colspan="3">Prior accuracy</th>
-                                        <td colspan="3">{% p.base_diagnosis_accuracy_percent %}%</td>
+                                        <th colspan="4">Prior accuracy</th>
+                                        <td colspan="2">{% p.base_diagnosis_accuracy_percent %}%</td>
                                     </tr>
                                     <tr>
-                                        <th colspan="3">Current accuracy</th>
-                                        <td colspan="3">{% p.total_diagnosis_accuracy_percent %}%</td>
+                                        <th colspan="4">Current accuracy</th>
+                                        <td colspan="2">{% p.total_diagnosis_accuracy_percent %}%</td>
                                     </tr>
                                 </thead>
                                 {% else %}
                                 <thead>
                                     <tr>
-                                        <th colspan="3">Diagnostic accuracy</th>
-                                        <td colspan="3">{% p.total_diagnosis_accuracy_percent %}%</td>
+                                        <th colspan="4">Diagnostic accuracy</th>
+                                        <td colspan="2">{% p.total_diagnosis_accuracy_percent %}%</td>
                                     </tr>
                                 </thead>
                                 {% endif %}
@@ -113,19 +113,18 @@
                                 {% if player.round_number >= C.INVESTMENT_STARTING_ROUND %}
                                 <thead>
                                     <tr>
-                                        <th colspan="3">Personal accuracy</th>
-                                        <td colspan="3">{% p.base_diagnosis_accuracy_percent %}%</td>
+                                        <td colspan="6"><b>Personal accuracy:</b> {% p.base_diagnosis_accuracy_percent %}%</td>
+                                        
                                     </tr>
                                     <tr>
-                                        <th colspan="3">Maximum accuracy</th>
-                                        <td colspan="3">{% p.total_diagnosis_accuracy_percent %}%</td>
+                                        <td colspan="6"><b>Maximum accuracy:</b> {% p.total_diagnosis_accuracy_percent %}%</td>
                                     </tr>
                                 </thead>
                                 {% else %}
                                 <thead>
                                     <tr>
-                                        <th colspan="3">Diagnostic accuracy</th>
-                                        <td colspan="3">{% p.total_diagnosis_accuracy_percent %}%</td>
+                                        <th colspan="4">Diagnostic accuracy</th>
+                                        <td colspan="2">{% p.total_diagnosis_accuracy_percent %}%</td>
                                     </tr>
                                 </thead>
                                 {% endif %}
