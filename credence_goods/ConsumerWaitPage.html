@@ -29,7 +29,7 @@
                     {% if player.round_number >= C.INVESTMENT_STARTING_ROUND %}
                     <td class="tg-0pky">{% p.investment_decision %}</td>
                     {% endif %}
-                    <td class="tg-0pky">{% p.coins %} coins</td>
+                    <td class="tg-0pky">{% p.coins %}</td>
                   </tr>
                   {% endfor %}
                 </tbody>
@@ -51,13 +51,13 @@
                   <tr>
                     <th class="tg-0pky">Round</th>
                     <th class="tg-0pky">Expert chosen</th>
-                    <th class="tg-0pky">Total Coins</th>
+                    <th class="tg-0pky">Coins earned</th>
                   </tr>
                   {% for p in player.in_all_rounds() %}
                   <tr>
                     <td class="tg-0pky">{% p.round_number %}</td>
                     <td class="tg-0pky">{% p.field_maybe_none('expert_chosen_name') %}</td>
-                    <td class="tg-0pky"><span id="coins_in_round_{% p.round_number %}"></span> coins</td>
+                    <td class="tg-0pky"><span id="coins_in_round_{% p.round_number %}"></span</td>
                   </tr>
                   <script>
                     // calculate coins per round //
