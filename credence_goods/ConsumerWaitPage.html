@@ -70,7 +70,7 @@
                     document.getElementById("coins_in_round_{% p.round_number %}").innerHTML = coins_this_round;
                     
                     if ("{% p.round_number %}" == "{% player.round_number %}") {
-                      document.getElementById("coins_in_round_{% p.round_number %}").innerHTML = "???";
+                      document.getElementById("coins_in_round_{% p.round_number %}").innerHTML = "n/a";
                     }
                   </script>
                   {% endfor %}
