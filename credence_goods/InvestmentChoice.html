@@ -64,7 +64,7 @@
             <p>This will improve your diagnosis skills.</p>
             <p>Accuracy before: <b>{% player.base_diagnosis_accuracy_percent %}%</b></p>
             <p>Accuracy after: <b><span id="total_diagnosis_accuracy_percent">total_diagnosis_accuracy_percent</span>%</b></p>
-            <button class="btn btn-primary" name="investment_decision" value=true>Invest (Pay <span id="investment-cost"></span> Coins)</button>
+            <button class="btn btn-primary" name="investment_decision" value=true>Invest (No cost to you)<!-- (Pay <span id="investment-cost"></span> Coins) --></button>
         </div>
 
     {% else %}
@@ -73,14 +73,14 @@
             <p>This will provide automatic diagnosis.</p>
             <p>Accuracy before: <b>{% player.base_diagnosis_accuracy_percent %}%</b></p>
             <p>Accuracy after: <b><span id="total_diagnosis_accuracy_percent">total_diagnosis_accuracy_percent</span>%</b></p>
-            <button class="btn btn-primary" name="investment_decision" value=true>Invest (Pay <span id="investment-cost"></span> Coins)</button>
+            <button class="btn btn-primary" name="investment_decision" value=true>Invest (No cost to you)<!-- (Pay <span id="investment-cost"></span> Coins) --></button>
         </div>
 
     {% endif %}
 
     <div class="algo-improvement investment-choice-card">
         <p class="invest-name"><b>No Investment</b></p>
-        <p>Continue as usual.</p>
+        <p>Continue as before.</p>
         <p>Accuracy before: <b>{% player.base_diagnosis_accuracy_percent %}%</b></p>
         <p>Accuracy after: <b>{% player.base_diagnosis_accuracy_percent %}%</b></p>
         <button class="btn btn-primary" name="investment_decision" value=false>Don't Invest</button>
@@ -88,7 +88,7 @@
 
     <script>
         let investment_cost = js_vars.investment_cost;
-        document.getElementById("investment-cost").innerHTML = investment_cost;
+        // document.getElementById("investment-cost").innerHTML = investment_cost;
         document.getElementById("total_diagnosis_accuracy_percent").innerHTML = js_vars.accuracies["invested"];
     </script>
 </div>

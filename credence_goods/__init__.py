@@ -82,40 +82,40 @@ class C(BaseConstants):
             "bias_small": (
                 int(INVESTMENT_COST["once"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_small"][0],
                 int(INVESTMENT_COST["once"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_small"][1],
-                int(INVESTMENT_COST["once"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_small"][2],
-                int(INVESTMENT_COST["once"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_small"][3]
+                PRICE_VECTOR_OPTIONS["bias_small"][2],
+                PRICE_VECTOR_OPTIONS["bias_small"][3]
                 ),
             "bias_large": (
                 int(INVESTMENT_COST["once"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_large"][0],
                 int(INVESTMENT_COST["once"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_large"][1],
-                int(INVESTMENT_COST["once"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_large"][2],
-                int(INVESTMENT_COST["once"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_large"][3]
+                PRICE_VECTOR_OPTIONS["bias_large"][2],
+                PRICE_VECTOR_OPTIONS["bias_large"][3]
                 ),
             "no_bias": (
                 int(INVESTMENT_COST["once"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["no_bias"][0],
                 int(INVESTMENT_COST["once"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["no_bias"][1],
-                int(INVESTMENT_COST["once"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["no_bias"][2],
-                int(INVESTMENT_COST["once"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["no_bias"][3]
+                PRICE_VECTOR_OPTIONS["no_bias"][2],
+                PRICE_VECTOR_OPTIONS["no_bias"][3]
                 )
         },
         "repeated": {                # (price_small, price_large, profit_small, profit_large)
             "bias_small": (
                 int(INVESTMENT_COST["repeated"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_small"][0],
                 int(INVESTMENT_COST["repeated"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_small"][1],
-                int(INVESTMENT_COST["repeated"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_small"][2],
-                int(INVESTMENT_COST["repeated"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_small"][3]
+                PRICE_VECTOR_OPTIONS["bias_small"][2],
+                PRICE_VECTOR_OPTIONS["bias_small"][3]
                 ),
             "bias_large": (
                 int(INVESTMENT_COST["repeated"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_large"][0],
                 int(INVESTMENT_COST["repeated"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_large"][1],
-                int(INVESTMENT_COST["repeated"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_large"][2],
-                int(INVESTMENT_COST["repeated"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_large"][3]
+                PRICE_VECTOR_OPTIONS["bias_large"][2],
+                PRICE_VECTOR_OPTIONS["bias_large"][3]
                 ),
             "no_bias": (
                 int(INVESTMENT_COST["repeated"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["no_bias"][0],
                 int(INVESTMENT_COST["repeated"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["no_bias"][1],
-                int(INVESTMENT_COST["repeated"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["no_bias"][2],
-                int(INVESTMENT_COST["repeated"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["no_bias"][3]
+                PRICE_VECTOR_OPTIONS["no_bias"][2],
+                PRICE_VECTOR_OPTIONS["no_bias"][3]
                 )
         }
     }
@@ -367,8 +367,11 @@ class InvestmentChoice(Page):
                 print(f"Player {player.id_in_group} excluded due to timeout.")
 
         if player.investment_decision:
-            player.coins -= C.INVESTMENT_COST[player.group.treatment_investment_frequency]
+            # player.coins -= C.INVESTMENT_COST[player.group.treatment_investment_frequency]
             player.total_diagnosis_accuracy_percent = C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT["invested"]
+            player.price_small_service = C.PRICE_VECTOR_OPTIONS_MULTIPLIED[player.group.treatment_investment_frequency][player.price_vector_chosen][0]
+            
+        
 
 
     form_model = "player"
@@ -429,8 +432,12 @@ class ExpertSetPrices(Page):
                 print(f"Player {player.id_in_group} excluded due to timeout.")
 
         # set prices as the vector options
-        player.price_small_service = C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][0]
-        player.price_large_service = C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][1]
+        if not player.investment_decision:
+            player.price_small_service = C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][0]
+            player.price_large_service = C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][1]
+        else:
+            player.price_small_service = C.PRICE_VECTOR_OPTIONS_MULTIPLIED[player.group.treatment_investment_frequency][player.price_vector_chosen][0]
+            player.price_large_service = C.PRICE_VECTOR_OPTIONS_MULTIPLIED[player.group.treatment_investment_frequency][player.price_vector_chosen][1]
 
         diagnosis_correct_for_all_patients = {}
         for consumer in player.get_others_in_group():
@@ -649,7 +656,10 @@ class MatchingWaitPage(WaitPage):
     def after_all_players_arrive(group: Group):
         # set treatment
         group.treatment_investment_option = random.choice(["skill", "algo"])
-        group.treatment_investment_frequency = random.choice(["once", "repeated"])
+        if group.subsession.session.config['treatment_investment_frequency'] == "random":
+            group.treatment_investment_frequency = random.choice(["once", "repeated"])
+        else:
+            group.treatment_investment_frequency = group.subsession.session.config['treatment_investment_frequency']
         group.treatment_skill_visible = group.subsession.session.config['treatment_skill_visible']
         print(f"Group treatment set: {group.treatment_investment_option} | {group.treatment_investment_frequency} | {group.treatment_skill_visible}")
 

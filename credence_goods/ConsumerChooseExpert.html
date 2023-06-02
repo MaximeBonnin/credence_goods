@@ -69,12 +69,13 @@
     <script>
         let price_vector = js_vars.price_vector;
         console.log(price_vector);
+        console.log(js_vars.price_vectors_multi);
+        
     </script>
     {% for p in group.get_players() %}
         {% if not p.is_dropout %}
 
             {% if p.is_expert %}
-
 
                 <div class="expert-card" id="card-{% p.id_in_group %}">
                     <p class="expert-name"><b> Expert {% p.player_name %}
@@ -157,8 +158,9 @@
                     document.getElementById("profit-small-{% p.id_in_group %}").innerHTML = price_vector["{% p.price_vector_chosen %}"][2]
                     document.getElementById("profit-large-{% p.id_in_group %}").innerHTML = price_vector["{% p.price_vector_chosen %}"][3]
 
+                    console.log("Player Info: has_invested: {% p.investment_decision %} | price_vector_chosen: {% p.price_vector_chosen %} | price_small_service: {% p.price_small_service %} | price_large_service: {% p.price_large_service %}")
+                    
                     if ("{% p.investment_decision %}" == "True") {
-                        console.log("Has invested")
                         
                         document.getElementById("profit-small-{% p.id_in_group %}").innerHTML = js_vars.price_vectors_multi["{% group.treatment_investment_frequency %}"]["{% p.price_vector_chosen %}"][2]
                         document.getElementById("profit-large-{% p.id_in_group %}").innerHTML = js_vars.price_vectors_multi["{% group.treatment_investment_frequency %}"]["{% p.price_vector_chosen %}"][3]
