@@ -1,0 +1,23 @@
+{{ block title }}
+    Expert Ability Type
+{{ endblock }}
+{{ block content }}
+
+<style>
+    .card-content {
+        margin: 1em;
+    }
+</style>
+
+<div class="card">
+    <div class="card-content">
+        {{ include 'practice_round/text_contents/Expert_Visible.html' }}
+    </div>
+</div>
+<p></p>
+
+    {{ next_button }}
+
+    {{ include_sibling "InstructionAccordion.html" }}
+
+{{ endblock }}
