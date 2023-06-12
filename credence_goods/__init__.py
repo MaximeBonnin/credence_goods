@@ -15,7 +15,10 @@ class C(BaseConstants):
     ENABLE_WAITING_PAGES = True
     RANDOMIZE_DIV_ORDER = True              # randomized order of choice cards on Choose Expert and Diagnosis 1 & 2. Consistent order through all rounds.
 
+
     ### STRUCTURAL VARIABLES ###
+    NAME_IN_URL = 'credence_goods'
+    # colors: #f1eef6, #bdc9e1, #74a9cf, #0570b0
     NUM_ROUNDS = 6
     PLAYERS_PER_GROUP = 4
     NUM_EXPERTS_PER_GROUP = PLAYERS_PER_GROUP // 2                          # consumers = players - experts
@@ -24,13 +27,6 @@ class C(BaseConstants):
     TIMEOUT_IN_SECONDS = 300                                                # Investment Explain page is different
     EXPLANATION_TIMEOUT_IN_SECONDS = TIMEOUT_IN_SECONDS * 5
     DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS = 3                                 # players get excluded from the experiment if they have X number of timeouts
-
-    INVESTMENT_STARTING_ROUND = 2
-
-
-    ### ADMINISTRAAIVE VARIABLES ###
-    NAME_IN_URL = 'credence_goods'
-    # colors: #f1eef6, #bdc9e1, #74a9cf, #0570b0
 
 
     ### ECONOMIC VARIABLES ###
@@ -42,6 +38,25 @@ class C(BaseConstants):
 
     COST_OF_PROVIDING_SMALL_SERVICE = 20                    # c_k
     COST_OF_PROVIDING_LARGE_SERVICE = 60                    # c_g
+
+    EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT = { 
+        "low": 50,
+        "high": 75,
+        "invested": 90
+    }
+
+    EXPERT_PAYOFF_NO_CONSUMER = 10
+    CONSUMER_PAYOFFS = {
+        "no_market_entry": 10,
+        "problem_remains": 0,
+        "problem_solved": 150
+    }
+
+    INVESTMENT_STARTING_ROUND = 2
+    INVESTMENT_COST = {
+        "once": 150,
+        "repeated": 10
+    }
 
     PRICE_VECTOR_OPTIONS = {                
         "bias_small": (60,                                   # price_small
@@ -58,27 +73,7 @@ class C(BaseConstants):
                     100-COST_OF_PROVIDING_LARGE_SERVICE)
     }
 
-    EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT = { 
-        "low": 50,
-        "high": 75,
-        "invested": 90
-    }
-
-    CONSUMER_PAYOFFS = {
-        "no_market_entry": 10,
-        "problem_remains": 0,
-        "problem_solved": 150
-    }
-
-    EXPERT_PAYOFF_NO_CONSUMER = 10
-
-    INVESTMENT_COST = {
-        "once": 150,
-        "repeated": 10
-    }
-
     PRICE_MULTIPLIER_AFTER_INVESTING = 1
-
     PRICE_VECTOR_OPTIONS_MULTIPLIED = {
         "once": {                                   # (price_small, price_large, profit_small, profit_large)
             "bias_small": (
