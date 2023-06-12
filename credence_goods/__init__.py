@@ -9,36 +9,40 @@ Credence Goods experiments
 
 
 class C(BaseConstants):
-    # DEV VARS FOR TESTING
+    # REMEMBER TO COPY ANY CHANGES TO practice_round FOR CORRECT INTRO
+
+    ### DEV VARS FOR TESTING ###
     ENABLE_WAITING_PAGES = True
-    RANDOMIZE_DIV_ORDER = True      # randomized order of choice cards on Choose Expert and Diagnosis 1 & 2. Consistent order through all rounds.
+    RANDOMIZE_DIV_ORDER = True              # randomized order of choice cards on Choose Expert and Diagnosis 1 & 2. Consistent order through all rounds.
 
-    #TODO REMEMBER TO COPY ANY CHANGES TO practice_round FOR CORRECT INTRO
-
-    # colors: #f1eef6, #bdc9e1, #74a9cf, #0570b0
-
-    NAME_IN_URL = 'credence_goods'
+    ### STRUCTURAL VARIABLES ###
     NUM_ROUNDS = 6
     PLAYERS_PER_GROUP = 4
-    TIMEOUT_IN_SECONDS = 300               # Investment Explain page is different
-    EXPLANATION_TIMEOUT_IN_SECONDS = TIMEOUT_IN_SECONDS * 5
-    DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS = 3 # players get excluded from the experiment if they have X number of timeouts
-
-    NUM_EXPERTS_PER_GROUP = PLAYERS_PER_GROUP // 2                         # consumers = players - experts #TODO currently not working, every second person is set to expert
+    NUM_EXPERTS_PER_GROUP = PLAYERS_PER_GROUP // 2                          # consumers = players - experts
     NUM_CONSUMERS_PER_GROUP = PLAYERS_PER_GROUP - NUM_EXPERTS_PER_GROUP
 
-    ENDOWMENT = 0                      #TODO maybe different for consumers and experts?
+    TIMEOUT_IN_SECONDS = 300                                                # Investment Explain page is different
+    EXPLANATION_TIMEOUT_IN_SECONDS = TIMEOUT_IN_SECONDS * 5
+    DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS = 3                                 # players get excluded from the experiment if they have X number of timeouts
+
+    INVESTMENT_STARTING_ROUND = 2
 
 
+    ### ADMINISTRAAIVE VARIABLES ###
+    NAME_IN_URL = 'credence_goods'
+    # colors: #f1eef6, #bdc9e1, #74a9cf, #0570b0
 
-    CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT = 40 # %
+
+    ### ECONOMIC VARIABLES ###
+
+    ENDOWMENT = 0                      
+
+    CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT = 40
     CHANCE_TO_HAVE_SMALL_PROBLEM_IN_PERCENT = 100-CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT
 
-    COST_OF_PROVIDING_SMALL_SERVICE = 20     # c_k
-    COST_OF_PROVIDING_LARGE_SERVICE = 60     # c_g
+    COST_OF_PROVIDING_SMALL_SERVICE = 20                    # c_k
+    COST_OF_PROVIDING_LARGE_SERVICE = 60                    # c_g
 
-    PRICE_MULTIPLIER_AFTER_INVESTING = 1
-    
     PRICE_VECTOR_OPTIONS = {                
         "bias_small": (60,                                   # price_small
                        80,                                   # price_large
@@ -54,9 +58,7 @@ class C(BaseConstants):
                     100-COST_OF_PROVIDING_LARGE_SERVICE)
     }
 
-
-
-    EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT = { # currently just random.choice() for selection
+    EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT = { 
         "low": 50,
         "high": 75,
         "invested": 90
@@ -70,15 +72,15 @@ class C(BaseConstants):
 
     EXPERT_PAYOFF_NO_CONSUMER = 10
 
-    INVESTMENT_STARTING_ROUND = 2
     INVESTMENT_COST = {
         "once": 150,
         "repeated": 10
     }
 
+    PRICE_MULTIPLIER_AFTER_INVESTING = 1
 
     PRICE_VECTOR_OPTIONS_MULTIPLIED = {
-        "once": {                # (price_small, price_large, profit_small, profit_large)
+        "once": {                                   # (price_small, price_large, profit_small, profit_large)
             "bias_small": (
                 int(INVESTMENT_COST["once"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_small"][0],
                 int(INVESTMENT_COST["once"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_small"][1],
@@ -98,7 +100,7 @@ class C(BaseConstants):
                 PRICE_VECTOR_OPTIONS["no_bias"][3]
                 )
         },
-        "repeated": {                # (price_small, price_large, profit_small, profit_large)
+        "repeated": {                               # (price_small, price_large, profit_small, profit_large)
             "bias_small": (
                 int(INVESTMENT_COST["repeated"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_small"][0],
                 int(INVESTMENT_COST["repeated"] * PRICE_MULTIPLIER_AFTER_INVESTING) + PRICE_VECTOR_OPTIONS["bias_small"][1],
