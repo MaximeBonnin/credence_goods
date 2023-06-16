@@ -8,12 +8,12 @@
 
 {% if participant.is_expert %}
 <p>After you set your prices, you will proceed with the diagnosis.
-    As a {% participant.ability_level %}-ability expert, you will receive a signal in each round, that tells you which of
-    the two problems a client has. This signal is <b>{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}% accurate for the low-ability expert {% if participant.ability_level == "low" %} (you){% endif %}</b>,
+    The diagnosis gives experts an information signal that tells them which of the two problems a client has.
+    This signal is <b>{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}% accurate for the low-ability expert {% if participant.ability_level == "low" %} (you){% endif %}</b>,
     and <b>{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.high %}% accurate for the high-ability expert{% if participant.ability_level == "high" %} (you){% endif %}</b>. Thus, if e.g. a client has a small problem,
-    then you receive the signal that the problem is small with a probability of {% if participant.ability_level == "low" %}{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}{% else %}{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.high %}{% endif %}%.</p>
+    then you correctly diagnose that the problem is small with a probability of {% if participant.ability_level == "low" %}{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}{% else %}{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.high %}{% endif %}%.</p>
 
-<p>To receive the signal, you need to complete a short prediction task (see image below). 
+<p>To receive the signal, experts need to complete a short prediction task (see image below).
     A client’s problem is determined by 5 symptoms, and as a
     {% if participant.ability_level == "low" %}low-ability expert you receive 2 input factors. A high-ability expert receives 3{% else %}
     high-ability expert you receive 3 input factors. A low-ability expert receives 2{% endif %} input factors.
@@ -25,7 +25,7 @@
 </div>
 <p></p>
 <p> Clients do not know exactly how an expert makes their diagnosis. They only know that the diagnosis is based on a task that involves their 5 symptoms,
-    and that high-ability experts observe one more symptom. </p>
+    and that high-ability experts identify one more symptom. </p>
 
 <p>Finally, after your diagnosis, you decide which treatment you want to implement for a given client.</p>
 
@@ -46,11 +46,11 @@
 
 
 {% else %}
-<p>After experts set their prices, they proceed with the diagnosis. Experts receive a signal in each round, that tells them which of the two problems a client has.
+<p>After experts set their prices, they proceed with the diagnosis. Each round, experts receive an information signal that tells them which of the two problems a client has.
     This signal is <b>{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}% accurate for the low-ability expert,
         and {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.high %}% accurate for the high-ability expert</b>.</p>
 
-<p>    Thus, if e.g. you have a small problem, then the high-ability experts receives the signal that the
+<p> Thus, if e.g. you have a small problem, then the high-ability experts receives the signal that the
     problem is small with a probability of {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.high %}%, and the low-ability expert receives the signal that the
     problem is small with a probability of {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}%. Remember that you only receive the {% C.CONSUMER_PAYOFFS.problem_solved %} Coins if your 
     problem is solved. Additionally, once you approach an expert, you will have to pay for whatever 
