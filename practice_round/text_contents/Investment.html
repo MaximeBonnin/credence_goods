@@ -211,16 +211,16 @@
                 <!-- consumer | visible | skill -->
                     {% if group.treatment_investment_frequency == "repeated" %}
                     <!-- consumer | visible | skill | repeated-->
-                    <p>For the remainder of this experiment, all experts will have the 
-                        opportunity to invest into their diagnostic ability. Each round, 
-                        experts can decide to increase their diagnostic ability to {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%
-                        by paying <b>{% C.INVESTMENT_COST.repeated %} Coins</b>. </p>
+                    <p>For the remainder of this experiment, all experts will
+                        have the opportunity to invest into their diagnostic ability.
+                        At the beginning of each round, experts can decide to increase their diagnostic ability to {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%.
+                        In return, experts have to pay <b>{% C.INVESTMENT_COST.repeated %} additional Coins </b> per treatment. </p>
 
-                    <p> Experts who decide to purchase more information pay {% C.INVESTMENT_COST.repeated %} Coins for each client that approaches them. Therefore,
-                    they pay 0 Coins if no client approaches them.</p>
+                    <p> Thus, the treatment costs for experts who decide to improve their diagnostic ability increase by {% C.INVESTMENT_COST.repeated %} additional Coins for each client that approaches them.
+                    Experts pay 0 Coins if no client approaches them.</p>
 
                     <p> Importantly, the prices for both treatments automatically increase by {% C.INVESTMENT_COST.repeated %} Coins if an expert decided to invest.
-                        Therefore, clients bear all investment costs. </p>
+                        Therefore, expert profits do not change, and clients bear all investment costs. </p>
 
         
                     {% else %}
@@ -238,21 +238,19 @@
                 <!-- consumer | visible | algo -->
                     {% if group.treatment_investment_frequency == "repeated" %}
                     <!-- consumer | visible | algo | repeated-->
-                    <p>For the remainder of this experiment, all experts will have the opportunity to <b>rent an
-                        algorithmic decision aid</b> that can improve the accuracy of their diagnosis. Renting the decision
-                        aid costs an expert <b>{% C.INVESTMENT_COST.repeated %} Coins per round</b>. However, if the expert correctly utilizes the algorithm,
-                        he or she increases their diagnostic ability for that round to {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%.
-                    </p>
+                    <p>For the remainder of this experiment, all experts will have the opportunity to invest into the precision of their diagnosis.
+			At the beginning of each round, experts can decide to <b>rent an algorithmic decision aid</b>. If the expert utilizes the decision aid correctly, he or she increases their diagnostic ability to {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%. In return, experts have to pay <b>{% C.INVESTMENT_COST.repeated %} additional Coins </b> per treatment. </p>
 
-                    <p>The algorithmic decision aid can improve a diagnosis by identifying symptoms that determine whether
-                        you have a large or a small problem. These symptoms have been allocated to you at the beginning of 
-                        the experiment. As already mentioned in the beginning, you will never be able to observe them.</p>
-
-                    <p> Experts who decide to rent the decision aid pay {% C.INVESTMENT_COST.repeated %} Coins for each client that approaches them. Therefore,
-                    they pay 0 Coins if no client approaches them.</p>
+                    <p> Thus, the treatment costs for experts who decide to rent the algorithmic decision aid increase by {% C.INVESTMENT_COST.repeated %} additional Coins for each client that approaches them.
+                    Experts pay 0 Coins if no client approaches them.</p>
 
                     <p> Importantly, the prices for both treatments automatically increase by {% C.INVESTMENT_COST.repeated %} Coins if an expert decided to pay for the algorithmic decision aid.
-                        Therefore, clients bear all renting costs. </p>
+                        Therefore, expert profits do not change, and clients bear all renting costs.  </p>
+
+                    <p>The algorithmic decision aid can improve a diagnosis by identifying symptoms that determine whether you have a large
+                        or a small problem. These symptoms have been allocated to you at the beginning of the experiment. As already
+                        mentioned in the beginning, you will never be able to observe them. Experts still need to complete the diagnosis themselves.</p>
+
 
 
                     {% else %}
@@ -278,14 +276,14 @@
                     <!-- consumer | not visible | skill | repeated-->
                     <p>For the remainder of this experiment, all experts will 
                         have the opportunity to invest into their diagnostic ability. 
-                        Each round, experts can decide to increase their diagnostic ability to {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%
-                        by paying <b>{% C.INVESTMENT_COST.repeated %} Coins</b>.</p>
+                        At the beginning of each round, experts can decide to increase their diagnostic ability to {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%.
+                        In return, experts have to pay <b>{% C.INVESTMENT_COST.repeated %} additional Coins </b> per treatment. </p>
 
-                    <p> Experts who decide to purchase more information pay {% C.INVESTMENT_COST.repeated %} Coins for each client that approaches them. Therefore,
-                    they pay 0 Coins if no client approaches them.</p>
+                    <p> Thus, the treatment costs for experts who decide to improve their diagnostic ability increase by {% C.INVESTMENT_COST.repeated %} additional Coins for each client that approaches them.
+                    Experts pay 0 Coins if no client approaches them.</p>
 
                     <p> Importantly, the prices for both treatments automatically increase by {% C.INVESTMENT_COST.repeated %} Coins if an expert decided to invest.
-                        Therefore, clients bear all investment costs. </p>
+                        Therefore, expert profits do not change, and clients bear all investment costs. </p>
 
                     {% else %}
                     <!-- consumer | not visible | skill | once -->
@@ -301,20 +299,19 @@
                 <!-- consumer | not visible | algo -->
                     {% if group.treatment_investment_frequency == "repeated" %}
                     <!-- consumer | not visible | algo | repeated-->
-                    <p>For the remainder of this experiment, all experts will have the opportunity to <b>rent an algorithmic decision aid</b> that can
-                        improve the accuracy of their diagnosis. Renting the decision aid costs an expert <b>{% C.INVESTMENT_COST.repeated %} Coins per round</b>. However,
-                        if the expert correctly utilizes the algorithm, he or she increases their diagnostic ability to {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%.
-                       </p>
+                    <p>For the remainder of this experiment, all experts will have the opportunity to invest into the precision of their diagnosis.
+			At the beginning of each round, experts can decide to <b>rent an algorithmic decision aid</b>. If the expert utilizes the decision aid correctly, he or she increases their diagnostic ability to {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%. In return, experts have to pay <b>{% C.INVESTMENT_COST.repeated %} additional Coins </b> per treatment. </p>
 
-                    <p>The algorithmic decision aid can improve a diagnosis by identifying symptoms that determine whether you have a large
-                        or a small problem. These symptoms have been allocated to you at the beginning of the experiment. As already 
-                        mentioned in the beginning, you will never be able to observe them.</p>
-
-                    <p> Experts who decide to rent the decision aid pay {% C.INVESTMENT_COST.repeated %} Coins for each client that approaches them. Therefore,
-                    they pay 0 Coins if no client approaches them.</p>
+                    <p> Thus, the treatment costs for experts who decide to rent the algorithmic decision aid increase by {% C.INVESTMENT_COST.repeated %} additional Coins for each client that approaches them.
+                    Experts pay 0 Coins if no client approaches them.</p>
 
                     <p> Importantly, the prices for both treatments automatically increase by {% C.INVESTMENT_COST.repeated %} Coins if an expert decided to pay for the algorithmic decision aid.
-                        Therefore, clients bear all renting costs. </p>
+                        Therefore, expert profits do not change, and clients bear all renting costs.  </p>
+
+                    <p>The algorithmic decision aid can improve a diagnosis by identifying symptoms that determine whether you have a large
+                        or a small problem. These symptoms have been allocated to you at the beginning of the experiment. As already
+                        mentioned in the beginning, you will never be able to observe them. Experts still need to complete the diagnosis themselves.</p>
+
 
                     {% else %}
                     <!-- consumer | not visible | algo | once -->
