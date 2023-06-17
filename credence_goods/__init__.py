@@ -58,15 +58,15 @@ class C(BaseConstants):
         "repeated": 10
     }
 
-    PRICE_VECTOR_OPTIONS = {                
-        "bias_small": (60,                                   # price_small
-                       80,                                   # price_large
-                       60-COST_OF_PROVIDING_SMALL_SERVICE,   # profit_small
-                       80-COST_OF_PROVIDING_LARGE_SERVICE),  # profit_large
-        "bias_large": (60,
-                       120,
-                       60-COST_OF_PROVIDING_SMALL_SERVICE,
-                       120-COST_OF_PROVIDING_LARGE_SERVICE),
+    PRICE_VECTOR_OPTIONS = {
+        "bias_small": (80,                                   # price_small
+                       100,                                   # price_large
+                       80-COST_OF_PROVIDING_SMALL_SERVICE,   # profit_small
+                       100-COST_OF_PROVIDING_LARGE_SERVICE),  # profit_large
+        "bias_large": (40,
+                       100,
+                       40-COST_OF_PROVIDING_SMALL_SERVICE,
+                       100-COST_OF_PROVIDING_LARGE_SERVICE),
         "no_bias": (60,
                     100,
                     60-COST_OF_PROVIDING_SMALL_SERVICE,
