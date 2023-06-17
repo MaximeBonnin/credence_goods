@@ -1,4 +1,4 @@
-      {% if player.is_expert %}
+   {% if player.is_expert %}
        <!-- expert explanation -->
             {% if group.treatment_skill_visible %}
             <!-- expert | visible -->
@@ -167,8 +167,8 @@
                         decision aid does not automatically increase an expert’s diagnostic ability, but that experts need to correctly utilize it. Clients also learn that an expert
                         can decide not to use the decision aid after renting it. </p>
 
-                    <p> For example, should you decide not to rent the decision aid, clients do not observe your ability level and can only use
-                        the information they gathered during the prior rounds. </p>
+                    <p> For example, should you decide not to rent the decision aid, clients still do not observe your ability level. However, clients may form beliefs
+                    based on their prior experience and your current and future choices.</p>
 
                     <p> If you decide to rent the algorithmic decision aid in a given round,
                         clients know that your current maximum ability level for this round is {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%,
