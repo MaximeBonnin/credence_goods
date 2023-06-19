@@ -6,12 +6,11 @@
     about which problem they actually have. </p>
 
 <p> In order to solve the problem, a client
-    needs to approach an expert. Alternatively, each client can also choose to approach no expert, and earn an outside-payoff of 10 Coins. If a client decides to
-    approach an expert, he or she can choose any one of the {% C.NUM_EXPERTS_PER_GROUP %} experts. If the chosen expert
+    needs to approach an expert. Clients can choose any one of the {% C.NUM_EXPERTS_PER_GROUP %} experts. If the chosen expert
         successfully solves the client’s problem, the client receives <b> {% C.CONSUMER_PAYOFFS.problem_solved %} Coins </b> for that
-        round. If the problem is not solved, the client does not receive anything. </p>
+        round. If the problem is not solved, the client does not receive anything. Alternatively, each client can also choose to approach no expert, and earn an outside-payoff of 10 Coins. </p>
 
-<p> Irrespective of the outcome, the client has to pay the price chosen by the expert.
+<p> Irrespective of whether the problem was solved, clients have to pay the price chosen by their expert.
     All prices by each expert are visible to the
     client when deciding which expert to approach.</p>
 
@@ -36,7 +35,7 @@
     you receive <b> {% C.CONSUMER_PAYOFFS.problem_solved %} Coins </b> for that round. If the problem is not solved, you receive nothing. </p>
 
 <p> Irrespective of the outcome, you have to pay the price as chosen and posted by
-    the expert. All prices by each expert are visible
+    your expert. All prices by each expert are visible
     to you when deciding which expert to approach.</p>
 
 <p>Each round, the expert’s job is to diagnose the client’s problem and treat them. Experts can
