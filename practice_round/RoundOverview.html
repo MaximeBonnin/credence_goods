@@ -22,19 +22,28 @@
           </thead>
           <tr>
               <th>1</th>
-              <td>The experts sets the prices by choosing one of three price vectors.</td>
-              <td>The client decides if he or she wants to enter the market.</td>
+              <td>Experts set prices for the high-quality and the low-quality treatment by choosing one of three price vectors.</td>
+              <td>The client decides if he/she wants to enter the market.</td>
           </tr>
           <tr>
             <th>2</th>
-            <td>The expert diagnoses all four clients, receives the signal about each client’s problem, and decides if he or she wants to implement the high-quality or the low-quality treatment.</td>
+            <td>Experts:
+                <ul>
+                    <li> solve the prediction task for each client </li>
+                    <li> receive the signal about each client's problem  </li>
+                    <li> decide for each client which treatment they want to implement  </li>
+                </ul>
+                </td>
             <td>{% if participant.treatment_skill_visible %}
                 The client observes all expert prices, each expert’s ability levels, and decides which expert to approach.
                 {% else %} The client observes all expert prices, and decides which expert to approach. {% endif %}</td>
         </tr>
         <tr>
           <th>3</th>
-          <td colspan="2">Payoffs are realized. Clients are treated according to the treatment decision of their chosen expert. Experts charge each client that approached them for the implemented treatment. Experts pay the treatment costs.</td>
+          <td colspan="2">Payoffs are realized. Clients are treated according to the treatment decision of their chosen expert.
+              Experts charge each client that approached them for the implemented treatment. Experts pay the treatment costs.
+          Clients pay the price chosen by the expert, experts receive the compensation. Clients who refrain from approaching an expert, and experts who were approached by 0 clients,
+          receive 10 Coins.</td>
         </tr>
         </table>
         
