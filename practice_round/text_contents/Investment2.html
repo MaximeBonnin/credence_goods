@@ -1,4 +1,4 @@
-   {% if player.is_expert %}
+     {% if player.is_expert %}
        <!-- expert explanation -->
             {% if group.treatment_skill_visible %}
             <!-- expert | visible -->
@@ -114,10 +114,13 @@
                           Clients also learn that an expert has a diagnostic ability of
                         {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}% after purchasing more information in a round.
                         Thus, clients <i> know about an expert’s current ability level if
-                        the expert decided to invest. </i> However, clients still <i> do not observe an expert’s original ability </i> level. </p>
+                        the expert decided to invest. </i> </p>
 
-                    <p> Therefore, should you decide <i> not to purchase more information </i> in a given round, clients do not observe your ability level and can
-                        only use the information they gathered during the prior rounds. </p>
+                        <p> Should you decide <i> not to purchase more information</i>, clients still <i> do not observe an expert’s original ability </i> level.
+                        However, clients may form beliefs
+                    based on their prior experience and your current and future choices.</p>
+
+
 
 
                     {% else %}
@@ -208,7 +211,7 @@
                     {% if group.treatment_investment_frequency == "repeated" %}
                     <!-- consumer | visible | skill | repeated-->
 
-                    <p>Low-ability experts and high-ability experts pay the same price for the additional information. </p>
+                    <p>Low-ability experts and high-ability experts pay the same price for the additional diagnostic accuracy. </p>
                     <p> After
                         investing, all expert types receive a signal that is correct with a probability of
                         {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%, irrespective of their prior diagnostic ability.</p>
@@ -263,7 +266,7 @@
                 <!-- consumer | not visible | skill -->
                     {% if group.treatment_investment_frequency == "repeated" %}
                     <!-- consumer | not visible | skill | repeated-->
-                     <p>Low-ability experts and high-ability experts pay the same price for the additional information. </p>
+                     <p>Low-ability experts and high-ability experts pay the same price for the additional diagnostic accuracy. </p>
 
                      <p>After investing,
                         all expert types receive a signal that is correct with a probability of {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.invested %}%,
