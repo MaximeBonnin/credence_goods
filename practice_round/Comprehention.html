@@ -31,10 +31,10 @@
             <input type="radio" name="q0" required onclick="checkAnswers(question_nr='q0', answer_nr=1)"> <label for="q0">Clients <i> do not know </i>  their problem type, and <i> cannot observe </i> which treatment the expert chose. Clients only see their payoff at the end of each round</label>
         </div>
         <div class="answer">
-            <input type="radio" name="q0" onclick="checkAnswers(question_nr='q0', answer_nr=2)"> <label for="q0">Clients <i> know </i> their problem type, and <i>can </i> observe which treatment you chose. Additionally, they see their payoff at the end of each round</label>
+            <input type="radio" name="q0" onclick="checkAnswers(question_nr='q0', answer_nr=2)"> <label for="q0">Clients <i> know </i> their problem type, and <i>can </i> observe which treatment the expert chose. Additionally, they see their payoff at the end of each round</label>
         </div>
         <div class="answer">
-            <input type="radio" name="q0" onclick="checkAnswers(question_nr='q0', answer_nr=3)"> <label for="q0">Clients <i> know </i> their problem type, but <i> cannot observe </i> which treatment you chose. Additionally, they see their payoff at the end of each round</label>
+            <input type="radio" name="q0" onclick="checkAnswers(question_nr='q0', answer_nr=3)"> <label for="q0">Clients <i> know </i> their problem type, but <i> cannot observe </i> which treatment the expert chose. Additionally, they see their payoff at the end of each round</label>
         </div>
         <div class="answer">
             <input type="radio" name="q0" onclick="checkAnswers(question_nr='q0', answer_nr=4)"> <label for="q0">Clients receive no information about anything</label>
@@ -59,25 +59,25 @@
                 <input type="radio" name="q1" onclick="checkAnswers(question_nr='q1', answer_nr=3)"> <label for="q1">A high-quality treatment solves both a large problem and a small problem, a low-quality treatment only solves a small problem</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q1" onclick="checkAnswers(question_nr='q1', answer_nr=3)"> <label for="q1">Your treatment choice does not affect whether a client’s problem is solved</label>
+                <input type="radio" name="q1" onclick="checkAnswers(question_nr='q1', answer_nr=3)"> <label for="q1">The expert's treatment choice does not affect whether a client’s problem is solved</label>
             </div>
         </div>
     </div>
     
     <div class="card">
-        <h5 class="card-header">Each round, you diagnose all clients and choose the treatment you want to provide for them.</h5>
+        <h5 class="card-header">Each round, experts diagnose all clients and choose the treatment they want to provide for them.</h5>
         <div class="card-content">
             <div class="answer">
-                <input type="radio" name="q2" required onclick="checkAnswers(question_nr='q2', answer_nr=1)"> <label for="q2">You pay the costs of all chosen treatments, irrespective of whether clients approach you</label>
+                <input type="radio" name="q2" required onclick="checkAnswers(question_nr='q2', answer_nr=1)"> <label for="q2">Experts pay the costs of all chosen treatments, irrespective of whether clients approach them</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q2" onclick="checkAnswers(question_nr='q2', answer_nr=2)"> <label for="q2">You receive payoff equal to your chosen price and treatment for all clients, irrespective of whether they approach you</label>
+                <input type="radio" name="q2" onclick="checkAnswers(question_nr='q2', answer_nr=2)"> <label for="q2">Experts receive payoff equal to their chosen price and treatment for all clients, irrespective of whether they approach them</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q2" onclick="checkAnswers(question_nr='q2', answer_nr=3)"> <label for="q2">Your choices do not affect your payoff</label>
+                <input type="radio" name="q2" onclick="checkAnswers(question_nr='q2', answer_nr=3)"> <label for="q2">An expert's choices do not affect their payoff</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q2" onclick="checkAnswers(question_nr='q2', answer_nr=4)"> <label for="q2">For each client that approaches you, you pay the costs of your chosen treatment and receive your chosen price as payoff</label>
+                <input type="radio" name="q2" onclick="checkAnswers(question_nr='q2', answer_nr=4)"> <label for="q2">For each client that approaches an expert, the expert pays the costs of their chosen treatment and receive their chosen price as payoff</label>
             </div>
         </div>
     </div>
@@ -121,19 +121,19 @@
     </div>
     
     <div class="card">
-        <h5 class="card-header">Each round, you can choose to approach 1 of 4 experts. Alternatively, you can choose to not enter the market.</h5>
+        <h5 class="card-header">Each round, clients can choose to approach 1 of 4 experts. Alternatively, they can choose to refrain from approaching an expert.</h5>
         <div class="card-content">
             <div class="answer">
-                <input type="radio" name="q2" required onclick="checkAnswers(question_nr='q2', answer_nr=1)"> <label for="q2">If you approach an expert, and the expert does not solve your problem, you still receive a positive payoff for that round</label>
+                <input type="radio" name="q2" required onclick="checkAnswers(question_nr='q2', answer_nr=1)"> <label for="q2">If a client approaches an expert, and the expert does not solve their problem, the client still receives a positive payoff for that round</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q2" onclick="checkAnswers(question_nr='q2', answer_nr=2)"> <label for="q2">If you decide not to enter the market and therefore do not approach an expert, you earn 150 Coins.</label>
+                <input type="radio" name="q2" onclick="checkAnswers(question_nr='q2', answer_nr=2)"> <label for="q2">If a client decides not to approach an expert, they earn 150 Coins.</label>
             </div>
             <div class="answer">
                 <input type="radio" name="q2" onclick="checkAnswers(question_nr='q2', answer_nr=3)"> <label for="q2">All experts always charge the same prices</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q2" onclick="checkAnswers(question_nr='q2', answer_nr=4)"> <label for="q2">If you approach an expert, and the expert solves your problem, you earn 150 Coins, while paying the treatment price as chosen by your approached expert. If the expert does not solve your problem, you only pay the treatment price.</label>
+                <input type="radio" name="q2" onclick="checkAnswers(question_nr='q2', answer_nr=4)"> <label for="q2">If a client approaches an expert, and the expert solves their problem, the client earns 150 Coins, while paying the treatment price as chosen by their approached expert. If the expert does not solve the problem, the client only pays the treatment price.</label>
             </div>
         </div>
     </div>
@@ -176,28 +176,29 @@
                 <input type="radio" name="q1" value=3 onclick="checkAnswers(question_nr='q1', answer_nr=3)"> <label for="q1">A high-quality treatment solves both a large problem and a small problem, a low-quality treatment only solves a small problem</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q1" value=4 onclick="checkAnswers(question_nr='q1', answer_nr=4)"> <label for="q1">Your treatment choice does not affect whether a client’s problem is solved</label>
+                <input type="radio" name="q1" value=4 onclick="checkAnswers(question_nr='q1', answer_nr=4)"> <label for="q1">An expert's treatment choice does not affect whether a client’s problem is solved</label>
             </div>
         </div>
     </div>
     
     <div class="card">
-        <h5 class="card-header">Each round, you diagnose all clients and choose the treatment you want to provide for them.</h5>
+        <h5 class="card-header">Each round, experts diagnose all clients and choose the treatment they want to provide for them.</h5>
         <div class="card-content">
             <div class="answer">
-                <input type="radio" name="q2" value=1 required onclick="checkAnswers(question_nr='q2', answer_nr=1)"> <label for="q2">You pay the costs of all chosen treatments, irrespective of whether clients approach you</label>
+                <input type="radio" name="q2" required onclick="checkAnswers(question_nr='q2', answer_nr=1)"> <label for="q2">Experts pay the costs of all chosen treatments, irrespective of whether clients approach them</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q2" value=2 onclick="checkAnswers(question_nr='q2', answer_nr=2)"> <label for="q2">You receive payoff equal to your chosen price and treatment for all clients, irrespective of whether they approach you</label>
+                <input type="radio" name="q2" onclick="checkAnswers(question_nr='q2', answer_nr=2)"> <label for="q2">Experts receive payoff equal to their chosen price and treatment for all clients, irrespective of whether they approach them</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q2" value=3 onclick="checkAnswers(question_nr='q2', answer_nr=3)"> <label for="q2">Your choices do not affect your payoff</label>
+                <input type="radio" name="q2" onclick="checkAnswers(question_nr='q2', answer_nr=3)"> <label for="q2">An expert's choices do not affect their payoff</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q2" value=4 onclick="checkAnswers(question_nr='q2', answer_nr=4)"> <label for="q2">For each client that approaches you, you pay the costs of your chosen treatment and receive your chosen price as payoff</label>
+                <input type="radio" name="q2" onclick="checkAnswers(question_nr='q2', answer_nr=4)"> <label for="q2">For each client that approaches an expert, the expert pays the costs of their chosen treatment and receive their chosen price as payoff</label>
             </div>
         </div>
     </div>
+
     
     <div class="card">
         <h5 class="card-header">You are playing with 3 other experts and 4 clients.</h5>
@@ -239,19 +240,19 @@
     </div>
     
     <div class="card">
-        <h5 class="card-header">Each round, you can choose to approach 1 of 4 experts. Alternatively, you can choose to not enter the market.</h5>
+        <h5 class="card-header">Each round, clients can choose to approach 1 of 4 experts. Alternatively, they can choose to refrain from approaching an expert.</h5>
         <div class="card-content">
             <div class="answer">
-                <input type="radio" name="q2" value=1 onclick="checkAnswers(question_nr='q2', answer_nr=1)" required> <label for="q2">If you approach an expert, and the expert does not solve your problem, you still receive a positive payoff for that round</label>
+                <input type="radio" name="q2" required onclick="checkAnswers(question_nr='q2', answer_nr=1)"> <label for="q2">If a client approaches an expert, and the expert does not solve their problem, the client still receives a positive payoff for that round</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q2" value=2 onclick="checkAnswers(question_nr='q2', answer_nr=2)"> <label for="q2">If you decide not to enter the market and therefore do not approach an expert, you earn 150 Coins.</label>
+                <input type="radio" name="q2" onclick="checkAnswers(question_nr='q2', answer_nr=2)"> <label for="q2">If a client decides not to approach an expert, they earn 150 Coins.</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q2" value=3 onclick="checkAnswers(question_nr='q2', answer_nr=3)"> <label for="q2">All experts always charge the same prices</label>
+                <input type="radio" name="q2" onclick="checkAnswers(question_nr='q2', answer_nr=3)"> <label for="q2">All experts always charge the same prices</label>
             </div>
             <div class="answer">
-                <input type="radio" name="q2" value=4 onclick="checkAnswers(question_nr='q2', answer_nr=4)"> <label for="q2">If you approach an expert, and the expert solves your problem, you earn 150 Coins, while paying the treatment price as chosen by your approached expert. If the expert does not solve your problem, you only pay the treatment price.</label>
+                <input type="radio" name="q2" onclick="checkAnswers(question_nr='q2', answer_nr=4)"> <label for="q2">If a client approaches an expert, and the expert solves their problem, the client earns 150 Coins, while paying the treatment price as chosen by their approached expert. If the expert does not solve the problem, the client only pays the treatment price.</label>
             </div>
         </div>
     </div>

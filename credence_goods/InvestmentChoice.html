@@ -60,8 +60,8 @@
 <div class="investment-choice-list">
     {% if group.treatment_investment_option == "skill" %}
         <div class="skill-improvement investment-choice-card">
-            <p class="invest-name"><b>Skill Investment</b></p>
-            <p>This will improve your diagnosis skills.</p>
+            <p class="invest-name"><b>Diagnostic Investment</b></p>
+            <p>This will improve your diagnostic accuracy. It will also increase your treatment costs and prices by {% C.INVESTMENT_COST.repeated %} Coins.</p>
             <p>Accuracy before: <b>{% player.base_diagnosis_accuracy_percent %}%</b></p>
             <p>Accuracy after: <b><span id="total_diagnosis_accuracy_percent">total_diagnosis_accuracy_percent</span>%</b></p>
             <button class="btn btn-primary" name="investment_decision" value=true>Invest<!-- (Pay <span id="investment-cost"></span> Coins) --></button>
@@ -69,8 +69,8 @@
 
     {% else %}
         <div class="algo-improvement investment-choice-card">
-            <p class="invest-name"><b>Algorithm Investment</b></p>
-            <p>This will provide automatic diagnosis.</p>
+            <p class="invest-name"><b>Algorithmic Decision Aid Investment</b></p>
+            <p>This will improve your diagnostic accuracy. It will also increase your treatment costs and prices by {% C.INVESTMENT_COST.repeated %} Coins.</p>
             <p>Accuracy before: <b>{% player.base_diagnosis_accuracy_percent %}%</b></p>
             <p>Accuracy after: <b><span id="total_diagnosis_accuracy_percent">total_diagnosis_accuracy_percent</span>%</b></p>
             <button class="btn btn-primary" name="investment_decision" value=true>Invest<!-- (Pay <span id="investment-cost"></span> Coins) --></button>
@@ -80,7 +80,7 @@
 
     <div class="algo-improvement investment-choice-card">
         <p class="invest-name"><b>No Investment</b></p>
-        <p>Continue as before.</p>
+        <p>Continue without any changes.</p>
         <p>Accuracy before: <b>{% player.base_diagnosis_accuracy_percent %}%</b></p>
         <p>Accuracy after: <b>{% player.base_diagnosis_accuracy_percent %}%</b></p>
         <button class="btn btn-primary" name="investment_decision" value=false>Don't Invest</button>
