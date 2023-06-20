@@ -20,7 +20,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'credence_goods'
     # colors: #f1eef6, #bdc9e1, #74a9cf, #0570b0
     NUM_ROUNDS = 6
-    PLAYERS_PER_GROUP = 4
+    PLAYERS_PER_GROUP = 6
     NUM_EXPERTS_PER_GROUP = PLAYERS_PER_GROUP // 2                          # consumers = players - experts
     NUM_CONSUMERS_PER_GROUP = PLAYERS_PER_GROUP - NUM_EXPERTS_PER_GROUP
 
@@ -618,7 +618,7 @@ def group_by_arrival_time_method(subsession, waiting_players):
     number_of_low_ability_experts_waiting = len(experts_low)
     number_of_high_ability_experts_waiting = len(experts_high)
 
-    number_of_low_ability_needed = C.NUM_EXPERTS_PER_GROUP // 2                                 # integer division 
+    number_of_low_ability_needed = 2                               # integer division 
     number_of_high_ability_needed = C.NUM_EXPERTS_PER_GROUP - number_of_low_ability_needed      # get full group
 
     consumers = [c for c in waiting_players if not c.participant.is_expert]
