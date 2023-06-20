@@ -93,10 +93,13 @@
                 if (diagnosis_correct_for_all_patients["{% p.id_in_group %}"]) {
                     /* correct diagnosis */ 
                     document.getElementById("result-{% p.id_in_group %}").innerHTML = "{% p.service_needed %}"
+                    if ("{% p.service_needed %}" == "large") {
+                        document.getElementById("result-{% p.id_in_group %}").innerHTML = "big" // change in name 
+                    }
                 } else {
                     /* incorrect diagnosis */ 
                     if ("{% p.service_needed %}" == "small") {
-                        document.getElementById("result-{% p.id_in_group %}").innerHTML = "large"
+                        document.getElementById("result-{% p.id_in_group %}").innerHTML = "big"
                     } else {
                         document.getElementById("result-{% p.id_in_group %}").innerHTML = "small"
                     }
