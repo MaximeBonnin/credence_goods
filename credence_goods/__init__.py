@@ -270,7 +270,7 @@ def setup_player(player: Player) -> Player:
         if player.is_expert:
             player.ability_level = player.in_round(1).ability_level
             player.base_diagnosis_accuracy_percent = C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT[player.ability_level]
-            player.total_diagnosis_accuracy_percent = player.base_diagnosis_accuracy_percent #TODO override this later if investment happens
+            player.total_diagnosis_accuracy_percent = player.base_diagnosis_accuracy_percent # override this later if investment happens
 
             # if single investment decision, use that in all later rounds. Reset if repeated.
             if player.group.treatment_investment_frequency == "once" and player.round_number > C.INVESTMENT_STARTING_ROUND:
