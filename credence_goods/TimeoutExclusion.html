@@ -1,0 +1,32 @@
+{{ block title }}
+    Timeout Exclusion
+{{ endblock }}
+{{ block content }}
+
+<style>
+    .title-container {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 2em;
+        padding-bottom: 2em;
+    }
+    .otree-timer {
+        display: none;
+    }
+    .otree-title {
+        display: none;
+    }
+  </style>
+  
+  <div class="title-container">
+    <div class="title_element">
+        <h2>You have timed out and are excluded from the experiment.</h2>
+    </div>
+    <div class="title_element">
+        <h2>Round: {% player.round_number %}/{% C.NUM_ROUNDS %}</h2>
+    </div>
+  </div>
+
+
+
+{{ endblock }}

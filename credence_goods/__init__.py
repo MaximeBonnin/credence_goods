@@ -24,8 +24,9 @@ class C(BaseConstants):
     NUM_EXPERTS_PER_GROUP = PLAYERS_PER_GROUP // 2                          # consumers = players - experts
     NUM_CONSUMERS_PER_GROUP = PLAYERS_PER_GROUP - NUM_EXPERTS_PER_GROUP
 
-    TIMEOUT_IN_SECONDS = 300                                                # Investment Explain page is different
+    TIMEOUT_IN_SECONDS = 60 * 3                                             # Investment Explain page is different
     EXPLANATION_TIMEOUT_IN_SECONDS = TIMEOUT_IN_SECONDS * 5
+    RESULTS_TIMEOUT_IN_SECONDS = 30
     DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS = 3                                 # players get excluded from the experiment if they have X number of timeouts
 
 
@@ -572,6 +573,19 @@ class ExpertDiagnosisII(Page):
                 player.is_dropout = True
                 print(f"Player {player.id_in_group} excluded due to timeout.")
 
+        
+
+class CalculateResults(Page):
+    @staticmethod
+    def get_timeout_seconds(player):
+        if player.participant.is_dropout:
+            return 1  # instant timeout, 1 second
+        else:
+            return 3
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+
         # apply service
         for p in player.get_others_in_group():
             if (not p.is_expert) and (p.expert_chosen == player.id_in_group):
@@ -640,10 +654,12 @@ def group_by_arrival_time_method(subsession, waiting_players):
 
 class MatchingWaitPage(WaitPage):
 
+    template_name = 'credence_goods/MatchingWaitPage.html'
+
     group_by_arrival_time = True
 
     title_text = "Matching in progress"
-    body_text = "You are currently waiting to be matched with other players. Please keep this browser tab active (🟢 symbol) in order to be matched."
+    body_text = r"You are currently waiting to be matched with other players. Please keep this browser tab active (🟢 symbol) in order to be matched."
 
     @staticmethod
     def is_displayed(player: Player):
@@ -727,7 +743,7 @@ class Results(Page):
         if player.participant.is_dropout:
             return 1  # instant timeout, 1 second
         else:
-            return C.TIMEOUT_IN_SECONDS
+            return C.RESULTS_TIMEOUT_IN_SECONDS
     form_model = "player"
     form_fields = []
 
@@ -776,25 +792,33 @@ class PayoffCode(Page):
     def is_displayed(player: Player):
         # last round
         return player.round_number == C.NUM_ROUNDS
+    
 
+class TimeoutExclusion(Page):
+    @staticmethod
+    def is_displayed(player: Player):
+        # last round
+        return player.round_number == C.NUM_ROUNDS and player.is_dropout
     
     
 
-page_sequence = [MatchingWaitPage,  # only first round
-                 MatchSuccessful,   # only first round
-                 SetupWaitPage,     # all later rounds
-                 InvestmentExplanation, # only invesment starting round
-                 InvestmentExplanation2, # only invesment starting round
-                 InvestmentChoice,  # only later rounds
-                 ExpertSetPrices,   # Experts | all rounds
-                 ConsumerWaitPage,      # Consumers | all rounds
-                 ConsumerChooseExpert,  # Consumers | all rounds
-                 ExpertWaitPage,    # Experts | all rounds
-                 ExpertDiagnosisI,  # Experts | all rounds
-                 ExpertDiagnosisII, # Experts | all rounds
-                 ConsumerWaitPage,  # Consumers | all rounds
-                 Results,           # all rounds
-                 Demographics,      # last round
-                 Demographics,      # last round
-                 PayoffCode         # last round
+page_sequence = [MatchingWaitPage,          # only first round
+                 MatchSuccessful,           # only first round
+                 SetupWaitPage,             # all later rounds
+                 InvestmentExplanation,     # only invesment starting round
+                 InvestmentExplanation2,    # only invesment starting round
+                 InvestmentChoice,          # only later rounds
+                 ExpertSetPrices,           # Experts | all rounds
+                 ConsumerWaitPage,          # Consumers | all rounds
+                 ConsumerChooseExpert,      # Consumers | all rounds
+                 ExpertDiagnosisI,          # Experts | all rounds
+                 ExpertDiagnosisII,         # Experts | all rounds
+                 ExpertWaitPage,            # Experts | all rounds
+                 ConsumerWaitPage,          # Consumers | all rounds
+                 CalculateResults,          # all rounds
+                 Results,                   # all rounds
+                 TimeoutExclusion,          # last round and player timed out
+                 Demographics,              # last round
+                 Demographics,              # last round
+                 PayoffCode                 # last round
                  ]
