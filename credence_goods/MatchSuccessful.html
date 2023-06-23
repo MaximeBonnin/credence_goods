@@ -1,4 +1,37 @@
+{{ block title }}
+    Matching Successful
+{{ endblock }}
 {{ block content }}
+
+<style>
+    .title-container {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 2em;
+        padding-bottom: 2em;
+    }
+    .otree-timer {
+        display: none;
+    }
+    .otree-title {
+        display: none;
+    }
+  </style>
+  
+  <div class="title-container">
+    <div class="title_element">
+        <h2>Matching Successful</h2>
+    </div>
+    <div class="title_element">
+        <h2>Round: {% player.round_number %}/{% C.NUM_ROUNDS %} | Time left: <span class="otree-timer__time-left">time_left</span></h2>
+    </div>
+  </div>
+<style>
+    .card-content {
+        margin: 1em;
+    }
+</style>
+
 <div class="card">
     <div class="card-content">
         {% if participant.is_expert %}
