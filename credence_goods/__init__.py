@@ -578,10 +578,7 @@ class ExpertDiagnosisII(Page):
 class CalculateResults(Page):
     @staticmethod
     def get_timeout_seconds(player):
-        if player.participant.is_dropout:
-            return 1  # instant timeout, 1 second
-        else:
-            return 3
+        return 1  
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
@@ -589,10 +586,10 @@ class CalculateResults(Page):
         # apply service
         for p in player.get_others_in_group():
             if (not p.is_expert) and (p.expert_chosen == player.id_in_group):
+                
                 consumer = p
                 consumer.service_recieved = get_service_from_json_by_id(player.services_provided_to_all_consumers, consumer.id_in_group)
                 player.number_of_services_provided += 1
-                # print(p.service_recieved)
 
                 # set consumer coin payoff
                 if (consumer.service_needed == consumer.service_recieved) or (consumer.service_recieved == "large"):
