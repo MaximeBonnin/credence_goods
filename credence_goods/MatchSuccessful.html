@@ -1,36 +1,3 @@
-{{ block title }}
-    Matching Successful
-{{ endblock }}
-{{ block content }}
-
-<style>
-    .title-container {
-        display: flex;
-        justify-content: space-between;
-        padding-top: 2em;
-        padding-bottom: 2em;
-    }
-    .otree-timer {
-        display: none;
-    }
-    .otree-title {
-        display: none;
-    }
-  </style>
-  
-  <div class="title-container">
-    <div class="title_element">
-        <h2>Matching Successful</h2>
-    </div>
-    <div class="title_element">
-        <h2>Round: {% player.round_number %}/{% C.NUM_ROUNDS %} | Time left: <span class="otree-timer__time-left">time_left</span></h2>
-    </div>
-  </div>
-<style>
-    .card-content {
-        margin: 1em;
-    }
-</style>
 
 <div class="card">
     <div class="card-content">
@@ -45,6 +12,8 @@
             to approach you after seeing all the prices from all the experts, your treatment decision will be implemented 
             and both you and the client will be paid out accordingly. Then, the next round begins.</p>
 
+        <p><b>You can always re-read the instructions at the bottom of each decision page.</b></p>
+
         {% else %}
         <p>You will now decide whether you want to approach an expert, or leave the market and earn the outside fee of {% C.EXPERT_PAYOFF_NO_CONSUMER %} Coins.
             If you decide to approach an expert, the expert will diagnose and treat you. At the end of the round,
@@ -52,7 +21,9 @@
         <p>If your problem is solved: {% C.CONSUMER_PAYOFFS.problem_solved %} Coins – price of treatment</p>
         <p>If your problem is not solved: – price of treatment</p>
         <p>The expert’s payoff is determined by the price of the treatment minus the respective costs of the treatment. </p>
-        
+
+        <p><b>You can always re-read the instructions at the bottom of each decision page.</b></p>
+
         {% endif %}
     </div>
 </div>

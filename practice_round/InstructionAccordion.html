@@ -77,7 +77,7 @@
                 </div>
 
                 <input type="checkbox" id="title6" />
-                <label for="title6" id="SettingPrices" hidden>Prices</label>
+                <label for="title6" id="SettingPrices" hidden>Price Setting</label>
                 
                 <div class="content">
                     {{ include 'practice_round/text_contents/SettingPrices.html' }}
@@ -104,16 +104,25 @@
                     {{ include 'practice_round/text_contents/Payoffs.html' }}
                 </div>
 
-                {% if player.round_number >= C.INVESTMENT_STARTING_ROUND %}
                 <input type="checkbox" id="title10" />
-                <label for="title10" id="Investment" >Investment</label>
+                <label for="title10" id="Overview" hidden>Round Overview</label>
+
+                <div class="content">
+                    {{ include 'practice_round/text_contents/Overview.html' }}
+                </div>
+
+
+
+                {% if player.round_number >= C.INVESTMENT_STARTING_ROUND %}
+                <input type="checkbox" id="title11" />
+                <label for="title11" id="Investment" >Investment</label>
                 
                 <div class="content">
                     {{ include 'practice_round/text_contents/Investment.html' }}
                 </div>
                 
-                <input type="checkbox" id="title11" />
-                <label for="title11" id="investment2" >Investment2</label>
+                <input type="checkbox" id="title12" />
+                <label for="title12" id="investment2" >Investment2</label>
 
                 <div class="content">
                     {{ include 'practice_round/text_contents/Investment2.html' }}
@@ -125,7 +134,7 @@
 </div>
 
 <script>
-    page_sequence = ["Introduction", "IntroductionII", "Role", "Role2", "ExperimentalProcedure", "SettingPrices", "Diagnosis", "Expert_Visible", "Payoffs"];
+    page_sequence = ["Introduction", "IntroductionII", "Role", "Role2", "ExperimentalProcedure", "SettingPrices", "Diagnosis", "Expert_Visible", "Payoffs", "Overview",];
     current_page = "{% participant._current_page_name %}";
     console.log("Current page:", current_page);
     
