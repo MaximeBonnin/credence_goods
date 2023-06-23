@@ -574,14 +574,16 @@ class ExpertDiagnosisII(Page):
                 print(f"Player {player.id_in_group} excluded due to timeout.")
 
         
-
 class CalculateResults(Page):
     @staticmethod
     def get_timeout_seconds(player):
-        return 1  
+        return 10 #TODO change this back  
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
+
+        if not player.is_expert:
+            return
 
         # apply service
         for p in player.get_others_in_group():
@@ -810,8 +812,8 @@ page_sequence = [MatchingWaitPage,          # only first round
                  ConsumerChooseExpert,      # Consumers | all rounds
                  ExpertDiagnosisI,          # Experts | all rounds
                  ExpertDiagnosisII,         # Experts | all rounds
-                 ExpertWaitPage,            # Experts | all rounds
                  ConsumerWaitPage,          # Consumers | all rounds
+                 ExpertWaitPage,            # Experts | all rounds
                  CalculateResults,          # all rounds
                  Results,                   # all rounds
                  TimeoutExclusion,          # last round and player timed out
