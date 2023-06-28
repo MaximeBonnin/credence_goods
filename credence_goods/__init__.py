@@ -26,7 +26,7 @@ class C(BaseConstants):
 
     TIMEOUT_IN_SECONDS = 60 * 4                                             # Investment Explain page is different
     EXPLANATION_TIMEOUT_IN_SECONDS = TIMEOUT_IN_SECONDS * 5
-    RESULTS_TIMEOUT_IN_SECONDS = 45
+    RESULTS_TIMEOUT_IN_SECONDS = 45 * 3 #TODO change back
     DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS = 3                                 # players get excluded from the experiment if they have X number of timeouts
 
 
@@ -128,12 +128,12 @@ class Player(BasePlayer):
     # vars for excluding dropouts
     is_dropout = models.BooleanField(initial=False)
 
+    # general variables
     is_expert = models.BooleanField(initial=False)
     player_name = models.StringField()
     coins = models.IntegerField(initial=0)
-    coins_this_round = models.IntegerField(initial=0)
+    coins_this_round = models.IntegerField()
 
-    # general variables
 
     # expert variables
     price_vector_chosen = models.StringField(choices=["bias_small", "bias_large", "no_bias"], initial="no_bias")
@@ -584,6 +584,13 @@ class CalculateResults(Page):
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
+        print("calc before ran")
+        if not player.field_maybe_none("coins_this_round"):
+            player.coins_this_round = 0
+        for p in player.get_others_in_group():
+            if not p.field_maybe_none("coins_this_round"):
+                p.coins_this_round = 0
+
 
         if not player.is_expert:
             return
@@ -832,9 +839,10 @@ page_sequence = [MatchingWaitPage,          # only first round
                  ConsumerChooseExpert,      # Consumers | all rounds
                  ExpertDiagnosisI,          # Experts | all rounds
                  ExpertDiagnosisII,         # Experts | all rounds
-                 ConsumerWaitPage,          # Consumers | all rounds
                  ExpertWaitPage,            # Experts | all rounds
+                 ConsumerWaitPage,          # Consumers | all rounds
                  CalculateResults,          # all rounds
+                 ConsumerWaitPage,          # Consumers | all rounds
                  Results,                   # all rounds
                  TimeoutExclusion,          # last round and player timed out
                  Demographics,              # last round
