@@ -131,6 +131,9 @@ class Player(BasePlayer):
     is_expert = models.BooleanField(initial=False)
     player_name = models.StringField()
     coins = models.IntegerField(initial=0)
+    coins_this_round = models.IntegerField(initial=0)
+
+    # general variables
 
     # expert variables
     price_vector_chosen = models.StringField(choices=["bias_small", "bias_large", "no_bias"], initial="no_bias")
@@ -596,8 +599,10 @@ class CalculateResults(Page):
                 # set consumer coin payoff
                 if (consumer.service_needed == consumer.service_recieved) or (consumer.service_recieved == "large"):
                     consumer.coins += C.CONSUMER_PAYOFFS["problem_solved"]
+                    consumer.coins_this_round += C.CONSUMER_PAYOFFS["problem_solved"]
                 else:
                     consumer.coins += C.CONSUMER_PAYOFFS["problem_remains"]
+                    consumer.coins_this_round += C.CONSUMER_PAYOFFS["problem_remains"]
 
                 # set expert coin payoff and consumer pay price
                 if player.investment_decision:
@@ -605,22 +610,37 @@ class CalculateResults(Page):
                     if consumer.service_recieved == "small":
                         player.coins += C.PRICE_VECTOR_OPTIONS_MULTIPLIED[player.group.treatment_investment_frequency][player.price_vector_chosen][2]   # profit small
                         consumer.coins -= C.PRICE_VECTOR_OPTIONS_MULTIPLIED[player.group.treatment_investment_frequency][player.price_vector_chosen][0]        # price small
+
+                        player.coins_this_round += C.PRICE_VECTOR_OPTIONS_MULTIPLIED[player.group.treatment_investment_frequency][player.price_vector_chosen][2]   # profit small
+                        consumer.coins_this_round -= C.PRICE_VECTOR_OPTIONS_MULTIPLIED[player.group.treatment_investment_frequency][player.price_vector_chosen][0]        # price small
+                    
                     elif consumer.service_recieved == "large":
                         player.coins += C.PRICE_VECTOR_OPTIONS_MULTIPLIED[player.group.treatment_investment_frequency][player.price_vector_chosen][3]   # profit large
                         consumer.coins -= C.PRICE_VECTOR_OPTIONS_MULTIPLIED[player.group.treatment_investment_frequency][player.price_vector_chosen][1]        # price large
+
+                        player.coins_this_round += C.PRICE_VECTOR_OPTIONS_MULTIPLIED[player.group.treatment_investment_frequency][player.price_vector_chosen][3]   # profit large
+                        consumer.coins_this_round -= C.PRICE_VECTOR_OPTIONS_MULTIPLIED[player.group.treatment_investment_frequency][player.price_vector_chosen][1]        # price large
 
                 else:
                     # normal price vector
                     if consumer.service_recieved == "small":
                         player.coins += C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][2]   # profit small
                         consumer.coins -= C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][0]        # price small
+
+                        player.coins_this_round += C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][2]   # profit small
+                        consumer.coins_this_round -= C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][0]        # price small
+
                     elif consumer.service_recieved == "large":
                         player.coins += C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][3]   # profit large
                         consumer.coins -= C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][1]        # price large
 
+                        player.coins_this_round += C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][3]   # profit large
+                        consumer.coins_this_round -= C.PRICE_VECTOR_OPTIONS[player.price_vector_chosen][1]        # price large
+
         if player.number_of_services_provided == 0:
             # small payoff for when expert not chosen
             player.coins += C.EXPERT_PAYOFF_NO_CONSUMER
+            player.coins_this_round += C.EXPERT_PAYOFF_NO_CONSUMER
 
 
 def group_by_arrival_time_method(subsession, waiting_players):
