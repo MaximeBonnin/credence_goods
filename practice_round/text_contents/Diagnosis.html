@@ -23,14 +23,15 @@
 
 {% if participant.ability_level == "low" %}
 <div class="img-container">
-    <img src="{{ static 'diagnosis.png' }}" alt="prediction task">
+    <img src="{{ static 'diagnosis.png' }}" width="400px" alt="prediction task">
 </div>
 
-{% elif participant.ability_level == "high" %}
+{% else %}
 <div class="img-container">
-    <img src="{{ static 'diagnosis_ha.png' }}" alt="prediction task">
+    <img src="{{ static 'diagnosis_ha.png' }}" width="400px" alt="prediction task">
 </div>
 {%endif %}
+
 <p></p>
 <p> Clients do not know exactly how an expert makes their diagnosis. They only know that the diagnosis is based on a task that involves their 5 symptoms,
     and that high-ability experts identify one more symptom. </p>
