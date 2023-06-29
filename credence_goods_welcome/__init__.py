@@ -40,7 +40,7 @@ def creating_session(subsession: Subsession):
             player.participant.is_expert = True
             n_experts += 1
             # itertools doesn't work, this will
-            if n_experts % 2 == 0:
+            if n_experts % 3 == 0:
                 player.participant.ability_level = "high"
             else:
                 player.participant.ability_level = "low"
