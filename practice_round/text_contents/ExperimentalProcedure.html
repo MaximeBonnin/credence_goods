@@ -1,8 +1,8 @@
 {% if participant.is_expert %}
 <p>Each round follows the same basic sequence of decisions. </p>
 
-<p>Each round, clients receive either a <b> big problem </b> with a probability of {% C.CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT %}%,
-    or a <b> small problem </b> with a probability of {% C.CHANCE_TO_HAVE_SMALL_PROBLEM_IN_PERCENT %}%. Clients will never be informed
+<p>Each round, clients receive either a <b> big problem </b> with a probability of <b>{% C.CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT %}%</b>,
+    or a <b> small problem </b> with a probability of <b>{% C.CHANCE_TO_HAVE_SMALL_PROBLEM_IN_PERCENT %}%</b>. Clients will never be informed
     about which problem they actually have. </p>
 
 <p> In order to solve the problem, a client
@@ -25,8 +25,8 @@
 {% else %}
 <p>Each round follows the same basic sequence of decisions. </p>
 
-<p>Each round, clients (you) receive either a <b> big problem </b> with a probability of {% C.CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT %}%, or
-    a <b>small problem</b> with a probability of {% C.CHANCE_TO_HAVE_SMALL_PROBLEM_IN_PERCENT %}%. You will never be informed about which
+<p>Each round, clients (you) receive either a <b> big problem </b> with a probability of <b>{% C.CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT %}%</b>, or
+    a <b>small problem</b> with a probability of <b>{% C.CHANCE_TO_HAVE_SMALL_PROBLEM_IN_PERCENT %}%</b>. You will never be informed about which
     problem you actually have. In order to solve the problem, you need to approach an 
     expert. Alternatively, you can also choose to approach no expert and earn an outside-payoff of 10 Coins. </p>
 
