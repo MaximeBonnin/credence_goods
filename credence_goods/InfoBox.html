@@ -22,22 +22,18 @@
     <div class="info-left info-container">
         <table class="table table-bordered">
                 <tr>
-                    <th>Total Coins</th>
-                    <td>{% player.coins %}</td>
-                </tr>
-                <tr>
                     <th>{{ if player.is_expert }} Your Role {{ else }} Share high-ability expert {{ endif }}</th>
                     <td>{{ if player.is_expert }}Expert ({% player.ability_level %} ability){{ else }}1/3{{ endif }}</td>
                 </tr>
                 {% if player.is_expert %}
                 <tr>
-                    <th>Diagnostic accuracy</th>
+                    <th>Your Diagnostic Accuracy</th>
                     <td>{% if group.treatment_investment_option == "skill" %}{% player.total_diagnosis_accuracy_percent %}{% else %}{% player.base_diagnosis_accuracy_percent %}{% endif %}%</td>
                 </tr>
                     {% if group.treatment_investment_option == "algo" %}
                         {% if player.round_number >= C.INVESTMENT_STARTING_ROUND %}
                         <tr>
-                            <th>Accuracy using investment</th>
+                            <th>Accuracy using Algorithm</th>
                             <td>{% player.total_diagnosis_accuracy_percent %}%</td>
                         </tr>
                         {% endif %}
@@ -47,9 +43,26 @@
                     <th>% big problem</th>
                     <td>{% C.CHANCE_TO_HAVE_LARGE_PROBLEM_IN_PERCENT %}</td>
                 </tr>
+                    {% if player.round_number < C.INVESTMENT_STARTING_ROUND %}
+                        <tr>
+                            <th>Diagnostic accuracy in % </th>
+                            <td>low-ability: {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}  &nbsp; high-ability: {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.high %} </td>
+                        </tr>
+                    {% elif player.round_number >= C.INVESTMENT_STARTING_ROUND %}
+                    {% if group.treatment_investment_option == "algo" %}
+                        <tr>
+                            <th>Accuracy without algorithm </th>
+                            <td>low-ability: {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}  &nbsp; high-ability: {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.high %} </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <th>Accuracy without investment </th>
+                            <td>low-ability: {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}  &nbsp; high-ability: {% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.high %} </td>
+                        </tr>
+                   {% endif %}
+                   {% endif %}
 
                 {% endif %}
-            </thead>
         </table>
     </div>
 
