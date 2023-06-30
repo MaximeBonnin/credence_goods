@@ -71,19 +71,35 @@
                 <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th class="tg-amwm" colspan="3">Results so far</th>
+                    <th class="tg-amwm" colspan="5">Results so far</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <th class="tg-0pky">Round</th>
                     <th class="tg-0pky">Expert chosen</th>
+                    <th class="tg-0pky">Price low-quality</th>
+                    <th class="tg-0pky">Price high-quality</th>
                     <th class="tg-0pky">Coins earned</th>
                   </tr>
                   {% for p in player.in_all_rounds() %}
                   <tr>
                     <td class="tg-0pky">{% p.round_number %}</td>
                     <td class="tg-0pky">{% p.field_maybe_none('expert_chosen_name') %}</td>
+                    <td class="tg-0pky">
+                      {% for other_player in player.get_others_in_group() %}
+                        {% if other_player.id_in_group == p.expert_chosen %}
+                          {% other_player.price_small_service %}
+                        {% endif %}
+                      {% endfor %}
+                    </td>
+                    <td class="tg-0pky">
+                      {% for other_player in player.get_others_in_group() %}
+                        {% if other_player.id_in_group == p.expert_chosen %}
+                          {% other_player.price_large_service %}
+                        {% endif %}
+                      {% endfor %}
+                    </td>
                     <td class="tg-0pky">{% p.coins_this_round %} coins</td>
                   </tr>
                   {% endfor %}
