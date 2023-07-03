@@ -9,7 +9,7 @@
 {% if participant.is_expert %}
 <p>After experts set their prices, they proceed with the diagnosis.
     The diagnosis gives experts an information signal that tells them which of the two problems a client has.
-    This signal is <b>{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}% accurate for the low-ability expert {% if participant.ability_level == "low" %} (you){% endif %}</b>,
+    This signal is <b>{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}% accurate for a low-ability expert, {% if participant.ability_level == "low" %} (you),{% endif %}</b>
     and <b>{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.high %}% accurate for the high-ability expert{% if participant.ability_level == "high" %} (you){% endif %}</b>. Thus, if e.g. a client has a small problem,
     then {% if participant.ability_level == "low" %}low-ability experts{% else %}high-ability experts{% endif %}
     correctly diagnose that the problem is small with a probability of {% if participant.ability_level == "low" %}{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.low %}{% else %}{% C.EXPERT_ABILITY_LEVEL_TO_DIAGNOSIS_ACCURACY_PERCENT.high %}{% endif %}%.</p>
