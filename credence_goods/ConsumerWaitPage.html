@@ -73,7 +73,7 @@
                       {% endif %}
                     {% endfor %}
                   </td>
-                  <td class="tg-0pky">{% if p.field_maybe_none("coins_this_round") == None %}0{% else %}{% p.field_maybe_none("coins_this_round") %}{% endif %} coins</td>
+                  <td class="tg-0pky">{% if p.field_maybe_none("coins_this_round") == None %}n/a{% else %}{% p.field_maybe_none("coins_this_round") %}  coins{% endif %}</td>
                 </tr>
                 {% endfor %}
               </tbody>
