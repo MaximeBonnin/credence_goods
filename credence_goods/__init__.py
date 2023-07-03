@@ -26,7 +26,7 @@ class C(BaseConstants):
 
     TIMEOUT_IN_SECONDS = 60 * 4                                             # Investment Explain page is different
     EXPLANATION_TIMEOUT_IN_SECONDS = TIMEOUT_IN_SECONDS * 5
-    RESULTS_TIMEOUT_IN_SECONDS = 45 * 30 #TODO change back
+    RESULTS_TIMEOUT_IN_SECONDS = 45
     DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS = 3                                 # players get excluded from the experiment if they have X number of timeouts
 
 
