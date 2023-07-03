@@ -584,7 +584,6 @@ class CalculateResults(Page):
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
-        print("calc before ran")
         if not player.field_maybe_none("coins_this_round"):
             player.coins_this_round = 0
         for p in player.get_others_in_group():
