@@ -580,7 +580,7 @@ class ExpertDiagnosisII(Page):
 class CalculateResults(Page):
     @staticmethod
     def get_timeout_seconds(player):
-        return 3 #TODO change this back  
+        return 1
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
