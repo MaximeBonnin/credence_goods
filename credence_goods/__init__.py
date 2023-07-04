@@ -805,7 +805,7 @@ class Demographics(Page):
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         if player.coins > 0:
-            player.payoff += player.coins * player.subsession.session.config["real_world_currency_per_point"]
+            player.payoff = player.coins * player.subsession.session.config["real_world_currency_per_point"]
         else:
             player.payoff = 0
 
