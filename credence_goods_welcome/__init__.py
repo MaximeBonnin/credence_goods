@@ -1,6 +1,7 @@
 from otree.api import *
 import itertools
-
+import random
+import string
 
 doc = """
 Welcome pages and general introduction
@@ -49,6 +50,11 @@ def creating_session(subsession: Subsession):
             player.participant.is_expert = False
 
         player.participant.treatment_skill_visible = subsession.session.config['treatment_skill_visible']
+        # generate completion code
+        letters_and_digits = string.ascii_letters + string.digits
+        result_str = ''.join((random.choice(letters_and_digits) for i in range(7))) + str(random.randint(1, 8))
+        player.completion_code = result_str
+        player.participant.vars['completion_code'] = result_str        
 
 # PAGES
 
