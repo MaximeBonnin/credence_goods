@@ -29,6 +29,8 @@ class Player(BasePlayer):
     year_of_birth = models.IntegerField(label="Your year of birth (e.g. 1995)")
     occupation = models.StringField(label="Your current occupation (e.g. Student, Employed)")
     device = models.StringField(choices=["Smartphone", "Laptop", "Tablet", "Desktop PC"], widget=widgets.RadioSelect, label="",)
+    completion_code = models.StringField()
+    
 
 
 def creating_session(subsession: Subsession):
