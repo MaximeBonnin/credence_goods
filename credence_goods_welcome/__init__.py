@@ -35,6 +35,7 @@ def creating_session(subsession: Subsession):
     print(f"Skill visible: {subsession.session.config['treatment_skill_visible']} | to change this go to settings -> SESSION_CONFIGS -> treatment_skill_visible")
     n_experts = 0
     for player in subsession.get_players():
+        player.participant.number_of_timeouts = 0
         #TODO make this random not just even/uneven
         if player.id_in_group % 2 == 0:
             player.participant.is_expert = True

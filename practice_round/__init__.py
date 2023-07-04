@@ -79,6 +79,8 @@ class Player(BasePlayer):
     expert_chosen_name = models.StringField(initial="None")
     comprehention_questions_mistakes = models.IntegerField(initial=0)
     comprehention_questions_passed = models.BooleanField(initial=False)
+    number_of_timeouts = models.IntegerField(initial=0)
+    base_diagnosis_accuracy_percent = models.IntegerField()
 
 # PAGES
 
