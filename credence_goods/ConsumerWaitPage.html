@@ -60,20 +60,20 @@
                   <td class="tg-0pky">{% p.round_number %}</td>
                   <td class="tg-0pky">{% p.field_maybe_none('expert_chosen_name') %}</td>
                   <td class="tg-0pky">
-                    {% for other_player in player.get_others_in_group() %}
+                    {% for other_player in p.get_others_in_group() %}
                       {% if other_player.id_in_group == p.expert_chosen %}
                         {% other_player.field_maybe_none("price_small_service") %}
                       {% endif %}
                     {% endfor %}
                   </td>
                   <td class="tg-0pky">
-                    {% for other_player in player.get_others_in_group() %}
+                    {% for other_player in p.get_others_in_group() %}
                       {% if other_player.id_in_group == p.expert_chosen %}
                         {% other_player.field_maybe_none("price_large_service") %}
                       {% endif %}
                     {% endfor %}
                   </td>
-                  <td class="tg-0pky">{% if p.field_maybe_none("coins_this_round") == None %}n/a{% else %}{% p.field_maybe_none("coins_this_round") %}  coins{% endif %}</td>
+                  <td class="tg-0pky">{% if p.field_maybe_none("coins_this_round") == None %}waiting...{% else %}{% p.field_maybe_none("coins_this_round") %}  coins{% endif %}</td>
                 </tr>
                 {% endfor %}
               </tbody>
