@@ -16,11 +16,17 @@
 
 <div class="card">
     <div class="card-content">
-        <p>Total Coins: {% player.coins %}</p>
-        <p>Total Payoff: {% participant.payoff_plus_participation_fee() %}</p>
-        <p>Payoff code: ???</p>
-    </div>
-</div>
+        <p>Thank you very much for participating!</p>
 
+        <p>Based on your decision, you earned a total of {% player.coins %} Coins as a bonus.</p>
+        <p>This translates into a bonus payoff of {% player.payoff %}.</p>
+        <p>Total payoff including your participation fee: {% participant.payoff_plus_participation_fee() %}</p>
+
+      <div class="alert alert-warning" role="alert">
+        Your completion code is <code>{% participant.completion_code %} </code>. To submit your work, copy/paste that code on the
+        MTurk page. </div>
+
+</div>
+</div>
 
 {{ endblock }}
