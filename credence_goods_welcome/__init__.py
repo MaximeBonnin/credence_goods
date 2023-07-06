@@ -12,7 +12,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'credence_goods_welcome'
     PLAYERS_PER_GROUP = 6
     NUM_ROUNDS = 1
-    VALID_DEVICES = ["Laptop", "Desktop PC"]
+    VALID_DEVICES = ["Laptop", "Desktop PC", "Tablet"]
 
 
 class Subsession(BaseSubsession):
