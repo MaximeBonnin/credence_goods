@@ -25,8 +25,8 @@ class C(BaseConstants):
     NUM_CONSUMERS_PER_GROUP = PLAYERS_PER_GROUP - NUM_EXPERTS_PER_GROUP
 
     TIMEOUT_IN_SECONDS = 60 * 4                                             # Investment Explain page is different
-    EXPLANATION_TIMEOUT_IN_SECONDS = TIMEOUT_IN_SECONDS * 5
-    RESULTS_TIMEOUT_IN_SECONDS = 45
+    EXPLANATION_TIMEOUT_IN_SECONDS = TIMEOUT_IN_SECONDS * 3
+    RESULTS_TIMEOUT_IN_SECONDS = 60
     DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS = 3                                 # players get excluded from the experiment if they have X number of timeouts
 
 
@@ -46,9 +46,9 @@ class C(BaseConstants):
         "invested": 90
     }
 
-    EXPERT_PAYOFF_NO_CONSUMER = 10
+    EXPERT_PAYOFF_NO_CONSUMER = 15
     CONSUMER_PAYOFFS = {
-        "no_market_entry": 10,
+        "no_market_entry": 15,
         "problem_remains": 0,
         "problem_solved": 150
     }
@@ -805,7 +805,7 @@ class Demographics(Page):
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         if player.coins > 0:
-            player.payoff += player.coins * player.subsession.session.config["real_world_currency_per_point"]
+            player.payoff = player.coins * player.subsession.session.config["real_world_currency_per_point"]
         else:
             player.payoff = 0
 

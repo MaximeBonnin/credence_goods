@@ -11,14 +11,14 @@ class C(BaseConstants):
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 1
 
-    PLAYERS_PER_GROUP =6
+    PLAYERS_PER_GROUP = 6
     TIMEOUT_IN_SECONDS = 1500               # Intro page is different
     DROPOUT_AT_GIVEN_NUMBER_OF_TIMEOUTS = 3 # players get excluded from the experiment if they have X number of timeouts
 
     NUM_EXPERTS_PER_GROUP = 3                         # consumers = players - experts #TODO currently not working, every second person is set to expert
     NUM_CONSUMERS_PER_GROUP = PLAYERS_PER_GROUP - NUM_EXPERTS_PER_GROUP
 
-    ENDOWMENT = 10                      #TODO maybe different for consumers and experts?
+    ENDOWMENT = 15                      #TODO maybe different for consumers and experts?
 
 
     COST_OF_PROVIDING_SMALL_SERVICE = 20     # c_k
@@ -49,7 +49,7 @@ class C(BaseConstants):
     }
 
     CONSUMER_PAYOFFS = {
-        "no_market_entry": 10,
+        "no_market_entry": 15,
         "problem_remains": 0,
         "problem_solved": 150
     }

@@ -1,6 +1,7 @@
 from otree.api import *
 import itertools
-
+import random
+import string
 
 doc = """
 Welcome pages and general introduction
@@ -11,7 +12,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'credence_goods_welcome'
     PLAYERS_PER_GROUP = 6
     NUM_ROUNDS = 1
-    VALID_DEVICES = ["Laptop", "Desktop PC"]
+    VALID_DEVICES = ["Laptop", "Desktop PC", "Tablet"]
 
 
 class Subsession(BaseSubsession):
@@ -28,6 +29,8 @@ class Player(BasePlayer):
     year_of_birth = models.IntegerField(label="Your year of birth (e.g. 1995)")
     occupation = models.StringField(label="Your current occupation (e.g. Student, Employed)")
     device = models.StringField(choices=["Smartphone", "Laptop", "Tablet", "Desktop PC"], widget=widgets.RadioSelect, label="",)
+    completion_code = models.StringField()
+    
 
 
 def creating_session(subsession: Subsession):
@@ -49,6 +52,11 @@ def creating_session(subsession: Subsession):
             player.participant.is_expert = False
 
         player.participant.treatment_skill_visible = subsession.session.config['treatment_skill_visible']
+        # generate completion code
+        letters_and_digits = string.ascii_letters + string.digits
+        result_str = ''.join((random.choice(letters_and_digits) for i in range(7))) + str(random.randint(1, 8))
+        player.completion_code = result_str
+        player.participant.vars['completion_code'] = result_str        
 
 # PAGES
 
