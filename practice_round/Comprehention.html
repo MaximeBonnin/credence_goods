@@ -20,11 +20,8 @@
     }
 </style>
 
-{% if player.comprehention_questions_mistakes > 0 %}
-<p style="color: red">Your answers were incorrect. You have a total of 3 attempts to pass these questions. Please try again. You can re-read the instructions at the bottom of the page</p>
-{% endif %}
 
-<div class="card">
+<div class="card" id="q0_card">
     <h5 class="card-header">Please choose the correct answer:</h5>
     <div class="card-content">
         <div class="answer">
@@ -46,7 +43,7 @@
 <!-- Transparent -->
 {% if participant.is_expert %}
     <!-- Expert  -->
-    <div class="card">
+    <div class="card" id="q1_card">
         <h5 class="card-header">Please choose the correct answer:</h5>
         <div class="card-content">
             <div class="answer">
@@ -64,7 +61,7 @@
         </div>
     </div>
     
-    <div class="card">
+    <div class="card" id="q2_card">
         <h5 class="card-header">Each round, experts diagnose all clients and choose the treatment they want to provide for them.</h5>
         <div class="card-content">
             <div class="answer">
@@ -82,7 +79,7 @@
         </div>
     </div>
     
-    <div class="card">
+    <div class="card" id="q3_card">
         <h5 class="card-header">You are playing with 2 other experts and 3 clients.</h5>
         <div class="card-content">
             <div class="answer">
@@ -102,7 +99,7 @@
 
     {% else %}
     <!-- Client  -->
-    <div class="card">
+    <div class="card" id="q1_card">
         <h5 class="card-header">Please choose the correct answer:</h5>
         <div class="card-content">
             <div class="answer">
@@ -120,7 +117,7 @@
         </div>
     </div>
     
-    <div class="card">
+    <div class="card" id="q2_card">
         <h5 class="card-header">Each round, clients can choose to approach 1 of 3 experts. Alternatively, they can choose to refrain from approaching an expert.</h5>
         <div class="card-content">
             <div class="answer">
@@ -138,7 +135,7 @@
         </div>
     </div>
     
-    <div class="card">
+    <div class="card" id="q3_card">
         <h5 class="card-header">You are playing with 3 experts and 2 other clients.</h5>
         <div class="card-content">
             <div class="answer">
@@ -163,7 +160,7 @@
 <!-- Obfuscated  -->
     {% if participant.is_expert %}
     <!-- Expert  -->
-    <div class="card">
+    <div class="card" id="q1_card">
         <h5 class="card-header">Please choose the correct answer:</h5>
         <div class="card-content">
             <div class="answer">
@@ -181,7 +178,7 @@
         </div>
     </div>
     
-    <div class="card">
+    <div class="card" id="q2_card">
         <h5 class="card-header">Each round, experts diagnose all clients and choose the treatment they want to provide for them.</h5>
         <div class="card-content">
             <div class="answer">
@@ -200,7 +197,7 @@
     </div>
 
     
-    <div class="card">
+    <div class="card" id="q3_card">
         <h5 class="card-header">You are playing with 2 other experts and 3 clients.</h5>
         <div class="card-content">
             <div class="answer">
@@ -221,7 +218,7 @@
 
     {% else %}
     <!-- Client  -->
-    <div class="card">
+    <div class="card" id="q1_card">
         <h5 class="card-header">Please choose the correct answer:</h5>
         <div class="card-content">
             <div class="answer">
@@ -239,7 +236,7 @@
         </div>
     </div>
     
-    <div class="card">
+    <div class="card" id="q2_card">
         <h5 class="card-header">Each round, clients can choose to approach 1 of 3 experts. Alternatively, they can choose to refrain from approaching an expert.</h5>
         <div class="card-content">
             <div class="answer">
@@ -257,7 +254,7 @@
         </div>
     </div>
     
-    <div class="card">
+    <div class="card" id="q3_card">
         <h5 class="card-header">You are playing with 3 experts and 2 other clients.</h5>
         <div class="card-content">
             <div class="answer">
@@ -293,6 +290,9 @@
         "q2": 4,
         "q3": 2
     };
+
+    
+
     console.log(correct_answers)
     result = false
     function checkAnswers(question_nr, answer_nr) {
@@ -300,19 +300,43 @@
         console.log("Current answer:", answers);
 
         if (answers["q0"] == correct_answers["q0"] & (answers["q1"] == correct_answers["q1"]) & (answers["q2"] == correct_answers["q2"]) & (answers["q3"] == correct_answers["q3"])) {
-            console.log("Correct!")
             result = true
         } else {
-            console.log("Incorrect!")
             result = false
         };
         document.getElementById("comprehention_questions_passed").value = result;
     }
 </script>
 
-<p></p>
+<p>
+    <button type="button" class="btn btn-primary" onclick="checkAllCorrect()">Next</button>
+</p>
 
-    {{ next_button }}
+<script>
+    var attempts = 0;
+
+    const checkAllCorrect = () => {
+        var correct = 0;
+        for (const key in answers) {
+            if (answers[key] != correct_answers[key]) {
+                const card = document.getElementById(key + "_card").children
+                card[0].style.backgroundColor = "#FFCCCB" // light red
+            } else {
+                correct += 1
+                const card = document.getElementById(key + "_card").children
+                card[0].style.backgroundColor = "#90EE90" // light green
+            }
+        }
+        attempts += 1
+        console.log("Correct:", correct)
+        console.log("Attempts:", attempts)
+
+        document.getElementById("comprehention_questions_passed").value = correct == 4;
+        if (correct == 4 | attempts == 3) {
+            document.getElementById("form").submit();
+        }
+    }
+</script>
 
     {{ include_sibling "InstructionAccordion.html" }}
 
